@@ -11,8 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
+import com.tracker.adapters.SeriesTrendingAdapter;
+import com.tracker.controllers.RepositorioAPI;
 
 public class HomeFragment extends Fragment {
 
@@ -30,6 +35,11 @@ public class HomeFragment extends Fragment {
 //                textView.setText(s);
 //            }
 //        });
+        final RecyclerView reci = root.findViewById(R.id.recyclerView);
+        reci.setLayoutManager(new GridLayoutManager(getActivity(),4));
+
+        new RepositorioAPI().getTrending(reci, getActivity());
+
         return root;
     }
 }

@@ -18,6 +18,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.tracker.controllers.RepositorioAPI;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 Intent intent = new Intent(MainActivity.this, DescripcionSerie.class);
-                startActivity(intent);
+                // startActivity(intent);
+
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.prueba,R.id.nav_share, R.id.nav_send)
+                R.id.nav_tools, R.id.prueba, R.id.nav_share, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

@@ -8,4 +8,5 @@
     <color name="movieTitle">#797979</color>
     <color name="yearTitle">#CC8BDA</color>
     <color name="rateTitle">#CFC767</color>
+    <color name="black80">#A1000000</color>
 </resources>
