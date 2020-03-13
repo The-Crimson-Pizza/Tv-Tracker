@@ -23,15 +23,17 @@ import static com.tracker.util.Constants.BASE_URL_IMAGES;
 public class SeriesTrendingAdapter extends RecyclerView.Adapter<SeriesTrendingAdapter.CustomRecyclerView> {
 
     private List<SerieTrendingResponse.SerieTrending> itemList;
+    private OnTrendingListener mOnTrendingListener;
 
-    public SeriesTrendingAdapter(Context context, List<SerieTrendingResponse.SerieTrending> itemList) {
+    public SeriesTrendingAdapter(Context context, List<SerieTrendingResponse.SerieTrending> itemList, OnTrendingListener onTrendingListener) {
         this.itemList = itemList;
+        this.mOnTrendingListener = onTrendingListener;
     }
 
     @Override
     public CustomRecyclerView onCreateViewHolder(ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_trending, null);
-        CustomRecyclerView rcv = new CustomRecyclerView(layoutView);
+        CustomRecyclerView rcv = new CustomRecyclerView(layoutView, mOnTrendingListener);
         return rcv;
     }
 
@@ -44,13 +46,6 @@ public class SeriesTrendingAdapter extends RecyclerView.Adapter<SeriesTrendingAd
                 //.placeholder(R.drawable.ic_launcher_background)
                 .noFade()
                 .into(holder.avatar);
-//        Picasso.with(this).load(BASE_URL_IMAGES+myData.poster_path).placeholder(R.mipmap.ic_launcher).fit().into(holder.avatar, new Callback() {
-//            @Override public void onSuccess() {}
-//            @Override public void onError(Exception e) {
-//
-//            }
-//        });
-//        holder.avatar.setImageUrl(myData.poster_path, mImageLoader);
     }
 
     @Override
@@ -58,14 +53,31 @@ public class SeriesTrendingAdapter extends RecyclerView.Adapter<SeriesTrendingAd
         return this.itemList.size();
     }
 
-    public class CustomRecyclerView extends RecyclerView.ViewHolder {
+    public class CustomRecyclerView extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView txtLabel;
         ImageView avatar;
+        OnTrendingListener onTrendingListener;
 
-        CustomRecyclerView(View itemView) {
+        CustomRecyclerView(View itemView, OnTrendingListener onTrendingListener) {
             super(itemView);
             txtLabel = itemView.findViewById(R.id.titleTrend);
             avatar = itemView.findViewById(R.id.posterTrend);
+            this.onTrendingListener = onTrendingListener;
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onTrendingListener.onClickTrending(getAdapterPosition());
+        }
+    }
+
+    public List<SerieTrendingResponse.SerieTrending> getItemList(){
+        return itemList;
+    }
+
+    public interface OnTrendingListener{
+        void onClickTrending(int position);
     }
 }

@@ -2,18 +2,22 @@ package com.tracker.controllers;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tracker.R;
 import com.tracker.adapters.SeriesTrendingAdapter;
 import com.tracker.models.DataTMDB;
 import com.tracker.models.SerieTrendingResponse;
-import com.tracker.ui.home.HomeFragment;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -26,24 +30,19 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.tracker.util.Constants.API_KEY;
+import static com.tracker.util.Constants.API_KEY_STRING;
 import static com.tracker.util.Constants.BASE_URL;
 
-public class RepositorioAPI {
+public class RepositoryAPI {
 
-    ArrayList<SerieTrendingResponse.SerieTrending> mTrending;
-
-    public DataTMDB getClient() {
-        // "18f61adb80d286bb036df43e60d7aae6"
+    private DataTMDB getClient() {
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new Interceptor() {
-                    @NotNull
-                    @Override
-                    public Response intercept(@NotNull Chain chain) throws IOException {
-                        Request request = chain.request();
-                        HttpUrl url = request.url().newBuilder().addQueryParameter("api_key", "18f61adb80d286bb036df43e60d7aae6").build();
-                        request = request.newBuilder().url(url).build();
-                        return chain.proceed(request);
-                    }
+                .addInterceptor(chain -> {
+                    Request request = chain.request();
+                    HttpUrl url = request.url().newBuilder().addQueryParameter(API_KEY_STRING, API_KEY).build();
+                    request = request.newBuilder().url(url).build();
+                    return chain.proceed(request);
                 })
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build();
@@ -53,29 +52,28 @@ public class RepositorioAPI {
                         .addConverterFactory(GsonConverterFactory.create())
                         .client(client)
                         .build();
-
         return retrofit.create(DataTMDB.class);
     }
 
-    public void getTrending(RecyclerView rv, Context ct) {
+    public void getTrending(SeriesTrendingAdapter.OnTrendingListener listener, final List<SerieTrendingResponse.SerieTrending> listaTrending,
+                            RecyclerView recyclerView, Context context,  ProgressBar progressBar) {
         getClient().getTrending().enqueue(new Callback<SerieTrendingResponse>() {
             @Override
             public void onResponse(Call<SerieTrendingResponse> call, retrofit2.Response<SerieTrendingResponse> response) {
-//                Log.d("TAG", String.valueOf(response.code()));
-                mTrending = response.body().trendingSeries;
+                if (response.body() != null) {
+                    listaTrending.addAll(response.body().trendingSeries);
+                }
 
-                if (response.body() != null && !mTrending.isEmpty()) {
-                    SeriesTrendingAdapter sta = new SeriesTrendingAdapter(ct, mTrending);
-                    rv.setAdapter(sta);
-                    sta.notifyDataSetChanged();
-//                    mAdapter = new MyAdapter(ConsulatePlaces.this, R.layout.list_places, mPlaces);
-//                    lv.setAdapter(mAdapter);
-//                    mAdapter.notifyDataSetChanged();
+                if (response.body() != null && !listaTrending.isEmpty()) {
+                    recyclerView.setAdapter(new SeriesTrendingAdapter(context, listaTrending,listener));
+                    recyclerView.getAdapter().notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void onFailure(Call<SerieTrendingResponse> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(context, R.string.no_conn, Toast.LENGTH_LONG).show();
                 Log.e("TAG", t.getMessage());
             }
         });
