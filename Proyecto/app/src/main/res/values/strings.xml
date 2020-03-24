@@ -13,7 +13,7 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
-    <string name="title_activity_descripcion_serie">DescripcionSerie</string>
+    <string name="title_activity_detalles_serie">DetallesSerie</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -103,5 +103,6 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="title_activity_descripcion_serie">DescripcionSerie</string>
     <string name="no_conn">No Internet Connection</string>
 </resources>
