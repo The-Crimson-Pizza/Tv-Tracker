@@ -1,6 +1,5 @@
 ## Proyecto de fin de grado
 
-
 ### Ideas
 
 - Boton busqueda 
