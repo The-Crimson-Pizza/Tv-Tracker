@@ -16,10 +16,6 @@
             android:label="@string/title_activity_detalles_serie"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".Prueba" />
-        <activity
-            android:name=".DescripcionSerie"
-            android:label="@string/title_activity_descripcion_serie"
-            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Prueba" />
         <activity
             android:name=".MainActivity"
