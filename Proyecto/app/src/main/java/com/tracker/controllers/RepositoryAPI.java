@@ -3,27 +3,21 @@ package com.tracker.controllers;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.tracker.R;
-import com.tracker.adapters.SeriesTrendingAdapter;
+import com.tracker.adapters.SeriesAdapter;
 import com.tracker.models.DataTMDB;
 import com.tracker.models.SerieTrendingResponse;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,9 +49,9 @@ public class RepositoryAPI {
         return retrofit.create(DataTMDB.class);
     }
 
-    public void getTrending(SeriesTrendingAdapter.OnTrendingListener listener, final List<SerieTrendingResponse.SerieTrending> listaTrending,
-                            RecyclerView recyclerView, Context context,  ProgressBar progressBar) {
-        getClient().getTrending().enqueue(new Callback<SerieTrendingResponse>() {
+    public void getTrending(final List<SerieTrendingResponse.SerieTrending> listaTrending,
+                            GridView recyclerView, Context context, ProgressBar progressBar, SeriesAdapter adapter) {
+        getClient().getTrendingSeries().enqueue(new Callback<SerieTrendingResponse>() {
             @Override
             public void onResponse(Call<SerieTrendingResponse> call, retrofit2.Response<SerieTrendingResponse> response) {
                 if (response.body() != null) {
@@ -65,11 +59,12 @@ public class RepositoryAPI {
                 }
 
                 if (response.body() != null && !listaTrending.isEmpty()) {
-                    recyclerView.setAdapter(new SeriesTrendingAdapter(context, listaTrending,listener));
-                    recyclerView.getAdapter().notifyDataSetChanged();
+                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                     progressBar.setVisibility(View.GONE);
                 }
             }
+
             @Override
             public void onFailure(Call<SerieTrendingResponse> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
@@ -78,4 +73,28 @@ public class RepositoryAPI {
             }
         });
     }
+
+    public void getNew(final List<SerieTrendingResponse.SerieTrending> listaTrending,
+                       GridView recyclerView, Context context, SeriesAdapter adapter) {
+        getClient().getNewSeries(2020, "es-ES", "populariry.desc").enqueue(new Callback<SerieTrendingResponse>() {
+            @Override
+            public void onResponse(Call<SerieTrendingResponse> call, retrofit2.Response<SerieTrendingResponse> response) {
+                if (response.body() != null) {
+                    listaTrending.addAll(response.body().trendingSeries);
+                }
+
+                if (response.body() != null && !listaTrending.isEmpty()) {
+                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SerieTrendingResponse> call, Throwable t) {
+                Toast.makeText(context, R.string.no_conn, Toast.LENGTH_LONG).show();
+                Log.e("TAG", t.getMessage());
+            }
+        });
+    }
+
 }

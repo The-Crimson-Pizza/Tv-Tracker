@@ -8,4 +8,5 @@ public class Constants {
     public static final String API_KEY = "18f61adb80d286bb036df43e60d7aae6";
     public static final String TAG = "TAGG";
     public static final String ID_SERIE = "id_serie";
+    public static final int LIMIT = 20;
 }

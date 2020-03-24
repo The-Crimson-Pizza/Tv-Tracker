@@ -1,0 +1,14 @@
+
+i
+java:S1128"GRemove this unused import 'com.tracker.util.Constants.BASE_URL_IMAGES'.(ÙŞòÛıÿÿÿÿ8üèş‰.
+r	java:S116"VRename this field "poster_path" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á¸¼ê8¸®àŒ.
+p
+java:S1104"NMake id a static final constant or non-public and provide accessors if needed.(ãéÆºüÿÿÿÿ8èª°ÖŒ.
+C
+java:S1170"!Make this final field static too.(Ü¢‹¤øÿÿÿÿ8èª°ÖŒ.
+r
+java:S1104"PMake name a static final constant or non-public and provide accessors if needed.(“¤ÙØøÿÿÿÿ8èª°ÖŒ.
+›
+java:S1319"yThe type of the "trendingSeries" object should be an interface such as "List" rather than the implementation "ArrayList".(Ü¢‹¤øÿÿÿÿ8èª°ÖŒ.
+t
+java:S1104"WMake poster_path a static final constant or non-public and provide accessors if needed.(á¸¼ê8èª°ÖŒ.

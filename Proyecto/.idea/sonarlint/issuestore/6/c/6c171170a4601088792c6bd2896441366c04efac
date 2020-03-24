@@ -1,0 +1,11 @@
+
+d
+java:S1128"BRemove this unused import 'androidx.lifecycle.ViewModelProviders'.(ê· ºÿÿÿÿÿ8¿».
+T
+java:S1172"9Remove this unused method parameter "savedInstanceState".(©ó‘ãøÿÿÿÿ
+Z
+java:S1128"8Remove this unused import 'androidx.lifecycle.Observer'.(ÒÁˆÉşÿÿÿÿ8ÒÅ³.
+V
+java:S1128	"9Remove this unused import 'androidx.annotation.Nullable'.(¾Èêš8ÒÅ³.
+u
+java:S1450"_Remove the "galleryViewModel" field and declare it as a local variable in the relevant methods.(ŸŒÀ€
