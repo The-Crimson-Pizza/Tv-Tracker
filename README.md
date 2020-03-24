@@ -1,6 +1,6 @@
 # TFG2020
 
-Proyecto de fin de grado
+## Proyecto de fin de grado
 
 - Boton busqueda 
 - Lista favoritos
