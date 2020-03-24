@@ -1,7 +1,7 @@
 ## Proyecto de fin de grado
 
 
-#### Ideas
+### Ideas
 
 - Boton busqueda 
 - Lista favoritos
