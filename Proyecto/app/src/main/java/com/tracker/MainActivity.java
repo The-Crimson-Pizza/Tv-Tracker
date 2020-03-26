@@ -43,9 +43,6 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
                 Intent intent = new Intent(MainActivity.this, DetallesSerie.class);
                 startActivity(intent);
-//                Intent intent = new Intent(MainActivity.this, DescripcionSerie.class);
-//                 startActivity(intent);
-
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

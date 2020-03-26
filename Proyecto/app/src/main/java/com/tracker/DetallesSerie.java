@@ -18,6 +18,7 @@ public class DetallesSerie extends AppCompatActivity {
         setContentView(R.layout.activity_detalles_serie);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         this.setTitle("Toy Story 4");
 
