@@ -25,7 +25,7 @@ public class DetallesActor extends AppCompatActivity {
         // SE AÑADE EL BOTÓN DE ATRÁS AL TOOLBAR
         // toolbar.setNavigationIcon(R.drawable.arrow);
 
-        setTitle("Alejandro Amenábar");
+        setTitle("Jack Nicholson");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
