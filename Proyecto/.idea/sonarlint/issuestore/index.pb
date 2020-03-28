@@ -33,10 +33,6 @@ X
 build.gradle,f/0/f07866736216be0ee2aba49e392191aeae700a35
 k
 ;app/src/main/java/com/tracker/ui/prueba/PruebaFragment.java,3/d/3de0da728f12c39963637baba7966792b99a41da
-S
-#app/src/main/res/values/strings.xml,d/2/d2281fbb3027de2722081a53408dd77628bf080e
-Z
-*app/src/main/res/values-es-rES/strings.xml,5/e/5e384da4a2f12548b1c82f7021b5d1db7e1bb238
 [
 +app/src/main/res/layout/prueba_fragment.xml,6/6/661b54d7600ff785847f0f7f195d1cb66240d126
 g
@@ -49,8 +45,6 @@ b
 2app/src/main/java/com/tracker/models/DataTMDB.java,8/a/8a5561989745bfbfb3cdefd6b238469b549af69c
 g
 7app/src/main/java/com/tracker/models/SerieResponse.java,e/4/e4b7be48882b1a88c511832f413fc5c2c7d2a1eb
-R
-"app/src/main/res/values/colors.xml,9/6/969faa2a5d9f5e8390e958d2c07f2cfd54676e6b
 l
 <app/src/main/java/com/tracker/controllers/RepositoryAPI.java,e/d/ed9c8fc16a605c37dafb8f3ed8b43b8f763eca4b
 a

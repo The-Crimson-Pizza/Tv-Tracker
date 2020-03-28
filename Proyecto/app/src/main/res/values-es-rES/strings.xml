@@ -7,4 +7,13 @@
     <string name="menu_tools">Herramientas</string>
     <string name="menu_share">Compartir</string>
     <string name="menu_send">Enviar</string>
+    <string name="navigation_drawer_open">Abrir menú lateral</string>
+    <string name="navigation_drawer_close">Cerrar menú lateral</string>
+    <string name="nav_header_desc">Encabezado de navegación</string>
+    <string name="redes_sociales">Redes Sociales</string>
+    <string name="menu_slideshow">Diapositiva</string>
+    <string name="series_populares">Series Populares</string>
+    <string name="series_nuevas">Series Nuevas</string>
+    <string name="no_conn">Sin Conexión</string>
+    <string name="serie_poster">Póster de serie</string>
 </resources>

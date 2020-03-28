@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
         android:layout_width="140dp"
-        android:layout_height="195dp">
+        android:layout_height="190dp"
+        android:layout_marginEnd="2dp">
 
         <ImageView
             android:id="@+id/posterTrend"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-             />
+            android:contentDescription="@string/serie_poster" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 android:layout_margin="5dp"
                 android:ellipsize="marquee"
                 android:maxLines="2"
-                android:text="I am not Okay with this afs d hhg ghghhggggghdh hdh jdhdh dh "
+                android:text="@string/texto_prueba_corto"
                 android:textAllCaps="true"
                 android:textColor="@color/whiteColor"
                 android:textSize="6pt" />
