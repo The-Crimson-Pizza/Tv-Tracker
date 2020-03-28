@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Series Populares"
+            android:text="@string/series_populares"
             android:textAlignment="center"
             android:textColor="@color/whiteColor"
             android:textSize="17pt" />
@@ -23,6 +23,7 @@
         android:id="@+id/gridPopulares"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="horizontal" />
 
 
@@ -35,7 +36,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Series Nuevas"
+            android:text="@string/series_nuevas"
             android:textAlignment="center"
             android:textColor="@color/whiteColor"
             android:textSize="17pt" />
@@ -45,5 +46,6 @@
         android:id="@+id/gridNuevas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="horizontal" />
 </LinearLayout>

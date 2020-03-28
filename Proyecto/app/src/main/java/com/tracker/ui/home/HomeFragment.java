@@ -19,8 +19,6 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-    private RecyclerView rvTrending = null;
-    private RecyclerView rvNuevas = null;
     private ArrayList<SerieBasicResponse.SerieBasic> mTrending = new ArrayList<>();
     private ArrayList<SerieBasicResponse.SerieBasic> mNuevas = new ArrayList<>();
 
@@ -30,18 +28,12 @@ public class HomeFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        rvTrending = root.findViewById(R.id.gridPopulares);
-        rvNuevas = root.findViewById(R.id.gridNuevas);
+        RecyclerView rvTrending = root.findViewById(R.id.gridPopulares);
+        RecyclerView rvNuevas = root.findViewById(R.id.gridNuevas);
 
-//        SeriesAdapter adapterTrending = new SeriesAdapter(getActivity(), R.layout.lista_series_trending, mTrending);
-//        SeriesAdapter adapterNew = new SeriesAdapter(getActivity(), R.layout.lista_series_trending, mNuevas);
-//        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-
-        new RepositoryAPI().getTrending(mTrending, rvTrending, getActivity());
-        new RepositoryAPI().getNew(mNuevas, rvNuevas, getActivity());
-
-
-//        initRecyclerView(root);
+        RepositoryAPI seriesMain = new RepositoryAPI();
+        seriesMain.getTrending(mTrending, rvTrending, getActivity());
+        seriesMain.getNew(mNuevas, rvNuevas, getActivity());
 
         return root;
     }

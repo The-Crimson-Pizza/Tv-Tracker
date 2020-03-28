@@ -21,4 +21,6 @@
     <string name="title_activity_descripcion_serie">DescripcionSerie</string>
     <string name="no_conn">No Internet Connection</string>
     <string name="title_activity_detalles_actor">DetallesActor</string>
+    <string name="series_populares">Series Populares</string>
+    <string name="series_nuevas">Series Nuevas</string>
 </resources>
