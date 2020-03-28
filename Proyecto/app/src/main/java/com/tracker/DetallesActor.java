@@ -88,7 +88,6 @@ public class DetallesActor extends AppCompatActivity {
         mImageUrls.add("https://i.redd.it/j6myfqglup501.jpg");
         mNames.add("Rocky Mountain National Park");
 
-
         mImageUrls.add("https://i.redd.it/0h2gm1ix6p501.jpg");
         mNames.add("Mahahual");
 
@@ -105,7 +104,7 @@ public class DetallesActor extends AppCompatActivity {
         mImageUrls.add("https://i.imgur.com/ZcLLrkY.jpg");
         mNames.add("Washington");
 
-        initRecyclerView();
+//        initRecyḉclerView();
 
     }
 

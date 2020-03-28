@@ -6,9 +6,8 @@
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="100dp"
-        android:layout_height="130dp"
-        app:cardCornerRadius="2dp">
+        android:layout_width="140dp"
+        android:layout_height="195dp">
 
         <ImageView
             android:id="@+id/posterTrend"
@@ -19,7 +18,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:layout_gravity="bottom"
             android:background="@color/black80">
 
@@ -34,7 +33,7 @@
                 android:text="I am not Okay with this afs d hhg ghghhggggghdh hdh jdhdh dh "
                 android:textAllCaps="true"
                 android:textColor="@color/whiteColor"
-                android:textSize="5pt" />
+                android:textSize="6pt" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

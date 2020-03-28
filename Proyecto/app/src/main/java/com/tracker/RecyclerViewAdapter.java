@@ -45,7 +45,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.d(TAG, "onCreateViewHolder: called");
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_actor, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_trending, parent, false);
         return new ViewHolder(view);
     }
 

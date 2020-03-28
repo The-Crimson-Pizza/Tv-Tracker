@@ -61,5 +61,3 @@ i
 9app/src/main/java/com/tracker/ui/share/ShareFragment.java,c/2/c27ee0c3a75401c958fc6ba202ce1f5c391bb90f
 i
 9app/src/main/java/com/tracker/adapters/SeriesAdapter.java,6/e/6e6aa54ff2921f31d1bf93c498108364e542698e
-a
-1app/src/main/res/layout/lista_series_trending.xml,b/e/bec9529fdd1af269bb050ee2da73697dae4910bd
