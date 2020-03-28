@@ -30,8 +30,8 @@
                 android:layout_height="match_parent"
                 android:text="1937-04-22"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="20dp"
-                android:textSize="20dp"
+                android:layout_marginLeft="15dp"
+                android:textSize="18dp"
                 />
         </LinearLayout>
         <LinearLayout
@@ -50,8 +50,8 @@
                 android:layout_height="match_parent"
                 android:text="Manhattan, New York, USA"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="20dp"
-                android:textSize="20dp"
+                android:layout_marginLeft="15dp"
+                android:textSize="18dp"
                 />
         </LinearLayout>
 
