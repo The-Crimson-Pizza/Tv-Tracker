@@ -6,6 +6,7 @@
     <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="instagram">Instagram</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
@@ -105,4 +106,5 @@
     </string>
     <string name="title_activity_descripcion_serie">DescripcionSerie</string>
     <string name="no_conn">No Internet Connection</string>
+    <string name="title_activity_detalles_actor">DetallesActor</string>
 </resources>
