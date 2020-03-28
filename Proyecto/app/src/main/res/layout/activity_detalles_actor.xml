@@ -18,27 +18,25 @@
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/background"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar"
-            android:background="@drawable/background">
+            app:toolbarId="@+id/toolbar">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_collapseMode="pin"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_collapseMode="pin">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_image"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:src="@drawable/jack"
-                    app:civ_border_width="2dp"
                     app:civ_border_color="@color/whiteColor"
-                    />
-
+                    app:civ_border_width="2dp" />
             </LinearLayout>
 
             <androidx.appcompat.widget.Toolbar

@@ -13,20 +13,31 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+import com.tracker.models.SerieTrendingResponse;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
+import static com.tracker.util.Constants.BASE_URL_IMAGES;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
-    private static final String TAG = "RecyclerViewAdapter";
-
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
+    private List<SerieTrendingResponse.SerieTrending> mPelis;
     private Context mContext;
 
     public RecyclerViewAdapter(Context mContext, ArrayList<String> mNames, ArrayList<String> mImageUrls) {
         this.mNames = mNames;
         this.mImageUrls = mImageUrls;
+        this.mContext = mContext;
+    }
+
+    public RecyclerViewAdapter(Context mContext, List<SerieTrendingResponse.SerieTrending> pelis) {
+        this.mPelis = pelis;
         this.mContext = mContext;
     }
 
@@ -41,17 +52,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: ");
-        Glide.with(mContext)
-                .asBitmap()
-                .load(mImageUrls.get(position))
+        Picasso.get()
+                .load(BASE_URL_IMAGES + mPelis.get(position).poster_path)
+                .placeholder(R.drawable.ic_launcher_background)
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .noFade()
                 .into(holder.image);
 
-        holder.name.setText(mNames.get(position));
+//        holder.name.setText(mNames.get(position));
+        holder.name.setText(mPelis.get(position).name);
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: clicked on an image: " + mNames.get(position));
-                Toast.makeText(mContext, mNames.get(position), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onClick: clicked on an image: " + mPelis.get(position).name);
+//                Toast.makeText(mContext, mNames.get(position), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, mNames.get(position), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -59,7 +74,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return mImageUrls.size();
+        return mPelis.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

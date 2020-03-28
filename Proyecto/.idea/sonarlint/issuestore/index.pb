@@ -37,14 +37,8 @@ S
 #app/src/main/res/values/strings.xml,d/2/d2281fbb3027de2722081a53408dd77628bf080e
 Z
 *app/src/main/res/values-es-rES/strings.xml,5/e/5e384da4a2f12548b1c82f7021b5d1db7e1bb238
-f
-6app/src/main/res/layout/activity_descripcion_serie.xml,2/3/2360baee2e7f1937dcbe21730cfc2c30a80c5e1e
-e
-5app/src/main/res/layout/content_descripcion_serie.xml,a/e/ae30822923652d0f8c69233c876abc2b76cebf62
 [
 +app/src/main/res/layout/prueba_fragment.xml,6/6/661b54d7600ff785847f0f7f195d1cb66240d126
-c
-3app/src/main/java/com/tracker/DescripcionSerie.java,a/f/af457dad3ab2119e95033c917cc4a185d0619530
 g
 7app/src/main/java/com/tracker/models/ActorResponse.java,9/e/9e01f76b2cc3cc16b37a0fa11482eb6206547573
 a
@@ -67,3 +61,5 @@ i
 9app/src/main/java/com/tracker/ui/share/ShareFragment.java,c/2/c27ee0c3a75401c958fc6ba202ce1f5c391bb90f
 i
 9app/src/main/java/com/tracker/adapters/SeriesAdapter.java,6/e/6e6aa54ff2921f31d1bf93c498108364e542698e
+a
+1app/src/main/res/layout/lista_series_trending.xml,b/e/bec9529fdd1af269bb050ee2da73697dae4910bd

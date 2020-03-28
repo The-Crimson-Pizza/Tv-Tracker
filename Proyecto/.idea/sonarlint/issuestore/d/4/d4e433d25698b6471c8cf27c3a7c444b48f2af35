@@ -1,15 +1,11 @@
 
-S
-java:S1068"1Remove this unused "homeViewModel" private field.(¿­¶üÿÿÿÿ8±Ü‚â.
-{
-java:S1450"YRemove the "gridNuevas" field and declare it as a local variable in the relevant methods.(€µë‡şÿÿÿÿ8¤Áâ.
-x
-java:S1450"[Remove the "gridTrending" field and declare it as a local variable in the relevant methods.(±˜ÄÀ8®‚â.
 ~
-java:S1450"\Remove the "homeViewModel" field and declare it as a local variable in the relevant methods.(¿­¶üÿÿÿÿ8ûÖó¨.
+java:S1450"\Remove the "homeViewModel" field and declare it as a local variable in the relevant methods.(¿­¶üÿÿÿÿ8¢©ì.
+S
+java:S1068"1Remove this unused "homeViewModel" private field.(¿­¶üÿÿÿÿ8¢©ì.
 [
-java:S1172"9Remove this unused method parameter "savedInstanceState".(ÿ£º¡ÿÿÿÿÿ8±Ü‚â.
-X
-java:S1854'";Remove this useless assignment to local variable "adapter".(®Ã©‘8Ó©‰ã.
-I
-java:S1481'",Remove this unused "adapter" local variable.(®Ã©‘8Ó©‰ã.
+java:S1172!"9Remove this unused method parameter "savedInstanceState".(ÿ£º¡ÿÿÿÿÿ8¢©ì.
+x
+java:S1450"[Remove the "gridTrending" field and declare it as a local variable in the relevant methods.(±˜ÄÀ8¢©ì.
+{
+java:S1450"YRemove the "gridNuevas" field and declare it as a local variable in the relevant methods.(€µë‡şÿÿÿÿ8¢©ì.

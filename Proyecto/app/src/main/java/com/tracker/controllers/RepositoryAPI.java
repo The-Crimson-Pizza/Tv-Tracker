@@ -8,7 +8,11 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.tracker.R;
+import com.tracker.RecyclerViewAdapter;
 import com.tracker.adapters.SeriesAdapter;
 import com.tracker.models.DataTMDB;
 import com.tracker.models.SerieTrendingResponse;
@@ -50,7 +54,8 @@ public class RepositoryAPI {
     }
 
     public void getTrending(final List<SerieTrendingResponse.SerieTrending> listaTrending,
-                            GridView recyclerView, Context context, ProgressBar progressBar, SeriesAdapter adapter) {
+                            RecyclerView rvTrending, Context context) {
+
         getClient().getTrendingSeries().enqueue(new Callback<SerieTrendingResponse>() {
             @Override
             public void onResponse(Call<SerieTrendingResponse> call, retrofit2.Response<SerieTrendingResponse> response) {
@@ -59,33 +64,38 @@ public class RepositoryAPI {
                 }
 
                 if (response.body() != null && !listaTrending.isEmpty()) {
-                    recyclerView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                    progressBar.setVisibility(View.GONE);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+                    rvTrending.setLayoutManager(layoutManager);
+                    RecyclerViewAdapter adapterTrending = new RecyclerViewAdapter(context, listaTrending);
+                    rvTrending.setAdapter(adapterTrending);
+                    adapterTrending.notifyDataSetChanged();
                 }
             }
 
             @Override
             public void onFailure(Call<SerieTrendingResponse> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
                 Toast.makeText(context, R.string.no_conn, Toast.LENGTH_LONG).show();
                 Log.e("TAG", t.getMessage());
             }
         });
     }
 
-    public void getNew(final List<SerieTrendingResponse.SerieTrending> listaTrending,
-                       GridView recyclerView, Context context, SeriesAdapter adapter) {
+    public void getNew(final List<SerieTrendingResponse.SerieTrending> listaNuevas,
+                       RecyclerView recyclerView, Context context) {
+
         getClient().getNewSeries(2020, "es-ES", "populariry.desc").enqueue(new Callback<SerieTrendingResponse>() {
             @Override
             public void onResponse(Call<SerieTrendingResponse> call, retrofit2.Response<SerieTrendingResponse> response) {
                 if (response.body() != null) {
-                    listaTrending.addAll(response.body().trendingSeries);
+                    listaNuevas.addAll(response.body().trendingSeries);
                 }
 
-                if (response.body() != null && !listaTrending.isEmpty()) {
-                    recyclerView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
+                if (response.body() != null && !listaNuevas.isEmpty()) {
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+                    recyclerView.setLayoutManager(layoutManager);
+                    RecyclerViewAdapter adapterNuevo = new RecyclerViewAdapter(context, listaNuevas);
+                    recyclerView.setAdapter(adapterNuevo);
+                    adapterNuevo.notifyDataSetChanged();
                 }
             }
 
