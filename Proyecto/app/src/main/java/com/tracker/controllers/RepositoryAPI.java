@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tracker.R;
 import com.tracker.adapters.SeriesBasicAdapter;
 import com.tracker.models.DataTMDB;
-import com.tracker.models.SerieTrendingResponse;
+import com.tracker.models.SerieBasicResponse;
 
 import java.util.List;
 
@@ -48,12 +48,12 @@ public class RepositoryAPI {
         return retrofit.create(DataTMDB.class);
     }
 
-    public void getTrending(final List<SerieTrendingResponse.SerieTrending> listaTrending,
+    public void getTrending(final List<SerieBasicResponse.SerieBasic> listaTrending,
                             RecyclerView rvTrending, Context context) {
 
-        getClient().getTrendingSeries().enqueue(new Callback<SerieTrendingResponse>() {
+        getClient().getTrendingSeries().enqueue(new Callback<SerieBasicResponse>() {
             @Override
-            public void onResponse(Call<SerieTrendingResponse> call, retrofit2.Response<SerieTrendingResponse> response) {
+            public void onResponse(Call<SerieBasicResponse> call, retrofit2.Response<SerieBasicResponse> response) {
                 if (response.body() != null) {
                     listaTrending.addAll(response.body().trendingSeries);
                 }
@@ -68,19 +68,19 @@ public class RepositoryAPI {
             }
 
             @Override
-            public void onFailure(Call<SerieTrendingResponse> call, Throwable t) {
+            public void onFailure(Call<SerieBasicResponse> call, Throwable t) {
                 Toast.makeText(context, R.string.no_conn, Toast.LENGTH_LONG).show();
                 Log.e("TAG", t.getMessage());
             }
         });
     }
 
-    public void getNew(final List<SerieTrendingResponse.SerieTrending> listaNuevas,
+    public void getNew(final List<SerieBasicResponse.SerieBasic> listaNuevas,
                        RecyclerView recyclerView, Context context) {
 
-        getClient().getNewSeries(2020, "es-ES", "populariry.desc").enqueue(new Callback<SerieTrendingResponse>() {
+        getClient().getNewSeries(2020, "es-ES", "populariry.desc").enqueue(new Callback<SerieBasicResponse>() {
             @Override
-            public void onResponse(Call<SerieTrendingResponse> call, retrofit2.Response<SerieTrendingResponse> response) {
+            public void onResponse(Call<SerieBasicResponse> call, retrofit2.Response<SerieBasicResponse> response) {
                 if (response.body() != null) {
                     listaNuevas.addAll(response.body().trendingSeries);
                 }
@@ -95,7 +95,7 @@ public class RepositoryAPI {
             }
 
             @Override
-            public void onFailure(Call<SerieTrendingResponse> call, Throwable t) {
+            public void onFailure(Call<SerieBasicResponse> call, Throwable t) {
                 Toast.makeText(context, R.string.no_conn, Toast.LENGTH_LONG).show();
                 Log.e("TAG", t.getMessage());
             }

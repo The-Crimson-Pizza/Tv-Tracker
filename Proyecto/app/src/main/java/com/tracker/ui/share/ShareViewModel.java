@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.tracker.models.SerieTrendingResponse;
+import com.tracker.models.SerieBasicResponse;
 
 public class ShareViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
-    MutableLiveData<SerieTrendingResponse.SerieTrending> serie;
+    MutableLiveData<SerieBasicResponse.SerieBasic> serie;
 
     public ShareViewModel() {
         mText = new MutableLiveData<>();

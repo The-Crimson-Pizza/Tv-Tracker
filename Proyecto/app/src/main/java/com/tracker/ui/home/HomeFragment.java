@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
 import com.tracker.controllers.RepositoryAPI;
-import com.tracker.models.SerieTrendingResponse;
+import com.tracker.models.SerieBasicResponse;
 
 import java.util.ArrayList;
 
@@ -21,8 +21,8 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private RecyclerView rvTrending = null;
     private RecyclerView rvNuevas = null;
-    private ArrayList<SerieTrendingResponse.SerieTrending> mTrending = new ArrayList<>();
-    private ArrayList<SerieTrendingResponse.SerieTrending> mNuevas = new ArrayList<>();
+    private ArrayList<SerieBasicResponse.SerieBasic> mTrending = new ArrayList<>();
+    private ArrayList<SerieBasicResponse.SerieBasic> mNuevas = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =

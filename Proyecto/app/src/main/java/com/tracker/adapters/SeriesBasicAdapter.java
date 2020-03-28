@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.tracker.R;
-import com.tracker.models.SerieTrendingResponse;
+import com.tracker.models.SerieBasicResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +24,14 @@ import static com.tracker.util.Constants.BASE_URL_IMAGES;
 
 public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.ViewHolder>{
 
-    private List<SerieTrendingResponse.SerieTrending> mPelis;
+    private List<SerieBasicResponse.SerieBasic> mPelis;
     private Context mContext;
 
     public SeriesBasicAdapter(Context mContext, ArrayList<String> mNames, ArrayList<String> mImageUrls) {
         this.mContext = mContext;
     }
 
-    public SeriesBasicAdapter(Context mContext, List<SerieTrendingResponse.SerieTrending> pelis) {
+    public SeriesBasicAdapter(Context mContext, List<SerieBasicResponse.SerieBasic> pelis) {
         this.mPelis = pelis;
         this.mContext = mContext;
     }

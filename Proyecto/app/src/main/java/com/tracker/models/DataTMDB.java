@@ -8,13 +8,13 @@ import retrofit2.http.Query;
 public interface DataTMDB {
     @Headers("Accept: application/json")
     @GET("trending/tv/day")
-    Call<SerieTrendingResponse> getTrendingSeries();
+    Call<SerieBasicResponse> getTrendingSeries();
 
     @Headers("Accept: application/json")
     @GET("discover/tv")
-    Call<SerieTrendingResponse> getNewSeries(@Query("first_air_date_year") int year,
-                                             @Query("language") String language,
-                                             @Query("sort_by") String sort);
+    Call<SerieBasicResponse> getNewSeries(@Query("first_air_date_year") int year,
+                                          @Query("language") String language,
+                                          @Query("sort_by") String sort);
 
 
 }

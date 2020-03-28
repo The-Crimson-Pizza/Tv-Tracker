@@ -6,28 +6,27 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import static com.tracker.util.Constants.BASE_URL_IMAGES;
+public class SerieBasicResponse {
 
-public class SerieTrendingResponse {
     @SerializedName("results")
     @Expose
-    public final ArrayList<SerieTrending> trendingSeries = null;
+    public final List<SerieBasic> trendingSeries = null;
 
-    public static class SerieTrending implements Parcelable {
+    public static class SerieBasic implements Parcelable {
 
         public String name = null;
         public String poster_path = null;
         public Integer id = null;
 
-        public SerieTrending(String title, String poster, Integer id) {
+        public SerieBasic(String title, String poster, Integer id) {
             this.name = title;
             this.poster_path = poster;
             this.id = id;
         }
 
-        public SerieTrending(Parcel in) {
+        public SerieBasic(Parcel in) {
             name = in.readString();
             poster_path = in.readString();
             id = in.readInt();
@@ -45,14 +44,13 @@ public class SerieTrendingResponse {
             parcel.writeInt(id);
         }
 
-        public static final Parcelable.Creator<SerieTrending> CREATOR =
-                new Parcelable.Creator<SerieTrending>() {
-                    public SerieTrending createFromParcel(Parcel in) {
-                        return new SerieTrending(in);
+        public static final Parcelable.Creator<SerieBasic> CREATOR =
+                new Parcelable.Creator<SerieBasic>() {
+                    public SerieBasic createFromParcel(Parcel in) {
+                        return new SerieBasic(in);
                     }
-
-                    public SerieTrending[] newArray(int size) {
-                        return new SerieTrending[size];
+                    public SerieBasic[] newArray(int size) {
+                        return new SerieBasic[size];
                     }
                 };
     }
