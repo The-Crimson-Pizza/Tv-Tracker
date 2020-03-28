@@ -47,6 +47,7 @@
                 android:orientation="horizontal"
                 android:layout_marginRight="100dp"
                 app:layout_collapseMode="parallax"
+
                 >
 
                 <LinearLayout

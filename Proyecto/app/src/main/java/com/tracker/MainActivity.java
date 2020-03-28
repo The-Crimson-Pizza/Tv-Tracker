@@ -27,6 +27,8 @@ import android.widget.SearchView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
+
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override

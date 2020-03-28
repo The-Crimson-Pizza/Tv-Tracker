@@ -8,10 +8,46 @@
     tools:context=".DetallesActor"
     tools:showIn="@layout/activity_detalles_actor">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="15dp"
+            android:textStyle="bold"
+            android:text="Biografía"
+            android:textSize="15dp"
+            />
+        <TextView
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:lineSpacingExtra="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/large_text"
+            android:textAlignment="center"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Películas "
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerView"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
