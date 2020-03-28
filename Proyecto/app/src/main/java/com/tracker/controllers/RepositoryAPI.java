@@ -2,18 +2,13 @@ package com.tracker.controllers;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
-import android.widget.GridView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
-import com.tracker.RecyclerViewAdapter;
-import com.tracker.adapters.SeriesAdapter;
+import com.tracker.adapters.SeriesBasicAdapter;
 import com.tracker.models.DataTMDB;
 import com.tracker.models.SerieTrendingResponse;
 
@@ -66,7 +61,7 @@ public class RepositoryAPI {
                 if (response.body() != null && !listaTrending.isEmpty()) {
                     LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
                     rvTrending.setLayoutManager(layoutManager);
-                    RecyclerViewAdapter adapterTrending = new RecyclerViewAdapter(context, listaTrending);
+                    SeriesBasicAdapter adapterTrending = new SeriesBasicAdapter(context, listaTrending);
                     rvTrending.setAdapter(adapterTrending);
                     adapterTrending.notifyDataSetChanged();
                 }
@@ -93,7 +88,7 @@ public class RepositoryAPI {
                 if (response.body() != null && !listaNuevas.isEmpty()) {
                     LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
                     recyclerView.setLayoutManager(layoutManager);
-                    RecyclerViewAdapter adapterNuevo = new RecyclerViewAdapter(context, listaNuevas);
+                    SeriesBasicAdapter adapterNuevo = new SeriesBasicAdapter(context, listaNuevas);
                     recyclerView.setAdapter(adapterNuevo);
                     adapterNuevo.notifyDataSetChanged();
                 }
