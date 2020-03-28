@@ -22,7 +22,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/cake"
+                android:src="@drawable/tar"
                 android:layout_gravity="center_vertical"
                     />
             <TextView
@@ -42,7 +42,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/placeholder"
+                android:src="@drawable/loc"
                 android:layout_gravity="center_vertical"
                 />
             <TextView
