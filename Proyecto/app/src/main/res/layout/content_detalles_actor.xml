@@ -12,40 +12,82 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="15dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/tar"
+                android:layout_gravity="center_vertical"
+                    />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="1937-04-22"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="15dp"
+                android:textSize="18dp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/loc"
+                android:layout_gravity="center_vertical"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Manhattan, New York, USA"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="15dp"
+                android:textSize="18dp"
+                />
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:gravity="center"
+            android:textStyle="bold"
             android:text="Biografía"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
+            android:textSize="20dp"
+            android:layout_marginBottom="20dp"
+            />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:lineSpacingExtra="8dp"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:text="@string/large_text"
-            android:textAlignment="center" />
-
+            android:id="@+id/bio"
+            android:justificationMode="inter_word"
+            android:layout_marginBottom="20dp"
+            />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:textStyle="bold"
             android:text="Películas "
             android:textSize="20dp"
-            android:textStyle="bold" />
+            />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:id="@+id/recyclerView"
+            android:orientation="horizontal"
             android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            >
 
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
