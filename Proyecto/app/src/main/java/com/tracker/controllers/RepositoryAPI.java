@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,7 +50,7 @@ public class RepositoryAPI {
     }
 
     public void getTrending(final List<SerieBasicResponse.SerieBasic> listaTrending,
-                            RecyclerView rvTrending, Context context) {
+                            RecyclerView rvTrending, Context context,  FragmentManager fManager) {
 
         getClient().getTrendingSeries().enqueue(new Callback<SerieBasicResponse>() {
             @Override
@@ -61,7 +62,7 @@ public class RepositoryAPI {
                 if (response.body() != null && !listaTrending.isEmpty()) {
                     LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
                     rvTrending.setLayoutManager(layoutManager);
-                    SeriesBasicAdapter adapterTrending = new SeriesBasicAdapter(context, listaTrending);
+                    SeriesBasicAdapter adapterTrending = new SeriesBasicAdapter(context, listaTrending, fManager);
                     rvTrending.setAdapter(adapterTrending);
                     adapterTrending.notifyDataSetChanged();
 
@@ -77,7 +78,7 @@ public class RepositoryAPI {
     }
 
     public void getNew(final List<SerieBasicResponse.SerieBasic> listaNuevas,
-                       RecyclerView recyclerView, Context context) {
+                       RecyclerView recyclerView, Context context,  FragmentManager fManager) {
 
         getClient().getNewSeries(2020, "es-ES", "populariry.desc").enqueue(new Callback<SerieBasicResponse>() {
             @Override
@@ -89,7 +90,7 @@ public class RepositoryAPI {
                 if (response.body() != null && !listaNuevas.isEmpty()) {
                     LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
                     recyclerView.setLayoutManager(layoutManager);
-                    SeriesBasicAdapter adapterNuevo = new SeriesBasicAdapter(context, listaNuevas);
+                    SeriesBasicAdapter adapterNuevo = new SeriesBasicAdapter(context, listaNuevas, fManager);
                     recyclerView.setAdapter(adapterNuevo);
                     adapterNuevo.notifyDataSetChanged();
                 }

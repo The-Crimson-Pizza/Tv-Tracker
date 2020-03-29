@@ -5,7 +5,8 @@
     android:id="@+id/profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileFragment">
+    android:background="@color/whiteColor"
+    tools:context=".ui.ProfileFragment">
 
     <TextView
         android:id="@+id/message"

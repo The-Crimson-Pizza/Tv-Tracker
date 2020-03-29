@@ -55,8 +55,6 @@ Y
 )app/src/main/res/layout/activity_main.xml,7/6/76b07e40f24cce093536731477540f12e7da3cb6
 ^
 .app/src/main/res/layout/favoritos_fragment.xml,7/c/7c9227a0e224c24bbf3f44f959c051650efd250e
-\
-,app/src/main/res/layout/profile_fragment.xml,4/2/42461458f28a614a26731c08610cb5255319cc61
 [
 +app/src/main/res/layout/search_fragment.xml,3/2/32ce3d669e73016928348d3ad351ea50cdb54c70
 V

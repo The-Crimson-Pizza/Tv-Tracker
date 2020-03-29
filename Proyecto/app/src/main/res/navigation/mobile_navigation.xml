@@ -7,22 +7,27 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.tracker.ui.home.HomeFragment"
+        android:name="com.tracker.ui.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.tracker.ui.search.SearchFragment"
+        android:name="com.tracker.ui.SearchFragment"
         android:label="@string/search"
         tools:layout="@layout/search_fragment" />
     <fragment
         android:id="@+id/navigation_fav"
-        android:name="com.tracker.ui.favoritos.FavoritosFragment"
+        android:name="com.tracker.ui.FavoritosFragment"
         android:label="@string/favourites"
         tools:layout="@layout/favoritos_fragment" />
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.tracker.ui.profile.ProfileFragment"
+        android:name="com.tracker.ui.ProfileFragment"
         android:label="@string/my_profile"
         tools:layout="@layout/profile_fragment" />
+    <fragment
+        android:id="@+id/navigation_series"
+        android:name="com.tracker.ui.DetallesSerieFragment"
+        android:label="SerieDetalle"
+        tools:layout="@layout/activity_detalles_serie" />
 </navigation>

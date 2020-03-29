@@ -1,9 +1,10 @@
-package com.tracker;
+package com.tracker.ui;
 
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.tracker.R;
 import com.tracker.adapters.SeriesBasicAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -108,14 +109,14 @@ public class DetallesActor extends AppCompatActivity {
 
     }
 
-    private void initRecyclerView(){
-        Log.d(TAG, "initRecyclerView: init recyclerview");
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(layoutManager);
-        SeriesBasicAdapter adapter = new SeriesBasicAdapter(this, mNames, mImageUrls);
-        recyclerView.setAdapter(adapter);
-    }
+//    private void initRecyclerView(){
+//        Log.d(TAG, "initRecyclerView: init recyclerview");
+//
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+//        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+//        recyclerView.setLayoutManager(layoutManager);
+//        SeriesBasicAdapter adapter = new SeriesBasicAdapter(this, mNames, mImageUrls);
+//        recyclerView.setAdapter(adapter);
+//    }
 
 }

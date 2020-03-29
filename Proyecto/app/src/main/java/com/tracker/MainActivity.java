@@ -19,18 +19,11 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_search, R.id.navigation_fav, R.id.navigation_profile)
+                R.id.navigation_home, R.id.navigation_search, R.id.navigation_fav, R.id.navigation_profile, R.id.navigation_series)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
-//        Fragment newFragment = new GalleryFragment();
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.nav_host_fragment, newFragment);
-//        transaction.addToBackStack(null);
-//        transaction.commit();
-
 
 //        Intent intent = getIntent();
 //        if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {

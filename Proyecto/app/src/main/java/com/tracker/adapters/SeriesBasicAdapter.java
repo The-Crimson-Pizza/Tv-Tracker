@@ -1,42 +1,39 @@
 package com.tracker.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
-import com.tracker.DetallesSerie;
 import com.tracker.R;
 import com.tracker.models.SerieBasicResponse;
+import com.tracker.ui.DetallesSerieFragment;
+import com.tracker.ui.ProfileFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 import static com.tracker.util.Constants.BASE_URL_IMAGES;
 
-public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.ViewHolder>{
+public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.ViewHolder> {
 
     private List<SerieBasicResponse.SerieBasic> mPelis;
     private Context mContext;
+    private FragmentManager fManager;
 
-    public SeriesBasicAdapter(Context mContext, ArrayList<String> mNames, ArrayList<String> mImageUrls) {
-        this.mContext = mContext;
-    }
-
-    public SeriesBasicAdapter(Context mContext, List<SerieBasicResponse.SerieBasic> pelis) {
+    public SeriesBasicAdapter(Context mContext, List<SerieBasicResponse.SerieBasic> pelis, FragmentManager fManager) {
         this.mPelis = pelis;
         this.mContext = mContext;
+        this.fManager = fManager;
     }
 
     @NonNull
@@ -56,19 +53,7 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
                 .networkPolicy(NetworkPolicy.OFFLINE)
                 .noFade()
                 .into(holder.image);
-
         holder.name.setText(mPelis.get(position).name);
-        holder.image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: clicked on an image: " + mPelis.get(position).name);
-                Toast.makeText(mContext, mPelis.get(position).name, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(mContext, DetallesSerie.class);
-                intent.putExtra("pelicula", mPelis.get(position));
-
-            }
-        });
-
     }
 
     @Override
@@ -76,15 +61,20 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
         return mPelis.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image;
         TextView name;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image=itemView.findViewById(R.id.posterTrend);
-            name=itemView.findViewById(R.id.titleTrend);
+            image = itemView.findViewById(R.id.posterTrend);
+            name = itemView.findViewById(R.id.titleTrend);
+            itemView.setOnClickListener(v -> fManager.beginTransaction()
+                    .addToBackStack(null)
+                    .add(R.id.nav_host_fragment, new DetallesSerieFragment())
+                    .commit());
         }
+
     }
 }
