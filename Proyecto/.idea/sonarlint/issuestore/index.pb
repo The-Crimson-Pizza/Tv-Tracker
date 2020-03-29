@@ -19,14 +19,6 @@ l
 -app/src/main/res/drawable/ic_search_white.xml,6/d/6de7de032c7ef2082d78820fb836c53ec9d19e9a
 [
 +app/src/main/res/layout/prueba_activity.xml,4/c/4cb069e5cf55da65840549247fab9c6810da36be
-V
-&app/src/main/res/layout/searchable.xml,e/6/e620dc33a1cba61a11e07f8740aed94078cba179
-^
-.app/src/main/res/menu/activity_main_drawer.xml,a/8/a874acbd348e069027d5c3df7eceb1a0bba28be9
-N
-app/src/main/res/menu/main.xml,2/2/22209de88391c01e1ce3911e9b7305487116d1a1
-a
-1app/src/main/res/navigation/mobile_navigation.xml,5/0/50c7987ff387678f825775665976b5fc8ed47989
 X
 (gradle/wrapper/gradle-wrapper.properties,f/b/fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
 <

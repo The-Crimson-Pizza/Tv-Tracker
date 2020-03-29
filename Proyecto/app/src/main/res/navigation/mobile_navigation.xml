@@ -3,46 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/navigation_home">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/navigation_home"
         android:name="com.tracker.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
-
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.tracker.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
+        android:id="@+id/navigation_search"
+        android:name="com.tracker.ui.search.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/search_fragment" />
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.tracker.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-
+        android:id="@+id/navigation_fav"
+        android:name="com.tracker.ui.favoritos.FavoritosFragment"
+        android:label="@string/favourites"
+        tools:layout="@layout/favoritos_fragment" />
     <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.tracker.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
-
-    <fragment
-        android:id="@+id/nav_share"
-        android:name="com.tracker.ui.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
-
-    <fragment
-        android:id="@+id/nav_send"
-        android:name="com.tracker.ui.send.SendFragment"
-        android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
-    <fragment
-        android:id="@+id/prueba"
-        android:name="com.tracker.ui.prueba.PruebaFragment"
-        android:label="prueba_fragment"
-        tools:layout="@layout/prueba_fragment" />
+        android:id="@+id/navigation_profile"
+        android:name="com.tracker.ui.profile.ProfileFragment"
+        android:label="@string/my_profile"
+        tools:layout="@layout/profile_fragment" />
 </navigation>

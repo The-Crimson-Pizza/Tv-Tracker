@@ -49,7 +49,7 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
         Log.d(TAG, "onBindViewHolder: ");
         Picasso.get()
                 .load(BASE_URL_IMAGES + mPelis.get(position).poster_path)
-                .placeholder(R.drawable.ic_launcher_background)
+                .placeholder(R.drawable.default_poster)
                 .networkPolicy(NetworkPolicy.OFFLINE)
                 .noFade()
                 .into(holder.image);
