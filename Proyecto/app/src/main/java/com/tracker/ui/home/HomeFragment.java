@@ -35,6 +35,8 @@ public class HomeFragment extends Fragment {
         seriesMain.getTrending(mTrending, rvTrending, getActivity());
         seriesMain.getNew(mNuevas, rvNuevas, getActivity());
 
+
+
         return root;
     }
 }

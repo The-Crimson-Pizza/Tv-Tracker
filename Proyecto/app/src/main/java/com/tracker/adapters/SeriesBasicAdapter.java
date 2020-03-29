@@ -1,18 +1,21 @@
 package com.tracker.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+import com.tracker.DetallesSerie;
 import com.tracker.R;
 import com.tracker.models.SerieBasicResponse;
 
@@ -59,7 +62,10 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: clicked on an image: " + mPelis.get(position).name);
-//                Toast.makeText(mContext, mNames.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, mPelis.get(position).name, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, DetallesSerie.class);
+                intent.putExtra("pelicula", mPelis.get(position));
+
             }
         });
 

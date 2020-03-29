@@ -64,6 +64,7 @@ public class RepositoryAPI {
                     SeriesBasicAdapter adapterTrending = new SeriesBasicAdapter(context, listaTrending);
                     rvTrending.setAdapter(adapterTrending);
                     adapterTrending.notifyDataSetChanged();
+
                 }
             }
 
