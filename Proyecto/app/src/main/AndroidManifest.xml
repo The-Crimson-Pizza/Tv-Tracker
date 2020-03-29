@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.DetallesActor"
+            android:name=".ui.DetallesActorFragment"
             android:label="@string/title_activity_detalles_actor" />
         <activity
             android:name=".ui.DetallesSerieFragment"

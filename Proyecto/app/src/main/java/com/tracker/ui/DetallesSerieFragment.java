@@ -9,8 +9,8 @@ import com.tracker.R;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,14 +29,16 @@ public class DetallesSerieFragment extends Fragment {
 //        getActivity().getSupportFragmentManager().setTitle("Toy Story 4");
 
         FloatingActionButton fab = root.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                Intent intent = new Intent(getActivity(), DetallesActor.class);
-                startActivity(intent);
-            }
+        fab.setOnClickListener(view -> {
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+
+            FragmentManager fManager = getParentFragmentManager();
+            fManager.beginTransaction()
+                    .addToBackStack(null)
+                    .add(R.id.nav_host_fragment, new DetallesActorFragment())
+                    .commit();
+
         });
 
 

@@ -51,8 +51,6 @@ k
 ;app/src/main/java/com/tracker/ui/search/SearchFragment.java,1/6/1654e6e0d08062ae25ac0fb0d95acebdc9b1c406
 l
 <app/src/main/java/com/tracker/ui/search/SearchViewModel.java,9/f/9f61febf1daad3b20fc1ebf83a6e1127e3df8288
-Y
-)app/src/main/res/layout/activity_main.xml,7/6/76b07e40f24cce093536731477540f12e7da3cb6
 ^
 .app/src/main/res/layout/favoritos_fragment.xml,7/c/7c9227a0e224c24bbf3f44f959c051650efd250e
 [
