@@ -25,7 +25,7 @@ public class DetallesSerieFragment extends Fragment {
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Toy Story 4");
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Toy Story 4");
 //        getActivity().getSupportFragmentManager().setTitle("Toy Story 4");
 
         FloatingActionButton fab = root.findViewById(R.id.fab);
