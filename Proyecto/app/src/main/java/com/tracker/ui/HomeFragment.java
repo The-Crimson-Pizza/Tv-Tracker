@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
+import com.tracker.adapters.SeriesBasicAdapter;
 import com.tracker.controllers.RepositoryAPI;
 import com.tracker.models.SerieBasicResponse;
 
@@ -31,6 +32,8 @@ public class HomeFragment extends Fragment {
         FragmentManager fManager = getParentFragmentManager();
 
         RepositoryAPI seriesMain = new RepositoryAPI();
+
+//        SeriesBasicAdapter adapterTrending = new SeriesBasicAdapter();
         seriesMain.getTrending(mTrending, rvTrending, getActivity(), fManager);
         seriesMain.getNew(mNuevas, rvNuevas, getActivity(), fManager);
 

@@ -3,31 +3,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.tracker.ui.HomeFragment"
         android:label="@string/home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_to_series"
+            app:destination="@id/navigation_series"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
+    </fragment>
+
     <fragment
         android:id="@+id/navigation_search"
         android:name="com.tracker.ui.SearchFragment"
         android:label="@string/search"
         tools:layout="@layout/search_fragment" />
+
     <fragment
         android:id="@+id/navigation_fav"
         android:name="com.tracker.ui.FavoritosFragment"
         android:label="@string/favourites"
         tools:layout="@layout/favoritos_fragment" />
+
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.tracker.ui.ProfileFragment"
         android:label="@string/my_profile"
         tools:layout="@layout/profile_fragment" />
+
     <fragment
         android:id="@+id/navigation_series"
         android:name="com.tracker.ui.DetallesSerieFragment"
         android:label="SerieDetalle"
-        tools:layout="@layout/activity_detalles_serie" />
+        tools:layout="@layout/activity_detalles_serie">
+        <action
+            android:id="@+id/action_series_to_actores"
+            app:destination="@id/navigation_actores" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_actores"
+        android:name="com.tracker.ui.DetallesActorFragment"
+        android:label="ActorDetalle"
+        tools:layout="@layout/activity_detalles_actor" />
+
 </navigation>

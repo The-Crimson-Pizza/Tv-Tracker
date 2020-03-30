@@ -1,7 +1,0 @@
-
-S
-java:S1068"1Remove this unused "homeViewModel" private field.(¿ž­¶üÿÿÿÿ8‚àÿ‰’.
-~
-java:S1450"\Remove the "homeViewModel" field and declare it as a local variable in the relevant methods.(¿ž­¶üÿÿÿÿ8‚àÿ‰’.
-[
-java:S1172"9Remove this unused method parameter "savedInstanceState".(ÿ£º¡ÿÿÿÿÿ8‚àÿ‰’.

@@ -9,10 +9,12 @@ import com.tracker.R;
 import com.tracker.adapters.SeriesBasicAdapter;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,46 +28,50 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-public class DetallesActorFragment extends Fragment {
+import static com.tracker.util.Constants.ID_SERIE;
 
-    private static final String TAG = "DetallesActor";
+public class DetallesActorFragment extends Fragment {
 
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.activity_detalles_actor, container, false);
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        return inflater.inflate(R.layout.activity_detalles_actor, container, false);
+    }
 
-        // SE AÑADE EL BOTÓN DE ATRÁS AL TOOLBAR
-//         toolbar.setNavigationIcon(R.drawable.arrow);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        FloatingActionButton fab = root.findViewById(R.id.fab);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        toolbar.setTitle("Jack Nicholson");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+
+        FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-
-
-
-
-
             }
         });
-
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Jack Nicholson");
-
-        return root;
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_detalles_actor, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -78,7 +84,7 @@ public class DetallesActorFragment extends Fragment {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_share) {
             return true;
-        }else if(id == R.id.action_wiki){
+        } else if (id == R.id.action_wiki) {
             return true;
         }
         return super.onOptionsItemSelected(item);
