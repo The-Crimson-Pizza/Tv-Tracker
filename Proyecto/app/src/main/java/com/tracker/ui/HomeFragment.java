@@ -6,12 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
-import com.tracker.adapters.SeriesBasicAdapter;
 import com.tracker.controllers.RepositoryAPI;
 import com.tracker.models.SerieBasicResponse;
 
@@ -19,25 +18,27 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
-    private ArrayList<SerieBasicResponse.SerieBasic> mTrending = new ArrayList<>();
+    private ArrayList<SerieBasicResponse.SerieBasic> mPopulares = new ArrayList<>();
     private ArrayList<SerieBasicResponse.SerieBasic> mNuevas = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        RecyclerView rvTrending = root.findViewById(R.id.gridPopulares);
-        RecyclerView rvNuevas = root.findViewById(R.id.gridNuevas);
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
 
-        FragmentManager fManager = getParentFragmentManager();
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        RecyclerView rvPopulares = view.findViewById(R.id.gridPopulares);
+        RecyclerView rvNuevas = view.findViewById(R.id.gridNuevas);
 
         RepositoryAPI seriesMain = new RepositoryAPI();
 
 //        SeriesBasicAdapter adapterTrending = new SeriesBasicAdapter();
-        seriesMain.getTrending(mTrending, rvTrending, getActivity(), fManager);
-        seriesMain.getNew(mNuevas, rvNuevas, getActivity(), fManager);
+        seriesMain.getTrending(mPopulares, rvPopulares, getActivity());
+        seriesMain.getNew(mNuevas, rvNuevas, getActivity());
 
-
-        return root;
     }
 }

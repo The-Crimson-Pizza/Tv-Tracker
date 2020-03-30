@@ -27,12 +27,10 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
 
     private List<SerieBasicResponse.SerieBasic> mSeries;
     private Context mContext;
-    private FragmentManager fManager;
 
-    public SeriesBasicAdapter(Context mContext, List<SerieBasicResponse.SerieBasic> series, FragmentManager fManager) {
+    public SeriesBasicAdapter(Context mContext, List<SerieBasicResponse.SerieBasic> series) {
         this.mSeries = series;
         this.mContext = mContext;
-        this.fManager = fManager;
     }
 
     @NonNull

@@ -13,10 +13,10 @@
         <action
             android:id="@+id/action_home_to_series"
             app:destination="@id/navigation_series"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_up"
-            app:popExitAnim="@anim/slide_down" />
+            app:enterAnim="@animator/slide_in_left"
+            app:exitAnim="@animator/slide_out_right"
+            app:popEnterAnim="@animator/slide_up"
+            app:popExitAnim="@animator/slide_down" />
     </fragment>
 
     <fragment

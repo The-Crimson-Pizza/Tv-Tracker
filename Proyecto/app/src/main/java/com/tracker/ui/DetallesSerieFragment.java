@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tracker.R;
+import com.tracker.controllers.RepositoryAPI;
+import com.tracker.models.series.Serie;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,18 +18,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.tracker.util.Constants.ID_SERIE;
 import static com.tracker.util.Constants.TAG;
 
 public class DetallesSerieFragment extends Fragment {
+
+    private int idSerie = 0;
+    private List<Serie> lista = new ArrayList<>();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            int cod = getArguments().getInt(ID_SERIE);
-            Log.d(TAG, "CodSerie: " + cod);
+            idSerie = getArguments().getInt(ID_SERIE);
         }
 
         return inflater.inflate(R.layout.activity_detalles_serie, container, false);
@@ -51,5 +58,10 @@ public class DetallesSerieFragment extends Fragment {
         fab.setOnClickListener(v -> {
             Navigation.findNavController(view).navigate(R.id.action_series_to_actores);
         });
+
+        if (idSerie != 0) {
+            new RepositoryAPI().getSerie(idSerie, lista, getActivity());
+            new RepositoryAPI().getPerson(38940, new ArrayList<>(), getActivity());
+        }
     }
 }
