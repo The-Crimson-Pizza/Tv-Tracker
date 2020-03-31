@@ -40,14 +40,18 @@ public class RellenarSerie {
 
     void fillImages() {
 
-        CollapsingToolbarLayout uno = mVista.findViewById(R.id.toolbar_layout);
+        CollapsingToolbarLayout collapse = mVista.findViewById(R.id.toolbar_layout);
         ImageView poster = mVista.findViewById(R.id.posterImage);
+        ImageView background = mVista.findViewById(R.id.imagen_background);
         TextView fecha = mVista.findViewById(R.id.fechaSerie);
 
-//        new Util().usePicasso(BASE_URL_IMAGES_BACK + mSerie.backdropPath, uno);
-
+        Picasso.get()
+                .load(BASE_URL_IMAGES_BACK + mSerie.backdropPath)
+                .noFade()
+                .into(background);
+//        new Util().usePicasso(BASE_URL_IMAGES_BACK + mSerie.backdropPath, background);
         new Util().usePicasso(BASE_URL_IMAGES_POSTER + mSerie.posterPath, poster);
-        uno.setTitle(mSerie.name);
+        collapse.setTitle(mSerie.name);
         fecha.setText(mSerie.firstAirDate);
 
 

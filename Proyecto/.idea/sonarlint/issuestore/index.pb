@@ -47,8 +47,6 @@ e
 5app/src/main/java/com/tracker/ui/ProfileFragment.java,3/1/31b96f9c916798ad16f84c45dea575e4ba84fe79
 [
 +app/src/main/res/drawable/ic_arrow_back.xml,1/e/1e582207e4fbbc6d6b22d30623dfb51c165367ac
-Y
-)app/src/main/res/layout/activity_main.xml,7/6/76b07e40f24cce093536731477540f12e7da3cb6
 g
 7app/src/main/java/com/tracker/controllers/DataTMDB.java,3/d/3d4a8353bac98fe9a710bd64138d484c5efb2e1e
 i

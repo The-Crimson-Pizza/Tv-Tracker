@@ -21,14 +21,12 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar"
-
-            app:title="Toy Story 4">
+            app:toolbarId="@+id/toolbar">
             <ImageView
                 android:id="@+id/imagen_background"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="center"
+                android:scaleType="fitXY"
                 android:src="@drawable/toystory"/>
             <ImageView
                 android:id="@+id/posterImage"

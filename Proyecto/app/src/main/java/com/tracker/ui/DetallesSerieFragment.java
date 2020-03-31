@@ -43,7 +43,7 @@ public class DetallesSerieFragment extends Fragment {
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
-        toolbar.setTitle("Toy Story 4");
+//        toolbar.setTitle("Toy Story 4");
         toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
