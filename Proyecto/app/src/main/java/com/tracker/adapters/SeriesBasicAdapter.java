@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +19,7 @@ import com.tracker.models.SerieBasicResponse;
 
 import java.util.List;
 
-import static com.tracker.util.Constants.BASE_URL_IMAGES;
+import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 import static com.tracker.util.Constants.ID_SERIE;
 
 public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.ViewHolder> {
@@ -43,7 +42,7 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Picasso.get()
-                .load(BASE_URL_IMAGES + mSeries.get(position).poster_path)
+                .load(BASE_URL_IMAGES_POSTER + mSeries.get(position).poster_path)
                 .placeholder(R.drawable.default_poster)
                 .networkPolicy(NetworkPolicy.OFFLINE)
                 .noFade()

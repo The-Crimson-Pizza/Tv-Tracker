@@ -11,10 +11,12 @@ import com.tracker.R;
 import com.tracker.adapters.SeriesBasicAdapter;
 import com.tracker.models.SerieBasicResponse;
 import com.tracker.models.people.Person;
-import com.tracker.models.seasons.TvSeason;
+import com.tracker.models.seasons.Season;
 import com.tracker.models.series.Serie;
+import com.tracker.models.VideosResponse;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import okhttp3.HttpUrl;
@@ -53,8 +55,7 @@ public class RepositoryAPI {
         return retrofit.create(DataTMDB.class);
     }
 
-    public void getTrending(final List<SerieBasicResponse.SerieBasic> listaTrending,
-                            RecyclerView rvTrending, Context context) {
+    public void getTrending(final List<SerieBasicResponse.SerieBasic> listaTrending, RecyclerView rvTrending, Context context) {
 
         getClient().getTrendingSeries().enqueue(new Callback<SerieBasicResponse>() {
             @Override
@@ -81,8 +82,7 @@ public class RepositoryAPI {
         });
     }
 
-    public void getNew(final List<SerieBasicResponse.SerieBasic> listaNuevas,
-                       RecyclerView recyclerView, Context context) {
+    public void getNew(final List<SerieBasicResponse.SerieBasic> listaNuevas, RecyclerView recyclerView, Context context) {
 
         getClient().getNewSeries(2020, ES, "populariry.desc").enqueue(new Callback<SerieBasicResponse>() {
             @Override
@@ -109,7 +109,7 @@ public class RepositoryAPI {
     }
 
     public void getSerie(int idSerie, final List<Serie> listaSerie, Context context) {
-        getClient().getSerie(idSerie, ES, "credits,similar,external_ids,videos,images").enqueue(new Callback<Serie>() {
+        getClient().getSerie(idSerie, ES, "credits,similar,external_ids").enqueue(new Callback<Serie>() {
             @Override
             public void onResponse(Call<Serie> call, retrofit2.Response<Serie> response) {
                 if (response.body() != null) {
@@ -130,10 +130,10 @@ public class RepositoryAPI {
         });
     }
 
-    public void getSeason(int idSerie, int temporada, final List<TvSeason> listaSerie, Context context) {
-        getClient().getSeason(idSerie, temporada, ES).enqueue(new Callback<TvSeason>() {
+    public void getSeason(int idSerie, int temporada, final List<Season> listaSerie, Context context) {
+        getClient().getSeason(idSerie, temporada, ES).enqueue(new Callback<Season>() {
             @Override
-            public void onResponse(Call<TvSeason> call, retrofit2.Response<TvSeason> response) {
+            public void onResponse(Call<Season> call, retrofit2.Response<Season> response) {
                 if (response.body() != null) {
                     listaSerie.addAll(Collections.singleton(response.body()));
                 }
@@ -144,7 +144,7 @@ public class RepositoryAPI {
             }
 
             @Override
-            public void onFailure(Call<TvSeason> call, Throwable t) {
+            public void onFailure(Call<Season> call, Throwable t) {
                 Toast.makeText(context, R.string.no_conn, Toast.LENGTH_LONG).show();
                 Log.e(TAG, t.getMessage());
             }
@@ -166,6 +166,33 @@ public class RepositoryAPI {
 
             @Override
             public void onFailure(Call<Person> call, Throwable t) {
+                Toast.makeText(context, R.string.no_conn, Toast.LENGTH_LONG).show();
+                Log.e(TAG, t.getMessage());
+            }
+        });
+    }
+
+    public void getTrailer(int idSerie, final List<VideosResponse.Video> videos, Context context) {
+        getClient().getVideo(idSerie).enqueue(new Callback<VideosResponse>() {
+            @Override
+            public void onResponse(Call<VideosResponse> call, retrofit2.Response<VideosResponse> response) {
+                if (response.body() != null) {
+                    videos.addAll(response.body().results);
+                }
+
+                if (response.body() != null && !videos.isEmpty()) {
+                    Iterator<VideosResponse.Video> i = videos.iterator();
+                    while (i.hasNext()) {
+                        VideosResponse.Video v = i.next();
+                        if (!v.type.equals("Trailer")) {
+                            i.remove();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VideosResponse> call, Throwable t) {
                 Toast.makeText(context, R.string.no_conn, Toast.LENGTH_LONG).show();
                 Log.e(TAG, t.getMessage());
             }

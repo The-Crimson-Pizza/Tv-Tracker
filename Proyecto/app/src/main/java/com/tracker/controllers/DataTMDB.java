@@ -1,8 +1,9 @@
 package com.tracker.controllers;
 
 import com.tracker.models.SerieBasicResponse;
+import com.tracker.models.VideosResponse;
 import com.tracker.models.people.Person;
-import com.tracker.models.seasons.TvSeason;
+import com.tracker.models.seasons.Season;
 import com.tracker.models.series.Serie;
 
 import retrofit2.Call;
@@ -31,9 +32,9 @@ public interface DataTMDB {
 
     @Headers("Accept: application/json")
     @GET("tv/{id_serie}/season/{season_number}")
-    Call<TvSeason> getSeason(@Path("id_serie") int id,
-                             @Path("season_number") int season,
-                             @Query("language") String language);
+    Call<Season> getSeason(@Path("id_serie") int id,
+                           @Path("season_number") int season,
+                           @Query("language") String language);
 //63247
 //    38940
 
@@ -43,5 +44,8 @@ public interface DataTMDB {
                            @Query("language") String language,
                            @Query("append_to_response") String append);
 
+    @Headers("Accept: application/json")
+    @GET("tv/{tv_id}/videos")
+    Call<VideosResponse> getVideo(@Path("tv_id") int idSerie);
 
 }

@@ -2,11 +2,21 @@ package com.tracker.util;
 
 public class Constants {
 
-    public static final String BASE_URL = "https://api.themoviedb.org/3/";
-    public static final String BASE_URL_IMAGES = "https://image.tmdb.org/t/p/w185/";
+    private Constants(){
+
+    }
+
     public static final String API_KEY_STRING = "api_key";
     public static final String API_KEY = "18f61adb80d286bb036df43e60d7aae6";
-    public static final String TAG = "TAGG";
-    public static final String ID_SERIE = "id_serie";
+    public static final String BASE_URL = "https://api.themoviedb.org/3/";
+    public static final String BASE_URL_IMAGES_POSTER = "https://image.tmdb.org/t/p/w185/";
+    public static final String BASE_URL_IMAGES_NETWORK = "https://image.tmdb.org/t/p/w45/";
+    public static final String BASE_URL_INSTAGRAM = "https://www.instagram.com/";
+    public static final String BASE_URL_TWITTER = "https://twitter.com/";
+    public static final String BASE_URL_IMDB = "https://www.imdb.com/title/";
+    public static final String BASE_URL_YOUTUBE = "https://www.youtube.com/watch?v=";
     public static final String ES = "es-ES";
+    public static final String ID_SERIE = "id_serie";
+    public static final String ID_ACTOR = "id_actor";
+    public static final String TAG = "TAGG";
 }

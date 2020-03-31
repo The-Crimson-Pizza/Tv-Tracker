@@ -1,24 +1,25 @@
 
-package com.tracker.models.series;
+package com.tracker.models.seasons;
 
+import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Season implements Parcelable
 {
 
-    @SerializedName("air_date")
-    @Expose
-    public String airDate;
-    @SerializedName("episode_count")
-    @Expose
-    public int episodeCount;
     @SerializedName("id")
     @Expose
     public int id;
+    @SerializedName("air_date")
+    @Expose
+    public String airDate;
+    @SerializedName("episodes")
+    @Expose
+    public List<Episode> episodes = null;
     @SerializedName("name")
     @Expose
     public String name;
@@ -50,10 +51,10 @@ public class Season implements Parcelable
 
     protected Season(Parcel in) {
         this.airDate = ((String) in.readValue((String.class.getClassLoader())));
-        this.episodeCount = ((int) in.readValue((int.class.getClassLoader())));
-        this.id = ((int) in.readValue((int.class.getClassLoader())));
+        in.readList(this.episodes, (com.tracker.models.seasons.Episode.class.getClassLoader()));
         this.name = ((String) in.readValue((String.class.getClassLoader())));
         this.overview = ((String) in.readValue((String.class.getClassLoader())));
+        this.id = ((int) in.readValue((int.class.getClassLoader())));
         this.posterPath = ((String) in.readValue((String.class.getClassLoader())));
         this.seasonNumber = ((int) in.readValue((int.class.getClassLoader())));
     }
@@ -63,10 +64,10 @@ public class Season implements Parcelable
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(airDate);
-        dest.writeValue(episodeCount);
-        dest.writeValue(id);
+        dest.writeList(episodes);
         dest.writeValue(name);
         dest.writeValue(overview);
+        dest.writeValue(id);
         dest.writeValue(posterPath);
         dest.writeValue(seasonNumber);
     }
