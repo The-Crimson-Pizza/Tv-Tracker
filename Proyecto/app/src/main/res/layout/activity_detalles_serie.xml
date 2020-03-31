@@ -25,10 +25,11 @@
             app:toolbarId="@+id/toolbar"
 
             app:title="Toy Story 4">
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:src="@drawable/toystory"/>
+            <ImageView
+                android:id="@+id/imagen_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/toystory"/>
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="150dp"
