@@ -12,14 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
 import com.tracker.controllers.RepositoryAPI;
-import com.tracker.models.SerieBasicResponse;
+import com.tracker.models.BasicResponse;
 
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
-    private ArrayList<SerieBasicResponse.SerieBasic> mPopulares = new ArrayList<>();
-    private ArrayList<SerieBasicResponse.SerieBasic> mNuevas = new ArrayList<>();
+    private ArrayList<BasicResponse.SerieBasic> mPopulares = new ArrayList<>();
+    private ArrayList<BasicResponse.SerieBasic> mNuevas = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

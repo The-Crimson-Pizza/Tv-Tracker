@@ -1,6 +1,6 @@
 package com.tracker.controllers;
 
-import com.tracker.models.SerieBasicResponse;
+import com.tracker.models.BasicResponse;
 import com.tracker.models.VideosResponse;
 import com.tracker.models.people.Person;
 import com.tracker.models.seasons.Season;
@@ -15,13 +15,13 @@ import retrofit2.http.Query;
 public interface DataTMDB {
     @Headers("Accept: application/json")
     @GET("trending/tv/day")
-    Call<SerieBasicResponse> getTrendingSeries();
+    Call<BasicResponse> getTrendingSeries();
 
     @Headers("Accept: application/json")
     @GET("discover/tv")
-    Call<SerieBasicResponse> getNewSeries(@Query("first_air_date_year") int year,
-                                          @Query("language") String language,
-                                          @Query("sort_by") String sort);
+    Call<BasicResponse> getNewSeries(@Query("first_air_date_year") int year,
+                                     @Query("language") String language,
+                                     @Query("sort_by") String sort);
 
     @Headers("Accept: application/json")
     @GET("tv/{id_serie}")

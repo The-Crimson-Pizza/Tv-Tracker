@@ -12,10 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
 import com.tracker.R;
-import com.tracker.models.SerieBasicResponse;
+import com.tracker.models.BasicResponse;
+import com.tracker.util.Util;
 
 import java.util.List;
 
@@ -24,10 +23,10 @@ import static com.tracker.util.Constants.ID_SERIE;
 
 public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.ViewHolder> {
 
-    private List<SerieBasicResponse.SerieBasic> mSeries;
+    private List<BasicResponse.SerieBasic> mSeries;
     private Context mContext;
 
-    public SeriesBasicAdapter(Context mContext, List<SerieBasicResponse.SerieBasic> series) {
+    public SeriesBasicAdapter(Context mContext, List<BasicResponse.SerieBasic> series) {
         this.mSeries = series;
         this.mContext = mContext;
     }
@@ -41,13 +40,10 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        Picasso.get()
-                .load(BASE_URL_IMAGES_POSTER + mSeries.get(position).poster_path)
-                .placeholder(R.drawable.default_poster)
-                .networkPolicy(NetworkPolicy.OFFLINE)
-                .noFade()
-                .into(holder.image);
+
         holder.name.setText(mSeries.get(position).name);
+        new Util().usePicasso(BASE_URL_IMAGES_POSTER + mSeries.get(position).poster_path, holder.image);
+
     }
 
     @Override
@@ -55,7 +51,7 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
         return mSeries.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image;
         TextView name;

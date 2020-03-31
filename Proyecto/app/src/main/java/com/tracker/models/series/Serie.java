@@ -152,7 +152,7 @@ public class Serie implements Parcelable {
         return 0;
     }
 
-    public class Genre implements Parcelable {
+    public static class Genre implements Parcelable {
         @SerializedName("name")
         @Expose
         public String name;
@@ -178,7 +178,7 @@ public class Serie implements Parcelable {
         }
     }
 
-    public class Network implements Parcelable {
+    public static class Network implements Parcelable {
         @SerializedName("name")
         @Expose
         public String name;

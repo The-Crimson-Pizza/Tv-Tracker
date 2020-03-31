@@ -44,14 +44,14 @@ public class DetallesSerieFragment extends Fragment {
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setTitle("Toy Story 4");
-        toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
+        toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_series_to_actores));
 
         if (idSerie != 0) {
-            new RepositoryAPI().getSerie(idSerie, lista, getActivity());
-            new RepositoryAPI().getPerson(38940, new ArrayList<>(), getActivity());
+            new RepositoryAPI().getSerie(view, idSerie, getActivity());
+//            new RepositoryAPI().getPerson(38940, new ArrayList<>(), getActivity());
         }
     }
 }
