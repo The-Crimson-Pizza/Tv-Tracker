@@ -10,9 +10,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.tracker.R;
+import com.tracker.adapters.SeriesTabAdapter;
 import com.tracker.controllers.RepositoryAPI;
 import com.tracker.models.series.Serie;
 
@@ -48,6 +53,16 @@ public class DetallesSerieFragment extends Fragment {
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_series_to_actores));
+
+        View include = view.findViewById(R.id.detallesSerie);
+        ViewPager2 viewPager = include.findViewById(R.id.view_pager);
+        viewPager.setAdapter(new SeriesTabAdapter(this));
+
+        String[] tabs = {"Sinopsis", "Reparto","Temporadas"};
+        TabLayout tabLayout = include.findViewById(R.id.tabs);
+        new TabLayoutMediator(tabLayout, viewPager,
+                (tab, position) -> tab.setText(tabs[position])
+        ).attach();
 
         if (idSerie != 0) {
             new RepositoryAPI().getSerie(view, idSerie, getActivity());

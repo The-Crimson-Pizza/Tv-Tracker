@@ -17,8 +17,6 @@ l
 <app/src/main/java/com/tracker/controllers/RepositoryAPI.java,e/d/ed9c8fc16a605c37dafb8f3ed8b43b8f763eca4b
 a
 1app/src/main/res/drawable/drawable_loading_bg.xml,2/c/2c274b9ba943bf5e3c04f0ea474dc617ece9e6fb
-l
-<app/src/main/java/com/tracker/models/SerieBasicResponse.java,1/d/1d83b3d8bb55b39a2a4fdfb611d3b3198889b02d
 Z
 *app/src/main/res/values-es-rES/strings.xml,5/e/5e384da4a2f12548b1c82f7021b5d1db7e1bb238
 n
@@ -65,8 +63,6 @@ X
 -app/src/main/res/animator/slide_out_right.xml,e/c/ec1fe0fecdf4f1a5452834ccc63ec1ac02cb9290
 V
 &app/src/main/res/animator/slide_up.xml,e/4/e4954cc78e8a8babf54884b5af3302736b2f6a0f
-a
-1app/src/main/res/navigation/mobile_navigation.xml,5/0/50c7987ff387678f825775665976b5fc8ed47989
 g
 7app/src/main/java/com/tracker/models/people/Person.java,1/2/12e123917b761b83809da00fba9db96e8d7889ed
 j
@@ -75,3 +71,11 @@ f
 6app/src/main/java/com/tracker/models/series/Serie.java,2/6/266846daae11c19b3c95387f4bb28661f203f85d
 h
 8app/src/main/java/com/tracker/models/VideosResponse.java,c/8/c8feb727f3da39e68db07d5d6c726f1c31cbd591
+g
+7app/src/main/java/com/tracker/models/BasicResponse.java,4/4/443893c5ad91206fed125dc9535d0186551b1404
+f
+6app/src/main/java/com/tracker/ui/SinopsisFragment.java,4/4/4469f2b14fe9a2ddbbeae796702c24dca39b9d94
+\
+,app/src/main/java/com/tracker/util/Util.java,d/d/ddf70a81d3e9399a59d2aa62559b9403635cb6fc
+i
+9app/src/main/java/com/tracker/adapters/RellenarSerie.java,f/2/f2de4f6d3fb58580563c6783308f4c5adb8d63de
