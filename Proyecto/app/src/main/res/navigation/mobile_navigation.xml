@@ -51,6 +51,15 @@
         android:id="@+id/navigation_actores"
         android:name="com.tracker.ui.DetallesActorFragment"
         android:label="ActorDetalle"
-        tools:layout="@layout/activity_detalles_actor" />
+        tools:layout="@layout/activity_detalles_actor" >
+        <action
+            android:id="@+id/action_navigation_actores_to_sinopsisFragment"
+            app:destination="@id/sinopsisFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sinopsisFragment"
+        android:name="com.tracker.ui.SinopsisFragment"
+        android:label="fragment_sinopsis"
+        tools:layout="@layout/fragment_sinopsis" />
 
 </navigation>
