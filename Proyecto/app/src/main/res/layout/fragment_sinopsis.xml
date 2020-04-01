@@ -3,13 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".ui.SinopsisFragment">
+    tools:context=".ui.SinopsisFragment"
+    android:padding="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp">
+        android:layout_margin="20dp">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,11 +35,18 @@
             android:id="@+id/network_five"/>
 
     </LinearLayout>
-    <TextView
+
+    <com.borjabravo.readmoretextview.ReadMoreTextView
+        android:id="@+id/sinopsis_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/large_text"
-        android:layout_marginBottom="20dp"/>
+        app:colorClickableText="@color/colorAccent"
+        app:trimExpandedText="Read less"
+        app:trimCollapsedText="Read more"
+        app:trimMode="trimModeLine"
+        app:trimLines="10"
+        />
 
     <VideoView
         android:layout_width="match_parent"
