@@ -16,10 +16,8 @@ public class SerieViewModel extends ViewModel {
     private RepositoryAPI repoTMDB;
 
     public LiveData<Serie> getCurrentSerie(View vista, int idSerie, Context context) {
-        if(serie==null){
             repoTMDB = RepositoryAPI.getInstance();
             serie = repoTMDB.getSerie(vista, idSerie, context);
-        }
         return serie;
     }
 

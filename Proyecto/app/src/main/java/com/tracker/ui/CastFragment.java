@@ -68,6 +68,7 @@ public class CastFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cast, container, false);
         rvCasting = view.findViewById(R.id.gridCasting);
+        rvCasting.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         return view;
     }
 
@@ -81,14 +82,10 @@ public class CastFragment extends Fragment {
         s.observe(getViewLifecycleOwner(), new Observer<Serie>() {
             @Override
             public void onChanged(Serie serie) {
+
                 mSerie = serie;
-
-                rvCasting.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-
                 adapterActor = new ActorBasicAdapter(getActivity(), serie);
-
                 rvCasting.setAdapter(adapterActor);
-
                 adapterActor.notifyDataSetChanged();
             }
         });
