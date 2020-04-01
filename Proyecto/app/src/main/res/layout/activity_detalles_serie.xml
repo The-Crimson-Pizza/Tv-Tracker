@@ -65,6 +65,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2019" />
+
+                    <TextView
+                        android:id="@+id/paisSerie"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Country"
+                        android:layout_marginLeft="20dp"/>
+                    <TextView
+                        android:id="@+id/emisionSerie"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Emitiendo"
+                        android:layout_marginLeft="20dp"/>
+
                 </LinearLayout>
 
             </LinearLayout>

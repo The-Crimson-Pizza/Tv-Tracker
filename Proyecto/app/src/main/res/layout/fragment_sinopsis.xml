@@ -8,34 +8,70 @@
     tools:context=".ui.SinopsisFragment"
     android:padding="20dp">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Genres"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Genres"
+        android:layout_marginBottom="20dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Networks"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginBottom="20dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp">
+        android:layout_marginBottom="20dp"
+        >
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/network_one"
-            android:src="@drawable/usermenu"/>
+            android:src="@drawable/netflix"
+            android:layout_marginEnd="15dp"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/network_two" />
+            android:id="@+id/network_two"
+            android:src="@drawable/amazon"
+            android:layout_marginEnd="15dp"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/network_three"/>
+            android:id="@+id/network_three"
+            android:src="@drawable/netflix"
+            android:layout_marginEnd="15dp"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/network_four"/>
+            android:id="@+id/network_four"
+            android:src="@drawable/amazon"
+            android:layout_marginEnd="15dp"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/network_five"/>
+            android:id="@+id/network_five"
+            android:src="@drawable/netflix"
+            android:layout_marginEnd="15dp"/>
 
     </LinearLayout>
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sinopsis"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginBottom="20dp"/>
     <com.borjabravo.readmoretextview.ReadMoreTextView
         android:id="@+id/sinopsis_text"
         android:layout_width="match_parent"
@@ -47,7 +83,13 @@
         app:trimMode="trimModeLine"
         app:trimLines="10"
         />
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Trailer"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginBottom="20dp"/>
     <VideoView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
