@@ -43,7 +43,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
 
     //show more text
-    compile 'com.borjabravo:readmoretextview:2.1.0'
+    implementation 'com.borjabravo:readmoretextview:2.1.0'
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
