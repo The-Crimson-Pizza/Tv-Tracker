@@ -7,8 +7,9 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="150dp"
-        android:layout_height="225dp"
+        android:layout_height="160dp"
         android:background="#00FF00"
+        android:padding="20dp"
         app:cardCornerRadius="2dp">
 
         <LinearLayout
@@ -19,12 +20,13 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:padding="2dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/jack"
+                android:layout_marginTop="15dp"
                 app:civ_border_color="@color/colorAccent"
                 app:civ_border_width="2dp" />
 
@@ -39,7 +41,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
-                android:textSize="8pt"
+                android:textSize="6pt"
                 android:textStyle="bold" />
 
             <TextView
@@ -53,7 +55,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/colorAccent"
-                android:textSize="6pt"
+                android:textSize="5pt"
                 android:textStyle="bold" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
