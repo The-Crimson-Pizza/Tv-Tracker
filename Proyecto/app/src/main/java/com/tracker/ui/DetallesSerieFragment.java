@@ -66,7 +66,7 @@ public class DetallesSerieFragment extends Fragment {
 
         if (idSerie != 0) {
             model = new ViewModelProvider(getActivity()).get(SerieViewModel.class);
-            LiveData<Serie> s = model.getCurrentSerie(view, idSerie, getActivity());
+            LiveData<Serie> s = model.getSerie(view, idSerie, getActivity());
             s.observe(getViewLifecycleOwner(), new Observer<Serie>() {
                 @Override
                 public void onChanged(Serie serie) {

@@ -24,7 +24,7 @@ public class SeriesTabAdapter extends FragmentStateAdapter {
         if (position == 0) {
             return new SinopsisFragment();
         } else if (position == 1) {
-            return new CastFragment();
+            return CastFragment.newInstance("ee","qq");
         } else if (position == 2) {
             return new FavoritosFragment();
         }

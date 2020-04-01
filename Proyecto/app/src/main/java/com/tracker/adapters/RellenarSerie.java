@@ -7,20 +7,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.tracker.R;
-import com.tracker.controllers.RepositoryAPI;
 import com.tracker.models.series.Serie;
 import com.tracker.util.Util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static com.tracker.util.Constants.BASE_URL_IMAGES_BACK;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
-import static com.tracker.util.Constants.TAG;
 
 public class RellenarSerie {
 
@@ -38,7 +31,7 @@ public class RellenarSerie {
         fillImages();
     }
 
-    void fillImages() {
+    private void fillImages() {
 
         CollapsingToolbarLayout collapse = mVista.findViewById(R.id.toolbar_layout);
         ImageView poster = mVista.findViewById(R.id.posterImage);
@@ -48,9 +41,11 @@ public class RellenarSerie {
         Picasso.get()
                 .load(BASE_URL_IMAGES_BACK + mSerie.backdropPath)
                 .noFade()
+                .resize(background.getWidth(), background.getHeight())
                 .into(background);
 //        new Util().usePicasso(BASE_URL_IMAGES_BACK + mSerie.backdropPath, background);
-        new Util().usePicasso(BASE_URL_IMAGES_POSTER + mSerie.posterPath, poster);
+        Log.d("HOLA",BASE_URL_IMAGES_BACK + mSerie.backdropPath);
+        new Util().getPoster(BASE_URL_IMAGES_POSTER + mSerie.posterPath, poster);
         collapse.setTitle(mSerie.name);
         fecha.setText(mSerie.firstAirDate);
 

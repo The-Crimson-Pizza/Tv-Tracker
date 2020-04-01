@@ -9,7 +9,7 @@ import com.tracker.R;
 
 public class Util {
 
-    public void usePicasso(String url, ImageView image) {
+    public void getPoster(String url, ImageView image) {
         Picasso.get()
                 .load(url)
                 .noFade()

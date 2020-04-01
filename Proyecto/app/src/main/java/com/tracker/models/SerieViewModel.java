@@ -15,13 +15,13 @@ public class SerieViewModel extends ViewModel {
     private MutableLiveData<Serie> serie;
     private RepositoryAPI repoTMDB;
 
-    public LiveData<Serie> getCurrentSerie(View vista, int idSerie, Context context) {
+    public LiveData<Serie> getSerie(View vista, int idSerie, Context context) {
             repoTMDB = RepositoryAPI.getInstance();
             serie = repoTMDB.getSerie(vista, idSerie, context);
         return serie;
     }
 
-    public LiveData<Serie> getSerie(){
+    public LiveData<Serie> getCurrentSerie(){
         return serie;
     }
 

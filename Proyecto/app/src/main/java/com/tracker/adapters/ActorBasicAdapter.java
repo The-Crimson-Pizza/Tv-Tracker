@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
@@ -45,7 +44,7 @@ public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.Vi
 
         holder.name.setText(casting.get(position).name);
         holder.character.setText(casting.get(position).character);
-        new Util().usePicasso(BASE_URL_IMAGES_POSTER + casting.get(position).profilePath, holder.image);
+        new Util().getPoster(BASE_URL_IMAGES_POSTER + casting.get(position).profilePath, holder.image);
 
     }
 
