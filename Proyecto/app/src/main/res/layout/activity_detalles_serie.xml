@@ -27,15 +27,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@drawable/toystory"/>
+                android:src="@drawable/toystory"
+                android:paddingTop="2dp"
+                android:paddingRight="2dp"
+                android:paddingLeft="2dp"
+                android:background="@color/colorPrimary"/>
             <ImageView
                 android:id="@+id/posterImage"
-                android:layout_width="100dp"
+                android:layout_width="102dp"
                 android:layout_height="150dp"
                 android:layout_gravity="end|bottom"
                 android:scaleType="centerCrop"
                 android:src="@drawable/toyaport"
-                app:layout_collapseMode="none" />
+                app:layout_collapseMode="none"
+                android:paddingTop="2dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:background="@color/whiteColor"/>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -48,8 +56,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_gravity="bottom|start"
-                android:layout_marginRight="100dp"
-                android:background="@color/colorPrimary"
+                android:layout_marginRight="102dp"
+
                 android:orientation="horizontal"
                 app:layout_collapseMode="parallax">
 
@@ -57,8 +65,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:layout_marginLeft="37dp"
-                    android:orientation="horizontal">
+                    android:layout_marginLeft="35dp"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5dp">
 
                     <TextView
                         android:id="@+id/fechaSerie"
@@ -71,13 +80,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Country"
-                        android:layout_marginLeft="20dp"/>
+                        android:layout_marginLeft="15dp"/>
                     <TextView
                         android:id="@+id/emisionSerie"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Emitiendo"
-                        android:layout_marginLeft="20dp"/>
+                        android:layout_marginLeft="15dp"/>
 
                 </LinearLayout>
 

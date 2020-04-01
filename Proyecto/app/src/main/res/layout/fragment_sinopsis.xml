@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".ui.SinopsisFragment">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
+        tools:context=".ui.SinopsisFragment"
+        android:orientation="vertical"
+        android:padding="20dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sinopsis"
                 android:textStyle="bold"
                 android:textSize="20dp"
-                android:layout_marginBottom="15dp"/>
+                android:layout_marginBottom="10dp"/>
             <com.borjabravo.readmoretextview.ReadMoreTextView
                 android:id="@+id/sinopsis_text"
                 android:layout_width="match_parent"
@@ -33,7 +30,7 @@
                 android:text="Genres"
                 android:textStyle="bold"
                 android:textSize="20dp"
-                android:layout_marginBottom="15dp"/>
+                android:layout_marginBottom="10dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -121,10 +118,10 @@
                 android:text="Trailer"
                 android:textStyle="bold"
                 android:textSize="20dp"
-                android:layout_marginBottom="15dp"/>
+                android:layout_marginBottom="10dp"/>
             <VideoView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/video_view"/>
-        </LinearLayout>
-</ScrollView>
+                android:id="@+id/video_view"
+                android:background="@color/colorPrimary"/>
+</LinearLayout>
