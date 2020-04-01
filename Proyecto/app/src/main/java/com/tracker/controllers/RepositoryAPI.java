@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,6 +43,15 @@ import static com.tracker.util.Constants.POP_DESC;
 import static com.tracker.util.Constants.TAG;
 
 public class RepositoryAPI {
+
+    private static RepositoryAPI repoTMDB;
+
+    public static RepositoryAPI getInstance() {
+        if (repoTMDB == null) {
+            repoTMDB = new RepositoryAPI();
+        }
+        return repoTMDB;
+    }
 
     private DataTMDB getClient() {
         OkHttpClient client = new OkHttpClient.Builder()
@@ -113,7 +123,13 @@ public class RepositoryAPI {
         });
     }
 
-    public void getSerie(View view, int idSerie, Context context) {
+    MutableLiveData<Serie> serieData;
+    public MutableLiveData<Serie> getSerie(View view, int idSerie, Context context) {
+
+        if(serieData == null){
+            serieData = new MutableLiveData<>();
+        }
+
         getClient().getSerie(idSerie, ES, GET_SERIE_API_EXTRAS).enqueue(new Callback<Serie>() {
             @Override
             public void onResponse(@NotNull Call<Serie> call, @NotNull retrofit2.Response<Serie> response) {
@@ -123,6 +139,8 @@ public class RepositoryAPI {
                 }
 
                 if (response.body() != null && serie != null) {
+                    serieData.postValue(serie);
+
                     new RellenarSerie(view, serie, context).fillSerie();
                 }
             }
@@ -130,8 +148,10 @@ public class RepositoryAPI {
             @Override
             public void onFailure(@NotNull Call<Serie> call, @NotNull Throwable t) {
                 Toast.makeText(context, R.string.no_conn, Toast.LENGTH_LONG).show();
+                serieData.setValue(null);
             }
         });
+        return serieData;
     }
 
     public void getSeason(int idSerie, int temporada, final List<Season> listaSerie, Context context) {

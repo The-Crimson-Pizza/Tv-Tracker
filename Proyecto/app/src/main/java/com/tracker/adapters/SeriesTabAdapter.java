@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.tracker.ui.CastFragment;
 import com.tracker.ui.FavoritosFragment;
 import com.tracker.ui.SearchFragment;
 import com.tracker.ui.SinopsisFragment;
+
+import org.jetbrains.annotations.NotNull;
 
 public class SeriesTabAdapter extends FragmentStateAdapter {
 
@@ -15,13 +18,13 @@ public class SeriesTabAdapter extends FragmentStateAdapter {
         super(fragment);
     }
 
-    @NonNull
+    @NotNull
     @Override
     public Fragment createFragment(int position) {
         if (position == 0) {
             return new SinopsisFragment();
         } else if (position == 1) {
-            return new SearchFragment();
+            return new CastFragment();
         } else if (position == 2) {
             return new FavoritosFragment();
         }

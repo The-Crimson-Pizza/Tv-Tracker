@@ -7,7 +7,6 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="redes_sociales">Social Media</string>
-
     <string name="title_activity_detalles_serie" translatable="false">DetallesSerie</string>
     <string name="large_text" translatable="false">
         "John Joseph «Jack» Nicholson es un actor, productor, guionista y director de cine estadounidense, doce veces nominado y tres veces ganador del Premio de la Academia.\n\nNicholson es considerado uno de los actores más versátiles en la historia del cine estadounidense por sus grandes interpretaciones y muy diversos roles. Durante la primera mitad de la década de los 70, participó en producciones como Mi vida es mi vida (1970), El último deber (1973) y Chinatown (1974), que le valieron nominaciones al Óscar.\n\nEn 1975 recibió su primer premio de la Academia por su papel en One Flew Over the Cuckoo's Nest, en la categoría de Mejor actor. En los siguientes años Nicholson recibiría numerosas nominaciones al Óscar por su trabajo en Rojos (1981), El honor de los Prizzi (1985), Tallo de hierro (1987), Algunos hombres buenos (1992) y About Schmidt (2002). Obtuvo el premio en dos ocasiones más por Mejor actor y Mejor actor secundario en Mejor… imposible (1997) y La fuerza del cariño (1983), respectivamente. Esto lo convirtió en uno de los actores con más estatuillas en la historia del cine, con igual cantidad que Walter Brennan, Ingrid Bergman, Meryl Streep y Daniel Day Lewis y sólo superado por Katharine Hepburn. Ha recibido siete Globos de Oro, entre otras nominaciones.\n\nEl año 2006 actuó en la película The Departed, de Martin Scorsese. La cinta ganó cuatro premios Óscar, entre ellos mejor director, mejor película y mejor guion adaptado. Nicholson interpretó a Frank Costello, un jefe de la mafia de Boston. El actor obtuvo el Austin Film Critics Award en la categoría de mejor actor de reparto, siendo nominado además a los premios BAFTA, Critics Choice Awards, premios Globo de Oro, premios Satellite y MTV Movie Awards.\n\nEn septiembre de 2013 se anunció su retiro de la actuación, debido a los problemas de pérdida de memoria que hasta esa fecha estaba padeciendo. Sin embargo, la información fue posteriormente desmentida por la periodista Maria Shriver, quien es cercana al actor."
@@ -25,7 +24,4 @@
     <string name="search">Search</string>
     <string name="home">Home</string>
     <string name="menu_share">Share</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
