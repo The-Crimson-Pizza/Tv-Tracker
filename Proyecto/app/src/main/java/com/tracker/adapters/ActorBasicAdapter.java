@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
@@ -70,7 +71,7 @@ public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.Vi
                 Log.d("HOLA", casting.get(pos).name);
                 Bundle bundle = new Bundle();
                 bundle.putInt(ID_ACTOR, casting.get(pos).id);
-//                Navigation.findNavController(v).navigate(R.id.action_home_to_series, bundle);
+               Navigation.findNavController(v).navigate(R.id.action_series_to_actores, bundle);
             });
         }
 
