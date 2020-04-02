@@ -45,7 +45,7 @@ public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.Vi
 
         holder.name.setText(casting.get(position).name);
         holder.character.setText(casting.get(position).character);
-        new Util().usePicasso(BASE_URL_IMAGES_POSTER + casting.get(position).profilePath, holder.image);
+        new Util().getPoster(BASE_URL_IMAGES_POSTER + casting.get(position).profilePath, holder.image);
 
     }
 
@@ -71,7 +71,7 @@ public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.Vi
                 Log.d("HOLA", casting.get(pos).name);
                 Bundle bundle = new Bundle();
                 bundle.putInt(ID_ACTOR, casting.get(pos).id);
-//                Navigation.findNavController(v).navigate(R.id.action_home_to_series, bundle);
+               Navigation.findNavController(v).navigate(R.id.action_series_to_actores, bundle);
             });
         }
 

@@ -25,9 +25,8 @@
             <ImageView
                 android:id="@+id/imagen_background"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="220dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/toystory"
                 android:paddingTop="2dp"
                 android:paddingRight="2dp"
                 android:paddingLeft="2dp"

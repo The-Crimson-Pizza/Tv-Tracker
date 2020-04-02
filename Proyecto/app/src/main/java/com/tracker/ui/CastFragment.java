@@ -76,25 +76,16 @@ public class CastFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         model = new ViewModelProvider(getActivity()).get(SerieViewModel.class);
-        LiveData<Serie> s = model.getSerie();
+        LiveData<Serie> s = model.getCurrentSerie();
         s.observe(getViewLifecycleOwner(), new Observer<Serie>() {
             @Override
             public void onChanged(Serie serie) {
-
                 mSerie = serie;
                 adapterActor = new ActorBasicAdapter(getActivity(), serie);
                 rvCasting.setAdapter(adapterActor);
                 adapterActor.notifyDataSetChanged();
             }
         });
-
-
-//        SeriesBasicAdapter adapterNuevo = new SeriesBasicAdapter(context, listaNuevas);
-//        recyclerView.setAdapter(adapterNuevo);
-//        adapterNuevo.notifyDataSetChanged();
-
-
     }
 }
