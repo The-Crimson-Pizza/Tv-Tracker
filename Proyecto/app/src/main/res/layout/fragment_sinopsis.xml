@@ -21,8 +21,9 @@
                 android:text="@string/large_text"
                 app:colorClickableText="@color/colorPrimary"
                 app:trimMode="trimModeLength"
-                app:trimLines="70"
+                app:trimLines="80"
                 android:layout_marginBottom="15dp"
+                app:trimCollapsedText="Show all"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -40,31 +41,49 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Genres"
-
-                        android:layout_marginEnd="15dp"/>
+                        android:text="Action"
+                        android:background="@drawable/round"
+                        android:padding="7.5dp"
+                        android:textColor="@color/whiteColor"
+                        android:layout_marginEnd="10dp"
+                        android:textStyle="bold"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Genres"
-
-                        android:layout_marginEnd="15dp"/>
+                        android:text="Animation"
+                        android:background="@drawable/round"
+                        android:padding="7.5dp"
+                        android:textColor="@color/whiteColor"
+                        android:layout_marginEnd="10dp"
+                        android:textStyle="bold"
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Genres"
-
-                        android:layout_marginEnd="15dp"/>
+                        android:text="Comedy"
+                        android:background="@drawable/round"
+                        android:padding="7.5dp"
+                        android:textColor="@color/whiteColor"
+                        android:layout_marginEnd="10dp"
+                        android:textStyle="bold"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Genres"
-
-                        android:layout_marginEnd="15dp"/>
+                        android:text="Fantasy"
+                        android:background="@drawable/round"
+                        android:padding="7.5dp"
+                        android:textColor="@color/whiteColor"
+                        android:layout_marginEnd="10dp"
+                        android:textStyle="bold"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Genres" />
+                        android:background="@drawable/round"
+                        android:padding="7.5dp"
+                        android:textColor="@color/whiteColor"
+                        android:text="Thriller"
+                        android:textStyle="bold"/>
+
                 </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
@@ -72,7 +91,7 @@
                 android:text="Networks"
                 android:textStyle="bold"
                 android:textSize="20dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="10dp"
         />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -83,6 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/network_one"
+                    android:layout_gravity="center_vertical"
                     android:src="@drawable/netflix"
                     android:layout_marginEnd="15dp"/>
                 <ImageView
@@ -90,11 +110,13 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/network_two"
                     android:src="@drawable/amazon"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginEnd="15dp"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/network_three"
+                    android:layout_gravity="center_vertical"
                     android:src="@drawable/netflix"
                     android:layout_marginEnd="15dp"/>
                 <ImageView
@@ -102,12 +124,21 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/network_four"
                     android:src="@drawable/amazon"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginEnd="15dp"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/network_five"
                     android:src="@drawable/netflix"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="15dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/network_six"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/amazon"
                     android:layout_marginEnd="15dp"/>
 
             </LinearLayout>
