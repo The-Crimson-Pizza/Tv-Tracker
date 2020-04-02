@@ -68,7 +68,7 @@ public class SinopsisFragment extends Fragment {
             @Override
             public void onChanged(Serie serie) {
                 mSerie = serie;
-                new RellenarSerie(view,mSerie,getActivity()).fillSerieSinopsis();
+//                new RellenarSerie(view,mSerie,getActivity()).fillSerieSinopsis();
             }
         });
 

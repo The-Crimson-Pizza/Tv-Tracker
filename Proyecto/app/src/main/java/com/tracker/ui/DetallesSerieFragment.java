@@ -63,7 +63,6 @@ public class DetallesSerieFragment extends Fragment {
             model = new ViewModelProvider(getActivity()).get(SerieViewModel.class);
             LiveData<Serie> s = model.getSerie(view, idSerie, getActivity());
             s.observe(getViewLifecycleOwner(), serie -> mSerie = serie);
-
         }
     }
 }

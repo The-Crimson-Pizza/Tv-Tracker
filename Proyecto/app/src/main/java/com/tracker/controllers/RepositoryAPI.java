@@ -45,6 +45,8 @@ import static com.tracker.util.Constants.TAG;
 public class RepositoryAPI {
 
     private MutableLiveData<Serie> serieData;
+    private MutableLiveData<List<BasicResponse.SerieBasic>> nuevasData;
+    private MutableLiveData<List<BasicResponse.SerieBasic>> popularesData;
     private static RepositoryAPI repoTMDB;
 
     public static RepositoryAPI getInstance() {
@@ -100,16 +102,24 @@ public class RepositoryAPI {
         });
     }
 
-    public void getNew(final List<BasicResponse.SerieBasic> listaNuevas, RecyclerView recyclerView, Context context) {
+    public MutableLiveData<List<BasicResponse.SerieBasic>> getNew(RecyclerView recyclerView, Context context) {
+
+        if (nuevasData == null) {
+            nuevasData = new MutableLiveData<>();
+        }
 
         getClient().getNewSeries(2020, ES, POP_DESC).enqueue(new Callback<BasicResponse>() {
             @Override
             public void onResponse(@NotNull Call<BasicResponse> call, @NotNull retrofit2.Response<BasicResponse> response) {
+
+                List<BasicResponse.SerieBasic> listaNuevas = null;
                 if (response.body() != null) {
-                    listaNuevas.addAll(response.body().trendingSeries);
+                    listaNuevas =response.body().trendingSeries;
                 }
 
                 if (response.body() != null && !listaNuevas.isEmpty()) {
+                    nuevasData.postValue(listaNuevas);
+
                     LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
                     recyclerView.setLayoutManager(layoutManager);
 
@@ -118,7 +128,8 @@ public class RepositoryAPI {
 
                     SeriesBasicAdapter adapterNuevo = new SeriesBasicAdapter(context, listaNuevas);
                     recyclerView.setAdapter(adapterNuevo);
-                    adapterNuevo.notifyDataSetChanged();
+//                    adapterNuevo.notifyDataSetChanged();
+
                 }
             }
 
@@ -127,6 +138,8 @@ public class RepositoryAPI {
                 Toast.makeText(context, R.string.no_conn, Toast.LENGTH_LONG).show();
             }
         });
+        return nuevasData;
+
     }
 
 
@@ -143,11 +156,11 @@ public class RepositoryAPI {
                 if (response.body() != null) {
                     serie = response.body();
                 }
-
                 if (response.body() != null && serie != null) {
-//                    serieData.postValue(serie);
                     getTrailer(view, serie, context);
-//                    new RellenarSerie(view, serie, context).fillSerieTop();
+                    serieData.postValue(serie);
+                    new RellenarSerie(view, serie, context).fillSerieTop();
+                    new RellenarSerie(view, serie, context).fillSerieSinopsis();
                 }
             }
 
@@ -200,14 +213,12 @@ public class RepositoryAPI {
         });
     }
 
-    public void getTrailer(View view, Serie serie, Context context) {
+    private void getTrailer(View view, Serie serie, Context context) {
 
         getClient().getVideo(serie.id).enqueue(new Callback<VideosResponse>() {
             @Override
             public void onResponse(@NotNull Call<VideosResponse> call, @NotNull retrofit2.Response<VideosResponse> response) {
-                VideosResponse.Video trailer;
                 List<VideosResponse.Video> videos = null;
-
                 if (response.body() != null) {
                     videos = response.body().results;
                 }
@@ -215,10 +226,11 @@ public class RepositoryAPI {
                 if (response.body() != null && !videos.isEmpty()) {
                     for (VideosResponse.Video v : videos) {
                         if (v.type.equals("Trailer")) {
-                            trailer = v;
-                            serie.setVideos(trailer);
-                            serieData.postValue(serie);
-                            new RellenarSerie(view, serie, context).fillSerieTop();
+                            serie.setVideos(v);
+                           serieData.postValue(serie);
+//                            new RellenarSerie(view, serie, context).fillSerieTop();
+//                            new RellenarSerie(view, serie, context).fillSerieSinopsis();
+                            break;
                         }
                     }
                 }
@@ -230,6 +242,4 @@ public class RepositoryAPI {
             }
         });
     }
-
-
 }
