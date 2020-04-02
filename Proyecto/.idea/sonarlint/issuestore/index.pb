@@ -79,8 +79,6 @@ f
 ,app/src/main/java/com/tracker/util/Util.java,d/d/ddf70a81d3e9399a59d2aa62559b9403635cb6fc
 i
 9app/src/main/java/com/tracker/adapters/RellenarSerie.java,f/2/f2de4f6d3fb58580563c6783308f4c5adb8d63de
-a
-1app/src/main/res/navigation/mobile_navigation.xml,5/0/50c7987ff387678f825775665976b5fc8ed47989
 l
 <app/src/main/java/com/tracker/adapters/SeriesTabAdapter.java,a/f/af8bad8bf6b2fa05464be39364f55d24322223e3
 Y

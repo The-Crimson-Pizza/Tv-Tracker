@@ -21,7 +21,6 @@ import com.tracker.models.series.Serie;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import okhttp3.HttpUrl;
@@ -75,16 +74,23 @@ public class RepositoryAPI {
         return retrofit.create(DataTMDB.class);
     }
 
-    public void getTrending(final List<BasicResponse.SerieBasic> listaTrending, RecyclerView rvTrending, Context context) {
+    public MutableLiveData<List<BasicResponse.SerieBasic>> getTrending(RecyclerView rvTrending, Context context) {
+
+        if (popularesData == null) {
+            popularesData = new MutableLiveData<>();
+        }
 
         getClient().getTrendingSeries().enqueue(new Callback<BasicResponse>() {
             @Override
             public void onResponse(@NotNull Call<BasicResponse> call, @NotNull retrofit2.Response<BasicResponse> response) {
+                List<BasicResponse.SerieBasic> listaTrending = null;
+
                 if (response.body() != null) {
-                    listaTrending.addAll(response.body().trendingSeries);
+                    listaTrending = response.body().trendingSeries;
                 }
 
                 if (response.body() != null && !listaTrending.isEmpty()) {
+                    popularesData.postValue(listaTrending);
                     rvTrending.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
                     rvTrending.setHasFixedSize(true);
                     rvTrending.setItemViewCacheSize(20);
@@ -100,6 +106,7 @@ public class RepositoryAPI {
                 Toast.makeText(context, R.string.no_conn, Toast.LENGTH_LONG).show();
             }
         });
+        return popularesData;
     }
 
     public MutableLiveData<List<BasicResponse.SerieBasic>> getNew(RecyclerView recyclerView, Context context) {
@@ -114,7 +121,7 @@ public class RepositoryAPI {
 
                 List<BasicResponse.SerieBasic> listaNuevas = null;
                 if (response.body() != null) {
-                    listaNuevas =response.body().trendingSeries;
+                    listaNuevas = response.body().trendingSeries;
                 }
 
                 if (response.body() != null && !listaNuevas.isEmpty()) {
@@ -126,8 +133,7 @@ public class RepositoryAPI {
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setItemViewCacheSize(20);
 
-                    SeriesBasicAdapter adapterNuevo = new SeriesBasicAdapter(context, listaNuevas);
-                    recyclerView.setAdapter(adapterNuevo);
+                    recyclerView.setAdapter(new SeriesBasicAdapter(context, listaNuevas));
 //                    adapterNuevo.notifyDataSetChanged();
 
                 }
@@ -227,7 +233,7 @@ public class RepositoryAPI {
                     for (VideosResponse.Video v : videos) {
                         if (v.type.equals("Trailer")) {
                             serie.setVideos(v);
-                           serieData.postValue(serie);
+                            serieData.postValue(serie);
 //                            new RellenarSerie(view, serie, context).fillSerieTop();
 //                            new RellenarSerie(view, serie, context).fillSerieSinopsis();
                             break;

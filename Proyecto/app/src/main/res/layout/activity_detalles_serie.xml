@@ -33,11 +33,11 @@
                 android:background="@color/colorPrimary"/>
             <ImageView
                 android:id="@+id/posterImage"
-                android:layout_width="102dp"
+                android:layout_width="100dp"
                 android:layout_height="150dp"
                 android:layout_gravity="end|bottom"
                 android:scaleType="centerCrop"
-                android:src="@drawable/toyaport"
+                android:src="@drawable/default_poster"
                 app:layout_collapseMode="none"
                 android:paddingTop="2dp"
                 android:paddingLeft="4dp"
@@ -71,20 +71,17 @@
                     <TextView
                         android:id="@+id/fechaSerie"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2019" />
+                        android:layout_height="wrap_content"/>
 
                     <TextView
                         android:id="@+id/paisSerie"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Country"
                         android:layout_marginLeft="15dp"/>
                     <TextView
                         android:id="@+id/emisionSerie"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Emitiendo"
                         android:layout_marginLeft="15dp"/>
 
                 </LinearLayout>

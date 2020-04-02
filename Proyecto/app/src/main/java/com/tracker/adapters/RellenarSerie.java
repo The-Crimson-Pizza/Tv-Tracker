@@ -63,7 +63,6 @@ public class RellenarSerie {
         VideoView trailer = mVista.findViewById(R.id.video_view);
 
         int genres = mSerie.genres.size();
-        Log.d("HOLA", String.valueOf(genres))
 ;        if (genres <= 4) {
             for (int i = 1; i < genres+1; i++) {
                 String name = "genre" + i;
@@ -71,9 +70,9 @@ public class RellenarSerie {
                 if (id != 0) {
                     TextView textView = mVista.findViewById(id);
                     textView.setText(mSerie.genres.get(i - 1).name);
+                    textView.setVisibility(View.VISIBLE);
                 }
             }
-
         } else {
             for (int j = 1; j <= 4; j++) {
                 String name = "genre" + j;
@@ -81,20 +80,10 @@ public class RellenarSerie {
                 if (id != 0) {
                     TextView textView = mVista.findViewById(id);
                     textView.setText(mSerie.genres.get(j - 1).name);
+                    textView.setVisibility(View.VISIBLE);
                 }
             }
         }
-
-        int borrar = 4 - genres;
-        for (int i = 4; i > 4-borrar; i--) {
-            String name = "genre" + i;
-            int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
-            if (id != 0) {
-                TextView textView = mVista.findViewById(id);
-                textView.setVisibility(View.INVISIBLE);
-            }
-        }
-
     }
 
     private void fillImages() {
