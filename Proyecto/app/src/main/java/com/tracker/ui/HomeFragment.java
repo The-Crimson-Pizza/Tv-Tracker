@@ -22,8 +22,6 @@ public class HomeFragment extends Fragment {
     private ArrayList<BasicResponse.SerieBasic> mNuevas = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
@@ -34,11 +32,7 @@ public class HomeFragment extends Fragment {
         RecyclerView rvPopulares = view.findViewById(R.id.gridPopulares);
         RecyclerView rvNuevas = view.findViewById(R.id.gridNuevas);
 
-        RepositoryAPI seriesMain = new RepositoryAPI();
-
-//        SeriesBasicAdapter adapterTrending = new SeriesBasicAdapter();
-        seriesMain.getTrending(mPopulares, rvPopulares, getActivity());
-        seriesMain.getNew(mNuevas, rvNuevas, getActivity());
-
+        RepositoryAPI.getInstance().getTrending(mPopulares, rvPopulares, getActivity());
+        RepositoryAPI.getInstance().getNew(mNuevas, rvNuevas, getActivity());
     }
 }

@@ -79,6 +79,12 @@ public class Serie implements Parcelable {
     @Expose
     public ExternalIds externalIds;
 
+    public VideosResponse.Video video;
+
+    public void setVideos(VideosResponse.Video video) {
+        this.video = video;
+    }
+
     public final static Creator<Serie> CREATOR = new Creator<Serie>() {
 
 
@@ -163,16 +169,20 @@ public class Serie implements Parcelable {
             public Genre createFromParcel(Parcel in) {
                 return new Genre(in);
             }
+
             public Genre[] newArray(int size) {
                 return (new Genre[size]);
             }
         };
+
         protected Genre(Parcel in) {
             this.name = ((String) in.readValue((String.class.getClassLoader())));
         }
+
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeValue(name);
         }
+
         public int describeContents() {
             return 0;
         }
@@ -185,7 +195,7 @@ public class Serie implements Parcelable {
         @SerializedName("logo_path")
         @Expose
         public String logoPath;
-        public final  Creator<Network> CREATOR = new Creator<Network>() {
+        public final Creator<Network> CREATOR = new Creator<Network>() {
             @SuppressWarnings({
                     "unchecked"
             })
@@ -197,21 +207,23 @@ public class Serie implements Parcelable {
                 return (new Network[size]);
             }
         };
+
         protected Network(Parcel in) {
             this.name = ((String) in.readValue((String.class.getClassLoader())));
             this.logoPath = ((String) in.readValue((String.class.getClassLoader())));
         }
+
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeValue(name);
             dest.writeValue(logoPath);
         }
+
         public int describeContents() {
             return 0;
         }
     }
 
-    public class ExternalIds implements Parcelable
-    {
+    public class ExternalIds implements Parcelable {
 
         @SerializedName("imdb_id")
         @Expose
@@ -236,8 +248,7 @@ public class Serie implements Parcelable {
                 return (new ExternalIds[size]);
             }
 
-        }
-                ;
+        };
 
         protected ExternalIds(Parcel in) {
             this.imdbId = ((String) in.readValue((String.class.getClassLoader())));
@@ -255,7 +266,7 @@ public class Serie implements Parcelable {
         }
 
         public int describeContents() {
-            return  0;
+            return 0;
         }
 
     }

@@ -42,7 +42,8 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
         holder.name.setText(mSeries.get(position).name);
-        new Util().getPoster(BASE_URL_IMAGES_POSTER + mSeries.get(position).poster_path, holder.image);
+//        new Util().getPoster(BASE_URL_IMAGES_POSTER + mSeries.get(position).poster_path, holder.image);
+        new Util().getPoster(BASE_URL_IMAGES_POSTER + mSeries.get(position).poster_path, holder.image, mContext);
 
     }
 

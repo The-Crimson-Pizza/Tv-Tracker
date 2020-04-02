@@ -5,9 +5,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.squareup.picasso.Picasso;
 import com.tracker.R;
 import com.tracker.models.series.Serie;
 import com.tracker.util.Util;
@@ -27,30 +31,77 @@ public class RellenarSerie {
         this.mContext = context;
     }
 
-    public void fillSerie() {
+    public void fillSerieTop() {
+        fillText();
         fillImages();
     }
 
-    private void fillImages() {
+    public void fillSerieSinopsis() {
+        fillGeneral();
+    }
 
+    private void fillText() {
         CollapsingToolbarLayout collapse = mVista.findViewById(R.id.toolbar_layout);
-        ImageView poster = mVista.findViewById(R.id.posterImage);
-        ImageView background = mVista.findViewById(R.id.imagen_background);
         TextView fecha = mVista.findViewById(R.id.fechaSerie);
+        TextView pais = mVista.findViewById(R.id.paisSerie);
+        TextView emision = mVista.findViewById(R.id.emisionSerie);
 
-        Picasso.get()
-                .load(BASE_URL_IMAGES_BACK + mSerie.backdropPath)
-                .noFade()
-                .resize(background.getWidth(), background.getHeight())
-                .into(background);
-//        new Util().usePicasso(BASE_URL_IMAGES_BACK + mSerie.backdropPath, background);
-        Log.d("HOLA",BASE_URL_IMAGES_BACK + mSerie.backdropPath);
-        new Util().getPoster(BASE_URL_IMAGES_POSTER + mSerie.posterPath, poster);
-        collapse.setTitle(mSerie.name);
         fecha.setText(mSerie.firstAirDate);
+        if (!mSerie.originCountry.isEmpty()) {
+            pais.setText(mSerie.originCountry.get(0));
+        } else {
+            pais.setText("");
+        }
+        emision.setText(mSerie.status);
+        collapse.setTitle(mSerie.name);
+    }
 
+    private void fillGeneral() {
+        ReadMoreTextView sinopsis = mVista.findViewById(R.id.sinopsis_text);
+        sinopsis.setText(mSerie.overview);
+
+        VideoView trailer = mVista.findViewById(R.id.video_view);
+
+        int genres = mSerie.genres.size();
+        Log.d("HOLA", String.valueOf(genres))
+;        if (genres <= 4) {
+            for (int i = 1; i < genres+1; i++) {
+                String name = "genre" + i;
+                int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
+                if (id != 0) {
+                    TextView textView = mVista.findViewById(id);
+                    textView.setText(mSerie.genres.get(i - 1).name);
+                }
+            }
+
+        } else {
+            for (int j = 1; j <= 4; j++) {
+                String name = "genre" + j;
+                int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
+                if (id != 0) {
+                    TextView textView = mVista.findViewById(id);
+                    textView.setText(mSerie.genres.get(j - 1).name);
+                }
+            }
+        }
+
+        int borrar = 4 - genres;
+        for (int i = 4; i > 4-borrar; i--) {
+            String name = "genre" + i;
+            int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
+            if (id != 0) {
+                TextView textView = mVista.findViewById(id);
+                textView.setVisibility(View.INVISIBLE);
+            }
+        }
 
     }
 
+    private void fillImages() {
+        ImageView poster = mVista.findViewById(R.id.posterImage);
+        ImageView background = mVista.findViewById(R.id.imagen_background);
 
+        new Util().getPoster(BASE_URL_IMAGES_POSTER + mSerie.posterPath, poster, mContext);
+        new Util().getBackground(BASE_URL_IMAGES_BACK + mSerie.backdropPath, background, mContext);
+    }
 }

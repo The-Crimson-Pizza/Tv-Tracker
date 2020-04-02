@@ -44,6 +44,7 @@ import static com.tracker.util.Constants.TAG;
 
 public class RepositoryAPI {
 
+    private MutableLiveData<Serie> serieData;
     private static RepositoryAPI repoTMDB;
 
     public static RepositoryAPI getInstance() {
@@ -82,11 +83,12 @@ public class RepositoryAPI {
                 }
 
                 if (response.body() != null && !listaTrending.isEmpty()) {
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-                    rvTrending.setLayoutManager(layoutManager);
-                    SeriesBasicAdapter adapterTrending = new SeriesBasicAdapter(context, listaTrending);
-                    rvTrending.setAdapter(adapterTrending);
-                    adapterTrending.notifyDataSetChanged();
+                    rvTrending.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+                    rvTrending.setHasFixedSize(true);
+                    rvTrending.setItemViewCacheSize(20);
+
+                    rvTrending.setAdapter(new SeriesBasicAdapter(context, listaTrending));
+//                    adapterTrending.notifyDataSetChanged();
 
                 }
             }
@@ -110,6 +112,10 @@ public class RepositoryAPI {
                 if (response.body() != null && !listaNuevas.isEmpty()) {
                     LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
                     recyclerView.setLayoutManager(layoutManager);
+
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setItemViewCacheSize(20);
+
                     SeriesBasicAdapter adapterNuevo = new SeriesBasicAdapter(context, listaNuevas);
                     recyclerView.setAdapter(adapterNuevo);
                     adapterNuevo.notifyDataSetChanged();
@@ -123,10 +129,10 @@ public class RepositoryAPI {
         });
     }
 
-    MutableLiveData<Serie> serieData;
+
     public MutableLiveData<Serie> getSerie(View view, int idSerie, Context context) {
 
-        if(serieData == null){
+        if (serieData == null) {
             serieData = new MutableLiveData<>();
         }
 
@@ -139,9 +145,9 @@ public class RepositoryAPI {
                 }
 
                 if (response.body() != null && serie != null) {
-                    serieData.postValue(serie);
-
-                    new RellenarSerie(view, serie, context).fillSerie();
+//                    serieData.postValue(serie);
+                    getTrailer(view, serie, context);
+//                    new RellenarSerie(view, serie, context).fillSerieTop();
                 }
             }
 
@@ -194,20 +200,25 @@ public class RepositoryAPI {
         });
     }
 
-    public void getTrailer(int idSerie, final List<VideosResponse.Video> videos, Context context) {
-        getClient().getVideo(idSerie).enqueue(new Callback<VideosResponse>() {
+    public void getTrailer(View view, Serie serie, Context context) {
+
+        getClient().getVideo(serie.id).enqueue(new Callback<VideosResponse>() {
             @Override
             public void onResponse(@NotNull Call<VideosResponse> call, @NotNull retrofit2.Response<VideosResponse> response) {
+                VideosResponse.Video trailer;
+                List<VideosResponse.Video> videos = null;
+
                 if (response.body() != null) {
-                    videos.addAll(response.body().results);
+                    videos = response.body().results;
                 }
 
                 if (response.body() != null && !videos.isEmpty()) {
-                    Iterator<VideosResponse.Video> i = videos.iterator();
-                    while (i.hasNext()) {
-                        VideosResponse.Video v = i.next();
-                        if (!v.type.equals("Trailer")) {
-                            i.remove();
+                    for (VideosResponse.Video v : videos) {
+                        if (v.type.equals("Trailer")) {
+                            trailer = v;
+                            serie.setVideos(trailer);
+                            serieData.postValue(serie);
+                            new RellenarSerie(view, serie, context).fillSerieTop();
                         }
                     }
                 }

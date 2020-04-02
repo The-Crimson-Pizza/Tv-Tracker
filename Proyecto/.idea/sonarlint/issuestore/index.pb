@@ -83,5 +83,15 @@ a
 1app/src/main/res/navigation/mobile_navigation.xml,5/0/50c7987ff387678f825775665976b5fc8ed47989
 l
 <app/src/main/java/com/tracker/adapters/SeriesTabAdapter.java,a/f/af8bad8bf6b2fa05464be39364f55d24322223e3
+Y
+)app/src/main/res/layout/fragment_cast.xml,c/5/c55105f7759dd10b6c0f1e2e46fabe1a775730d9
+Y
+)app/src/main/res/layout/lista_reparto.xml,6/4/644da503fe3814cdb2c6f46e4b0971883fe65bfe
+S
+#app/src/main/res/values/strings.xml,d/2/d2281fbb3027de2722081a53408dd77628bf080e
+h
+8app/src/main/java/com/tracker/models/SerieViewModel.java,7/2/7287ed16281a031831a6a29ebdce9208f5d630a8
 b
-2app/src/main/res/layout/content_detalles_serie.xml,2/b/2bfd35bc662fb5254e95e8bc85ac76f851cabe0c
+2app/src/main/java/com/tracker/ui/CastFragment.java,9/7/97effe6cb878ad73e78f8dfe49609a19e079f6f7
+m
+=app/src/main/java/com/tracker/adapters/ActorBasicAdapter.java,b/2/b2685162aef2bdaca71e1dccb81fcd03b8611a38
