@@ -68,7 +68,7 @@ public class CastFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cast, container, false);
         rvCasting = view.findViewById(R.id.gridCasting);
-        rvCasting.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        rvCasting.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         return view;
     }
 

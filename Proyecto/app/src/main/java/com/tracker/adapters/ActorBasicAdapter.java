@@ -36,7 +36,7 @@ public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_reparto, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_cast_vertical, parent, false);
         return new ViewHolder(view);
     }
 
