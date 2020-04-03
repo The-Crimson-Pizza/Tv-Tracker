@@ -43,9 +43,11 @@ import static com.tracker.util.Constants.TAG;
 
 public class RepositoryAPI {
 
-    private MutableLiveData<Serie> serieData;
     private MutableLiveData<List<BasicResponse.SerieBasic>> nuevasData;
     private MutableLiveData<List<BasicResponse.SerieBasic>> popularesData;
+    private MutableLiveData<Serie> serieData;
+
+
     private static RepositoryAPI repoTMDB;
 
     public static RepositoryAPI getInstance() {
@@ -55,7 +57,13 @@ public class RepositoryAPI {
         return repoTMDB;
     }
 
-    private DataTMDB getClient() {
+    private RepositoryAPI() {
+        nuevasData = new MutableLiveData<>();
+        popularesData = new MutableLiveData<>();
+        serieData = new MutableLiveData<>();
+    }
+
+    public DataTMDB getClient() {
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(chain -> {
                     Request request = chain.request();
@@ -74,7 +82,7 @@ public class RepositoryAPI {
         return retrofit.create(DataTMDB.class);
     }
 
-    public MutableLiveData<List<BasicResponse.SerieBasic>> getTrending(RecyclerView rvTrending, Context context) {
+    public MutableLiveData<List<BasicResponse.SerieBasic>> getTrending(Context context) {
 
         if (popularesData == null) {
             popularesData = new MutableLiveData<>();
@@ -84,20 +92,11 @@ public class RepositoryAPI {
             @Override
             public void onResponse(@NotNull Call<BasicResponse> call, @NotNull retrofit2.Response<BasicResponse> response) {
                 List<BasicResponse.SerieBasic> listaTrending = null;
-
                 if (response.body() != null) {
                     listaTrending = response.body().trendingSeries;
                 }
-
                 if (response.body() != null && !listaTrending.isEmpty()) {
-                    popularesData.postValue(listaTrending);
-                    rvTrending.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-                    rvTrending.setHasFixedSize(true);
-                    rvTrending.setItemViewCacheSize(20);
-
-                    rvTrending.setAdapter(new SeriesBasicAdapter(context, listaTrending));
-//                    adapterTrending.notifyDataSetChanged();
-
+                    popularesData.setValue(listaTrending);
                 }
             }
 
@@ -109,7 +108,7 @@ public class RepositoryAPI {
         return popularesData;
     }
 
-    public MutableLiveData<List<BasicResponse.SerieBasic>> getNew(RecyclerView recyclerView, Context context) {
+    public MutableLiveData<List<BasicResponse.SerieBasic>> getNew() {
 
         if (nuevasData == null) {
             nuevasData = new MutableLiveData<>();
@@ -125,23 +124,13 @@ public class RepositoryAPI {
                 }
 
                 if (response.body() != null && !listaNuevas.isEmpty()) {
-                    nuevasData.postValue(listaNuevas);
-
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-                    recyclerView.setLayoutManager(layoutManager);
-
-                    recyclerView.setHasFixedSize(true);
-                    recyclerView.setItemViewCacheSize(20);
-
-                    recyclerView.setAdapter(new SeriesBasicAdapter(context, listaNuevas));
-//                    adapterNuevo.notifyDataSetChanged();
-
+                    nuevasData.setValue(listaNuevas);
                 }
             }
 
             @Override
             public void onFailure(@NotNull Call<BasicResponse> call, @NotNull Throwable t) {
-                Toast.makeText(context, R.string.no_conn, Toast.LENGTH_LONG).show();
+                nuevasData.setValue(null);
             }
         });
         return nuevasData;
@@ -149,11 +138,7 @@ public class RepositoryAPI {
     }
 
 
-    public MutableLiveData<Serie> getSerie(View view, int idSerie, Context context) {
-
-        if (serieData == null) {
-            serieData = new MutableLiveData<>();
-        }
+    public MutableLiveData<Serie> getSerie(int idSerie, Context context) {
 
         getClient().getSerie(idSerie, ES, GET_SERIE_API_EXTRAS).enqueue(new Callback<Serie>() {
             @Override
@@ -163,10 +148,8 @@ public class RepositoryAPI {
                     serie = response.body();
                 }
                 if (response.body() != null && serie != null) {
-                    getTrailer(view, serie, context);
-                    serieData.postValue(serie);
-                    new RellenarSerie(view, serie, context).fillSerieTop();
-                    new RellenarSerie(view, serie, context).fillSerieSinopsis();
+                    serieData.setValue(serie);
+                    getTrailer(serie, context);
                 }
             }
 
@@ -177,6 +160,33 @@ public class RepositoryAPI {
             }
         });
         return serieData;
+    }
+
+    private void getTrailer(Serie serie, Context context) {
+
+        getClient().getVideo(serie.id).enqueue(new Callback<VideosResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<VideosResponse> call, @NotNull retrofit2.Response<VideosResponse> response) {
+                List<VideosResponse.Video> videos = null;
+                if (response.body() != null) {
+                    videos = response.body().results;
+                }
+
+                if (response.body() != null && !videos.isEmpty()) {
+                    for (VideosResponse.Video v : videos) {
+                        if (v.type.equals("Trailer")) {
+                            serie.setVideos(v);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<VideosResponse> call, @NotNull Throwable t) {
+                Toast.makeText(context, R.string.no_conn, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public void getSeason(int idSerie, int temporada, final List<Season> listaSerie, Context context) {
@@ -219,33 +229,5 @@ public class RepositoryAPI {
         });
     }
 
-    private void getTrailer(View view, Serie serie, Context context) {
 
-        getClient().getVideo(serie.id).enqueue(new Callback<VideosResponse>() {
-            @Override
-            public void onResponse(@NotNull Call<VideosResponse> call, @NotNull retrofit2.Response<VideosResponse> response) {
-                List<VideosResponse.Video> videos = null;
-                if (response.body() != null) {
-                    videos = response.body().results;
-                }
-
-                if (response.body() != null && !videos.isEmpty()) {
-                    for (VideosResponse.Video v : videos) {
-                        if (v.type.equals("Trailer")) {
-                            serie.setVideos(v);
-                            serieData.postValue(serie);
-//                            new RellenarSerie(view, serie, context).fillSerieTop();
-//                            new RellenarSerie(view, serie, context).fillSerieSinopsis();
-                            break;
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<VideosResponse> call, @NotNull Throwable t) {
-                Toast.makeText(context, R.string.no_conn, Toast.LENGTH_LONG).show();
-            }
-        });
-    }
 }

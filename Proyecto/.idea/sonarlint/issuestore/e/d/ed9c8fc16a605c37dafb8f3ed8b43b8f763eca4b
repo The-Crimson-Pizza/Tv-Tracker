@@ -1,0 +1,20 @@
+
+f
+java:S1128"DRemove this unused import 'com.tracker.adapters.SeriesBasicAdapter'.(Ò¯§›þÿÿÿÿ8Û“¤æ“.
+P
+java:S1128".Remove this unused import 'android.view.View'.(Ø½­äþÿÿÿÿ8ÛË®ç“.
+R
+java:S1144ž"/Remove this unused private "getTrailer" method.(ž©ÃÝýÿÿÿÿ8¡ýŠè“.
+Y	java:S125¬"<This block of commented-out lines of code should be removed.(á¯©‡8¨™‰è“.
+k
+java:S2259u"IA "NullPointerException" could be thrown; "listaNuevas" is nullable here.(´±Ã¿úÿÿÿÿ8¬ý“æ“.
+o
+java:S1128	"MRemove this unused import 'androidx.recyclerview.widget.LinearLayoutManager'.(ôœ¹ºýÿÿÿÿ8Û“¤æ“.
+g
+java:S2259¨"DA "NullPointerException" could be thrown; "videos" is nullable here.(›ØÇÒúÿÿÿÿ8¨™‰è“.
+m
+java:S2259Y"KA "NullPointerException" could be thrown; "listaTrending" is nullable here.(Ìòêüûÿÿÿÿ8¬ý“æ“.
+h
+java:S1128
+"FRemove this unused import 'androidx.recyclerview.widget.RecyclerView'.(Îèòçøÿÿÿÿ8€Ž—æ“.
+^	java:S125"<This block of commented-out lines of code should be removed.(ÐÑ”—ýÿÿÿÿ8¡ýŠè“.

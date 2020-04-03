@@ -32,12 +32,16 @@ public class RellenarSerie {
     }
 
     public void fillSerieTop() {
-        fillText();
-        fillImages();
+        if (mSerie != null) {
+            fillText();
+            fillImages();
+        }
     }
 
     public void fillSerieSinopsis() {
-        fillGeneral();
+        if (mSerie != null) {
+            fillGeneral();
+        }
     }
 
     private void fillText() {
@@ -63,8 +67,8 @@ public class RellenarSerie {
         VideoView trailer = mVista.findViewById(R.id.video_view);
 
         int genres = mSerie.genres.size();
-;        if (genres <= 4) {
-            for (int i = 1; i < genres+1; i++) {
+        if (genres <= 4) {
+            for (int i = 1; i < genres + 1; i++) {
                 String name = "genre" + i;
                 int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
                 if (id != 0) {

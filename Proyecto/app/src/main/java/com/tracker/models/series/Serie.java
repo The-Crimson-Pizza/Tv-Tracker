@@ -6,6 +6,9 @@ import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.tracker.models.VideosResponse;
@@ -86,7 +89,6 @@ public class Serie implements Parcelable {
     }
 
     public final static Creator<Serie> CREATOR = new Creator<Serie>() {
-
 
         @SuppressWarnings({
                 "unchecked"

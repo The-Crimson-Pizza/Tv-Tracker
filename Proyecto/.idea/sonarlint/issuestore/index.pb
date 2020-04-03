@@ -87,8 +87,6 @@ Y
 )app/src/main/res/layout/lista_reparto.xml,6/4/644da503fe3814cdb2c6f46e4b0971883fe65bfe
 S
 #app/src/main/res/values/strings.xml,d/2/d2281fbb3027de2722081a53408dd77628bf080e
-h
-8app/src/main/java/com/tracker/models/SerieViewModel.java,7/2/7287ed16281a031831a6a29ebdce9208f5d630a8
 b
 2app/src/main/java/com/tracker/ui/CastFragment.java,9/7/97effe6cb878ad73e78f8dfe49609a19e079f6f7
 m

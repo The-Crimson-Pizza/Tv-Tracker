@@ -4,39 +4,42 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.tracker.R;
+import com.tracker.adapters.RellenarSerie;
 import com.tracker.adapters.SeriesTabAdapter;
-import com.tracker.models.SerieViewModel;
+import com.tracker.adapters.SeriesViewModel;
 import com.tracker.models.series.Serie;
 
 import static com.tracker.util.Constants.ID_SERIE;
 
 public class DetallesSerieFragment extends Fragment {
 
-    private SerieViewModel model;
-    private int idSerie = 0;
+    private int idSerie;
     private Serie mSerie;
+    private View include;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        View root = inflater.inflate(R.layout.activity_detalles_serie, container, false);
+        include = root.findViewById(R.id.detallesSerie);
         if (getArguments() != null) {
             idSerie = getArguments().getInt(ID_SERIE);
         }
-        return inflater.inflate(R.layout.activity_detalles_serie, container, false);
+        return root;
     }
 
     @Override
@@ -47,10 +50,12 @@ public class DetallesSerieFragment extends Fragment {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
 
+        ProgressBar bar = view.findViewById(R.id.progreso);
+        bar.setVisibility(View.VISIBLE);
+
         FloatingActionButton fab = view.findViewById(R.id.fab);
 //        fab.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_series_to_actores));
 
-        View include = view.findViewById(R.id.detallesSerie);
         ViewPager2 viewPager = include.findViewById(R.id.view_pager);
         viewPager.setAdapter(new SeriesTabAdapter(this));
         String[] tabs = {getString(R.string.sinopsis), getString(R.string.reparto), getString(R.string.temporadas)};
@@ -59,10 +64,22 @@ public class DetallesSerieFragment extends Fragment {
                 (tab, position) -> tab.setText(tabs[position])
         ).attach();
 
-        if (idSerie != 0) {
-            model = new ViewModelProvider(getActivity()).get(SerieViewModel.class);
-            LiveData<Serie> s = model.getSerie(view, idSerie, getActivity());
-            s.observe(getViewLifecycleOwner(), serie -> mSerie = serie);
-        }
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                if (position == 0) {
+                }
+            }
+        });
+
+        SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
+
+        Observer<Serie> observerPopulares = serie -> {
+            mSerie = serie;
+            new RellenarSerie(view, serie, getActivity()).fillSerieTop();
+            bar.setVisibility(View.INVISIBLE);
+        };
+        model.getSerie(idSerie, getActivity()).observe(getViewLifecycleOwner(), observerPopulares);
     }
 }

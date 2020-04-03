@@ -7,6 +7,7 @@
     android:background="@color/whiteColor"
     tools:context=".ui.DetallesSerieFragment">
 
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
@@ -22,27 +23,29 @@
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
+
             <ImageView
                 android:id="@+id/imagen_background"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
-                android:scaleType="fitXY"
+                android:background="@color/colorPrimary"
+                android:paddingLeft="2dp"
                 android:paddingTop="2dp"
                 android:paddingRight="2dp"
-                android:paddingLeft="2dp"
-                android:background="@color/colorPrimary"/>
+                android:scaleType="fitXY" />
+
             <ImageView
                 android:id="@+id/posterImage"
                 android:layout_width="100dp"
                 android:layout_height="150dp"
                 android:layout_gravity="end|bottom"
+                android:background="@color/whiteColor"
+                android:paddingLeft="4dp"
+                android:paddingTop="2dp"
+                android:paddingRight="4dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/default_poster"
-                app:layout_collapseMode="none"
-                android:paddingTop="2dp"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:background="@color/whiteColor"/>
+                app:layout_collapseMode="none" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -65,24 +68,25 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="35dp"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="5dp">
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/fechaSerie"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
                     <TextView
                         android:id="@+id/paisSerie"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"/>
+                        android:layout_marginLeft="15dp" />
+
                     <TextView
                         android:id="@+id/emisionSerie"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"/>
+                        android:layout_marginLeft="15dp" />
 
                 </LinearLayout>
 
@@ -91,7 +95,21 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_detalles_serie"
-        android:id="@+id/detallesSerie"/>
+    <include
+        android:id="@+id/detallesSerie"
+        layout="@layout/content_detalles_serie" />
+
+    <ProgressBar
+        android:id="@+id/progreso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimary"
+        android:indeterminateTintMode="src_atop"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

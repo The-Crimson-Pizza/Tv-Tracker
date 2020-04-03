@@ -16,12 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
 import com.tracker.adapters.ActorBasicAdapter;
-import com.tracker.models.SerieViewModel;
+import com.tracker.adapters.SeriesViewModel;
 import com.tracker.models.series.Serie;
 
 public class CastFragment extends Fragment {
 
-    private SerieViewModel model;
+    private SeriesViewModel model;
     private RecyclerView rvCasting;
     private ActorBasicAdapter adapterActor;
 
@@ -38,14 +38,14 @@ public class CastFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        model = new ViewModelProvider(getActivity()).get(SerieViewModel.class);
+        model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
         LiveData<Serie> s = model.getCurrentSerie();
         s.observe(getViewLifecycleOwner(), new Observer<Serie>() {
             @Override
             public void onChanged(Serie serie) {
                 adapterActor = new ActorBasicAdapter(getActivity(), serie);
                 rvCasting.setAdapter(adapterActor);
-                adapterActor.notifyDataSetChanged();
+//                adapterActor.notifyDataSetChanged();
             }
         });
     }

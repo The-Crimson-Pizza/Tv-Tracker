@@ -3,8 +3,12 @@ package com.tracker.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.tracker.models.series.Serie;
 
 import java.util.List;
 

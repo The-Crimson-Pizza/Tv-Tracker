@@ -2,6 +2,7 @@ package com.tracker.adapters;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
+import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
@@ -21,10 +25,12 @@ import java.util.List;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 import static com.tracker.util.Constants.ID_SERIE;
 
-public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.ViewHolder> {
+public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.ViewHolder>  {
 
     private List<BasicResponse.SerieBasic> mSeries;
-    private Context mContext;
+    private static Context mContext;
+    private FragmentManager fm;
+
 
     public SeriesBasicAdapter(Context mContext, List<BasicResponse.SerieBasic> series) {
         this.mSeries = series;
@@ -34,27 +40,28 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_basic, parent, false);
-        return new ViewHolder(view);
+        return ViewHolder.create(parent);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-
-        holder.name.setText(mSeries.get(position).name);
-        new Util().getPoster(BASE_URL_IMAGES_POSTER + mSeries.get(position).poster_path, holder.image, mContext);
-
+        holder.bindTo(mSeries.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mSeries.size();
+        if (mSeries != null) {
+            return mSeries.size();
+        }
+        return 0;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image;
         TextView name;
+        int id;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,10 +71,27 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 Bundle bundle = new Bundle();
-                bundle.putInt(ID_SERIE, mSeries.get(pos).id);
+                bundle.putInt(ID_SERIE, id);
                 Navigation.findNavController(v).navigate(R.id.action_home_to_series, bundle);
             });
         }
+
+        public static ViewHolder create(ViewGroup parent) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_basic, parent, false);
+            return new ViewHolder(view);
+        }
+
+        public void bindTo(BasicResponse.SerieBasic serieBasic) {
+            if (serieBasic != null) {
+                id = serieBasic.id;
+                name.setText(serieBasic.name);
+                new Util().getPoster(BASE_URL_IMAGES_POSTER + serieBasic.poster_path, image, mContext);
+            } else {
+                name.setText("Loading...");
+            }
+        }
+
+
 
     }
 }
