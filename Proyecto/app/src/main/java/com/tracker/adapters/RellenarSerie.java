@@ -1,18 +1,25 @@
 package com.tracker.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import androidx.annotation.NonNull;
+
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.tracker.R;
 import com.tracker.models.series.Serie;
 import com.tracker.util.Util;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_BACK;
+import static com.tracker.util.Constants.BASE_URL_IMAGES_NETWORK;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 
 public class RellenarSerie {
@@ -38,6 +45,7 @@ public class RellenarSerie {
         if (mSerie != null) {
             fillGeneral();
             fillGenres();
+            fillNetworks();
         }
     }
 
@@ -61,9 +69,48 @@ public class RellenarSerie {
         ReadMoreTextView sinopsis = mVista.findViewById(R.id.sinopsis_text);
         sinopsis.setText(mSerie.overview);
 
-        VideoView trailer = mVista.findViewById(R.id.video_view);
+        YouTubePlayerView youTubePlayerView = mVista.findViewById(R.id.youtube_player_view);
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                String videoId = mSerie.video.key;
+                youTubePlayer.loadVideo(videoId, 0);
+            }
+        });
 
 
+
+
+    }
+
+    private void fillNetworks(){
+        Util util = new Util();
+        int networks = mSerie.networks.size();
+        for (int i = 1; i <= 3; i++) {
+            String name = "network" + i;
+            int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
+            ImageView imageView = mVista.findViewById(id);
+            imageView.setVisibility(View.GONE);
+        }
+        if (networks <= 3) {
+            for (int i = 1; i < networks + 1; i++) {
+                String name = "network" + i;
+                int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
+                ImageView imageView = mVista.findViewById(id);
+                util.getBackground(BASE_URL_IMAGES_NETWORK+mSerie.networks.get(i-1).logoPath,imageView, mContext);
+//                imageView.setText(mSerie.genres.get(i - 1).name);
+
+                imageView.setVisibility(View.VISIBLE);
+            }
+        } else {
+            for (int j = 1; j <= 3; j++) {
+                String name = "network" + j;
+                int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
+                ImageView imageView = mVista.findViewById(id);
+                util.getBackground(BASE_URL_IMAGES_NETWORK+mSerie.networks.get(j-1).logoPath,imageView, mContext);
+                imageView.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     private void fillGenres(){

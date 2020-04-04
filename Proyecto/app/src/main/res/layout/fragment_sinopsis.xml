@@ -114,52 +114,32 @@
             android:layout_marginBottom="15dp">
 
             <ImageView
-                android:id="@+id/network_one"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/network1"
+                android:layout_width="40dp"
+                android:scaleType="fitXY"
+                android:layout_height="15dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="15dp"
                 android:src="@drawable/netflix" />
 
             <ImageView
-                android:id="@+id/network_two"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/amazon" />
-
-            <ImageView
-                android:id="@+id/network_three"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/network2"
+                android:layout_width="40dp"
+                android:scaleType="fitXY"
+                android:layout_height="15dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="15dp"
                 android:src="@drawable/netflix" />
 
             <ImageView
-                android:id="@+id/network_four"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/network3"
+                android:layout_width="40dp"
+                android:scaleType="fitXY"
+                android:layout_height="15dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="15dp"
                 android:src="@drawable/amazon" />
 
-            <ImageView
-                android:id="@+id/network_five"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/netflix" />
-
-            <ImageView
-                android:id="@+id/network_six"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/amazon" />
         </LinearLayout>
 
         <!-- TRAILER-->
@@ -172,11 +152,20 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <VideoView
-            android:id="@+id/video_view"
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtube_player_view"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@color/colorPrimary" />
+            app:autoPlay="false"
+            app:showFullScreenButton="true" />
+
+<!--        <fragment-->
+<!--            android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"-->
+<!--            android:id="@+id/youtubesupportfragment"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:layout_marginBottom="30dp"/>-->
+
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

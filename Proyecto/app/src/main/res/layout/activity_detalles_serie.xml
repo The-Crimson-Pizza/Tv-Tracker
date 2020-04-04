@@ -30,7 +30,6 @@
                 android:layout_height="220dp"
                 android:background="@color/colorPrimary"
                 android:paddingLeft="2dp"
-                android:src="@drawable/toystory"
                 android:alpha="0.85"
                 android:paddingTop="2dp"
                 android:paddingRight="2dp"
