@@ -1,14 +1,10 @@
 package com.tracker.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
-
-import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -41,6 +37,7 @@ public class RellenarSerie {
     public void fillSerieSinopsis() {
         if (mSerie != null) {
             fillGeneral();
+            fillGenres();
         }
     }
 
@@ -66,26 +63,32 @@ public class RellenarSerie {
 
         VideoView trailer = mVista.findViewById(R.id.video_view);
 
+
+    }
+
+    private void fillGenres(){
         int genres = mSerie.genres.size();
+        for (int i = 1; i < 5; i++) {
+            String name = "genre" + i;
+            int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
+            TextView textView = mVista.findViewById(id);
+            textView.setVisibility(View.GONE);
+        }
         if (genres <= 4) {
             for (int i = 1; i < genres + 1; i++) {
                 String name = "genre" + i;
                 int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
-                if (id != 0) {
-                    TextView textView = mVista.findViewById(id);
-                    textView.setText(mSerie.genres.get(i - 1).name);
-                    textView.setVisibility(View.VISIBLE);
-                }
+                TextView textView = mVista.findViewById(id);
+                textView.setText(mSerie.genres.get(i - 1).name);
+                textView.setVisibility(View.VISIBLE);
             }
         } else {
             for (int j = 1; j <= 4; j++) {
                 String name = "genre" + j;
                 int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
-                if (id != 0) {
-                    TextView textView = mVista.findViewById(id);
-                    textView.setText(mSerie.genres.get(j - 1).name);
-                    textView.setVisibility(View.VISIBLE);
-                }
+                TextView textView = mVista.findViewById(id);
+                textView.setText(mSerie.genres.get(j - 1).name);
+                textView.setVisibility(View.VISIBLE);
             }
         }
     }

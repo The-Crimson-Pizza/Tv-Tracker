@@ -2,6 +2,7 @@ package com.tracker.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -29,13 +30,11 @@ public class DetallesSerieFragment extends Fragment {
 
     private int idSerie;
     private Serie mSerie;
-    private View include;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View root = inflater.inflate(R.layout.activity_detalles_serie, container, false);
-        include = root.findViewById(R.id.detallesSerie);
         if (getArguments() != null) {
             idSerie = getArguments().getInt(ID_SERIE);
         }
@@ -50,35 +49,26 @@ public class DetallesSerieFragment extends Fragment {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
 
-        ProgressBar bar = view.findViewById(R.id.progreso);
-        bar.setVisibility(View.VISIBLE);
+//        ProgressBar bar = view.findViewById(R.id.progreso);
+//        bar.setVisibility(View.VISIBLE);
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
 //        fab.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_series_to_actores));
 
-        ViewPager2 viewPager = include.findViewById(R.id.view_pager);
+        ViewPager2 viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(new SeriesTabAdapter(this));
         String[] tabs = {getString(R.string.sinopsis), getString(R.string.reparto), getString(R.string.temporadas)};
-        TabLayout tabLayout = include.findViewById(R.id.tabs);
+        TabLayout tabLayout = view.findViewById(R.id.tabs);
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> tab.setText(tabs[position])
         ).attach();
-
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                if (position == 0) {
-                }
-            }
-        });
 
         SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
 
         Observer<Serie> observerPopulares = serie -> {
             mSerie = serie;
             new RellenarSerie(view, serie, getActivity()).fillSerieTop();
-            bar.setVisibility(View.INVISIBLE);
+//            bar.setVisibility(View.INVISIBLE);
         };
         model.getSerie(idSerie, getActivity()).observe(getViewLifecycleOwner(), observerPopulares);
     }

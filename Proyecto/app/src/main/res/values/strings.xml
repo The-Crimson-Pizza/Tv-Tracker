@@ -24,12 +24,12 @@
     <string name="search">Search</string>
     <string name="home">Home</string>
     <string name="menu_share">Share</string>
-    <string name="sinopsis">SINOPSIS</string>
-    <string name="reparto">REPARTO</string>
-    <string name="temporadas">TEMPORADAS</string>
+    <string name="reparto">CAST</string>
+    <string name="temporadas">SEASONS</string>
     <string name="genre">Genre</string>
-    <string name="sinopsis_title">Sinopsis</string>
+    <string name="sinopsis_title">Overview</string>
     <string name="genres_title">Genres</string>
     <string name="networks_title">Networks</string>
     <string name="trailer_title">Trailer</string>
+    <string name="sinopsis">OVERVIEW</string>
 </resources>

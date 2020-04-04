@@ -85,9 +85,11 @@ Y
 )app/src/main/res/layout/fragment_cast.xml,c/5/c55105f7759dd10b6c0f1e2e46fabe1a775730d9
 Y
 )app/src/main/res/layout/lista_reparto.xml,6/4/644da503fe3814cdb2c6f46e4b0971883fe65bfe
-S
-#app/src/main/res/values/strings.xml,d/2/d2281fbb3027de2722081a53408dd77628bf080e
 b
 2app/src/main/java/com/tracker/ui/CastFragment.java,9/7/97effe6cb878ad73e78f8dfe49609a19e079f6f7
 m
 =app/src/main/java/com/tracker/adapters/ActorBasicAdapter.java,b/2/b2685162aef2bdaca71e1dccb81fcd03b8611a38
+k
+;app/src/main/java/com/tracker/adapters/SeriesViewModel.java,a/1/a16039c52948bfc875e9daf45502023238e449ee
+a
+1app/src/main/res/navigation/mobile_navigation.xml,5/0/50c7987ff387678f825775665976b5fc8ed47989
