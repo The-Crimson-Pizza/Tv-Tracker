@@ -2,16 +2,13 @@ package com.tracker.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -22,7 +19,10 @@ import com.tracker.R;
 import com.tracker.adapters.RellenarSerie;
 import com.tracker.adapters.SeriesTabAdapter;
 import com.tracker.adapters.SeriesViewModel;
+import com.tracker.controllers.RepositoryAPI;
 import com.tracker.models.series.Serie;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 import static com.tracker.util.Constants.ID_SERIE;
 
@@ -30,11 +30,13 @@ public class DetallesSerieFragment extends Fragment {
 
     private int idSerie;
     private Serie mSerie;
+    private SeriesViewModel model;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View root = inflater.inflate(R.layout.activity_detalles_serie, container, false);
+        model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
         if (getArguments() != null) {
             idSerie = getArguments().getInt(ID_SERIE);
         }
@@ -63,13 +65,18 @@ public class DetallesSerieFragment extends Fragment {
                 (tab, position) -> tab.setText(tabs[position])
         ).attach();
 
-        SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
+        getSerie(view);
 
-        Observer<Serie> observerPopulares = serie -> {
-            mSerie = serie;
-            new RellenarSerie(view, serie, getActivity()).fillSerieTop();
-//            bar.setVisibility(View.INVISIBLE);
-        };
-        model.getSerie(idSerie, getActivity()).observe(getViewLifecycleOwner(), observerPopulares);
+    }
+
+    private void getSerie(View view) {
+        RepositoryAPI.getInstance().getSerieObs(idSerie)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(serie -> {
+                            mSerie = serie;
+                            model.init(mSerie);
+                        }
+                        , Throwable::printStackTrace
+                        , () -> new RellenarSerie(view, mSerie, getActivity()).fillSerieTop());
     }
 }

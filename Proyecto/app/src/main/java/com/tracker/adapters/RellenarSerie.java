@@ -1,11 +1,9 @@
 package com.tracker.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 
@@ -46,6 +44,20 @@ public class RellenarSerie {
             fillGeneral();
             fillGenres();
             fillNetworks();
+            fillTrailer();
+        }
+    }
+
+    public void fillTrailer(){
+        YouTubePlayerView youTubePlayerView = mVista.findViewById(R.id.youtube_player_view);
+        if (mSerie.video != null) {
+            youTubePlayerView.getYouTubePlayerWhenReady(youTubePlayer -> {
+                youTubePlayer.cueVideo(mSerie.video.key, 0);
+                youTubePlayerView.setVisibility(View.VISIBLE);
+            });
+        } else {
+            youTubePlayerView.setVisibility(View.GONE);
+            mVista.findViewById(R.id.trailer_title).setVisibility(View.GONE);
         }
     }
 
@@ -54,13 +66,14 @@ public class RellenarSerie {
         TextView fecha = mVista.findViewById(R.id.fechaSerie);
         TextView pais = mVista.findViewById(R.id.paisSerie);
         TextView emision = mVista.findViewById(R.id.emisionSerie);
-
         fecha.setText(mSerie.firstAirDate);
+
         if (!mSerie.originCountry.isEmpty()) {
             pais.setText(mSerie.originCountry.get(0));
         } else {
             pais.setText("");
         }
+
         emision.setText(mSerie.status);
         collapse.setTitle(mSerie.name);
     }
@@ -69,21 +82,11 @@ public class RellenarSerie {
         ReadMoreTextView sinopsis = mVista.findViewById(R.id.sinopsis_text);
         sinopsis.setText(mSerie.overview);
 
-        YouTubePlayerView youTubePlayerView = mVista.findViewById(R.id.youtube_player_view);
-        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-            @Override
-            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                String videoId = mSerie.video.key;
-                youTubePlayer.loadVideo(videoId, 0);
-            }
-        });
-
-
 
 
     }
 
-    private void fillNetworks(){
+    private void fillNetworks() {
         Util util = new Util();
         int networks = mSerie.networks.size();
         for (int i = 1; i <= 3; i++) {
@@ -97,8 +100,7 @@ public class RellenarSerie {
                 String name = "network" + i;
                 int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
                 ImageView imageView = mVista.findViewById(id);
-                util.getBackground(BASE_URL_IMAGES_NETWORK+mSerie.networks.get(i-1).logoPath,imageView, mContext);
-//                imageView.setText(mSerie.genres.get(i - 1).name);
+                util.getBackground(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(i - 1).logoPath, imageView, mContext);
 
                 imageView.setVisibility(View.VISIBLE);
             }
@@ -107,13 +109,13 @@ public class RellenarSerie {
                 String name = "network" + j;
                 int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
                 ImageView imageView = mVista.findViewById(id);
-                util.getBackground(BASE_URL_IMAGES_NETWORK+mSerie.networks.get(j-1).logoPath,imageView, mContext);
+                util.getBackground(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(j - 1).logoPath, imageView, mContext);
                 imageView.setVisibility(View.VISIBLE);
             }
         }
     }
 
-    private void fillGenres(){
+    private void fillGenres() {
         int genres = mSerie.genres.size();
         for (int i = 1; i < 5; i++) {
             String name = "genre" + i;

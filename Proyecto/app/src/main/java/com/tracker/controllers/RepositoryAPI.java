@@ -2,16 +2,11 @@ package com.tracker.controllers;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
-import com.tracker.adapters.RellenarSerie;
-import com.tracker.adapters.SeriesBasicAdapter;
 import com.tracker.models.BasicResponse;
 import com.tracker.models.VideosResponse;
 import com.tracker.models.people.Person;
@@ -23,6 +18,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collections;
 import java.util.List;
 
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -47,7 +47,6 @@ public class RepositoryAPI {
     private MutableLiveData<List<BasicResponse.SerieBasic>> popularesData;
     private MutableLiveData<Serie> serieData;
 
-
     private static RepositoryAPI repoTMDB;
 
     public static RepositoryAPI getInstance() {
@@ -61,6 +60,7 @@ public class RepositoryAPI {
         nuevasData = new MutableLiveData<>();
         popularesData = new MutableLiveData<>();
         serieData = new MutableLiveData<>();
+
     }
 
     public DataTMDB getClient() {
@@ -78,11 +78,14 @@ public class RepositoryAPI {
                         .baseUrl(BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .client(client)
+                        .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
                         .build();
         return retrofit.create(DataTMDB.class);
     }
 
-    public MutableLiveData<List<BasicResponse.SerieBasic>> getTrending(Context context) {
+
+
+    public MutableLiveData<List<BasicResponse.SerieBasic>> getTrending() {
 
         if (popularesData == null) {
             popularesData = new MutableLiveData<>();
@@ -102,7 +105,6 @@ public class RepositoryAPI {
 
             @Override
             public void onFailure(@NotNull Call<BasicResponse> call, @NotNull Throwable t) {
-                Toast.makeText(context, R.string.no_conn, Toast.LENGTH_LONG).show();
             }
         });
         return popularesData;
@@ -137,9 +139,7 @@ public class RepositoryAPI {
 
     }
 
-
-    public MutableLiveData<Serie> getSerie(int idSerie, Context context) {
-
+    public MutableLiveData<Serie> getSerie(int idSerie) {
         getClient().getSerie(idSerie, ES, GET_SERIE_API_EXTRAS).enqueue(new Callback<Serie>() {
             @Override
             public void onResponse(@NotNull Call<Serie> call, @NotNull retrofit2.Response<Serie> response) {
@@ -148,22 +148,41 @@ public class RepositoryAPI {
                     serie = response.body();
                 }
                 if (response.body() != null && serie != null) {
+                    getTrailer(serie);
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     serieData.setValue(serie);
-                    getTrailer(serie, context);
                 }
             }
 
             @Override
             public void onFailure(@NotNull Call<Serie> call, @NotNull Throwable t) {
-                Toast.makeText(context, R.string.no_conn, Toast.LENGTH_LONG).show();
                 serieData.setValue(null);
             }
         });
         return serieData;
     }
 
-    private void getTrailer(Serie serie, Context context) {
+    public Observable<Serie> getSerieObs(int idSerie) {
+        Observable<Serie> obsSerie = RepositoryAPI.getInstance().getClient().getTv(idSerie, ES, GET_SERIE_API_EXTRAS);
+        Observable<VideosResponse> obsVideo = RepositoryAPI.getInstance().getClient().getTrailer(idSerie);
+        return Observable.zip(obsSerie, obsVideo, (serie, videosResponse) -> {
+            List<VideosResponse.Video> trailers = videosResponse.results;
+            for (VideosResponse.Video v : trailers) {
+                if (v.type.equals("Trailer")) {
+                    serie.setVideos(v);
+                    break;
+                }
+            }
+            return serie;
+        });
 
+    }
+
+    private void getTrailer(Serie serie) {
         getClient().getVideo(serie.id).enqueue(new Callback<VideosResponse>() {
             @Override
             public void onResponse(@NotNull Call<VideosResponse> call, @NotNull retrofit2.Response<VideosResponse> response) {
@@ -184,7 +203,6 @@ public class RepositoryAPI {
 
             @Override
             public void onFailure(@NotNull Call<VideosResponse> call, @NotNull Throwable t) {
-                Toast.makeText(context, R.string.no_conn, Toast.LENGTH_LONG).show();
             }
         });
     }

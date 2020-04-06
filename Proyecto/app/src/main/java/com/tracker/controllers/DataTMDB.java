@@ -6,6 +6,7 @@ import com.tracker.models.people.Person;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.series.Serie;
 
+import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -47,5 +48,18 @@ public interface DataTMDB {
     @Headers("Accept: application/json")
     @GET("tv/{tv_id}/videos")
     Call<VideosResponse> getVideo(@Path("tv_id") int idSerie);
+
+
+
+    @Headers("Accept: application/json")
+    @GET("tv/{tv_id}/videos")
+    Observable<VideosResponse> getTrailer(@Path("tv_id") int idSerie);
+
+    @Headers("Accept: application/json")
+    @GET("tv/{id_serie}")
+    Observable<Serie> getTv(@Path("id_serie") int id,
+                         @Query("language") String language,
+                         @Query("append_to_response") String append);
+
 
 }

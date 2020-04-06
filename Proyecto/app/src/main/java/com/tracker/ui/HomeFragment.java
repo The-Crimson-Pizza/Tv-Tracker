@@ -8,15 +8,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
+import com.tracker.adapters.RellenarSerie;
 import com.tracker.adapters.SeriesViewModel;
 import com.tracker.adapters.SeriesBasicAdapter;
 import com.tracker.models.BasicResponse;
+import com.tracker.models.series.Serie;
 
 import java.util.List;
 
@@ -50,18 +53,18 @@ public class HomeFragment extends Fragment {
 
         SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
 
-        Observer<List<BasicResponse.SerieBasic>> observerPopulares = serieBasics -> {
-            mPopulares = serieBasics;
+        LiveData<List<BasicResponse.SerieBasic>> s = model.getPopulares();
+        s.observe(getViewLifecycleOwner(), series -> {
+            mPopulares = series;
             adapterPopular = new SeriesBasicAdapter(getActivity(), mPopulares);
             rvPopulares.setAdapter(adapterPopular);
-        };
-        model.getPopulares(getActivity()).observe(getViewLifecycleOwner(), observerPopulares);
+        });
 
-        Observer<List<BasicResponse.SerieBasic>> observerNuevas = serieBasics -> {
-            mNuevas = serieBasics;
+        LiveData<List<BasicResponse.SerieBasic>> n = model.getNuevas();
+        n.observe(getViewLifecycleOwner(), series -> {
+            mNuevas = series;
             adapterNueva = new SeriesBasicAdapter(getActivity(), mNuevas);
             rvNuevas.setAdapter(adapterNueva);
-        };
-        model.getNuevas(getActivity()).observe(getViewLifecycleOwner(), observerNuevas);
+        });
     }
 }

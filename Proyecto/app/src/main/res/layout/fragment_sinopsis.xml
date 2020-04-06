@@ -116,28 +116,28 @@
             <ImageView
                 android:id="@+id/network1"
                 android:layout_width="40dp"
-                android:scaleType="fitXY"
                 android:layout_height="15dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="15dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/netflix" />
 
             <ImageView
                 android:id="@+id/network2"
                 android:layout_width="40dp"
-                android:scaleType="fitXY"
                 android:layout_height="15dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="15dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/netflix" />
 
             <ImageView
                 android:id="@+id/network3"
                 android:layout_width="40dp"
-                android:scaleType="fitXY"
                 android:layout_height="15dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="15dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/amazon" />
 
         </LinearLayout>
@@ -145,6 +145,7 @@
         <!-- TRAILER-->
 
         <TextView
+            android:id="@+id/trailer_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -156,16 +157,10 @@
             android:id="@+id/youtube_player_view"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            app:autoPlay="false"
-            app:showFullScreenButton="true" />
-
-<!--        <fragment-->
-<!--            android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"-->
-<!--            android:id="@+id/youtubesupportfragment"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="200dp"-->
-<!--            android:layout_marginBottom="30dp"/>-->
-
-
+           app:autoPlay="false"
+            android:visibility="invisible"
+            app:showFullScreenButton="true"
+            app:showVideoCurrentTime="true"
+            app:useWebUi="false" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

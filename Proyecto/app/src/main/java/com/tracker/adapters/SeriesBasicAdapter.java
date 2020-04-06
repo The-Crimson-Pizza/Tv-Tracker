@@ -2,7 +2,6 @@ package com.tracker.adapters;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
-import androidx.paging.PagedListAdapter;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
@@ -25,7 +22,7 @@ import java.util.List;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 import static com.tracker.util.Constants.ID_SERIE;
 
-public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.ViewHolder>  {
+public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.ViewHolder> {
 
     private List<BasicResponse.SerieBasic> mSeries;
     private static Context mContext;
@@ -90,7 +87,6 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
                 name.setText("Loading...");
             }
         }
-
 
 
     }
