@@ -1,4 +1,3 @@
-
 package com.tracker.models.people;
 
 import android.os.Parcel;

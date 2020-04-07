@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.tracker.R;
 import com.tracker.adapters.RellenarSerie;
-import com.tracker.adapters.SeriesViewModel;
+import com.tracker.data.SeriesViewModel;
 import com.tracker.data.RxBus;
 import com.tracker.models.series.Serie;
 

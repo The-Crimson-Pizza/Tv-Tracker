@@ -29,4 +29,7 @@
     <string name="genres_title">Géneros</string>
     <string name="trailer_title">Trailer</string>
     <string name="networks_title">Networks</string>
+    <string name="biografia">Biografía</string>
+    <string name="series">Series</string>
+    <string name="peliculas">Películas</string>
 </resources>

@@ -32,4 +32,13 @@
     <string name="networks_title">Networks</string>
     <string name="trailer_title">Trailer</string>
     <string name="sinopsis">OVERVIEW</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_send">Send</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="biografia">Biography</string>
+    <string name="series">Series</string>
+    <string name="peliculas">Movies</string>
+    <string name="years">years</string>
 </resources>

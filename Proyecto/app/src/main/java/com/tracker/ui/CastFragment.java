@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.adapters.ActorBasicAdapter;
-import com.tracker.adapters.SeriesViewModel;
+import com.tracker.data.SeriesViewModel;
 import com.tracker.models.series.Serie;
 
 public class CastFragment extends Fragment {
@@ -44,13 +43,12 @@ public class CastFragment extends Fragment {
         SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
         LiveData<Serie> s = model.getSerie();
         s.observe(getViewLifecycleOwner(), serie -> {
-            if (serie.credits.cast.size() > 0) {
+            if (!serie.credits.cast.isEmpty()) {
                 adapterActor = new ActorBasicAdapter(mContext, serie);
                 rvCasting.setAdapter(adapterActor);
-            }else{
+            } else {
                 Snackbar.make(view, "Sin datos de reparto", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-//                Toast.makeText(mContext, "Sin datos de reparto", Toast.LENGTH_LONG).show();
             }
         });
     }

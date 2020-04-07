@@ -1,7 +1,6 @@
 package com.tracker.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +18,8 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.tracker.R;
 import com.tracker.adapters.RellenarSerie;
 import com.tracker.adapters.SeriesTabAdapter;
-import com.tracker.adapters.SeriesViewModel;
-import com.tracker.controllers.RepositoryAPI;
+import com.tracker.data.SeriesViewModel;
+import com.tracker.data.RepositoryAPI;
 import com.tracker.data.RxBus;
 import com.tracker.models.series.Serie;
 
@@ -72,7 +71,7 @@ public class DetallesSerieFragment extends Fragment {
     }
 
     private void getSerie(View view) {
-        RepositoryAPI.getInstance().getSerieObs(idSerie)
+        RepositoryAPI.getInstance().getSerie(idSerie)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(serie -> {
                             mSerie = serie;

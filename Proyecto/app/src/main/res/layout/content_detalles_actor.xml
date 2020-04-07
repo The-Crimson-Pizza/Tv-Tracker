@@ -14,92 +14,72 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="15dp">
-        <LinearLayout
+
+        <TextView
+            android:id="@+id/fecha_actor"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/tar"
-                android:layout_gravity="center_vertical"
-                    />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="April 22, 1937"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="15dp"
-                android:textSize="18dp"
-                />
-        </LinearLayout>
-        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="20dp"
+            android:drawableStart="@drawable/tar"
+            android:drawablePadding="10dp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/lugar_actor"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/loc"
-                android:layout_gravity="center_vertical"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Manhattan, New York, USA"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="15dp"
-                android:textSize="18dp"
-                />
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="20dp"
+            android:drawableStart="@drawable/loc"
+            android:drawablePadding="10dp"
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Biografía"
-            android:textSize="20dp"
             android:layout_marginBottom="15dp"
-            />
+            android:text="@string/biografia"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
         <com.borjabravo.readmoretextview.ReadMoreTextView
-            android:id="@+id/sinopsis_text"
+            android:id="@+id/bio_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/large_text"
             app:colorClickableText="@color/colorPrimary"
-            app:trimMode="trimModeLength"
             app:trimLines="70"
-            android:layout_marginBottom="15dp">
-        </com.borjabravo.readmoretextview.ReadMoreTextView>
-        <!--<TextView
-            android:lineSpacingExtra="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/large_text"
-            android:id="@+id/bio"
-            android:justificationMode="inter_word"
-            android:layout_marginBottom="20dp"
-            />-->
+            app:trimMode="trimModeLength" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Películas "
-            android:textSize="20dp"
-            />
+            android:layout_marginTop="15dp"
+            android:text="@string/series"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSeries"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/recyclerView"
-            android:orientation="horizontal"
             android:layout_marginTop="15dp"
-            >
+            android:orientation="horizontal" />
 
-        </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/peliculas"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPelis"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal" />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

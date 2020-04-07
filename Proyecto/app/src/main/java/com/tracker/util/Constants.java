@@ -18,10 +18,11 @@ public class Constants {
     public static final String BASE_URL_IMDB = "https://www.imdb.com/title/";
     public static final String BASE_URL_YOUTUBE = "https://www.youtube.com/watch?v=";
     public static final String ES = "es-ES";
+    public static final String EN = "en-US";
     public static final String ID_SERIE = "id_serie";
     public static final String ID_ACTOR = "id_actor";
     public static final String TAG = "TAGG";
     public static final String GET_SERIE_API_EXTRAS = "credits,similar,external_ids";
-    public static final String GET_PEOPLE_API_EXTRAS = "tv_credits,external_ids";
+    public static final String GET_PEOPLE_API_EXTRAS = "tv_credits,movie_credits,external_ids";
     public static final String POP_DESC = "popularity.desc";
 }

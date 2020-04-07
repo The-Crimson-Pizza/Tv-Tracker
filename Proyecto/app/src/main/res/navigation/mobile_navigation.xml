@@ -49,8 +49,9 @@
         android:label="ActorDetalle"
         tools:layout="@layout/activity_detalles_actor" >
         <action
-            android:id="@+id/action_navigation_actores_to_sinopsisFragment"
-            app:destination="@id/sinopsisFragment" />
+            android:id="@+id/action_actores_to_series"
+            app:destination="@id/navigation_series"
+            app:popUpTo="@id/navigation_series" />
     </fragment>
     <fragment
         android:id="@+id/sinopsisFragment"

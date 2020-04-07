@@ -24,38 +24,39 @@ import static com.tracker.util.Constants.ID_ACTOR;
 
 public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.ViewHolder> {
 
-    private List<Credits.Cast> casting;
-    private Context mContext;
+    private List<Credits.Cast> mCastSerie;
+    private static Context mContext;
 
-    public ActorBasicAdapter(Context mContext, Serie serie) {
-        casting = serie.credits.cast;
-        this.mContext = mContext;
+    public ActorBasicAdapter(Context context, Serie serie) {
+        this.mCastSerie = serie.credits.cast;
+        mContext = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_cast_vertical, parent, false);
-        return new ViewHolder(view);
+        return ViewHolder.create(parent);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ActorBasicAdapter.ViewHolder holder, final int position) {
-        holder.name.setText(casting.get(position).name);
-        holder.character.setText(casting.get(position).character);
-        new Util().getImage(BASE_URL_IMAGES_PORTRAIT + casting.get(position).profilePath, holder.image, mContext);
+        holder.bindTo(mCastSerie.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return casting.size();
+        if (mCastSerie != null) {
+            return mCastSerie.size();
+        }
+        return 0;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image;
         TextView name;
         TextView character;
+        int id;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,10 +67,23 @@ public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.Vi
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 Bundle bundle = new Bundle();
-                bundle.putInt(ID_ACTOR, casting.get(pos).id);
+                bundle.putInt(ID_ACTOR, id);
                 Navigation.findNavController(v).navigate(R.id.action_series_to_actores, bundle);
             });
         }
 
+        static public ActorBasicAdapter.ViewHolder create(ViewGroup parent) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_cast_vertical, parent, false);
+            return new ActorBasicAdapter.ViewHolder(view);
+        }
+
+        public void bindTo(Credits.Cast cast) {
+            if (cast != null) {
+                name.setText(cast.name);
+                character.setText(cast.character);
+                new Util().getImageNoPlaceholder(BASE_URL_IMAGES_PORTRAIT + cast.profilePath, image, mContext);
+                id = cast.id;
+            }
+        }
     }
 }

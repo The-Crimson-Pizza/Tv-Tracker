@@ -91,10 +91,6 @@ m
 =app/src/main/java/com/tracker/adapters/ActorBasicAdapter.java,b/2/b2685162aef2bdaca71e1dccb81fcd03b8611a38
 k
 ;app/src/main/java/com/tracker/adapters/SeriesViewModel.java,a/1/a16039c52948bfc875e9daf45502023238e449ee
-a
-1app/src/main/res/navigation/mobile_navigation.xml,5/0/50c7987ff387678f825775665976b5fc8ed47989
-S
-#app/src/main/res/values/strings.xml,d/2/d2281fbb3027de2722081a53408dd77628bf080e
 A
 gradle.properties,2/a/2afbb999f001938c88fa43fc2ef52abf0f8213e4
 c

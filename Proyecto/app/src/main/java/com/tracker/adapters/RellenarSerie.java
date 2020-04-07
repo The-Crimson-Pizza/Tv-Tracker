@@ -44,7 +44,7 @@ public class RellenarSerie {
         }
     }
 
-    public void fillTrailer(){
+    private void fillTrailer(){
         YouTubePlayerView youTubePlayerView = mVista.findViewById(R.id.youtube_player_view);
         if (mSerie.video != null) {
             youTubePlayerView.getYouTubePlayerWhenReady(youTubePlayer -> {

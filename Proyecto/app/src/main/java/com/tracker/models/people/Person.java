@@ -43,22 +43,20 @@ public class Person implements Parcelable {
     @SerializedName("external_ids")
     @Expose
     public ExternalIds externalIds;
+    @SerializedName("movie_credits")
+    @Expose
+    public MovieCredits movieCredits;
 
-    public final static Creator<Person> CREATOR = new Creator<Person>() {
+    public final static Creator<Person> CREATOR =
+            new Creator<Person>() {
+                public Person createFromParcel(Parcel in) {
+                    return new Person(in);
+                }
 
-
-        @SuppressWarnings({
-                "unchecked"
-        })
-        public Person createFromParcel(Parcel in) {
-            return new Person(in);
-        }
-
-        public Person[] newArray(int size) {
-            return (new Person[size]);
-        }
-
-    };
+                public Person[] newArray(int size) {
+                    return (new Person[size]);
+                }
+            };
 
     protected Person(Parcel in) {
         this.birthday = ((String) in.readValue((String.class.getClassLoader())));
@@ -66,6 +64,7 @@ public class Person implements Parcelable {
         this.id = ((int) in.readValue((int.class.getClassLoader())));
         this.name = ((String) in.readValue((String.class.getClassLoader())));
         this.tvCredits = ((TvCredits) in.readValue((TvCredits.class.getClassLoader())));
+        this.movieCredits = ((MovieCredits) in.readValue((MovieCredits.class.getClassLoader())));
         this.gender = ((int) in.readValue((int.class.getClassLoader())));
         this.biography = ((String) in.readValue((String.class.getClassLoader())));
         this.placeOfBirth = ((String) in.readValue((String.class.getClassLoader())));
@@ -74,15 +73,13 @@ public class Person implements Parcelable {
         this.externalIds = ((ExternalIds) in.readValue((ExternalIds.class.getClassLoader())));
     }
 
-    public Person() {
-    }
-
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(birthday);
         dest.writeValue(deathday);
         dest.writeValue(id);
         dest.writeValue(name);
         dest.writeValue(tvCredits);
+        dest.writeValue(movieCredits);
         dest.writeValue(gender);
         dest.writeValue(biography);
         dest.writeValue(placeOfBirth);
@@ -107,29 +104,21 @@ public class Person implements Parcelable {
         @Expose
         public String imdbId;
 
-        public final Parcelable.Creator<ExternalIds> CREATOR = new Creator<ExternalIds>() {
+        public final Parcelable.Creator<ExternalIds> CREATOR =
+                new Creator<ExternalIds>() {
+                    public ExternalIds createFromParcel(Parcel in) {
+                        return new ExternalIds(in);
+                    }
 
+                    public ExternalIds[] newArray(int size) {
+                        return (new ExternalIds[size]);
+                    }
+                };
 
-            @SuppressWarnings({
-                    "unchecked"
-            })
-            public ExternalIds createFromParcel(Parcel in) {
-                return new ExternalIds(in);
-            }
-
-            public ExternalIds[] newArray(int size) {
-                return (new ExternalIds[size]);
-            }
-
-        };
-
-        protected ExternalIds(Parcel in) {
+        ExternalIds(Parcel in) {
             this.instagramId = ((String) in.readValue((String.class.getClassLoader())));
             this.twitterId = ((String) in.readValue((String.class.getClassLoader())));
             this.imdbId = ((String) in.readValue((String.class.getClassLoader())));
-        }
-
-        public ExternalIds() {
         }
 
         public void writeToParcel(Parcel dest, int flags) {
@@ -141,7 +130,5 @@ public class Person implements Parcelable {
         public int describeContents() {
             return 0;
         }
-
     }
-
 }
