@@ -5,12 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.tracker.R;
 import com.tracker.models.series.Serie;
@@ -81,27 +77,17 @@ public class RellenarSerie {
     private void fillGeneral() {
         ReadMoreTextView sinopsis = mVista.findViewById(R.id.sinopsis_text);
         sinopsis.setText(mSerie.overview);
-
-
-
     }
 
     private void fillNetworks() {
         Util util = new Util();
         int networks = mSerie.networks.size();
-        for (int i = 1; i <= 3; i++) {
-            String name = "network" + i;
-            int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
-            ImageView imageView = mVista.findViewById(id);
-            imageView.setVisibility(View.GONE);
-        }
         if (networks <= 3) {
             for (int i = 1; i < networks + 1; i++) {
                 String name = "network" + i;
                 int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
                 ImageView imageView = mVista.findViewById(id);
-                util.getBackground(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(i - 1).logoPath, imageView, mContext);
-
+                util.getImageNoPlaceholder(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(i - 1).logoPath, imageView, mContext);
                 imageView.setVisibility(View.VISIBLE);
             }
         } else {
@@ -109,7 +95,7 @@ public class RellenarSerie {
                 String name = "network" + j;
                 int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
                 ImageView imageView = mVista.findViewById(id);
-                util.getBackground(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(j - 1).logoPath, imageView, mContext);
+                util.getImageNoPlaceholder(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(j - 1).logoPath, imageView, mContext);
                 imageView.setVisibility(View.VISIBLE);
             }
         }
@@ -117,13 +103,7 @@ public class RellenarSerie {
 
     private void fillGenres() {
         int genres = mSerie.genres.size();
-        for (int i = 1; i < 5; i++) {
-            String name = "genre" + i;
-            int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
-            TextView textView = mVista.findViewById(id);
-            textView.setVisibility(View.GONE);
-        }
-        if (genres <= 4) {
+        if (genres <= 3) {
             for (int i = 1; i < genres + 1; i++) {
                 String name = "genre" + i;
                 int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
@@ -132,7 +112,7 @@ public class RellenarSerie {
                 textView.setVisibility(View.VISIBLE);
             }
         } else {
-            for (int j = 1; j <= 4; j++) {
+            for (int j = 1; j <= 3; j++) {
                 String name = "genre" + j;
                 int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
                 TextView textView = mVista.findViewById(id);
@@ -146,7 +126,7 @@ public class RellenarSerie {
         ImageView poster = mVista.findViewById(R.id.posterImage);
         ImageView background = mVista.findViewById(R.id.imagen_background);
 
-        new Util().getPoster(BASE_URL_IMAGES_POSTER + mSerie.posterPath, poster, mContext);
-        new Util().getBackground(BASE_URL_IMAGES_BACK + mSerie.backdropPath, background, mContext);
+        new Util().getImage(BASE_URL_IMAGES_POSTER + mSerie.posterPath, poster, mContext);
+        new Util().getImageNoPlaceholder(BASE_URL_IMAGES_BACK + mSerie.backdropPath, background, mContext);
     }
 }

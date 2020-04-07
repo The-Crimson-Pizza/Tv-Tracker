@@ -1,6 +1,7 @@
 package com.tracker.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.tracker.adapters.RellenarSerie;
 import com.tracker.adapters.SeriesTabAdapter;
 import com.tracker.adapters.SeriesViewModel;
 import com.tracker.controllers.RepositoryAPI;
+import com.tracker.data.RxBus;
 import com.tracker.models.series.Serie;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -74,9 +76,9 @@ public class DetallesSerieFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(serie -> {
                             mSerie = serie;
+                            new RellenarSerie(view, mSerie, getActivity()).fillSerieTop();
+                            RxBus.getInstance().publish(mSerie);
                             model.init(mSerie);
-                        }
-                        , Throwable::printStackTrace
-                        , () -> new RellenarSerie(view, mSerie, getActivity()).fillSerieTop());
+                        });
     }
 }

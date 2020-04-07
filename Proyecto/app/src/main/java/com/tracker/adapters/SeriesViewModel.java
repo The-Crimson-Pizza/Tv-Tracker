@@ -15,8 +15,6 @@ public class SeriesViewModel extends ViewModel {
     private MutableLiveData<List<BasicResponse.SerieBasic>> mNuevas;
     private MutableLiveData<List<BasicResponse.SerieBasic>> mPopulares;
     private MutableLiveData<Serie> mSerie = new MutableLiveData<>();
-    ;
-
 
     public LiveData<List<BasicResponse.SerieBasic>> getNuevas() {
         if (mNuevas == null) {

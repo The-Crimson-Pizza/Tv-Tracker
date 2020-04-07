@@ -1,18 +1,19 @@
 
-o
-java:S1128	"MRemove this unused import 'androidx.recyclerview.widget.LinearLayoutManager'.(ôœ¹ºıÿÿÿÿ8Û“¤æ“.
+¤
+java:S1186Í"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(áàà¿üÿÿÿÿ8ú‹ƒ•.
+a
+java:S1128"?Remove this unused import 'io.reactivex.rxjava3.core.Observer'.(ÄææÓıÿÿÿÿ8Š£Äƒ•.
 m
-java:S2259b"KA "NullPointerException" could be thrown; "listaTrending" is nullable here.(Ìòêüûÿÿÿÿ8¬ı“æ“.
-k
-java:S2259~"IA "NullPointerException" could be thrown; "listaNuevas" is nullable here.(´±Ã¿úÿÿÿÿ8¬ı“æ“.
-f
-java:S1128"DRemove this unused import 'com.tracker.adapters.SeriesBasicAdapter'.(Ò¯§›şÿÿÿÿ8Û“¤æ“.
+java:S2259e"KA "NullPointerException" could be thrown; "listaTrending" is nullable here.(Ìòêüûÿÿÿÿ8ú‹ƒ•.
+x
+java:S1128"VRemove this unused import 'io.reactivex.rxjava3.android.schedulers.AndroidSchedulers'.(Å±Ìıÿÿÿÿ8šğ¼ƒ•.
+
+java:S1186k"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ãİö¢8ú‹ƒ•.
+F
+java:S1148›"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8ú‹ƒ•.
+l
+java:S2259€"IA "NullPointerException" could be thrown; "listaNuevas" is nullable here.(´±Ã¿úÿÿÿÿ8ú‹ƒ•.
+d
+java:S2142š"FEither re-interrupt this method or rethrow the "InterruptedException".(ä ¹€8ú‹ƒ•.
 g
-java:S2259¯"DA "NullPointerException" could be thrown; "videos" is nullable here.(›ØÇÒúÿÿÿÿ8¨™‰è“.
-h
-java:S1128
-"FRemove this unused import 'androidx.recyclerview.widget.RecyclerView'.(Îèòçøÿÿÿÿ8€—æ“.
-P
-java:S1128".Remove this unused import 'android.view.View'.(Ø½­äşÿÿÿÿ8ÛË®ç“.
-\
-java:S1128"?Remove this unused import 'com.tracker.adapters.RellenarSerie'.(Ç¥úÖ8¾…â‘”.
+java:S2259Â"DA "NullPointerException" could be thrown; "videos" is nullable here.(›ØÇÒúÿÿÿÿ8ú‹ƒ•.

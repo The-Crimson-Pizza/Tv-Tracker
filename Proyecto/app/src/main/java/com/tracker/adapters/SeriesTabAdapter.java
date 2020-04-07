@@ -12,7 +12,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class SeriesTabAdapter extends FragmentStateAdapter {
 
-
     public SeriesTabAdapter(@NonNull Fragment fragment) {
         super(fragment);
     }
@@ -34,6 +33,4 @@ public class SeriesTabAdapter extends FragmentStateAdapter {
     public int getItemCount() {
         return 3;
     }
-
-
 }

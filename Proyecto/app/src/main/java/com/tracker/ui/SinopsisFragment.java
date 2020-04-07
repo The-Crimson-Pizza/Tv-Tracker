@@ -9,21 +9,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.tracker.R;
-import com.tracker.adapters.ActorBasicAdapter;
 import com.tracker.adapters.RellenarSerie;
 import com.tracker.adapters.SeriesViewModel;
 import com.tracker.data.RxBus;
 import com.tracker.models.series.Serie;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-//import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
 public class SinopsisFragment extends Fragment {
@@ -35,6 +30,7 @@ public class SinopsisFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View root = inflater.inflate(R.layout.fragment_sinopsis, container, false);
         youTubePlayerView = root.findViewById(R.id.youtube_player_view);
         getLifecycle().addObserver(youTubePlayerView);
@@ -45,13 +41,27 @@ public class SinopsisFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
-        LiveData<Serie> s = model.getSerie();
-        s.observe(getViewLifecycleOwner(), new Observer<Serie>() {
-            @Override
-            public void onChanged(Serie serie) {
-                new RellenarSerie(view, serie, mContext).fillSerieSinopsis();
-            }
-        });
+
+        RxBus.getInstance().listen()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Serie>() {
+                    @Override
+                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull Serie serie) {
+                        mSerie = serie;
+                        new RellenarSerie(view, mSerie, mContext).fillSerieSinopsis();
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 }

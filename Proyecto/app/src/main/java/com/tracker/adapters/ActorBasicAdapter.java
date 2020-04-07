@@ -19,7 +19,7 @@ import com.tracker.util.Util;
 
 import java.util.List;
 
-import static com.tracker.util.Constants.BASE_URL_IMAGES_ICON;
+import static com.tracker.util.Constants.BASE_URL_IMAGES_PORTRAIT;
 import static com.tracker.util.Constants.ID_ACTOR;
 
 public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.ViewHolder> {
@@ -41,12 +41,9 @@ public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ActorBasicAdapter.ViewHolder holder, final int position) {
-
         holder.name.setText(casting.get(position).name);
         holder.character.setText(casting.get(position).character);
-//        new Util().getPortrait(BASE_URL_IMAGES_ICON + casting.get(position).profilePath, holder.image);
-        new Util().getPoster(BASE_URL_IMAGES_ICON + casting.get(position).profilePath, holder.image, mContext);
-
+        new Util().getImage(BASE_URL_IMAGES_PORTRAIT + casting.get(position).profilePath, holder.image, mContext);
     }
 
     @Override
@@ -70,7 +67,7 @@ public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.Vi
                 int pos = getAdapterPosition();
                 Bundle bundle = new Bundle();
                 bundle.putInt(ID_ACTOR, casting.get(pos).id);
-               Navigation.findNavController(v).navigate(R.id.action_series_to_actores, bundle);
+                Navigation.findNavController(v).navigate(R.id.action_series_to_actores, bundle);
             });
         }
 

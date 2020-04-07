@@ -3,11 +3,11 @@
     <color name="colorPrimary">#48c9b0</color>
     <color name="colorPrimaryDark">#1abc9c </color>
     <color name="colorAccent">#616a6b</color>
-    <color name="whiteColor">#ffffff</color>
     <color name="rowBg">#E4E4E4</color>
     <color name="movieTitle">#797979</color>
     <color name="yearTitle">#CC8BDA</color>
     <color name="rateTitle">#CFC767</color>
+    <color name="whiteColor">#ffffff</color>
     <color name="black80">#A1000000</color>
     <color name="black">#000000</color>
 </resources>

@@ -85,17 +85,6 @@
                 android:textStyle="bold"
                 android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/genre4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round"
-                android:padding="7.5dp"
-                android:text="@string/genre"
-                android:textColor="@color/whiteColor"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
         </LinearLayout>
 
         <!-- NETWORKS -->
@@ -115,30 +104,33 @@
 
             <ImageView
                 android:id="@+id/network1"
-                android:layout_width="40dp"
-                android:layout_height="15dp"
+                android:layout_width="55dp"
+                android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="15dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/netflix" />
+                android:scaleType="fitCenter"
+                android:src="@drawable/netflix"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/network2"
-                android:layout_width="40dp"
-                android:layout_height="15dp"
+                android:layout_width="55dp"
+                android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="15dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/netflix" />
+                android:src="@drawable/netflix"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/network3"
-                android:layout_width="40dp"
-                android:layout_height="15dp"
+                android:layout_width="55dp"
+                android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="15dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/amazon" />
+                android:src="@drawable/amazon"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -157,8 +149,8 @@
             android:id="@+id/youtube_player_view"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-           app:autoPlay="false"
             android:visibility="invisible"
+            app:autoPlay="false"
             app:showFullScreenButton="true"
             app:showVideoCurrentTime="true"
             app:useWebUi="false" />

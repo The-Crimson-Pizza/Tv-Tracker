@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.adapters.ActorBasicAdapter;
 import com.tracker.adapters.SeriesViewModel;
@@ -21,7 +23,6 @@ import com.tracker.models.series.Serie;
 
 public class CastFragment extends Fragment {
 
-    private SeriesViewModel model;
     private RecyclerView rvCasting;
     private ActorBasicAdapter adapterActor;
     private Context mContext;
@@ -40,12 +41,17 @@ public class CastFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
+        SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
         LiveData<Serie> s = model.getSerie();
         s.observe(getViewLifecycleOwner(), serie -> {
-            adapterActor = new ActorBasicAdapter(getActivity(), serie);
-            rvCasting.setAdapter(adapterActor);
-//                adapterActor.notifyDataSetChanged();
+            if (serie.credits.cast.size() > 0) {
+                adapterActor = new ActorBasicAdapter(mContext, serie);
+                rvCasting.setAdapter(adapterActor);
+            }else{
+                Snackbar.make(view, "Sin datos de reparto", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+//                Toast.makeText(mContext, "Sin datos de reparto", Toast.LENGTH_LONG).show();
+            }
         });
     }
 }
