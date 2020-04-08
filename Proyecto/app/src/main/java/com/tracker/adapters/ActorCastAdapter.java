@@ -1,6 +1,7 @@
 package com.tracker.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,16 +13,20 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.models.people.MovieCredits;
 import com.tracker.models.people.Person;
 import com.tracker.models.people.TvCredits;
+import com.tracker.ui.WebView;
 import com.tracker.util.Util;
 
 import java.util.List;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
+import static com.tracker.util.Constants.BASE_URL_WEB;
 import static com.tracker.util.Constants.ID_SERIE;
+import static com.tracker.util.Constants.URL_WEBVIEW;
 
 public class ActorCastAdapter extends RecyclerView.Adapter<ActorCastAdapter.ViewHolder> {
 
@@ -51,19 +56,28 @@ public class ActorCastAdapter extends RecyclerView.Adapter<ActorCastAdapter.View
             holder.name.setText(mPeliculas.get(position).title);
             holder.character.setText(mPeliculas.get(position).character);
             new Util().getImage(BASE_URL_IMAGES_POSTER + mPeliculas.get(position).posterPath, holder.image, mContext);
+            holder.itemView.setOnClickListener(v -> {
+                Snackbar.make(v, "Not yet implemented", Snackbar.LENGTH_LONG)
+                        .setAction("Open in web", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(mContext, WebView.class);
+                                intent.putExtra(URL_WEBVIEW, BASE_URL_WEB+mPeliculas.get(position).id);
+//                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                mContext.startActivity(intent);
+                            }
+                        }).show();
+//                Bundle bundle = new Bundle();
+//                bundle.putInt(ID_SERIE, mSeries.get(position).id);
+            });
+
+
         } else {
             holder.name.setText(mSeries.get(position).name);
             holder.character.setText(mSeries.get(position).character);
             new Util().getImage(BASE_URL_IMAGES_POSTER + mSeries.get(position).posterPath, holder.image, mContext);
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(ID_SERIE, mSeries.get(position).id);
-                    Navigation.findNavController(v).navigate(R.id.action_actores_to_series, bundle);
-                }
-            });
+
         }
 
     }
