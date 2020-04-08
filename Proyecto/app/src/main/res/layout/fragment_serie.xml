@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/whiteColor"
-    tools:context=".ui.DetallesSerieFragment">
+    tools:context=".ui.SerieFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -18,8 +18,8 @@
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
             android:background="@color/black"
+            android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
@@ -28,9 +28,9 @@
                 android:id="@+id/imagen_background"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
+                android:alpha="0.85"
                 android:background="@color/colorPrimary"
                 android:paddingLeft="2dp"
-                android:alpha="0.85"
                 android:paddingTop="2dp"
                 android:paddingRight="2dp"
                 android:scaleType="centerCrop"
@@ -71,15 +71,18 @@
                     android:layout_marginStart="35dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/fechaSerie"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
+
                     <TextView
                         android:id="@+id/paisSerie"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp" />
+
                     <TextView
                         android:id="@+id/emisionSerie"
                         android:layout_width="wrap_content"
@@ -117,22 +120,23 @@
                 android:text="@string/temporadas" />
 
         </com.google.android.material.tabs.TabLayout>
+
     </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_anchor="@id/view_pager"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@drawable/star" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    <!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-    <!--            android:id="@+id/fab"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_gravity="bottom|end"-->
-    <!--            android:layout_margin="@dimen/fab_margin"-->
-    <!--            app:srcCompat="@android:drawable/ic_dialog_email" />-->
-
 
     <!--    <ProgressBar-->
     <!--        android:id="@+id/progreso"-->

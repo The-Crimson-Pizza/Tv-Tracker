@@ -31,11 +31,24 @@
                 android:layout_gravity="center_vertical"
                 android:layout_margin="2dp"
                 android:ellipsize="marquee"
-                android:maxLines="2"
+                android:singleLine="true"
                 android:text="@string/texto_prueba_corto"
                 android:textAllCaps="true"
                 android:textColor="@color/whiteColor"
                 android:textSize="6pt" />
+
+            <TextView
+                android:id="@+id/fecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="2dp"
+                android:ellipsize="marquee"
+                android:maxLines="2"
+                android:text="2000-12-2"
+                android:textAllCaps="true"
+                android:textColor="@color/whiteColor"
+                android:textSize="5pt" />
 
             <TextView
                 android:id="@+id/name_character"

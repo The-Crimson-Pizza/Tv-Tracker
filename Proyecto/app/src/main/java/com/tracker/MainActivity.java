@@ -19,17 +19,10 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
 
-//        Intent intent = getIntent();
-//        if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
-//            String query = intent.getStringExtra(SearchManager.QUERY);
-//            Log.d(Constants.TAG, query);
-//        }
-
 //            FragmentManager fManager = getParentFragmentManager();
 //            fManager.beginTransaction()
 //                    .addToBackStack(null)
 //                    .add(R.id.nav_host_fragment, new DetallesActorFragment())
 //                    .commit();
-
     }
 }

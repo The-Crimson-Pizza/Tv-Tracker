@@ -13,21 +13,22 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.tracker.R;
 import com.tracker.adapters.RellenarSerie;
-import com.tracker.adapters.SeriesTabAdapter;
-import com.tracker.data.SeriesViewModel;
+import com.tracker.adapters.SeriesTabLayoutAdapter;
 import com.tracker.data.RepositoryAPI;
 import com.tracker.data.RxBus;
+import com.tracker.data.SeriesViewModel;
 import com.tracker.models.series.Serie;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 import static com.tracker.util.Constants.ID_SERIE;
 
-public class DetallesSerieFragment extends Fragment {
+public class SerieFragment extends Fragment {
 
     private int idSerie;
     private Serie mSerie;
@@ -36,7 +37,7 @@ public class DetallesSerieFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View root = inflater.inflate(R.layout.activity_detalles_serie, container, false);
+        View root = inflater.inflate(R.layout.fragment_serie, container, false);
         model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
         if (getArguments() != null) {
             idSerie = getArguments().getInt(ID_SERIE);
@@ -56,10 +57,13 @@ public class DetallesSerieFragment extends Fragment {
 //        bar.setVisibility(View.VISIBLE);
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
-//        fab.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_series_to_actores));
+        fab.setOnClickListener(v -> {
+            Snackbar.make(v, "Added to favourites", Snackbar.LENGTH_LONG)
+                    .setAction("Undo", null).show();
+        });
 
         ViewPager2 viewPager = view.findViewById(R.id.view_pager);
-        viewPager.setAdapter(new SeriesTabAdapter(this));
+        viewPager.setAdapter(new SeriesTabLayoutAdapter(this));
         String[] tabs = {getString(R.string.sinopsis), getString(R.string.reparto), getString(R.string.temporadas)};
         TabLayout tabLayout = view.findViewById(R.id.tabs);
         new TabLayoutMediator(tabLayout, viewPager,
@@ -74,10 +78,10 @@ public class DetallesSerieFragment extends Fragment {
         RepositoryAPI.getInstance().getSerie(idSerie)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(serie -> {
-                            mSerie = serie;
-                            new RellenarSerie(view, mSerie, getActivity()).fillSerieTop();
-                            RxBus.getInstance().publish(mSerie);
-                            model.init(mSerie);
-                        });
+                    mSerie = serie;
+                    new RellenarSerie(view, mSerie, getActivity()).fillSerieTop();
+                    RxBus.getInstance().publish(mSerie);
+                    model.init(mSerie);
+                });
     }
 }

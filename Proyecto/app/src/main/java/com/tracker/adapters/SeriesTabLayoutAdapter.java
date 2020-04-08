@@ -10,9 +10,9 @@ import com.tracker.ui.SinopsisFragment;
 
 import org.jetbrains.annotations.NotNull;
 
-public class SeriesTabAdapter extends FragmentStateAdapter {
+public class SeriesTabLayoutAdapter extends FragmentStateAdapter {
 
-    public SeriesTabAdapter(@NonNull Fragment fragment) {
+    public SeriesTabLayoutAdapter(@NonNull Fragment fragment) {
         super(fragment);
     }
 

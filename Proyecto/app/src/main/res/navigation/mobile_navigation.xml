@@ -19,25 +19,25 @@
         android:id="@+id/navigation_search"
         android:name="com.tracker.ui.SearchFragment"
         android:label="@string/search"
-        tools:layout="@layout/search_fragment" />
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_fav"
         android:name="com.tracker.ui.FavoritosFragment"
         android:label="@string/favourites"
-        tools:layout="@layout/favoritos_fragment" />
+        tools:layout="@layout/fragment_favoritos" />
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.tracker.ui.ProfileFragment"
         android:label="@string/my_profile"
-        tools:layout="@layout/profile_fragment" />
+        tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/navigation_series"
-        android:name="com.tracker.ui.DetallesSerieFragment"
+        android:name="com.tracker.ui.SerieFragment"
         android:label="SerieDetalle"
-        tools:layout="@layout/activity_detalles_serie">
+        tools:layout="@layout/fragment_serie">
         <action
             android:id="@+id/action_series_to_actores"
             app:destination="@id/navigation_actores" />
@@ -45,9 +45,9 @@
 
     <fragment
         android:id="@+id/navigation_actores"
-        android:name="com.tracker.ui.DetallesActorFragment"
+        android:name="com.tracker.ui.ActorFragment"
         android:label="ActorDetalle"
-        tools:layout="@layout/activity_detalles_actor" >
+        tools:layout="@layout/fragment_actor" >
         <action
             android:id="@+id/action_actores_to_series"
             app:destination="@id/navigation_series"

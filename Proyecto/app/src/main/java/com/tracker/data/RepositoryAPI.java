@@ -38,6 +38,7 @@ public class RepositoryAPI {
     }
 
     private RepositoryAPI() {
+        //    TODO - CAMBIAR PETICION SEGUN EL IDIOMA
     }
 
     private DataTMDB getRetrofitService() {
@@ -59,6 +60,8 @@ public class RepositoryAPI {
                         .build();
         return retrofit.create(DataTMDB.class);
     }
+
+
 
     public Observable<BasicResponse> getTrending() {
         return getRetrofitService().getTrendingSeries();

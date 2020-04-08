@@ -18,7 +18,6 @@ import java.time.Period;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.tracker.util.Constants.BASE_URL;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_PORTRAIT;
 
 public class RellenarActor {
@@ -49,7 +48,7 @@ public class RellenarActor {
 
         fecha.setText(calcularEdad());
         lugar.setText(mPerson.placeOfBirth);
-        if (mPerson.biography.length()!=0) {
+        if (mPerson.biography.length() != 0) {
             bio.setText(mPerson.biography);
         } else {
             bio.setText("No biography");
@@ -62,22 +61,21 @@ public class RellenarActor {
         rvPelis.setAdapter(new ActorCastAdapter(mContext, mPerson, true));
     }
 
-    void setAdapters(RecyclerView rv){
+    void setAdapters(RecyclerView rv) {
         rv.setHasFixedSize(true);
         rv.setItemViewCacheSize(20);
         rv.setSaveEnabled(true);
         rv.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-
     }
 
-    String calcularEdad(){
-        if( mPerson.birthday.length()!=0){
+    String calcularEdad() {
+        if (mPerson.birthday.length() != 0) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 LocalDate today = LocalDate.now();
                 String[] fecha = mPerson.birthday.split("-");
-                LocalDate birthday = LocalDate.of(Integer.parseInt(fecha[0]),Integer.parseInt(fecha[1]), Integer.parseInt(fecha[1]));
+                LocalDate birthday = LocalDate.of(Integer.parseInt(fecha[0]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[1]));
                 Period p = Period.between(birthday, today);
-                return String.format("%s (%s %s)", mPerson.birthday,p.getYears(), mContext.getString(R.string.years));
+                return String.format("%s (%s %s)", mPerson.birthday, p.getYears(), mContext.getString(R.string.years));
             }
             return mPerson.birthday;
         }

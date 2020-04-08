@@ -18,7 +18,7 @@ import com.tracker.R;
 import com.tracker.models.people.MovieCredits;
 import com.tracker.models.people.Person;
 import com.tracker.models.people.TvCredits;
-import com.tracker.ui.WebView;
+import com.tracker.ui.WebViewActivity;
 import com.tracker.util.Util;
 
 import java.util.List;
@@ -35,12 +35,21 @@ public class ActorCastAdapter extends RecyclerView.Adapter<ActorCastAdapter.View
     private Context mContext;
     private boolean isMovie;
 
-    public ActorCastAdapter(Context mContext, Person actor, boolean movie) {
+    ActorCastAdapter(Context mContext, Person actor, boolean movie) {
         this.mSeries = actor.tvCredits.cast;
         this.mPeliculas = actor.movieCredits.cast;
         this.mContext = mContext;
         isMovie = movie;
-        // TODO Ordenar arrays por fecha
+
+        if (isMovie) {
+            if (!mPeliculas.isEmpty()) {
+                new Util().ordenarPeliculas(mPeliculas);
+            }
+        } else {
+            if (!mSeries.isEmpty()) {
+                new Util().ordenarSeries(mSeries);
+            }
+        }
     }
 
     @NonNull
@@ -55,38 +64,51 @@ public class ActorCastAdapter extends RecyclerView.Adapter<ActorCastAdapter.View
         if (isMovie) {
             holder.name.setText(mPeliculas.get(position).title);
             holder.character.setText(mPeliculas.get(position).character);
+            if (mPeliculas.get(position).releaseDate != null) {
+                holder.fecha.setText(mPeliculas.get(position).releaseDate.split("-")[0]);
+            } else {
+                holder.fecha.setText("");
+            }
+
             new Util().getImage(BASE_URL_IMAGES_POSTER + mPeliculas.get(position).posterPath, holder.image, mContext);
-            holder.itemView.setOnClickListener(v -> {
-                Snackbar.make(v, "Not yet implemented", Snackbar.LENGTH_LONG)
-                        .setAction("Open in web", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(mContext, WebView.class);
-                                intent.putExtra(URL_WEBVIEW, BASE_URL_WEB+mPeliculas.get(position).id);
-//                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                mContext.startActivity(intent);
-                            }
-                        }).show();
-//                Bundle bundle = new Bundle();
-//                bundle.putInt(ID_SERIE, mSeries.get(position).id);
-            });
 
-
+            holder.itemView.setOnClickListener(v -> Snackbar.make(v, "Not yet implemented", Snackbar.LENGTH_LONG)
+                    .setAction("Open in web", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra(URL_WEBVIEW, BASE_URL_WEB + mPeliculas.get(position).id));
+                        }
+                    }).show());
         } else {
             holder.name.setText(mSeries.get(position).name);
             holder.character.setText(mSeries.get(position).character);
+            if (mSeries.get(position).firstAirDate != null) {
+                holder.fecha.setText(mSeries.get(position).firstAirDate.split("-")[0]);
+            } else {
+                holder.fecha.setText("");
+            }
             new Util().getImage(BASE_URL_IMAGES_POSTER + mSeries.get(position).posterPath, holder.image, mContext);
 
-
+            holder.itemView.setOnClickListener(v -> {
+                Bundle bundle = new Bundle();
+                bundle.putInt(ID_SERIE, mSeries.get(position).id);
+                Navigation.findNavController(v).navigate(R.id.action_actores_to_series, bundle);
+            });
         }
-
     }
 
     @Override
     public int getItemCount() {
-        if (mSeries != null) {
-            return mSeries.size();
+        if (isMovie) {
+            if (mPeliculas != null) {
+                return mPeliculas.size();
+            }
+        } else {
+            if (mSeries != null) {
+                return mSeries.size();
+            }
         }
+
         return 0;
     }
 
@@ -94,20 +116,14 @@ public class ActorCastAdapter extends RecyclerView.Adapter<ActorCastAdapter.View
         ImageView image;
         TextView name;
         TextView character;
+        TextView fecha;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.posters);
             name = itemView.findViewById(R.id.title);
             character = itemView.findViewById(R.id.name_character);
-//            if (!isMovie) {
-//                itemView.setOnClickListener(v -> {
-//                    int pos = getAdapterPosition();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putInt(ID_SERIE, pos);
-//                    Navigation.findNavController(v).navigate(R.id.action_home_to_series, bundle);
-//                });
-//            }
+            fecha = itemView.findViewById(R.id.fecha);
         }
     }
 }

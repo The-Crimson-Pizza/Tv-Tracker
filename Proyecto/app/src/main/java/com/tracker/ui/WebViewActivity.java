@@ -10,7 +10,7 @@ import com.tracker.R;
 
 import static com.tracker.util.Constants.URL_WEBVIEW;
 
-public class WebView extends AppCompatActivity {
+public class WebViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +25,11 @@ public class WebView extends AppCompatActivity {
 
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.getSettings().setUserAgentString("Android");
-//        mWebView.setInitialScale(1);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setAppCacheEnabled(true);
 
         mWebView.loadUrl(url);
+
+//        TODO - VER OTRAS OPCIONES QUE AÑADIR AL WEBVIEW
     }
 }

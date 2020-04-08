@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -26,7 +25,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 import static com.tracker.util.Constants.ID_ACTOR;
 
-public class DetallesActorFragment extends Fragment {
+public class ActorFragment extends Fragment {
 
     private int idActor;
     private Person mActor;
@@ -39,7 +38,7 @@ public class DetallesActorFragment extends Fragment {
         if (getArguments() != null) {
             idActor = getArguments().getInt(ID_ACTOR);
         }
-        return inflater.inflate(R.layout.activity_detalles_actor, container, false);
+        return inflater.inflate(R.layout.fragment_actor, container, false);
     }
 
     @Override
@@ -51,12 +50,10 @@ public class DetallesActorFragment extends Fragment {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
 
-        FloatingActionButton fab = view.findViewById(R.id.fab);
-        fab.setOnClickListener(view1 -> {
-            Snackbar.make(view1, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-
-//            Navigation.findNavController(view1).navigate(R.id.action_navigation_actores_to_sinopsisFragment);
+        FloatingActionButton fabFavorito = view.findViewById(R.id.fab);
+        fabFavorito.setOnClickListener(view1 -> {
+            Snackbar.make(view1, "Added to favourites", Snackbar.LENGTH_LONG)
+                    .setAction("Undo", null).show();
         });
 
         getActor(view);

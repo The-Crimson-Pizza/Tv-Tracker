@@ -18,9 +18,17 @@ public class FavoritosFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
 
-        View root = inflater.inflate(R.layout.favoritos_fragment, container, false);
+        View root = inflater.inflate(R.layout.fragment_favoritos, container, false);
 
         return root;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+//        todo - recycler con todos los favoritos - posters solo preferible / cuadricula?
+//        todo - buscar manera de guardar favoritos - probablemente json en shared preferences
+//        todo - implementar boton de fav de serie / ver que hacer con el de actor
+    }
 }

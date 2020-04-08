@@ -23,8 +23,6 @@ n
 .app/src/main/res/layout/favoritos_fragment.xml,7/c/7c9227a0e224c24bbf3f44f959c051650efd250e
 [
 +app/src/main/res/layout/search_fragment.xml,3/2/32ce3d669e73016928348d3ad351ea50cdb54c70
-V
-&app/src/main/res/layout/searchable.xml,e/6/e620dc33a1cba61a11e07f8740aed94078cba179
 S
 #.idea/sonarlint/issuestore/index.pb,9/f/9fe84ebb15faf917b7def6236dba604453cc61e0
 g
@@ -78,8 +76,6 @@ i
 l
 <app/src/main/java/com/tracker/adapters/SeriesTabAdapter.java,a/f/af8bad8bf6b2fa05464be39364f55d24322223e3
 Y
-)app/src/main/res/layout/fragment_cast.xml,c/5/c55105f7759dd10b6c0f1e2e46fabe1a775730d9
-Y
 )app/src/main/res/layout/lista_reparto.xml,6/4/644da503fe3814cdb2c6f46e4b0971883fe65bfe
 b
 2app/src/main/java/com/tracker/ui/CastFragment.java,9/7/97effe6cb878ad73e78f8dfe49609a19e079f6f7
@@ -109,7 +105,9 @@ c
 3app/src/main/res/layout/activity_detalles_actor.xml,7/d/7d88fc4bd5bd4c284254976b983fee11c9f5118d
 b
 2app/src/main/res/layout/content_detalles_actor.xml,1/d/1d1b9aa511a8dcffa2672913c83c70e6b3fdba0c
-^
-.app/src/main/res/layout/lista_series_actor.xml,9/4/94aa773adf79ae014160c4fd5f59661e8b040dcc
 S
 #app/src/main/res/values/strings.xml,d/2/d2281fbb3027de2722081a53408dd77628bf080e
+]
+-app/src/main/res/layout/activity_web_view.xml,b/9/b93f9f3a77897ca0d9f7b00e66f96571bd5be546
+]
+-app/src/main/java/com/tracker/ui/WebView.java,0/d/0dd157858a57e4aa1c3e47870c267499a08bc427
