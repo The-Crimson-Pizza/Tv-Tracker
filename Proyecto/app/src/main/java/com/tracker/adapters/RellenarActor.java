@@ -69,7 +69,7 @@ public class RellenarActor {
     }
 
     String calcularEdad() {
-        if (mPerson.birthday.length() != 0) {
+        if (mPerson.birthday != null) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 LocalDate today = LocalDate.now();
                 String[] fecha = mPerson.birthday.split("-");
