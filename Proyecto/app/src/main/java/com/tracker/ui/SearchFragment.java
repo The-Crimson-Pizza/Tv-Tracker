@@ -33,12 +33,6 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //        Intent intent = getIntent();
-//        if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
-//            String query = intent.getStringExtra(SearchManager.QUERY);
-//            Log.d(Constants.TAG, query);
-//        }
-
         ViewPager2 viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(new TabLayoutAdapter(this, true));
         String[] tabs = {getString(R.string.series), getString(R.string.people)};
@@ -51,11 +45,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                if (position == 0) {
-                    mQuery = "UNO";
-                } else {
-                    mQuery = "Dos";
-                }
+
             }
         });
 
@@ -66,16 +56,20 @@ public class SearchFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 if (query.length() > 0) {
                     model.setQuery(query);
+                }else{
+                    model.setQuery("");
                 }
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                if (newText.length() > 0) {
-                    model.setQuery(newText);
+            public boolean onQueryTextChange(String query) {
+                if (query.length() > 0) {
+                    model.setQuery(query);
+                }else{
+                    model.setQuery("");
                 }
-                return false;
+                return true;
             }
         });
 

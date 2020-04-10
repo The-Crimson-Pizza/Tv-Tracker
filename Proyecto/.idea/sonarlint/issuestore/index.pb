@@ -109,7 +109,5 @@ Z
 .app/src/main/res/layout/fragment_favoritos.xml,d/7/d77eb8b0817a5ba52bb6171aab5f1c1f7ab1a927
 \
 ,app/src/main/res/layout/fragment_profile.xml,b/4/b4466735edf81a3353097aecb75b46205cdee6b6
-\
-,app/src/main/res/layout/fragment_seasons.xml,9/5/950d9422cbbe151de3a21ecdf1159e15c0cfdc4c
 ^
 .app/src/main/res/layout/lista_series_actor.xml,9/4/94aa773adf79ae014160c4fd5f59661e8b040dcc

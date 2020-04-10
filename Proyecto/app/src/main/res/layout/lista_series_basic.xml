@@ -10,7 +10,7 @@
         android:layout_marginEnd="2dp">
 
         <ImageView
-            android:id="@+id/posterTrend"
+            android:id="@+id/posterBasic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -23,7 +23,7 @@
             android:background="@color/black80">
 
             <TextView
-                android:id="@+id/titleTrend"
+                android:id="@+id/titleBasic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

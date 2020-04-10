@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,8 +59,8 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.posterTrend);
-            name = itemView.findViewById(R.id.titleTrend);
+            image = itemView.findViewById(R.id.posterBasic);
+            name = itemView.findViewById(R.id.titleBasic);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();

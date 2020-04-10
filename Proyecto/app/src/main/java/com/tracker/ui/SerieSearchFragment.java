@@ -14,13 +14,17 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tracker.R;
+import com.tracker.adapters.SearchAdapter;
 import com.tracker.data.RepositoryAPI;
 import com.tracker.data.SeriesViewModel;
+import com.tracker.models.people.PersonResponse;
 import com.tracker.models.series.SerieResponse;
 
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 import static com.tracker.util.Constants.TAG;
 
@@ -43,20 +47,49 @@ public class SerieSearchFragment extends Fragment {
         TextView tv = view.findViewById(R.id.prueba);
         LiveData<String> query = model.getQuery();
         query.observe(getViewLifecycleOwner(), q -> {
+            if (q.length() > 2) {
+//                getResults(q);
+            }
             tv.setText(q);
-            getResults(q);
         });
     }
 
     private void getResults(String query) {
+//        RepositoryAPI.getInstance().searchSerie(query)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(lista -> {
+//                    mListaSeries = lista.results;
+//                    if (mListaSeries.size() > 0) {
+//                        Log.d(TAG, mListaSeries.get(0).name);
+//                    }
+//                    // todo - rellenar recycler
+//                });
+
         RepositoryAPI.getInstance().searchSerie(query)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(lista -> {
-                    mListaSeries = lista.results;
-                    if (mListaSeries.size() > 0) {
-                        Log.d(TAG, mListaSeries.get(0).name);
+                .subscribe(new Observer<SerieResponse>() {
+                    @Override
+                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+
                     }
-                    // todo - rellenar recycler
+
+                    @Override
+                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull SerieResponse serieResponse) {
+                        mListaSeries = serieResponse.results;
+                        if (mListaSeries.size() > 0) {
+                            Log.d(TAG, mListaSeries.get(0).name);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
                 });
     }
 }

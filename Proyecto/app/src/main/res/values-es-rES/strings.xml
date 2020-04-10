@@ -32,4 +32,7 @@
     <string name="biografia">Biografía</string>
     <string name="series">Series</string>
     <string name="peliculas">Películas</string>
+    <string name="people">Actores</string>
+    <string name="favorites">Series Favoritas</string>
+    <string name="years">años</string>
 </resources>

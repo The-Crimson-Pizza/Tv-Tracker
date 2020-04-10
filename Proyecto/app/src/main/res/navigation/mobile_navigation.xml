@@ -16,12 +16,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_search"
-        android:name="com.tracker.ui.SearchFragment"
-        android:label="@string/search"
-        tools:layout="@layout/fragment_search" />
-
-    <fragment
         android:id="@+id/navigation_fav"
         android:name="com.tracker.ui.FavoritosFragment"
         android:label="@string/favourites"
@@ -32,6 +26,17 @@
         android:name="com.tracker.ui.ProfileFragment"
         android:label="@string/my_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.tracker.ui.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_Search_to_actores"
+            app:destination="@id/navigation_actores" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_series"
@@ -47,15 +52,12 @@
         android:id="@+id/navigation_actores"
         android:name="com.tracker.ui.ActorFragment"
         android:label="ActorDetalle"
-        tools:layout="@layout/fragment_actor" >
+        tools:layout="@layout/fragment_actor">
         <action
             android:id="@+id/action_actores_to_series"
             app:destination="@id/navigation_series" />
     </fragment>
-    <fragment
-        android:id="@+id/sinopsisFragment"
-        android:name="com.tracker.ui.SinopsisFragment"
-        android:label="fragment_sinopsis"
-        tools:layout="@layout/fragment_sinopsis" />
+
+
 
 </navigation>
