@@ -2,9 +2,9 @@ package com.tracker.data;
 
 import com.tracker.models.BasicResponse;
 import com.tracker.models.VideosResponse;
-import com.tracker.models.people.Person;
+import com.tracker.models.people.PersonResponse;
 import com.tracker.models.seasons.Season;
-import com.tracker.models.series.Serie;
+import com.tracker.models.series.SerieResponse;
 
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.GET;
@@ -29,9 +29,9 @@ public interface DataTMDB {
 
     @Headers("Accept: application/json")
     @GET("tv/{id_serie}")
-    Observable<Serie> getSerie(@Path("id_serie") int id,
-                               @Query("language") String language,
-                               @Query("append_to_response") String append);
+    Observable<SerieResponse.Serie> getSerie(@Path("id_serie") int id,
+                                             @Query("language") String language,
+                                             @Query("append_to_response") String append);
 
     @Headers("Accept: application/json")
     @GET("tv/{id_serie}/season/{season_number}")
@@ -41,8 +41,18 @@ public interface DataTMDB {
 
     @Headers("Accept: application/json")
     @GET("person/{person_id}")
-    Observable<Person> getPerson(@Path("person_id") int idPersona,
-                                 @Query("language") String language,
-                                 @Query("append_to_response") String append);
+    Observable<PersonResponse.Person> getPerson(@Path("person_id") int idPersona,
+                                                @Query("language") String language,
+                                                @Query("append_to_response") String append);
+
+    @Headers("Accept: application/json")
+    @GET("search/person")
+    Observable<PersonResponse> searchPerson(@Query("query") String query,
+                                            @Query("language") String language);
+
+    @Headers("Accept: application/json")
+    @GET("search/tv")
+    Observable<SerieResponse> searchSerie(@Query("query") String query,
+                                          @Query("language") String language);
 
 }

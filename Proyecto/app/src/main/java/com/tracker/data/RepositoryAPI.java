@@ -2,9 +2,9 @@ package com.tracker.data;
 
 import com.tracker.models.BasicResponse;
 import com.tracker.models.VideosResponse;
-import com.tracker.models.people.Person;
+import com.tracker.models.people.PersonResponse;
 import com.tracker.models.seasons.Season;
-import com.tracker.models.series.Serie;
+import com.tracker.models.series.SerieResponse;
 
 import java.util.List;
 
@@ -62,7 +62,6 @@ public class RepositoryAPI {
     }
 
 
-
     public Observable<BasicResponse> getTrending() {
         return getRetrofitService().getTrendingSeries();
     }
@@ -71,8 +70,8 @@ public class RepositoryAPI {
         return getRetrofitService().getNewSeries(2020, ES, POP_DESC);
     }
 
-    public Observable<Serie> getSerie(int idSerie) {
-        Observable<Serie> obsSerie = getRetrofitService().getSerie(idSerie, ES, GET_SERIE_API_EXTRAS);
+    public Observable<SerieResponse.Serie> getSerie(int idSerie) {
+        Observable<SerieResponse.Serie> obsSerie = getRetrofitService().getSerie(idSerie, ES, GET_SERIE_API_EXTRAS);
         Observable<VideosResponse> obsVideo = getRetrofitService().getTrailer(idSerie);
         return Observable.zip(obsSerie, obsVideo, (serie, videosResponse) -> {
             List<VideosResponse.Video> trailers = videosResponse.results;
@@ -90,7 +89,17 @@ public class RepositoryAPI {
         return getRetrofitService().getSeason(idSerie, temporada, ES);
     }
 
-    public Observable<Person> getPerson(int idPerson) {
+    public Observable<PersonResponse.Person> getPerson(int idPerson) {
         return getRetrofitService().getPerson(idPerson, ES, GET_PEOPLE_API_EXTRAS);
     }
+
+    public Observable<PersonResponse> searchPerson(String query) {
+        return getRetrofitService().searchPerson(query, ES);
+    }
+
+    public Observable<SerieResponse> searchSerie(String query) {
+        return getRetrofitService().searchSerie(query, ES);
+    }
+
+
 }

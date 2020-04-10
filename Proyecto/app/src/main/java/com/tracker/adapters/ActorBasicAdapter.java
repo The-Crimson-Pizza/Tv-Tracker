@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
 import com.tracker.models.series.Credits;
-import com.tracker.models.series.Serie;
+import com.tracker.models.series.SerieResponse;
 import com.tracker.util.Util;
 
 import java.util.List;
@@ -27,8 +27,10 @@ public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.Vi
     private List<Credits.Cast> mCastSerie;
     private static Context mContext;
 
-    public ActorBasicAdapter(Context context, Serie serie) {
-        this.mCastSerie = serie.credits.cast;
+    public ActorBasicAdapter(Context context, SerieResponse.Serie serie) {
+        if (serie != null) {
+            this.mCastSerie = serie.credits.cast;
+        }
         mContext = context;
     }
 

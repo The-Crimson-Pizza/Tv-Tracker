@@ -4,17 +4,26 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.tracker.models.series.Serie;
+import com.tracker.models.series.SerieResponse;
 
 public class SeriesViewModel extends ViewModel {
 
-    private MutableLiveData<Serie> mSerie = new MutableLiveData<>();
+    private MutableLiveData<SerieResponse.Serie> mSerie = new MutableLiveData<>();
+    private MutableLiveData<String> mQuery = new MutableLiveData<>();
 
-    public LiveData<Serie> getSerie() {
+    public LiveData<SerieResponse.Serie> getSerie() {
         return mSerie;
     }
 
-    public void init(Serie serie) {
+    public void init(SerieResponse.Serie serie) {
         mSerie.setValue(serie);
+    }
+
+    public void setQuery(String value) {
+        mQuery.setValue(value);
+    }
+
+    public LiveData<String> getQuery() {
+        return mQuery;
     }
 }

@@ -3,12 +3,8 @@ package com.tracker.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.tracker.models.series.Serie;
 
 import java.util.List;
 
@@ -16,7 +12,7 @@ public class BasicResponse {
 
     @SerializedName("results")
     @Expose
-    public final List<SerieBasic> trendingSeries = null;
+    public final List<SerieBasic> basicSeries = null;
 
     public static class SerieBasic implements Parcelable {
 
@@ -53,6 +49,7 @@ public class BasicResponse {
                     public SerieBasic createFromParcel(Parcel in) {
                         return new SerieBasic(in);
                     }
+
                     public SerieBasic[] newArray(int size) {
                         return new SerieBasic[size];
                     }

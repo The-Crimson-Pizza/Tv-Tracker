@@ -50,8 +50,7 @@
         tools:layout="@layout/fragment_actor" >
         <action
             android:id="@+id/action_actores_to_series"
-            app:destination="@id/navigation_series"
-            app:popUpTo="@id/navigation_series" />
+            app:destination="@id/navigation_series" />
     </fragment>
     <fragment
         android:id="@+id/sinopsisFragment"

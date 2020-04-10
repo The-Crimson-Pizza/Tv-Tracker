@@ -38,18 +38,13 @@ public class HomeFragment extends Fragment {
         RecyclerView rvPopulares = view.findViewById(R.id.gridPopulares);
         RecyclerView rvNuevas = view.findViewById(R.id.gridNuevas);
 
-        rvPopulares.setHasFixedSize(true);
-        rvNuevas.setHasFixedSize(true);
-        rvPopulares.setItemViewCacheSize(20);
-        rvNuevas.setItemViewCacheSize(20);
-        rvPopulares.setSaveEnabled(true);
-        rvPopulares.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        rvNuevas.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        initRecycler(rvNuevas);
+        initRecycler(rvPopulares);
 
         RepositoryAPI.getInstance().getTrending()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(series -> {
-                    mPopulares = series.trendingSeries;
+                    mPopulares = series.basicSeries;
                     adapterPopular = new SeriesBasicAdapter(getActivity(), mPopulares);
                     rvPopulares.setAdapter(adapterPopular);
                 });
@@ -57,9 +52,16 @@ public class HomeFragment extends Fragment {
         RepositoryAPI.getInstance().getNew()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(series -> {
-                    mNuevas = series.trendingSeries;
+                    mNuevas = series.basicSeries;
                     adapterNueva = new SeriesBasicAdapter(getActivity(), mNuevas);
                     rvNuevas.setAdapter(adapterNueva);
                 });
+    }
+
+    private void initRecycler(RecyclerView rv){
+        rv.setHasFixedSize(true);
+        rv.setItemViewCacheSize(20);
+        rv.setSaveEnabled(true);
+        rv.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
     }
 }

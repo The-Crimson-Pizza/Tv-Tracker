@@ -1,6 +1,6 @@
 package com.tracker.data;
 
-import com.tracker.models.series.Serie;
+import com.tracker.models.series.SerieResponse;
 
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.PublishSubject;
@@ -19,13 +19,13 @@ public class RxBus {
     private RxBus() {
     }
 
-    private PublishSubject<Serie> publisher = PublishSubject.create();
+    private PublishSubject<SerieResponse.Serie> publisher = PublishSubject.create();
 
-    public void publish(Serie event) {
+    public void publish(SerieResponse.Serie event) {
         publisher.onNext(event);
     }
 
-    public Observable<Serie> listen() {
+    public Observable<SerieResponse.Serie> listen() {
         return publisher;
     }
 

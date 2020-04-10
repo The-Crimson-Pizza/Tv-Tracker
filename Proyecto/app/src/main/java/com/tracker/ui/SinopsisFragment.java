@@ -13,9 +13,9 @@ import androidx.fragment.app.Fragment;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.tracker.R;
 import com.tracker.adapters.RellenarSerie;
-import com.tracker.data.SeriesViewModel;
 import com.tracker.data.RxBus;
-import com.tracker.models.series.Serie;
+import com.tracker.data.SeriesViewModel;
+import com.tracker.models.series.SerieResponse;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observer;
@@ -23,7 +23,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 
 public class SinopsisFragment extends Fragment {
 
-    private Serie mSerie;
+    private SerieResponse.Serie mSerie;
     private YouTubePlayerView youTubePlayerView;
     private Context mContext;
     private SeriesViewModel model;
@@ -44,13 +44,13 @@ public class SinopsisFragment extends Fragment {
 
         RxBus.getInstance().listen()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Serie>() {
+                .subscribe(new Observer<SerieResponse.Serie>() {
                     @Override
                     public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
                     }
 
                     @Override
-                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull Serie serie) {
+                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull SerieResponse.Serie serie) {
                         mSerie = serie;
                         new RellenarSerie(view, mSerie, mContext).fillSerieSinopsis();
                     }

@@ -18,21 +18,19 @@ import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.adapters.ActorBasicAdapter;
 import com.tracker.data.SeriesViewModel;
-import com.tracker.models.series.Serie;
+import com.tracker.models.series.SerieResponse;
 
 public class CastFragment extends Fragment {
 
     private RecyclerView rvCasting;
     private ActorBasicAdapter adapterActor;
     private Context mContext;
-    private Serie mSerie;
+    private SerieResponse.Serie mSerie;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cast, container, false);
-        rvCasting = view.findViewById(R.id.gridCasting);
-        rvCasting.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mContext = getActivity();
         return view;
     }
@@ -41,15 +39,32 @@ public class CastFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
-        LiveData<Serie> s = model.getSerie();
+
+        rvCasting = view.findViewById(R.id.gridCasting);
+        rvCasting.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        rvCasting.setHasFixedSize(true);
+        rvCasting.setItemViewCacheSize(20);
+        rvCasting.setSaveEnabled(true);
+
+        LiveData<SerieResponse.Serie> s = model.getSerie();
         s.observe(getViewLifecycleOwner(), serie -> {
             if (!serie.credits.cast.isEmpty()) {
                 adapterActor = new ActorBasicAdapter(mContext, serie);
                 rvCasting.setAdapter(adapterActor);
             } else {
-                Snackbar.make(view, "Sin datos de reparto", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Sin datos de reparto", Snackbar.LENGTH_INDEFINITE)
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
     }
 }

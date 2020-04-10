@@ -9,7 +9,7 @@ import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.tracker.R;
-import com.tracker.models.series.Serie;
+import com.tracker.models.series.SerieResponse;
 import com.tracker.util.Util;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_BACK;
@@ -19,10 +19,10 @@ import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 public class RellenarSerie {
 
     private View mVista;
-    private Serie mSerie;
+    private SerieResponse.Serie mSerie;
     private Context mContext;
 
-    public RellenarSerie(View vista, Serie serie, Context context) {
+    public RellenarSerie(View vista, SerieResponse.Serie serie, Context context) {
         this.mVista = vista;
         this.mSerie = serie;
         this.mContext = context;
@@ -44,7 +44,7 @@ public class RellenarSerie {
         }
     }
 
-    private void fillTrailer(){
+    private void fillTrailer() {
         YouTubePlayerView youTubePlayerView = mVista.findViewById(R.id.youtube_player_view);
         if (mSerie.video != null) {
             youTubePlayerView.getYouTubePlayerWhenReady(youTubePlayer -> {

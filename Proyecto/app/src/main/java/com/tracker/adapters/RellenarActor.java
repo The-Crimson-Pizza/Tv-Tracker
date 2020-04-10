@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.tracker.R;
-import com.tracker.models.people.Person;
+import com.tracker.models.people.PersonResponse;
 import com.tracker.util.Util;
 
 import java.time.LocalDate;
@@ -23,10 +23,10 @@ import static com.tracker.util.Constants.BASE_URL_IMAGES_PORTRAIT;
 public class RellenarActor {
 
     private View mVista;
-    private Person mPerson;
+    private PersonResponse.Person mPerson;
     private Context mContext;
 
-    public RellenarActor(View vista, Person person, Context context) {
+    public RellenarActor(View vista, PersonResponse.Person person, Context context) {
         this.mVista = vista;
         this.mPerson = person;
         this.mContext = context;

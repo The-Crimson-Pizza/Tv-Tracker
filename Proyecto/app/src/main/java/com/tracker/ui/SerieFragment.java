@@ -18,11 +18,11 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.tracker.R;
 import com.tracker.adapters.RellenarSerie;
-import com.tracker.adapters.SeriesTabLayoutAdapter;
+import com.tracker.adapters.TabLayoutAdapter;
 import com.tracker.data.RepositoryAPI;
 import com.tracker.data.RxBus;
 import com.tracker.data.SeriesViewModel;
-import com.tracker.models.series.Serie;
+import com.tracker.models.series.SerieResponse;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
@@ -31,7 +31,7 @@ import static com.tracker.util.Constants.ID_SERIE;
 public class SerieFragment extends Fragment {
 
     private int idSerie;
-    private Serie mSerie;
+    private SerieResponse.Serie mSerie;
     private SeriesViewModel model;
 
     @Override
@@ -63,10 +63,13 @@ public class SerieFragment extends Fragment {
         });
 
         ViewPager2 viewPager = view.findViewById(R.id.view_pager);
-        viewPager.setAdapter(new SeriesTabLayoutAdapter(this));
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.setAdapter(new TabLayoutAdapter(this, false));
+
         String[] tabs = {getString(R.string.sinopsis), getString(R.string.reparto), getString(R.string.temporadas)};
         TabLayout tabLayout = view.findViewById(R.id.tabs);
-        new TabLayoutMediator(tabLayout, viewPager,
+
+        new TabLayoutMediator(tabLayout, viewPager, false,
                 (tab, position) -> tab.setText(tabs[position])
         ).attach();
 

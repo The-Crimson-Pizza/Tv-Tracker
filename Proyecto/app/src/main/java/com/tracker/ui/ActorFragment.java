@@ -19,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.adapters.RellenarActor;
 import com.tracker.data.RepositoryAPI;
-import com.tracker.models.people.Person;
+import com.tracker.models.people.PersonResponse;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
@@ -28,7 +28,7 @@ import static com.tracker.util.Constants.ID_ACTOR;
 public class ActorFragment extends Fragment {
 
     private int idActor;
-    private Person mActor;
+    private PersonResponse.Person mActor;
     private Context mContext;
 
     @Override

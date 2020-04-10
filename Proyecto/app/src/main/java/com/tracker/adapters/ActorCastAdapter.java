@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.models.people.MovieCredits;
-import com.tracker.models.people.Person;
+import com.tracker.models.people.PersonResponse;
 import com.tracker.models.people.TvCredits;
 import com.tracker.ui.WebViewActivity;
 import com.tracker.util.Util;
@@ -35,7 +35,7 @@ public class ActorCastAdapter extends RecyclerView.Adapter<ActorCastAdapter.View
     private Context mContext;
     private boolean isMovie;
 
-    ActorCastAdapter(Context mContext, Person actor, boolean movie) {
+    ActorCastAdapter(Context mContext, PersonResponse.Person actor, boolean movie) {
         this.mSeries = actor.tvCredits.cast;
         this.mPeliculas = actor.movieCredits.cast;
         this.mContext = mContext;
