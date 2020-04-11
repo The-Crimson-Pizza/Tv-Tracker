@@ -20,6 +20,7 @@ import com.tracker.util.Util;
 import java.util.List;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
+import static com.tracker.util.Constants.ID_SEASON;
 import static com.tracker.util.Constants.ID_SERIE;
 
 public class SeasonAdapter  extends RecyclerView.Adapter<SeasonAdapter.ViewHolder> {
@@ -70,9 +71,9 @@ public class SeasonAdapter  extends RecyclerView.Adapter<SeasonAdapter.ViewHolde
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
-//                Bundle bundle = new Bundle();
-//                bundle.putInt(ID_SERIE, id);
-//                Navigation.findNavController(v).navigate(R.id.action_home_to_series, bundle);
+                Bundle bundle = new Bundle();
+                bundle.putInt(ID_SEASON, pos);
+                Navigation.findNavController(v).navigate(R.id.action_series_to_episodes, bundle);
             });
         }
 

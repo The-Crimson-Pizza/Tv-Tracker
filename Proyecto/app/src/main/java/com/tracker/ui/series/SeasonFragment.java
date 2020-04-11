@@ -2,7 +2,6 @@ package com.tracker.ui.series;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,18 +22,9 @@ import com.tracker.data.SeriesViewModel;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.series.SerieResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.ObservableSource;
-import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.functions.Consumer;
-import io.reactivex.rxjava3.functions.Function;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE;
 
@@ -44,6 +34,7 @@ public class SeasonFragment extends Fragment {
     private List<Season> mSeasonList;
     private SeasonAdapter adapter;
     private RecyclerView rvSeasons;
+    private  SeriesViewModel model;
 
     @Nullable
     @Override
@@ -57,7 +48,7 @@ public class SeasonFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
+        model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
 
         rvSeasons = view.findViewById(R.id.gridSeasons);
         rvSeasons.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -79,8 +70,9 @@ public class SeasonFragment extends Fragment {
         RepositoryAPI.getInstance().getSeason(serie)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(seasons -> {
+                    model.setSeasons(seasons);
                     mSeasonList = seasons;
-                    adapter = new SeasonAdapter(mContext, mSeasonList);
+                    adapter = new SeasonAdapter(mContext, seasons);
                     rvSeasons.setAdapter(adapter);
                 });
     }

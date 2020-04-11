@@ -49,6 +49,9 @@
         <action
             android:id="@+id/action_series_to_actores"
             app:destination="@id/navigation_actores" />
+        <action
+            android:id="@+id/action_series_to_episodes"
+            app:destination="@id/episodesFragment" />
     </fragment>
 
     <fragment
@@ -60,7 +63,11 @@
             android:id="@+id/action_actores_to_series"
             app:destination="@id/navigation_series" />
     </fragment>
-
+    <fragment
+        android:id="@+id/episodesFragment"
+        android:name="com.tracker.ui.series.EpisodesFragment"
+        android:label="fragment_episodes"
+        tools:layout="@layout/fragment_episodes" />
 
 
 </navigation>

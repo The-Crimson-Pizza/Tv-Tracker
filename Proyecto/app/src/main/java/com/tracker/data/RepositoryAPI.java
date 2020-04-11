@@ -93,7 +93,6 @@ public class RepositoryAPI {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(i ->getRetrofitService().getSeason(serie.id, i, language))
                 .toList();
-//        return getRetrofitService().getSeason(idSerie, temporada, language);
     }
 
     public Observable<PersonResponse.Person> getPerson(int idPerson) {

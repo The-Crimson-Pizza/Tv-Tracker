@@ -38,7 +38,7 @@ public class SerieFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View root = inflater.inflate(R.layout.fragment_serie, container, false);
-        model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
+
         if (getArguments() != null) {
             idSerie = getArguments().getInt(ID_SERIE);
         }
@@ -48,6 +48,8 @@ public class SerieFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
@@ -74,7 +76,6 @@ public class SerieFragment extends Fragment {
         ).attach();
 
         getSerie(view);
-
     }
 
     private void getSerie(View view) {
