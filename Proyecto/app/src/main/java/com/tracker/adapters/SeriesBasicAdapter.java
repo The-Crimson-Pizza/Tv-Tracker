@@ -70,12 +70,12 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
             });
         }
 
-        public static ViewHolder create(ViewGroup parent) {
+        static ViewHolder create(ViewGroup parent) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_basic, parent, false);
             return new ViewHolder(view);
         }
 
-        public void bindTo(BasicResponse.SerieBasic serieBasic) {
+        void bindTo(BasicResponse.SerieBasic serieBasic) {
             if (serieBasic != null) {
                 id = serieBasic.id;
                 name.setText(serieBasic.name);

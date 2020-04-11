@@ -121,8 +121,6 @@ Y
 )app/src/main/res/layout/fragment_home.xml,3/1/31c5880846ef63ff1963efbe141ddfd56680bb19
 ^
 .app/src/main/res/layout/lista_series_basic.xml,1/4/149fb68aab5d92e4afcaf8cbfd672728f0f9cc32
-S
-#app/src/main/res/values/strings.xml,d/2/d2281fbb3027de2722081a53408dd77628bf080e
 i
 9app/src/main/java/com/tracker/ui/ActorSearchFragment.java,2/7/27be5e100dc4cb717dd33b3dfaed55b2a5ded3a9
 i

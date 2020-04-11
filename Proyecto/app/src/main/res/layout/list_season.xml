@@ -39,7 +39,7 @@
                 android:ellipsize="marquee"
                 android:maxLines="2"
                 android:layout_gravity="center_vertical"
-                android:text="X episodes"
+                android:text="@string/n_episodes"
                 android:textStyle="bold"
                 android:textColor="@color/colorAccent"
                 android:textSize="5.5pt" />

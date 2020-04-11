@@ -47,4 +47,6 @@
     <string name="no_data">No data</string>
     <string name="no_bio">No biography</string>
     <string name="no_cast">No data of cast</string>
+    <string name="no_seasons">No data of seasons</string>
+    <string name="n_episodes">%1$d episodes</string>
 </resources>

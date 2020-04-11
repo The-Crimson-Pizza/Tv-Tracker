@@ -8,6 +8,7 @@ import com.tracker.ui.search.ActorSearchFragment;
 import com.tracker.ui.series.CastFragment;
 import com.tracker.ui.series.EpisodesFragment;
 import com.tracker.ui.search.SerieSearchFragment;
+import com.tracker.ui.series.SeasonFragment;
 import com.tracker.ui.series.SinopsisFragment;
 
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +37,7 @@ public class TabLayoutAdapter extends FragmentStateAdapter {
             } else if (position == 1) {
                 return new CastFragment();
             } else if (position == 2) {
-                return new EpisodesFragment();
+                return new SeasonFragment();
             }
         }
         return null;

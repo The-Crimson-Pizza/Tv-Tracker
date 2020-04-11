@@ -9,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.tracker.R;
 import com.tracker.models.people.MovieCredits;
 import com.tracker.models.people.TvCredits;
+import com.tracker.models.seasons.Season;
 
 import java.util.Collections;
 import java.util.List;
@@ -59,6 +60,19 @@ public class Util {
                 String id1 = String.valueOf(peli1.id);
                 String id2 = String.valueOf(peli2.id);
                 return id2.compareTo(id1);
+            }
+        });
+    }
+    public void ordenarTemporadas(List<Season> seasons) {
+        Collections.sort(seasons, (season1, season2) -> {
+            String fecha1 = season1.airDate;
+            String fecha2 = season2.airDate;
+            if (fecha1 != null && fecha2 != null) {
+                return fecha1.compareTo(fecha2);
+            } else {
+                String name1 = season1.name;
+                String name2 = season2.name;
+                return name1.compareTo(name2);
             }
         });
     }
