@@ -1,4 +1,4 @@
-package com.tracker.ui;
+package com.tracker.ui.series;
 
 import android.content.Context;
 import android.os.Bundle;

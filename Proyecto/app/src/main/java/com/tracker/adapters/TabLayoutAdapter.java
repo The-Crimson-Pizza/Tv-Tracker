@@ -4,13 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.tracker.ui.ActorSearchFragment;
-import com.tracker.ui.CastFragment;
-import com.tracker.ui.EpisodesFragment;
-import com.tracker.ui.FavoritosFragment;
-import com.tracker.ui.ProfileFragment;
-import com.tracker.ui.SerieSearchFragment;
-import com.tracker.ui.SinopsisFragment;
+import com.tracker.ui.search.ActorSearchFragment;
+import com.tracker.ui.series.CastFragment;
+import com.tracker.ui.series.EpisodesFragment;
+import com.tracker.ui.search.SerieSearchFragment;
+import com.tracker.ui.series.SinopsisFragment;
 
 import org.jetbrains.annotations.NotNull;
 

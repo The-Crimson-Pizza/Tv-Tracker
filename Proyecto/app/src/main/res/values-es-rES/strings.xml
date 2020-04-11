@@ -35,4 +35,6 @@
     <string name="people">Actores</string>
     <string name="favorites">Series Favoritas</string>
     <string name="years">años</string>
+    <string name="no_cast">Sin datos de reparto</string>
+    <string name="no_seasons">Sin datos de temporadas</string>
 </resources>

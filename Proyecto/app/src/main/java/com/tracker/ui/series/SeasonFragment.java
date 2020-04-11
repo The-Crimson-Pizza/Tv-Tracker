@@ -1,4 +1,4 @@
-package com.tracker.ui;
+package com.tracker.ui.series;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,8 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
-import com.tracker.adapters.ActorBasicAdapter;
-import com.tracker.adapters.SearchAdapter;
 import com.tracker.data.SeriesViewModel;
 import com.tracker.models.series.SerieResponse;
 
@@ -42,8 +40,7 @@ public class SeasonFragment extends Fragment {
 
         model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
 
-//        TODO -  RECYCLER CON LAS TEMPORADAS Y DENTRO ÚNICO RECYCLER CON TODOS LOS CAPITULOS (NO HACER VARIOS RECYCLER)
-        RecyclerView rvSeasons = view.findViewById(R.id.gridCasting);
+        RecyclerView rvSeasons = view.findViewById(R.id.gridSeasons);
         rvSeasons.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         rvSeasons.setHasFixedSize(true);
         rvSeasons.setItemViewCacheSize(20);
@@ -51,12 +48,11 @@ public class SeasonFragment extends Fragment {
 
         LiveData<SerieResponse.Serie> s = model.getSerie();
         s.observe(getViewLifecycleOwner(), serie -> {
-            if (!serie.credits.cast.isEmpty()) {
+            if (serie.numberOfSeasons > 0) {
 //                searchAdapter = new SearchAdapter(mContext, serie);
 //                rvSeasons.setAdapter(searchAdapter);
             } else {
-                Snackbar.make(view, "Sin datos de reparto", Snackbar.LENGTH_INDEFINITE)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, R.string.no_seasons, Snackbar.LENGTH_INDEFINITE).show();
             }
         });
     }

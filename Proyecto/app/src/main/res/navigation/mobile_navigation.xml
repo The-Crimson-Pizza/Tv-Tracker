@@ -29,18 +29,21 @@
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.tracker.ui.SearchFragment"
+        android:name="com.tracker.ui.search.SearchFragment"
         android:label="@string/search"
         tools:layout="@layout/fragment_search">
         <action
-            android:id="@+id/action_Search_to_actores"
+            android:id="@+id/action_search_to_actores"
             app:destination="@id/navigation_actores" />
+        <action
+            android:id="@+id/action_search_to_series"
+            app:destination="@id/navigation_series" />
 
     </fragment>
 
     <fragment
         android:id="@+id/navigation_series"
-        android:name="com.tracker.ui.SerieFragment"
+        android:name="com.tracker.ui.series.SerieFragment"
         android:label="SerieDetalle"
         tools:layout="@layout/fragment_serie">
         <action

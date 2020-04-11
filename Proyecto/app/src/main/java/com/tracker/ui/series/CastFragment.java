@@ -1,4 +1,4 @@
-package com.tracker.ui;
+package com.tracker.ui.series;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,6 +19,8 @@ import com.tracker.R;
 import com.tracker.adapters.ActorBasicAdapter;
 import com.tracker.data.SeriesViewModel;
 import com.tracker.models.series.SerieResponse;
+
+import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_SHORT;
 
 public class CastFragment extends Fragment {
 
@@ -52,8 +54,9 @@ public class CastFragment extends Fragment {
                 adapterActor = new ActorBasicAdapter(mContext, serie);
                 rvCasting.setAdapter(adapterActor);
             } else {
-                Snackbar.make(view, "Sin datos de reparto", Snackbar.LENGTH_INDEFINITE)
-                        .setAction("Action", null).show();
+                adapterActor = new ActorBasicAdapter(mContext, null);
+                rvCasting.setAdapter(adapterActor);
+                Snackbar.make(view, R.string.no_cast, LENGTH_SHORT).show();
             }
         });
     }

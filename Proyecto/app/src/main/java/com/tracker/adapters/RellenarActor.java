@@ -22,9 +22,9 @@ import static com.tracker.util.Constants.BASE_URL_IMAGES_PORTRAIT;
 
 public class RellenarActor {
 
-    private View mVista;
-    private PersonResponse.Person mPerson;
-    private Context mContext;
+    private final View mVista;
+    private final PersonResponse.Person mPerson;
+    private final Context mContext;
 
     public RellenarActor(View vista, PersonResponse.Person person, Context context) {
         this.mVista = vista;
@@ -33,6 +33,7 @@ public class RellenarActor {
     }
 
     public void fillActor() {
+
         Toolbar nombreActor = mVista.findViewById(R.id.toolbar_actor);
         CircleImageView fotoActor = mVista.findViewById(R.id.profile_image);
         View include = mVista.findViewById(R.id.include_actor);
@@ -40,7 +41,8 @@ public class RellenarActor {
         TextView fecha = include.findViewById(R.id.fecha_actor);
         TextView lugar = include.findViewById(R.id.lugar_actor);
         ReadMoreTextView bio = include.findViewById(R.id.bio_text);
-        RecyclerView rvPelis = include.findViewById(R.id.rvPelis);
+
+        RecyclerView rvMovies = include.findViewById(R.id.rvPelis);
         RecyclerView rvSeries = include.findViewById(R.id.rvSeries);
 
         nombreActor.setTitle(mPerson.name);
@@ -51,24 +53,24 @@ public class RellenarActor {
         if (mPerson.biography.length() != 0) {
             bio.setText(mPerson.biography);
         } else {
-            bio.setText("No biography");
+            bio.setText(R.string.no_bio);
         }
 
-        setAdapters(rvSeries);
-        setAdapters(rvPelis);
+        initRecyclers(rvSeries);
+        initRecyclers(rvMovies);
 
-        rvSeries.setAdapter(new ActorCastAdapter(mContext, mPerson, false));
-        rvPelis.setAdapter(new ActorCastAdapter(mContext, mPerson, true));
+        rvSeries.setAdapter(new ActorCastAdapter(mContext, mPerson.tvCredits.cast));
+        rvMovies.setAdapter(new ActorCastAdapter(mContext, mPerson.movieCredits.cast, true));
     }
 
-    void setAdapters(RecyclerView rv) {
+    private void initRecyclers(RecyclerView rv) {
         rv.setHasFixedSize(true);
         rv.setItemViewCacheSize(20);
         rv.setSaveEnabled(true);
         rv.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
     }
 
-    String calcularEdad() {
+    private String calcularEdad() {
         if (mPerson.birthday != null) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 LocalDate today = LocalDate.now();
@@ -79,6 +81,6 @@ public class RellenarActor {
             }
             return mPerson.birthday;
         }
-        return "No data";
+        return mContext.getString(R.string.no_data);
     }
 }

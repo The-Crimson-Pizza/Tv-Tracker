@@ -31,26 +31,27 @@ import static com.tracker.util.Constants.URL_WEBVIEW;
 public class ActorCastAdapter extends RecyclerView.Adapter<ActorCastAdapter.ViewHolder> {
 
     private List<TvCredits.Cast> mSeries;
-    private List<MovieCredits.Cast> mPeliculas;
+    private List<MovieCredits.Cast> mMovies;
     private Context mContext;
-    private boolean isMovie;
+    private boolean isMovie = false;
 
-    ActorCastAdapter(Context mContext, PersonResponse.Person actor, boolean movie) {
-        this.mSeries = actor.tvCredits.cast;
-        this.mPeliculas = actor.movieCredits.cast;
+    ActorCastAdapter(Context mContext, List<MovieCredits.Cast> movies, boolean movie) {
+        this.mMovies = movies;
         this.mContext = mContext;
-        isMovie = movie;
-
-        if (isMovie) {
-            if (!mPeliculas.isEmpty()) {
-                new Util().ordenarPeliculas(mPeliculas);
-            }
-        } else {
-            if (!mSeries.isEmpty()) {
-                new Util().ordenarSeries(mSeries);
-            }
+        isMovie = true;
+        if (!mMovies.isEmpty()) {
+            new Util().ordenarPeliculas(mMovies);
         }
     }
+
+    ActorCastAdapter(Context mContext, List<TvCredits.Cast> tv) {
+        this.mSeries = tv;
+        this.mContext = mContext;
+        if (!mSeries.isEmpty()) {
+            new Util().ordenarSeries(mSeries);
+        }
+    }
+
 
     @NonNull
     @Override
@@ -62,21 +63,21 @@ public class ActorCastAdapter extends RecyclerView.Adapter<ActorCastAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         if (isMovie) {
-            holder.name.setText(mPeliculas.get(position).title);
-            holder.character.setText(mPeliculas.get(position).character);
-            if (mPeliculas.get(position).releaseDate != null) {
-                holder.fecha.setText(mPeliculas.get(position).releaseDate.split("-")[0]);
+            holder.name.setText(mMovies.get(position).title);
+            holder.character.setText(mMovies.get(position).character);
+            if (mMovies.get(position).releaseDate != null) {
+                holder.fecha.setText(mMovies.get(position).releaseDate.split("-")[0]);
             } else {
                 holder.fecha.setText("");
             }
 
-            new Util().getImage(BASE_URL_IMAGES_POSTER + mPeliculas.get(position).posterPath, holder.image, mContext);
+            new Util().getImage(BASE_URL_IMAGES_POSTER + mMovies.get(position).posterPath, holder.image, mContext);
 
             holder.itemView.setOnClickListener(v -> Snackbar.make(v, "Not yet implemented", Snackbar.LENGTH_LONG)
                     .setAction("Open in web", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra(URL_WEBVIEW, BASE_URL_WEB + mPeliculas.get(position).id));
+                            mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra(URL_WEBVIEW, BASE_URL_WEB + mMovies.get(position).id));
                         }
                     }).show());
         } else {
@@ -100,8 +101,8 @@ public class ActorCastAdapter extends RecyclerView.Adapter<ActorCastAdapter.View
     @Override
     public int getItemCount() {
         if (isMovie) {
-            if (mPeliculas != null) {
-                return mPeliculas.size();
+            if (mMovies != null) {
+                return mMovies.size();
             }
         } else {
             if (mSeries != null) {

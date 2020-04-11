@@ -1,4 +1,4 @@
-package com.tracker.ui;
+package com.tracker.ui.search;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -90,24 +90,24 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 itemView.setOnClickListener(v -> {
                     Bundle bundle = new Bundle();
                     bundle.putInt(ID_SERIE, id);
-//                    Navigation.findNavController(v).navigate(R.id.action_search_to_serieSearchFragment, bundle);
+                    Navigation.findNavController(v).navigate(R.id.action_search_to_series, bundle);
                 });
             } else {
                 itemView.setOnClickListener(v -> {
                     Bundle bundle = new Bundle();
                     bundle.putInt(ID_ACTOR, id);
-                    Navigation.findNavController(v).navigate(R.id.action_Search_to_actores, bundle);
+                    Navigation.findNavController(v).navigate(R.id.action_search_to_actores, bundle);
                 });
             }
         }
 
-        public static ViewHolder create(ViewGroup parent, boolean serie) {
+        static ViewHolder create(ViewGroup parent, boolean serie) {
             isSerie = serie;
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_basic, parent, false);
             return new ViewHolder(view);
         }
 
-        public void bindTo(SerieResponse.Serie serie) {
+        void bindTo(SerieResponse.Serie serie) {
             if (serie != null) {
                 id = serie.id;
                 name.setText(serie.name);
@@ -115,7 +115,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             }
         }
 
-        public void bindTo(PersonResponse.Person person) {
+        void bindTo(PersonResponse.Person person) {
             if (person != null) {
                 id = person.id;
                 name.setText(person.name);

@@ -44,4 +44,7 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="people">Actors</string>
     <string name="favorites">Favorite Series</string>
+    <string name="no_data">No data</string>
+    <string name="no_bio">No biography</string>
+    <string name="no_cast">No data of cast</string>
 </resources>

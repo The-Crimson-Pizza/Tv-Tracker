@@ -1,4 +1,4 @@
-package com.tracker.ui;
+package com.tracker.ui.series;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +20,7 @@ public class EpisodesFragment extends Fragment {
         }
     }
 
+    //        TODO -  RECYCLER CON LAS TEMPORADAS Y DENTRO ÚNICO RECYCLER CON TODOS LOS CAPITULOS (NO HACER VARIOS RECYCLER)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

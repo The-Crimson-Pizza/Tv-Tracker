@@ -5,6 +5,7 @@ import com.tracker.models.VideosResponse;
 import com.tracker.models.people.PersonResponse;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.series.SerieResponse;
+import com.tracker.util.Util;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class RepositoryAPI {
     }
 
     private RepositoryAPI() {
+        String lan = new Util().getLanguage();
         //    TODO - CAMBIAR PETICION SEGUN EL IDIOMA
     }
 

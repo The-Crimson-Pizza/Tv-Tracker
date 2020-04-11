@@ -19,7 +19,7 @@
             android:name=".ui.ActorFragment"
             android:label="@string/title_activity_detalles_actor" />
         <activity
-            android:name=".ui.SerieFragment"
+            android:name=".ui.series.SerieFragment"
             android:label="@string/title_activity_detalles_serie" />
         <activity
             android:name=".MainActivity"
