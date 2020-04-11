@@ -68,7 +68,6 @@ public class SeasonFragment extends Fragment {
         LiveData<SerieResponse.Serie> s = model.getSerie();
         s.observe(getViewLifecycleOwner(), serie -> {
             if (serie.numberOfSeasons > 0) {
-                mSeasonList = new ArrayList<>();
                 getSeasons(serie);
             } else {
                 Snackbar.make(view, R.string.no_seasons, LENGTH_INDEFINITE).show();
@@ -77,13 +76,8 @@ public class SeasonFragment extends Fragment {
     }
 
     private void getSeasons(SerieResponse.Serie serie) {
-        Single<List<Season>> urls = Observable.range(1, serie.numberOfSeasons)
+        RepositoryAPI.getInstance().getSeason(serie)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .flatMap(i -> RepositoryAPI.getInstance().getSeason(serie.id, i))
-                .toList();
-
-        urls.observeOn(AndroidSchedulers.mainThread())
                 .subscribe(seasons -> {
                     mSeasonList = seasons;
                     adapter = new SeasonAdapter(mContext, mSeasonList);

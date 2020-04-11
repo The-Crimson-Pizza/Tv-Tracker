@@ -1,7 +1,5 @@
 package com.tracker.data;
 
-import android.util.Log;
-
 import com.tracker.models.BasicResponse;
 import com.tracker.models.VideosResponse;
 import com.tracker.models.people.PersonResponse;
@@ -12,7 +10,9 @@ import com.tracker.util.Util;
 import java.util.List;
 
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -24,11 +24,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.tracker.util.Constants.API_KEY;
 import static com.tracker.util.Constants.API_KEY_STRING;
 import static com.tracker.util.Constants.BASE_URL;
-import static com.tracker.util.Constants.ES;
 import static com.tracker.util.Constants.GET_PEOPLE_API_EXTRAS;
 import static com.tracker.util.Constants.GET_SERIE_API_EXTRAS;
 import static com.tracker.util.Constants.POP_DESC;
-import static com.tracker.util.Constants.TAG;
 
 public class RepositoryAPI {
 
@@ -90,8 +88,12 @@ public class RepositoryAPI {
         });
     }
 
-    public Observable<Season> getSeason(int idSerie, int temporada) {
-        return getRetrofitService().getSeason(idSerie, temporada, language);
+    public Single<List<Season>> getSeason(SerieResponse.Serie serie) {
+        return Observable.range(1, serie.numberOfSeasons)
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(i ->getRetrofitService().getSeason(serie.id, i, language))
+                .toList();
+//        return getRetrofitService().getSeason(idSerie, temporada, language);
     }
 
     public Observable<PersonResponse.Person> getPerson(int idPerson) {
