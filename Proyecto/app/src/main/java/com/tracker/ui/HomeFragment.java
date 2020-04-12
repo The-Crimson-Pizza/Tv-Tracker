@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment {
         initRecycler(rvNuevas);
         initRecycler(rvPopulares);
 
-        RepositoryAPI.getInstance().getTrending()
+        RepositoryAPI.getInstance().getTrendingSeries()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(series -> {
                     mPopulares = series.basicSeries;
@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
                     rvPopulares.setAdapter(adapterPopular);
                 });
 
-        RepositoryAPI.getInstance().getNew()
+        RepositoryAPI.getInstance().getNewSeries()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(series -> {
                     mNuevas = series.basicSeries;

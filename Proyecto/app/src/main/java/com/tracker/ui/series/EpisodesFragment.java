@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.adapters.EpisodeAdapter;
-import com.tracker.adapters.SeasonAdapter;
 import com.tracker.data.RepositoryAPI;
 import com.tracker.data.SeriesViewModel;
 import com.tracker.models.seasons.Episode;

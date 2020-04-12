@@ -20,6 +20,7 @@ import com.tracker.models.people.TvCredits;
 import com.tracker.ui.WebViewActivity;
 import com.tracker.util.Util;
 
+import java.util.Collections;
 import java.util.List;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
@@ -39,7 +40,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
         this.mContext = mContext;
         isMovie = true;
         if (!mMovies.isEmpty()) {
-            new Util().sortFilms(mMovies);
+            sortFilms(mMovies);
         }
     }
 
@@ -47,10 +48,9 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
         this.mSeries = tv;
         this.mContext = mContext;
         if (!mSeries.isEmpty()) {
-            new Util().sortSeries(mSeries);
+            sortSeries(mSeries);
         }
     }
-
 
     @NonNull
     @Override
@@ -70,7 +70,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
                 holder.fecha.setText("");
             }
 
-            new Util().getImage(BASE_URL_IMAGES_POSTER + mMovies.get(position).posterPath, holder.image, mContext);
+            Util.getImage(BASE_URL_IMAGES_POSTER + mMovies.get(position).posterPath, holder.image, mContext);
 
             holder.itemView.setOnClickListener(v -> Snackbar.make(v, "Not yet implemented", Snackbar.LENGTH_LONG)
                     .setAction("Open in web", new View.OnClickListener() {
@@ -87,7 +87,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
             } else {
                 holder.fecha.setText("");
             }
-            new Util().getImage(BASE_URL_IMAGES_POSTER + mSeries.get(position).posterPath, holder.image, mContext);
+            Util.getImage(BASE_URL_IMAGES_POSTER + mSeries.get(position).posterPath, holder.image, mContext);
 
             holder.itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
@@ -108,7 +108,6 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
                 return mSeries.size();
             }
         }
-
         return 0;
     }
 
@@ -125,5 +124,33 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
             character = itemView.findViewById(R.id.name_character);
             fecha = itemView.findViewById(R.id.fecha);
         }
+    }
+
+    private void sortSeries(List<TvCredits.Cast> series) {
+        Collections.sort(series, (serie1, serie2) -> {
+            String fecha1 = serie1.firstAirDate;
+            String fecha2 = serie2.firstAirDate;
+            if (fecha1 != null && fecha2 != null) {
+                return fecha2.compareTo(fecha1);
+            } else {
+                String id1 = String.valueOf(serie1.id);
+                String id2 = String.valueOf(serie2.id);
+                return id2.compareTo(id1);
+            }
+        });
+    }
+
+    private void sortFilms(List<MovieCredits.Cast> films) {
+        Collections.sort(films, (film1, film2) -> {
+            String fecha1 = film1.releaseDate;
+            String fecha2 = film2.releaseDate;
+            if (fecha1 != null && fecha2 != null) {
+                return fecha2.compareTo(fecha1);
+            } else {
+                String id1 = String.valueOf(film1.id);
+                String id2 = String.valueOf(film2.id);
+                return id2.compareTo(id1);
+            }
+        });
     }
 }

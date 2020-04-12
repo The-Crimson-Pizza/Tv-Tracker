@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TFG2020</string>
+    <string name="app_name" translatable="false">TFG2020</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title" translatable="false">Android Studio</string>
@@ -45,7 +45,6 @@
     <string name="people">Actors</string>
     <string name="favorites">Favorite Series</string>
     <string name="no_data">No data</string>
-    <string name="no_bio">No biography</string>
     <string name="no_cast">No data of cast</string>
     <string name="no_seasons">No data of seasons</string>
     <string name="n_episodes">%1$d episodes</string>

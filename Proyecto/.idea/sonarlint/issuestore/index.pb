@@ -77,8 +77,6 @@ c
 3app/src/main/java/com/tracker/ui/ActorFragment.java,c/b/cb4e2c0c4158d8386eaaa5293142b38e94037240
 e
 5app/src/main/java/com/tracker/ui/WebViewActivity.java,1/8/189dcdcc170329237a9e83203c23a8e8c120e2b9
-Y
-)app/src/main/res/layout/content_actor.xml,b/4/b4ec5dda8772507884fe0d166ee35f89a575bdb3
 Z
 *app/src/main/res/layout/fragment_actor.xml,e/6/e6a4beb2f14e855a1f2c6eafe195c66474f1ce9d
 ^
@@ -135,3 +133,15 @@ g
 7app/src/main/java/com/tracker/adapters/CastAdapter.java,2/f/2f2f4aa4739bec0f6f6ee8500e246f0a5a6b1df1
 j
 :app/src/main/java/com/tracker/adapters/EpisodeAdapter.java,7/2/72df6cd69b3b900189b16b9f3b6230ceff4bd28b
+]
+-app/src/main/res/layout/fragment_episodes.xml,4/0/40c268a21213a85a4cc4d4c4afd371d8f8ea3c38
+Y
+)app/src/main/res/layout/fragment_home.xml,3/1/31c5880846ef63ff1963efbe141ddfd56680bb19
+\
+,app/src/main/res/layout/fragment_seasons.xml,9/5/950d9422cbbe151de3a21ecdf1159e15c0cfdc4c
+Y
+)app/src/main/res/layout/list_episodes.xml,6/5/65bdc2b3fd5a168997f9b162f75b1160b88f38fc
+W
+'app/src/main/res/layout/list_season.xml,9/1/911055d31346cd0f554526213b9787ef6e2da4f0
+a
+1app/src/main/res/navigation/mobile_navigation.xml,5/0/50c7987ff387678f825775665976b5fc8ed47989

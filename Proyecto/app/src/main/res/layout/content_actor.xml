@@ -59,12 +59,27 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvSeries"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal" />
+
+        <ViewSwitcher
+            android:id="@+id/switcherSeries"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSeries"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" />
+
+            <TextView
+                android:id="@+id/text_empty_dos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/no_data" />
+
+        </ViewSwitcher>
 
         <TextView
             android:layout_width="match_parent"
@@ -74,12 +89,25 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvPelis"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal" />
-    </LinearLayout>
+        <ViewSwitcher
+            android:id="@+id/switcherFilms"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPelis"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" />
+
+            <TextView
+                android:id="@+id/text_empty_uno"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/no_data" />
+
+        </ViewSwitcher>
+    </LinearLayout>
 </androidx.core.widget.NestedScrollView>

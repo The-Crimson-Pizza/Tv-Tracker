@@ -2,8 +2,7 @@ package com.tracker.util;
 
 public class Constants {
 
-    private Constants(){
-
+    private Constants() {
     }
 
     public static final String API_KEY_STRING = "api_key";
@@ -25,8 +24,10 @@ public class Constants {
     public static final String ID_SEASON = "id_season";
     public static final String TRAILER = "Trailer";
     public static final String URL_WEBVIEW = "URL";
-    public static final String TAG = "TAGG";
     public static final String GET_SERIE_API_EXTRAS = "credits,similar,external_ids";
     public static final String GET_PEOPLE_API_EXTRAS = "tv_credits,movie_credits,external_ids";
     public static final String POP_DESC = "popularity.desc";
+    public static final String NETWORKS = "network";
+    public static final String GENRE = "genre";
+    public static final String ID = "id";
 }

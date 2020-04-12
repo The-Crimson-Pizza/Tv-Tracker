@@ -74,16 +74,16 @@ public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.Vi
             });
         }
 
-        static public ActorBasicAdapter.ViewHolder create(ViewGroup parent) {
+        static ActorBasicAdapter.ViewHolder create(ViewGroup parent) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_cast_vertical, parent, false);
             return new ActorBasicAdapter.ViewHolder(view);
         }
 
-        public void bindTo(Credits.Cast cast) {
+        void bindTo(Credits.Cast cast) {
             if (cast != null) {
                 actorName.setText(cast.name);
                 actorCharacter.setText(cast.character);
-                new Util().getImageNoPlaceholder(BASE_URL_IMAGES_PORTRAIT + cast.profilePath, actorPortrait, mContext);
+                Util.getImagePortrait(BASE_URL_IMAGES_PORTRAIT + cast.profilePath, actorPortrait, mContext);
                 actorId = cast.id;
             }
         }

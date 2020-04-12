@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TFG2020</string>
     <string name="action_settings">Ajustes</string>
     <string name="menu_home">Inicio</string>
     <string name="menu_gallery">Galería</string>
@@ -37,4 +36,6 @@
     <string name="years">años</string>
     <string name="no_cast">Sin datos de reparto</string>
     <string name="no_seasons">Sin datos de temporadas</string>
+    <string name="no_data">Sin datos</string>
+    <string name="n_episodes">%1$d capítulos</string>
 </resources>

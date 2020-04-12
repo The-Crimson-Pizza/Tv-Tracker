@@ -17,6 +17,7 @@ import com.tracker.models.seasons.Season;
 import com.tracker.models.series.SerieResponse;
 import com.tracker.util.Util;
 
+import java.util.Collections;
 import java.util.List;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
@@ -31,7 +32,7 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
         this.mSeasons = serie.seasons;
         this.mContext = mContext;
         if (mSeasons != null) {
-            new Util().sortSeason(mSeasons);
+            sortSeason(mSeasons);
         }
     }
 
@@ -87,8 +88,22 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
                 seasonName.setText(season.name);
                 String capis = mContext.getString(R.string.n_episodes, season.episodeCount);
                 numEpisodes.setText(capis);
-                new Util().getImage(BASE_URL_IMAGES_POSTER + season.posterPath, seasonPoster, mContext);
+                Util.getImage(BASE_URL_IMAGES_POSTER + season.posterPath, seasonPoster, mContext);
             }
         }
+    }
+
+    private void sortSeason(List<Season> seasons) {
+        Collections.sort(seasons, (season1, season2) -> {
+            String numSeason1 = String.valueOf(season1.seasonNumber);
+            String numSeason2 = String.valueOf(season2.seasonNumber);
+            if (numSeason1 != null && numSeason2 != null) {
+                return numSeason1.compareTo(numSeason2);
+            } else {
+                String fecha1 = season1.airDate;
+                String fecha2 = season2.airDate;
+                return fecha1.compareTo(fecha2);
+            }
+        });
     }
 }

@@ -3,6 +3,7 @@ package com.tracker.adapters;
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,19 +47,49 @@ public class FillActor {
         RecyclerView rvSeries = includeView.findViewById(R.id.rvSeries);
 
         actorName.setTitle(mPerson.name);
-        new Util().getImageNoPlaceholder(BASE_URL_IMAGES_PORTRAIT + mPerson.profilePath, actorPortrait, mContext);
+        Util.getImagePortrait(BASE_URL_IMAGES_PORTRAIT + mPerson.profilePath, actorPortrait, mContext);
 
         bornDate.setText(calculateAge());
-        bornPlace.setText(new Util().checkExist(mPerson.placeOfBirth, mContext));
-        biography.setText(new Util().checkExist(mPerson.biography, mContext));
+        bornPlace.setText(Util.checkNull(mPerson.placeOfBirth, mContext));
+        biography.setText(Util.checkNull(mPerson.biography, mContext));
 
         initRecyclers(rvSeries);
         initRecyclers(rvMovies);
-
-        rvSeries.setAdapter(new CastAdapter(mContext, mPerson.tvCredits.cast));
-        rvMovies.setAdapter(new CastAdapter(mContext, mPerson.movieCredits.cast, true));
+        setAdapters(rvSeries, rvMovies);
     }
 
+    /**
+     * Check that there's data in the recycler and if not, displays a message
+     * @param rvSeries series' recyclerview
+     * @param rvMovies films' recyclerView
+     */
+    private void setAdapters(RecyclerView rvSeries, RecyclerView rvMovies) {
+        ViewSwitcher switcherFilms = mView.findViewById(R.id.switcherFilms);
+        ViewSwitcher switcherSeries = mView.findViewById(R.id.switcherSeries);
+
+        if (mPerson.tvCredits.cast.size() > 0) {
+            rvSeries.setAdapter(new CastAdapter(mContext, mPerson.tvCredits.cast));
+            if (R.id.rvSeries == switcherSeries.getNextView().getId()) {
+                switcherSeries.showNext();
+            }
+        } else if (R.id.text_empty_dos == switcherSeries.getNextView().getId()) {
+            switcherSeries.showNext();
+        }
+
+        if (mPerson.movieCredits.cast.size() > 0) {
+            rvMovies.setAdapter(new CastAdapter(mContext, mPerson.movieCredits.cast, true));
+            if (R.id.rvPelis == switcherFilms.getNextView().getId()) {
+                switcherFilms.showNext();
+            }
+        } else if (R.id.text_empty_uno == switcherFilms.getNextView().getId()) {
+            switcherFilms.showNext();
+        }
+    }
+
+    /**
+     * Initialize the recyclerView configuration
+     * @param rv recyclerView
+     */
     private void initRecyclers(RecyclerView rv) {
         rv.setHasFixedSize(true);
         rv.setItemViewCacheSize(20);
@@ -67,7 +98,10 @@ public class FillActor {
     }
 
 
-
+    /**
+     * Calculate age if date of birth is available
+     * @return the actor's age
+     */
     private String calculateAge() {
         if (mPerson.birthday != null) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {

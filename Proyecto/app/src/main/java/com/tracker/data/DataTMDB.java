@@ -12,6 +12,9 @@ import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
+/**
+ * Interface with the TMDB API calls
+ */
 public interface DataTMDB {
     @Headers("Accept: application/json")
     @GET("trending/tv/day")
@@ -24,14 +27,14 @@ public interface DataTMDB {
                                            @Query("sort_by") String sort);
 
     @Headers("Accept: application/json")
-    @GET("tv/{tv_id}/videos")
-    Observable<VideosResponse> getTrailer(@Path("tv_id") int idSerie);
-
-    @Headers("Accept: application/json")
     @GET("tv/{id_serie}")
     Observable<SerieResponse.Serie> getSerie(@Path("id_serie") int id,
                                              @Query("language") String language,
                                              @Query("append_to_response") String append);
+
+    @Headers("Accept: application/json")
+    @GET("tv/{tv_id}/videos")
+    Observable<VideosResponse> getTrailer(@Path("tv_id") int idSerie);
 
     @Headers("Accept: application/json")
     @GET("tv/{id_serie}/season/{season_number}")

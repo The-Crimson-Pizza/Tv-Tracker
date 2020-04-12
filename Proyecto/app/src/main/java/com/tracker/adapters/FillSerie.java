@@ -15,6 +15,9 @@ import com.tracker.util.Util;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_BACK;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_NETWORK;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
+import static com.tracker.util.Constants.GENRE;
+import static com.tracker.util.Constants.ID;
+import static com.tracker.util.Constants.NETWORKS;
 
 public class FillSerie {
 
@@ -68,7 +71,7 @@ public class FillSerie {
 
 
         if (!mSerie.originCountry.isEmpty()) {
-            country.setText(new Util().checkExist(mSerie.originCountry.get(0), mContext));
+            country.setText(mSerie.originCountry.get(0));
         } else {
             country.setText(mContext.getString(R.string.no_data));
         }
@@ -78,52 +81,35 @@ public class FillSerie {
     }
 
     private void fillNetworks() {
-        int networks = mSerie.networks.size();
-        if (networks <= 3) {
-            for (int i = 1; i <= networks; i++) {
-                String name = "network" + i;
-                int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
-                ImageView imageView = mView.findViewById(id);
-                new Util().getImageNoPlaceholder(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(i - 1).logoPath, imageView, mContext);
-                imageView.setVisibility(View.VISIBLE);
-            }
-        } else {
-            for (int j = 1; j <= 3; j++) {
-                String name = "network" + j;
-                int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
-                ImageView imageView = mView.findViewById(id);
-                new Util().getImageNoPlaceholder(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(j - 1).logoPath, imageView, mContext);
-                imageView.setVisibility(View.VISIBLE);
-            }
+        int cont = 1;
+        while (cont <= 3) {
+            String name = NETWORKS + cont;
+            int id = mContext.getResources().getIdentifier(name, ID, mContext.getPackageName());
+            ImageView imageView = mView.findViewById(id);
+            Util.getImageNoPlaceholder(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(cont - 1).logoPath, imageView, mContext);
+            imageView.setVisibility(View.VISIBLE);
+            if (cont == mSerie.networks.size()) break;
+            else cont++;
         }
     }
 
     private void fillGenres() {
-        int genres = mSerie.genres.size();
-        if (genres <= 3) {
-            for (int i = 1; i < genres + 1; i++) {
-                String name = "genre" + i;
-                int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
-                TextView textView = mView.findViewById(id);
-                textView.setText(mSerie.genres.get(i - 1).name);
-                textView.setVisibility(View.VISIBLE);
-            }
-        } else {
-            for (int j = 1; j <= 3; j++) {
-                String name = "genre" + j;
-                int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
-                TextView textView = mView.findViewById(id);
-                textView.setText(mSerie.genres.get(j - 1).name);
-                textView.setVisibility(View.VISIBLE);
-            }
+        int cont = 1;
+        while (cont <= 3) {
+            String name = GENRE + cont;
+            int id = mContext.getResources().getIdentifier(name, ID, mContext.getPackageName());
+            TextView textView = mView.findViewById(id);
+            textView.setText(mSerie.genres.get(cont - 1).name);
+            textView.setVisibility(View.VISIBLE);
+            if (cont == mSerie.genres.size()) break;
+            else cont++;
         }
     }
 
     private void fillImages() {
         ImageView poster = mView.findViewById(R.id.posterImage);
         ImageView background = mView.findViewById(R.id.imagen_background);
-
-        new Util().getImage(BASE_URL_IMAGES_POSTER + mSerie.posterPath, poster, mContext);
-        new Util().getImageNoPlaceholder(BASE_URL_IMAGES_BACK + mSerie.backdropPath, background, mContext);
+        Util.getImage(BASE_URL_IMAGES_POSTER + mSerie.posterPath, poster, mContext);
+        Util.getImageNoPlaceholder(BASE_URL_IMAGES_BACK + mSerie.backdropPath, background, mContext);
     }
 }

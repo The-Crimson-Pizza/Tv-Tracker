@@ -27,6 +27,9 @@ import static com.tracker.util.Constants.GET_SERIE_API_EXTRAS;
 import static com.tracker.util.Constants.POP_DESC;
 import static com.tracker.util.Constants.TRAILER;
 
+/**
+ * Class that manages the Retrofit API calls
+ */
 public class RepositoryAPI {
 
     private static RepositoryAPI repoTMDB;
@@ -40,7 +43,7 @@ public class RepositoryAPI {
     }
 
     private RepositoryAPI() {
-        language = new Util().getLanguage().replace("_", "-");
+        language = Util.getLanguage();
     }
 
     private DataTMDB getRetrofitService() {
@@ -63,11 +66,11 @@ public class RepositoryAPI {
         return retrofit.create(DataTMDB.class);
     }
 
-    public Observable<BasicResponse> getTrending() {
+    public Observable<BasicResponse> getTrendingSeries() {
         return getRetrofitService().getTrendingSeries();
     }
 
-    public Observable<BasicResponse> getNew() {
+    public Observable<BasicResponse> getNewSeries() {
         return getRetrofitService().getNewSeries(2020, language, POP_DESC);
     }
 

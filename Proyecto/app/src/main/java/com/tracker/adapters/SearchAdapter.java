@@ -112,7 +112,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             if (serie != null) {
                 id = serie.id;
                 name.setText(serie.name);
-                new Util().getImage(BASE_URL_IMAGES_POSTER + serie.posterPath, image, mContext);
+                Util.getImage(BASE_URL_IMAGES_POSTER + serie.posterPath, image, mContext);
             }
         }
 
@@ -120,7 +120,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             if (person != null) {
                 id = person.id;
                 name.setText(person.name);
-                new Util().getImage(BASE_URL_IMAGES_POSTER + person.profilePath, image, mContext);
+                Util.getImage(BASE_URL_IMAGES_POSTER + person.profilePath, image, mContext);
             }
         }
     }
