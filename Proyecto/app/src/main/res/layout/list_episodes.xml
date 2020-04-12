@@ -81,7 +81,6 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:ellipsize="marquee"
-                android:maxLines=""
                 android:text="@string/large_text"
                 android:textColor="@color/colorAccent"
                 android:textSize="5.5pt" />
