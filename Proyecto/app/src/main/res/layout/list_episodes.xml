@@ -5,21 +5,47 @@
     android:orientation="horizontal"
     android:padding="10dp">
 
-    <ImageView
-        android:id="@+id/image_episode"
-        android:layout_width="75dp"
-        android:layout_height="100dp"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="2dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/image_episode"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/serie_poster" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:background="@color/black80"
+            android:padding="2dp"
+            android:layout_margin="3dp">
+
+            <TextView
+                android:id="@+id/titleBasic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:ellipsize="marquee"
+                android:gravity="center_horizontal"
+                android:text="52:04"
+                android:textColor="@color/whiteColor"
+                android:textSize="5pt" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginStart="15dp"
             android:orientation="vertical">
 
@@ -31,19 +57,34 @@
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
                 android:textSize="7.5pt"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/episode_fecha"
+                android:textStyle="bold"
+                android:maxLines="2"/>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/episode_fecha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="marquee"
+                    android:maxLines="2"
+                    android:text="Fecha de episodio"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="5.5pt"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/episode_sinopsis"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:ellipsize="marquee"
-                android:maxLines="2"
-                android:text="Fecha de episodio"
+                android:maxLines=""
+                android:text="@string/large_text"
                 android:textColor="@color/colorAccent"
-                android:textSize="5.5pt"
-                android:textStyle="bold" />
+                android:textSize="5.5pt" />
         </LinearLayout>
     </LinearLayout>
 
