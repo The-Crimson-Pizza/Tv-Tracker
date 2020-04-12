@@ -33,12 +33,9 @@ public class VideosResponse {
         @SerializedName("type")
         @Expose
         public String type;
+
         public final Parcelable.Creator<Video> CREATOR = new Creator<Video>() {
 
-
-            @SuppressWarnings({
-                    "unchecked"
-            })
             public Video createFromParcel(Parcel in) {
                 return new Video(in);
             }

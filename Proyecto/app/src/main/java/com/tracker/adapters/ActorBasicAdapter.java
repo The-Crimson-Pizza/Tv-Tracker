@@ -55,21 +55,21 @@ public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.Vi
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView image;
-        TextView name;
-        TextView character;
-        int id;
+        ImageView actorPortrait;
+        TextView actorName;
+        TextView actorCharacter;
+        int actorId;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.profile_image);
-            name = itemView.findViewById(R.id.actor_name);
-            character = itemView.findViewById(R.id.character_name);
+            actorPortrait = itemView.findViewById(R.id.profile_image);
+            actorName = itemView.findViewById(R.id.actor_name);
+            actorCharacter = itemView.findViewById(R.id.character_name);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 Bundle bundle = new Bundle();
-                bundle.putInt(ID_ACTOR, id);
+                bundle.putInt(ID_ACTOR, actorId);
                 Navigation.findNavController(v).navigate(R.id.action_series_to_actores, bundle);
             });
         }
@@ -81,10 +81,10 @@ public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.Vi
 
         public void bindTo(Credits.Cast cast) {
             if (cast != null) {
-                name.setText(cast.name);
-                character.setText(cast.character);
-                new Util().getImageNoPlaceholder(BASE_URL_IMAGES_PORTRAIT + cast.profilePath, image, mContext);
-                id = cast.id;
+                actorName.setText(cast.name);
+                actorCharacter.setText(cast.character);
+                new Util().getImageNoPlaceholder(BASE_URL_IMAGES_PORTRAIT + cast.profilePath, actorPortrait, mContext);
+                actorId = cast.id;
             }
         }
     }

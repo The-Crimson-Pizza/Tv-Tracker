@@ -23,6 +23,7 @@ public class Constants {
     public static final String ID_SERIE = "id_serie";
     public static final String ID_ACTOR = "id_actor";
     public static final String ID_SEASON = "id_season";
+    public static final String TRAILER = "Trailer";
     public static final String URL_WEBVIEW = "URL";
     public static final String TAG = "TAGG";
     public static final String GET_SERIE_API_EXTRAS = "credits,similar,external_ids";

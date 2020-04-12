@@ -51,7 +51,8 @@
             app:destination="@id/navigation_actores" />
         <action
             android:id="@+id/action_series_to_episodes"
-            app:destination="@id/episodesFragment" />
+            app:destination="@id/episodesFragment"
+            app:popUpTo="@id/navigation_series" />
     </fragment>
 
     <fragment

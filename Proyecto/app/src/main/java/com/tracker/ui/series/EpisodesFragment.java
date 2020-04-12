@@ -14,28 +14,36 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.adapters.EpisodeAdapter;
+import com.tracker.adapters.SeasonAdapter;
+import com.tracker.data.RepositoryAPI;
 import com.tracker.data.SeriesViewModel;
-import com.tracker.models.seasons.Season;
+import com.tracker.models.seasons.Episode;
+import com.tracker.models.series.SerieResponse;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+
+import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE;
 import static com.tracker.util.Constants.ID_SEASON;
 
 public class EpisodesFragment extends Fragment {
 
-    private SeriesViewModel model;
-    private int mPosition;
-    private RecyclerView rvCapitulos;
+    private int mNumTemporada;
+    private RecyclerView rvEpisodes;
     private Context mContext;
     private EpisodeAdapter adapter;
+    private SerieResponse.Serie mSerie;
+    private List<Episode> mEpisodes;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mPosition = getArguments().getInt(ID_SEASON);
+            mNumTemporada = getArguments().getInt(ID_SEASON);
         }
     }
 
@@ -50,18 +58,35 @@ public class EpisodesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
+        SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
 
-        rvCapitulos = view.findViewById(R.id.gridEpisodes);
-        rvCapitulos.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        rvCapitulos.setHasFixedSize(true);
-        rvCapitulos.setItemViewCacheSize(20);
-        rvCapitulos.setSaveEnabled(true);
+        rvEpisodes = view.findViewById(R.id.gridEpisodes);
+        rvEpisodes.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        rvEpisodes.setHasFixedSize(true);
+        rvEpisodes.setItemViewCacheSize(20);
+        rvEpisodes.setSaveEnabled(true);
 
-        LiveData<List<Season>> s = model.getSeasons();
-        s.observe(getViewLifecycleOwner(), seasons -> {
-            adapter = new EpisodeAdapter(mContext, seasons.get(mPosition).episodes);
-            rvCapitulos.setAdapter(adapter);
+        LiveData<SerieResponse.Serie> serieLiveData = model.getSerie();
+        serieLiveData.observe(getViewLifecycleOwner(), serie -> {
+            mSerie = serie;
+            getEpisodes(view);
         });
+
+    }
+
+    private void getEpisodes(View view) {
+        RepositoryAPI.getInstance().getSeason(mSerie, mNumTemporada)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(season -> {
+                    mEpisodes = season.episodes;
+                    if (mEpisodes.size() > 0) {
+                        adapter = new EpisodeAdapter(mContext, mEpisodes, mSerie.episodeRunTime.get(0));
+                        rvEpisodes.setAdapter(adapter);
+                    } else {
+                        adapter = new EpisodeAdapter(mContext, null, mSerie.episodeRunTime.get(0));
+                        rvEpisodes.setAdapter(adapter);
+                        Snackbar.make(view, R.string.no_data, LENGTH_INDEFINITE).show();
+                    }
+                });
     }
 }

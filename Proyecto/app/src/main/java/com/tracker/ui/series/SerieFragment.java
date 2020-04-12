@@ -1,6 +1,8 @@
 package com.tracker.ui.series;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.tracker.R;
-import com.tracker.adapters.RellenarSerie;
+import com.tracker.adapters.FillSerie;
 import com.tracker.adapters.TabLayoutAdapter;
 import com.tracker.data.RepositoryAPI;
 import com.tracker.data.RxBus;
@@ -33,12 +35,14 @@ public class SerieFragment extends Fragment {
     private int idSerie;
     private SerieResponse.Serie mSerie;
     private SeriesViewModel model;
+    private Context mContext;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View root = inflater.inflate(R.layout.fragment_serie, container, false);
-
+        mContext = getActivity();
+//        getActivity().getApplicationContext()
         if (getArguments() != null) {
             idSerie = getArguments().getInt(ID_SERIE);
         }
@@ -65,7 +69,7 @@ public class SerieFragment extends Fragment {
         });
 
         ViewPager2 viewPager = view.findViewById(R.id.view_pager);
-        viewPager.setOffscreenPageLimit(3);
+//        viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(new TabLayoutAdapter(this, false));
 
         String[] tabs = {getString(R.string.sinopsis), getString(R.string.reparto), getString(R.string.temporadas)};
@@ -83,9 +87,9 @@ public class SerieFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(serie -> {
                     mSerie = serie;
-                    new RellenarSerie(view, mSerie, getActivity()).fillSerieTop();
+                    new FillSerie(view, mSerie, mContext).fillCollapseBar();
                     RxBus.getInstance().publish(mSerie);
-                    model.init(mSerie);
+                    model.setSerie(mSerie);
                 });
     }
 }

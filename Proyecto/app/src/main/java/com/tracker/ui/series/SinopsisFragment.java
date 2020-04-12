@@ -2,6 +2,7 @@ package com.tracker.ui.series;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +10,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.tracker.R;
-import com.tracker.adapters.RellenarSerie;
+import com.tracker.adapters.ActorBasicAdapter;
+import com.tracker.adapters.FillSerie;
 import com.tracker.data.RxBus;
 import com.tracker.data.SeriesViewModel;
 import com.tracker.models.series.SerieResponse;
@@ -21,12 +26,13 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
+import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_SHORT;
+
 public class SinopsisFragment extends Fragment {
 
     private SerieResponse.Serie mSerie;
     private YouTubePlayerView youTubePlayerView;
     private Context mContext;
-    private SeriesViewModel model;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,7 +40,7 @@ public class SinopsisFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_sinopsis, container, false);
         youTubePlayerView = root.findViewById(R.id.youtube_player_view);
         getLifecycle().addObserver(youTubePlayerView);
-        mContext = getActivity();
+        mContext = getActivity().getApplicationContext();
         return root;
     }
 
@@ -52,7 +58,7 @@ public class SinopsisFragment extends Fragment {
                     @Override
                     public void onNext(@io.reactivex.rxjava3.annotations.NonNull SerieResponse.Serie serie) {
                         mSerie = serie;
-                        new RellenarSerie(view, mSerie, mContext).fillSerieSinopsis();
+                        new FillSerie(view, mSerie, mContext).fillOverview();
                     }
 
                     @Override

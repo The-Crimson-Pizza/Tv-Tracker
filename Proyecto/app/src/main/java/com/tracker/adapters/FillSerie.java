@@ -16,28 +16,30 @@ import static com.tracker.util.Constants.BASE_URL_IMAGES_BACK;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_NETWORK;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 
-public class RellenarSerie {
+public class FillSerie {
 
-    private View mVista;
+    private View mView;
     private SerieResponse.Serie mSerie;
     private Context mContext;
 
-    public RellenarSerie(View vista, SerieResponse.Serie serie, Context context) {
-        this.mVista = vista;
+    public FillSerie(View view, SerieResponse.Serie serie, Context context) {
+        this.mView = view;
         this.mSerie = serie;
         this.mContext = context;
     }
 
-    public void fillSerieTop() {
+    public void fillCollapseBar() {
         if (mSerie != null) {
-            fillText();
+            fillBasics();
             fillImages();
         }
     }
 
-    public void fillSerieSinopsis() {
+    public void fillOverview() {
         if (mSerie != null) {
-            fillGeneral();
+            ReadMoreTextView overview = mView.findViewById(R.id.sinopsis_text);
+            overview.setText(mSerie.overview);
+
             fillGenres();
             fillNetworks();
             fillTrailer();
@@ -45,7 +47,7 @@ public class RellenarSerie {
     }
 
     private void fillTrailer() {
-        YouTubePlayerView youTubePlayerView = mVista.findViewById(R.id.youtube_player_view);
+        YouTubePlayerView youTubePlayerView = mView.findViewById(R.id.youtube_player_view);
         if (mSerie.video != null) {
             youTubePlayerView.getYouTubePlayerWhenReady(youTubePlayer -> {
                 youTubePlayer.cueVideo(mSerie.video.key, 0);
@@ -53,49 +55,44 @@ public class RellenarSerie {
             });
         } else {
             youTubePlayerView.setVisibility(View.GONE);
-            mVista.findViewById(R.id.trailer_title).setVisibility(View.GONE);
+            mView.findViewById(R.id.trailer_title).setVisibility(View.GONE);
         }
     }
 
-    private void fillText() {
-        CollapsingToolbarLayout collapse = mVista.findViewById(R.id.toolbar_layout);
-        TextView fecha = mVista.findViewById(R.id.fechaSerie);
-        TextView pais = mVista.findViewById(R.id.paisSerie);
-        TextView emision = mVista.findViewById(R.id.emisionSerie);
-        fecha.setText(mSerie.firstAirDate);
+    private void fillBasics() {
+        CollapsingToolbarLayout collapseToolbar = mView.findViewById(R.id.toolbar_layout);
+        TextView airDate = mView.findViewById(R.id.fechaSerie);
+        TextView country = mView.findViewById(R.id.paisSerie);
+        TextView status = mView.findViewById(R.id.emisionSerie);
+        airDate.setText(mSerie.firstAirDate);
+
 
         if (!mSerie.originCountry.isEmpty()) {
-            pais.setText(mSerie.originCountry.get(0));
+            country.setText(new Util().checkExist(mSerie.originCountry.get(0), mContext));
         } else {
-            pais.setText("");
+            country.setText(mContext.getString(R.string.no_data));
         }
 
-        emision.setText(mSerie.status);
-        collapse.setTitle(mSerie.name);
-    }
-
-    private void fillGeneral() {
-        ReadMoreTextView sinopsis = mVista.findViewById(R.id.sinopsis_text);
-        sinopsis.setText(mSerie.overview);
+        status.setText(mSerie.status);
+        collapseToolbar.setTitle(mSerie.name);
     }
 
     private void fillNetworks() {
-        Util util = new Util();
         int networks = mSerie.networks.size();
         if (networks <= 3) {
-            for (int i = 1; i < networks + 1; i++) {
+            for (int i = 1; i <= networks; i++) {
                 String name = "network" + i;
                 int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
-                ImageView imageView = mVista.findViewById(id);
-                util.getImageNoPlaceholder(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(i - 1).logoPath, imageView, mContext);
+                ImageView imageView = mView.findViewById(id);
+                new Util().getImageNoPlaceholder(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(i - 1).logoPath, imageView, mContext);
                 imageView.setVisibility(View.VISIBLE);
             }
         } else {
             for (int j = 1; j <= 3; j++) {
                 String name = "network" + j;
                 int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
-                ImageView imageView = mVista.findViewById(id);
-                util.getImageNoPlaceholder(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(j - 1).logoPath, imageView, mContext);
+                ImageView imageView = mView.findViewById(id);
+                new Util().getImageNoPlaceholder(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(j - 1).logoPath, imageView, mContext);
                 imageView.setVisibility(View.VISIBLE);
             }
         }
@@ -107,7 +104,7 @@ public class RellenarSerie {
             for (int i = 1; i < genres + 1; i++) {
                 String name = "genre" + i;
                 int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
-                TextView textView = mVista.findViewById(id);
+                TextView textView = mView.findViewById(id);
                 textView.setText(mSerie.genres.get(i - 1).name);
                 textView.setVisibility(View.VISIBLE);
             }
@@ -115,7 +112,7 @@ public class RellenarSerie {
             for (int j = 1; j <= 3; j++) {
                 String name = "genre" + j;
                 int id = mContext.getResources().getIdentifier(name, "id", mContext.getPackageName());
-                TextView textView = mVista.findViewById(id);
+                TextView textView = mView.findViewById(id);
                 textView.setText(mSerie.genres.get(j - 1).name);
                 textView.setVisibility(View.VISIBLE);
             }
@@ -123,8 +120,8 @@ public class RellenarSerie {
     }
 
     private void fillImages() {
-        ImageView poster = mVista.findViewById(R.id.posterImage);
-        ImageView background = mVista.findViewById(R.id.imagen_background);
+        ImageView poster = mView.findViewById(R.id.posterImage);
+        ImageView background = mView.findViewById(R.id.imagen_background);
 
         new Util().getImage(BASE_URL_IMAGES_POSTER + mSerie.posterPath, poster, mContext);
         new Util().getImageNoPlaceholder(BASE_URL_IMAGES_BACK + mSerie.backdropPath, background, mContext);

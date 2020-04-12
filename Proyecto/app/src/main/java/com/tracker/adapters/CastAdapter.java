@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.models.people.MovieCredits;
-import com.tracker.models.people.PersonResponse;
 import com.tracker.models.people.TvCredits;
 import com.tracker.ui.WebViewActivity;
 import com.tracker.util.Util;
@@ -28,27 +27,27 @@ import static com.tracker.util.Constants.BASE_URL_WEB;
 import static com.tracker.util.Constants.ID_SERIE;
 import static com.tracker.util.Constants.URL_WEBVIEW;
 
-public class ActorCastAdapter extends RecyclerView.Adapter<ActorCastAdapter.ViewHolder> {
+public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
 
     private List<TvCredits.Cast> mSeries;
     private List<MovieCredits.Cast> mMovies;
     private Context mContext;
     private boolean isMovie = false;
 
-    ActorCastAdapter(Context mContext, List<MovieCredits.Cast> movies, boolean movie) {
+    CastAdapter(Context mContext, List<MovieCredits.Cast> movies, boolean movie) {
         this.mMovies = movies;
         this.mContext = mContext;
         isMovie = true;
         if (!mMovies.isEmpty()) {
-            new Util().ordenarPeliculas(mMovies);
+            new Util().sortFilms(mMovies);
         }
     }
 
-    ActorCastAdapter(Context mContext, List<TvCredits.Cast> tv) {
+    CastAdapter(Context mContext, List<TvCredits.Cast> tv) {
         this.mSeries = tv;
         this.mContext = mContext;
         if (!mSeries.isEmpty()) {
-            new Util().ordenarSeries(mSeries);
+            new Util().sortSeries(mSeries);
         }
     }
 

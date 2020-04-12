@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.tracker.models.VideosResponse;
+import com.tracker.models.seasons.Season;
 
 import java.util.List;
 
@@ -86,6 +87,11 @@ public class SerieResponse {
         public ExternalIds externalIds;
 
         public VideosResponse.Video video;
+        public List<Season> seasons;
+
+        public void setSeasons(List<Season> seasons) {
+            this.seasons = seasons;
+        }
 
         public void setVideos(VideosResponse.Video video) {
             this.video = video;
@@ -93,9 +99,6 @@ public class SerieResponse {
 
         public final Creator<Serie> CREATOR = new Creator<Serie>() {
 
-            @SuppressWarnings({
-                    "unchecked"
-            })
             public Serie createFromParcel(Parcel in) {
                 return new Serie(in);
             }

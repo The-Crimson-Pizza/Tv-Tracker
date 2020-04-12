@@ -32,6 +32,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private static Context mContext;
     private boolean mIsSerie;
 
+
     public SearchAdapter(Context mContext, List<SerieResponse.Serie> series, List<PersonResponse.Person> actores, boolean isSerie) {
         this.mSeries = series;
         this.mActores = actores;

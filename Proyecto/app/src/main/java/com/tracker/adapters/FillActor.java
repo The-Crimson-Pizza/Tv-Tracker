@@ -20,47 +20,43 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_PORTRAIT;
 
-public class RellenarActor {
+public class FillActor {
 
-    private final View mVista;
+    private final View mView;
     private final PersonResponse.Person mPerson;
     private final Context mContext;
 
-    public RellenarActor(View vista, PersonResponse.Person person, Context context) {
-        this.mVista = vista;
+    public FillActor(View view, PersonResponse.Person person, Context context) {
+        this.mView = view;
         this.mPerson = person;
         this.mContext = context;
     }
 
     public void fillActor() {
 
-        Toolbar nombreActor = mVista.findViewById(R.id.toolbar_actor);
-        CircleImageView fotoActor = mVista.findViewById(R.id.profile_image);
-        View include = mVista.findViewById(R.id.include_actor);
+        Toolbar actorName = mView.findViewById(R.id.toolbar_actor);
+        CircleImageView actorPortrait = mView.findViewById(R.id.profile_image);
+        View includeView = mView.findViewById(R.id.include_actor);
 
-        TextView fecha = include.findViewById(R.id.fecha_actor);
-        TextView lugar = include.findViewById(R.id.lugar_actor);
-        ReadMoreTextView bio = include.findViewById(R.id.bio_text);
+        TextView bornDate = includeView.findViewById(R.id.fecha_actor);
+        TextView bornPlace = includeView.findViewById(R.id.lugar_actor);
+        ReadMoreTextView biography = includeView.findViewById(R.id.bio_text);
 
-        RecyclerView rvMovies = include.findViewById(R.id.rvPelis);
-        RecyclerView rvSeries = include.findViewById(R.id.rvSeries);
+        RecyclerView rvMovies = includeView.findViewById(R.id.rvPelis);
+        RecyclerView rvSeries = includeView.findViewById(R.id.rvSeries);
 
-        nombreActor.setTitle(mPerson.name);
-        new Util().getImageNoPlaceholder(BASE_URL_IMAGES_PORTRAIT + mPerson.profilePath, fotoActor, mContext);
+        actorName.setTitle(mPerson.name);
+        new Util().getImageNoPlaceholder(BASE_URL_IMAGES_PORTRAIT + mPerson.profilePath, actorPortrait, mContext);
 
-        fecha.setText(calcularEdad());
-        lugar.setText(mPerson.placeOfBirth);
-        if (mPerson.biography.length() != 0) {
-            bio.setText(mPerson.biography);
-        } else {
-            bio.setText(R.string.no_bio);
-        }
+        bornDate.setText(calculateAge());
+        bornPlace.setText(new Util().checkExist(mPerson.placeOfBirth, mContext));
+        biography.setText(new Util().checkExist(mPerson.biography, mContext));
 
         initRecyclers(rvSeries);
         initRecyclers(rvMovies);
 
-        rvSeries.setAdapter(new ActorCastAdapter(mContext, mPerson.tvCredits.cast));
-        rvMovies.setAdapter(new ActorCastAdapter(mContext, mPerson.movieCredits.cast, true));
+        rvSeries.setAdapter(new CastAdapter(mContext, mPerson.tvCredits.cast));
+        rvMovies.setAdapter(new CastAdapter(mContext, mPerson.movieCredits.cast, true));
     }
 
     private void initRecyclers(RecyclerView rv) {
@@ -70,7 +66,9 @@ public class RellenarActor {
         rv.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
     }
 
-    private String calcularEdad() {
+
+
+    private String calculateAge() {
         if (mPerson.birthday != null) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 LocalDate today = LocalDate.now();

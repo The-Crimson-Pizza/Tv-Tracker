@@ -17,14 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.adapters.SeasonAdapter;
-import com.tracker.data.RepositoryAPI;
 import com.tracker.data.SeriesViewModel;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.series.SerieResponse;
 
 import java.util.List;
-
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE;
 
@@ -34,7 +31,7 @@ public class SeasonFragment extends Fragment {
     private List<Season> mSeasonList;
     private SeasonAdapter adapter;
     private RecyclerView rvSeasons;
-    private  SeriesViewModel model;
+    private SerieResponse.Serie mSerie;
 
     @Nullable
     @Override
@@ -48,7 +45,7 @@ public class SeasonFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
+        SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
 
         rvSeasons = view.findViewById(R.id.gridSeasons);
         rvSeasons.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -59,21 +56,14 @@ public class SeasonFragment extends Fragment {
         LiveData<SerieResponse.Serie> s = model.getSerie();
         s.observe(getViewLifecycleOwner(), serie -> {
             if (serie.numberOfSeasons > 0) {
-                getSeasons(serie);
+                mSerie = serie;
+                adapter = new SeasonAdapter(mContext, mSerie);
+                rvSeasons.setAdapter(adapter);
             } else {
+                adapter = new SeasonAdapter(mContext, null);
+                rvSeasons.setAdapter(adapter);
                 Snackbar.make(view, R.string.no_seasons, LENGTH_INDEFINITE).show();
             }
         });
-    }
-
-    private void getSeasons(SerieResponse.Serie serie) {
-        RepositoryAPI.getInstance().getSeason(serie)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(seasons -> {
-                    model.setSeasons(seasons);
-                    mSeasonList = seasons;
-                    adapter = new SeasonAdapter(mContext, seasons);
-                    rvSeasons.setAdapter(adapter);
-                });
     }
 }

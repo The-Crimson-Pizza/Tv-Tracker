@@ -16,15 +16,9 @@ public class BasicResponse {
 
     public static class SerieBasic implements Parcelable {
 
-        public String name = null;
-        public String poster_path = null;
-        public Integer id = null;
-
-        public SerieBasic(String title, String poster, Integer id) {
-            this.name = title;
-            this.poster_path = poster;
-            this.id = id;
-        }
+        public String name;
+        public String poster_path;
+        public Integer id;
 
         public SerieBasic(Parcel in) {
             name = in.readString();

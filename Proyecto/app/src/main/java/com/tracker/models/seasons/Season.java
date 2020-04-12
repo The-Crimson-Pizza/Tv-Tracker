@@ -32,6 +32,10 @@ public class Season implements Parcelable
     @SerializedName("season_number")
     @Expose
     public int seasonNumber;
+    @SerializedName("episode_count")
+    @Expose
+    public int episodeCount;
+
     public final static Creator<Season> CREATOR = new Creator<Season>() {
 
 

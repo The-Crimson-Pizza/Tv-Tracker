@@ -3,9 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:id="@+id/listEpisode"
     android:padding="10dp">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
         android:layout_width="150dp"
         android:layout_height="100dp"
         android:layout_marginEnd="2dp">
@@ -26,7 +28,7 @@
             android:layout_margin="3dp">
 
             <TextView
-                android:id="@+id/titleBasic"
+                android:id="@+id/episode_time"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"

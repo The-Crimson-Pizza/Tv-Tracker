@@ -10,9 +10,7 @@ import com.tracker.util.Util;
 import java.util.List;
 
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -27,6 +25,7 @@ import static com.tracker.util.Constants.BASE_URL;
 import static com.tracker.util.Constants.GET_PEOPLE_API_EXTRAS;
 import static com.tracker.util.Constants.GET_SERIE_API_EXTRAS;
 import static com.tracker.util.Constants.POP_DESC;
+import static com.tracker.util.Constants.TRAILER;
 
 public class RepositoryAPI {
 
@@ -64,7 +63,6 @@ public class RepositoryAPI {
         return retrofit.create(DataTMDB.class);
     }
 
-
     public Observable<BasicResponse> getTrending() {
         return getRetrofitService().getTrendingSeries();
     }
@@ -79,7 +77,7 @@ public class RepositoryAPI {
         return Observable.zip(obsSerie, obsVideo, (serie, videosResponse) -> {
             List<VideosResponse.Video> trailers = videosResponse.results;
             for (VideosResponse.Video v : trailers) {
-                if (v.type.equals("Trailer")) {
+                if (v.type.equals(TRAILER)) {
                     serie.setVideos(v);
                     break;
                 }
@@ -88,11 +86,8 @@ public class RepositoryAPI {
         });
     }
 
-    public Single<List<Season>> getSeason(SerieResponse.Serie serie) {
-        return Observable.range(1, serie.numberOfSeasons)
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(i ->getRetrofitService().getSeason(serie.id, i, language))
-                .toList();
+    public Observable<Season> getSeason(SerieResponse.Serie serie, int numSeason) {
+        return getRetrofitService().getSeason(serie.id, numSeason, language);
     }
 
     public Observable<PersonResponse.Person> getPerson(int idPerson) {
@@ -106,6 +101,4 @@ public class RepositoryAPI {
     public Observable<SerieResponse> searchSerie(String query) {
         return getRetrofitService().searchSerie(query, language);
     }
-
-
 }

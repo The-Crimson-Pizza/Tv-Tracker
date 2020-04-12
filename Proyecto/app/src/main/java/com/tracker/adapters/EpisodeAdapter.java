@@ -22,10 +22,12 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
 
     private List<Episode> mEpisodes;
     private static Context mContext;
+    private int mRuntime;
 
-    public EpisodeAdapter(Context mContext, List<Episode> episodes) {
+    public EpisodeAdapter(Context mContext, List<Episode> episodes, int runtime) {
         this.mEpisodes = episodes;
         this.mContext = mContext;
+        this.mRuntime = runtime;
 //        if(mEpisodes !=null){
 //            new Util().ordenarTemporadas(mEpisodes);
 //        }
@@ -40,7 +42,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull EpisodeAdapter.ViewHolder holder, final int position) {
-        holder.bindTo(mEpisodes.get(position));
+        holder.bindTo(mEpisodes.get(position), mRuntime);
     }
 
     @Override
@@ -53,23 +55,19 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView image;
-        TextView name;
-        TextView fecha;
-        int id;
+        ImageView episodeBackdrop;
+        TextView episodeName;
+        TextView episodeDate;
+        TextView episodeOverview;
+        TextView episodeTime;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.image_episode);
-            name = itemView.findViewById(R.id.episode_name);
-            fecha = itemView.findViewById(R.id.episode_fecha);
-
-            itemView.setOnClickListener(v -> {
-//                int pos = getAdapterPosition();
-//                Bundle bundle = new Bundle();
-//                bundle.putInt(ID_SEASON, pos);
-//                Navigation.findNavController(v).navigate(R.id.action_series_to_episodes, bundle);
-            });
+            episodeBackdrop = itemView.findViewById(R.id.image_episode);
+            episodeName = itemView.findViewById(R.id.episode_name);
+            episodeDate = itemView.findViewById(R.id.episode_fecha);
+            episodeOverview = itemView.findViewById(R.id.episode_sinopsis);
+            episodeTime = itemView.findViewById(R.id.episode_time);
         }
 
         static EpisodeAdapter.ViewHolder create(ViewGroup parent) {
@@ -77,16 +75,16 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
             return new EpisodeAdapter.ViewHolder(view);
         }
 
-        void bindTo(Episode episode) {
+        void bindTo(Episode episode, int runtime) {
             if (episode != null) {
-                id = episode.id;
-                name.setText(episode.name);
-                fecha.setText(episode.airDate);
+                episodeName.setText(episode.name);
+                episodeDate.setText(new Util().getFecha(episode.airDate));
+                episodeOverview.setText(episode.overview);
+                episodeTime.setText(new Util().getMinutos(runtime));
+
                 // todo - probablemente hay que cambiar la base_url
-                new Util().getImage(BASE_URL_IMAGES_POSTER + episode.stillPath, image, mContext);
+                new Util().getImage(BASE_URL_IMAGES_POSTER + episode.stillPath, episodeBackdrop, mContext);
             }
         }
-
-
     }
 }

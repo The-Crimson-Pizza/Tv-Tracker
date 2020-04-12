@@ -2,6 +2,7 @@ package com.tracker.ui.series;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class CastFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
 
         rvCasting = view.findViewById(R.id.gridCasting);
@@ -51,7 +53,8 @@ public class CastFragment extends Fragment {
         LiveData<SerieResponse.Serie> s = model.getSerie();
         s.observe(getViewLifecycleOwner(), serie -> {
             if (!serie.credits.cast.isEmpty()) {
-                adapterActor = new ActorBasicAdapter(mContext, serie);
+                mSerie = serie;
+                adapterActor = new ActorBasicAdapter(mContext, mSerie);
                 rvCasting.setAdapter(adapterActor);
             } else {
                 adapterActor = new ActorBasicAdapter(mContext, null);

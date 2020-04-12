@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
-import com.tracker.adapters.RellenarActor;
+import com.tracker.adapters.FillActor;
 import com.tracker.data.RepositoryAPI;
 import com.tracker.models.people.PersonResponse;
 
@@ -68,7 +68,7 @@ public class ActorFragment extends Fragment {
                 .doOnError(Throwable::printStackTrace)
                 .subscribe(actor -> {
                     mActor = actor;
-                    new RellenarActor(view, mActor, mContext).fillActor();
+                    new FillActor(view, mActor, mContext).fillActor();
                 });
     }
 
@@ -80,15 +80,12 @@ public class ActorFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_share) {
+//            todo - intent de share
             return true;
         } else if (id == R.id.action_wiki) {
+//            todo -intent abrir navegador con instagram - webview open instagram
             return true;
         }
         return super.onOptionsItemSelected(item);
