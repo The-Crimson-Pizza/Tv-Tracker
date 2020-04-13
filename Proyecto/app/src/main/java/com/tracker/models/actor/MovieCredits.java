@@ -1,4 +1,4 @@
-package com.tracker.models.people;
+package com.tracker.models.actor;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -47,24 +47,17 @@ public class MovieCredits implements Parcelable {
 
     public class Cast implements Parcelable {
 
-        @SerializedName("poster_path")
-        @Expose
-        public String posterPath;
-        @SerializedName("id")
-        @Expose
         public int id;
-        @SerializedName("title")
-        @Expose
         public String title;
+        public String character;
+        @SerializedName("poster_path")
+        public String posterPath;
         @SerializedName("original_title")
         @Expose
         public String originalTitle;
         @SerializedName("release_date")
         @Expose
         public String releaseDate;
-        @SerializedName("character")
-        @Expose
-        public String character;
 
 
         public final Parcelable.Creator<Cast> CREATOR = new Creator<Cast>() {

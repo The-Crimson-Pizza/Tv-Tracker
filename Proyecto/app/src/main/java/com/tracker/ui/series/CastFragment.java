@@ -2,7 +2,6 @@ package com.tracker.ui.series;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.adapters.ActorBasicAdapter;
 import com.tracker.data.SeriesViewModel;
-import com.tracker.models.series.SerieResponse;
+import com.tracker.models.serie.SerieResponse;
 
 import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_SHORT;
 

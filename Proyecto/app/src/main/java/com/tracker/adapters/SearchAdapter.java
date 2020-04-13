@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
 import com.tracker.models.BasicResponse;
-import com.tracker.models.people.PersonResponse;
-import com.tracker.models.series.SerieResponse;
+import com.tracker.models.actor.PersonResponse;
+import com.tracker.models.serie.SerieResponse;
 import com.tracker.util.Util;
 
 import java.util.List;

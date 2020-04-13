@@ -2,7 +2,6 @@ package com.tracker.ui.series;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,7 @@ import com.tracker.adapters.TabLayoutAdapter;
 import com.tracker.data.RepositoryAPI;
 import com.tracker.data.RxBus;
 import com.tracker.data.SeriesViewModel;
-import com.tracker.models.series.SerieResponse;
+import com.tracker.models.serie.SerieResponse;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 

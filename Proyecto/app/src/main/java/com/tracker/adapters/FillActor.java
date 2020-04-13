@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.tracker.R;
-import com.tracker.models.people.PersonResponse;
+import com.tracker.models.actor.PersonResponse;
 import com.tracker.util.Util;
 
 import java.time.LocalDate;

@@ -1,5 +1,5 @@
 
-package com.tracker.models.people;
+package com.tracker.models.actor;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -17,45 +17,24 @@ public class PersonResponse {
 
     public class Person implements Parcelable {
 
-        @SerializedName("id")
-        @Expose
         public int id;
-        @SerializedName("name")
-        @Expose
         public String name;
-        @SerializedName("birthday")
-        @Expose
         public String birthday;
-        @SerializedName("deathday")
-        @Expose
         public String deathday;
-        @SerializedName("gender")
-        @Expose
         public int gender;
-        @SerializedName("biography")
-        @Expose
         public String biography;
+        public String homepage;
         @SerializedName("place_of_birth")
-        @Expose
         public String placeOfBirth;
         @SerializedName("profile_path")
-        @Expose
         public String profilePath;
-        @SerializedName("homepage")
-        @Expose
-        public String homepage;
         @SerializedName("known_for_department")
-        @Expose
         public String known;
-
         @SerializedName("tv_credits")
-        @Expose
         public TvCredits tvCredits;
         @SerializedName("external_ids")
-        @Expose
         public ExternalIds externalIds;
         @SerializedName("movie_credits")
-        @Expose
         public MovieCredits movieCredits;
 
         public final Creator<Person> CREATOR =
@@ -106,13 +85,10 @@ public class PersonResponse {
         public class ExternalIds implements Parcelable {
 
             @SerializedName("instagram_id")
-            @Expose
             public String instagramId;
             @SerializedName("twitter_id")
-            @Expose
             public String twitterId;
             @SerializedName("imdb_id")
-            @Expose
             public String imdbId;
 
             public final Parcelable.Creator<ExternalIds> CREATOR =

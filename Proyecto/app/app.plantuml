@@ -1,0 +1,409 @@
+@startuml
+
+title __APP's Class Diagram__\n
+
+  namespace com.tracker {
+    class com.tracker.BuildConfig {
+    }
+  }
+  
+
+  namespace com.tracker {
+    class com.tracker.MainActivity {
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace adapters {
+      class com.tracker.adapters.ActorBasicAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace adapters {
+      class com.tracker.adapters.CastAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace adapters {
+      class com.tracker.adapters.EpisodeAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace adapters {
+      class com.tracker.adapters.FillActor {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace adapters {
+      class com.tracker.adapters.FillSerie {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace adapters {
+      class com.tracker.adapters.SearchAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace adapters {
+      class com.tracker.adapters.SeasonAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace adapters {
+      class com.tracker.adapters.SeriesBasicAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace adapters {
+      class com.tracker.adapters.TabLayoutAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace data {
+      interface com.tracker.data.DataTMDB {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace data {
+      class com.tracker.data.RepositoryAPI {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace data {
+      class com.tracker.data.RxBus {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace data {
+      class com.tracker.data.SeriesViewModel {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace models {
+      class com.tracker.models.BasicResponse {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace models {
+      class com.tracker.models.VideosResponse {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace models {
+      namespace actor {
+        class com.tracker.models.actor.MovieCredits {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace models {
+      namespace actor {
+        class com.tracker.models.actor.PersonResponse {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace models {
+      namespace actor {
+        class com.tracker.models.actor.TvCredits {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace models {
+      namespace seasons {
+        class com.tracker.models.seasons.Episode {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace models {
+      namespace seasons {
+        class com.tracker.models.seasons.Season {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace models {
+      namespace series {
+        class com.tracker.models.series.Credits {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace models {
+      namespace series {
+        class com.tracker.models.series.SerieResponse {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace models {
+      namespace series {
+        class com.tracker.models.series.Similar {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace ui {
+      class com.tracker.ui.ActorFragment {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace ui {
+      class com.tracker.ui.FavoritosFragment {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace ui {
+      class com.tracker.ui.HomeFragment {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace ui {
+      class com.tracker.ui.ProfileFragment {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace ui {
+      class com.tracker.ui.WebViewActivity {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace ui {
+      namespace search {
+        class com.tracker.ui.search.ActorSearchFragment {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace ui {
+      namespace search {
+        class com.tracker.ui.search.SearchFragment {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace ui {
+      namespace search {
+        class com.tracker.ui.search.SerieSearchFragment {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace ui {
+      namespace series {
+        class com.tracker.ui.series.CastFragment {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace ui {
+      namespace series {
+        class com.tracker.ui.series.EpisodesFragment {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace ui {
+      namespace series {
+        class com.tracker.ui.series.SeasonFragment {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace ui {
+      namespace series {
+        class com.tracker.ui.series.SerieFragment {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace ui {
+      namespace series {
+        class com.tracker.ui.series.SinopsisFragment {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace util {
+      class com.tracker.util.Constants {
+      }
+    }
+  }
+  
+
+  namespace com.tracker {
+    namespace util {
+      class com.tracker.util.Util {
+      }
+    }
+  }
+  
+
+  com.tracker.MainActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.tracker.adapters.ActorBasicAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
+  com.tracker.adapters.CastAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
+  com.tracker.adapters.EpisodeAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
+  com.tracker.adapters.FillActor o-- com.tracker.models.actor.PersonResponse.Person : mPerson
+  com.tracker.adapters.FillSerie o-- com.tracker.models.series.SerieResponse.Serie : mSerie
+  com.tracker.adapters.SearchAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
+  com.tracker.adapters.SeasonAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
+  com.tracker.adapters.SeriesBasicAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
+  com.tracker.adapters.TabLayoutAdapter -up-|> androidx.viewpager2.adapter.FragmentStateAdapter
+  com.tracker.data.SeriesViewModel -up-|> androidx.lifecycle.ViewModel
+  com.tracker.models.actor.MovieCredits .up.|> android.os.Parcelable
+  com.tracker.models.actor.TvCredits .up.|> android.os.Parcelable
+  com.tracker.models.seasons.Episode .up.|> android.os.Parcelable
+  com.tracker.models.seasons.Season .up.|> android.os.Parcelable
+  com.tracker.models.series.Credits .up.|> android.os.Parcelable
+  com.tracker.models.series.Similar .up.|> android.os.Parcelable
+  com.tracker.ui.ActorFragment -up-|> androidx.fragment.app.Fragment
+  com.tracker.ui.ActorFragment o-- com.tracker.models.actor.PersonResponse.Person : mActor
+  com.tracker.ui.FavoritosFragment -up-|> androidx.fragment.app.Fragment
+  com.tracker.ui.HomeFragment -up-|> androidx.fragment.app.Fragment
+  com.tracker.ui.HomeFragment o-- com.tracker.adapters.SeriesBasicAdapter : adapterNueva
+  com.tracker.ui.HomeFragment o-- com.tracker.adapters.SeriesBasicAdapter : adapterPopular
+  com.tracker.ui.ProfileFragment -up-|> androidx.fragment.app.Fragment
+  com.tracker.ui.WebViewActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.tracker.ui.search.ActorSearchFragment -up-|> androidx.fragment.app.Fragment
+  com.tracker.ui.search.ActorSearchFragment o-- com.tracker.data.SeriesViewModel : model
+  com.tracker.ui.search.ActorSearchFragment o-- com.tracker.adapters.SearchAdapter : searchAdapter
+  com.tracker.ui.search.SearchFragment -up-|> androidx.fragment.app.Fragment
+  com.tracker.ui.search.SearchFragment o-- com.tracker.data.SeriesViewModel : model
+  com.tracker.ui.search.SerieSearchFragment -up-|> androidx.fragment.app.Fragment
+  com.tracker.ui.search.SerieSearchFragment o-- com.tracker.data.SeriesViewModel : model
+  com.tracker.ui.search.SerieSearchFragment o-- com.tracker.adapters.SearchAdapter : searchAdapter
+  com.tracker.ui.series.CastFragment -up-|> androidx.fragment.app.Fragment
+  com.tracker.ui.series.CastFragment o-- com.tracker.adapters.ActorBasicAdapter : adapterActor
+  com.tracker.ui.series.CastFragment o-- com.tracker.models.series.SerieResponse.Serie : mSerie
+  com.tracker.ui.series.EpisodesFragment -up-|> androidx.fragment.app.Fragment
+  com.tracker.ui.series.EpisodesFragment o-- com.tracker.adapters.EpisodeAdapter : adapter
+  com.tracker.ui.series.EpisodesFragment o-- com.tracker.models.series.SerieResponse.Serie : mSerie
+  com.tracker.ui.series.SeasonFragment -up-|> androidx.fragment.app.Fragment
+  com.tracker.ui.series.SeasonFragment o-- com.tracker.adapters.SeasonAdapter : adapter
+  com.tracker.ui.series.SeasonFragment o-- com.tracker.models.series.SerieResponse.Serie : mSerie
+  com.tracker.ui.series.SerieFragment -up-|> androidx.fragment.app.Fragment
+  com.tracker.ui.series.SerieFragment o-- com.tracker.models.series.SerieResponse.Serie : mSerie
+  com.tracker.ui.series.SerieFragment o-- com.tracker.data.SeriesViewModel : model
+  com.tracker.ui.series.SinopsisFragment -up-|> androidx.fragment.app.Fragment
+  com.tracker.ui.series.SinopsisFragment o-- com.tracker.models.series.SerieResponse.Serie : mSerie
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

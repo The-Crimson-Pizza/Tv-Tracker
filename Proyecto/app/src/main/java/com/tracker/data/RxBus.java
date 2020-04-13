@@ -1,6 +1,6 @@
 package com.tracker.data;
 
-import com.tracker.models.series.SerieResponse;
+import com.tracker.models.serie.SerieResponse;
 
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.PublishSubject;

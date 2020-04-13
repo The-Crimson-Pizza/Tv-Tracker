@@ -1,5 +1,5 @@
 
-package com.tracker.models.series;
+package com.tracker.models.serie;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -14,11 +14,9 @@ public class Similar implements Parcelable {
     @SerializedName("results")
     @Expose
     public List<Result> results = null;
+
     public final static Creator<Similar> CREATOR = new Creator<Similar>() {
 
-        @SuppressWarnings({
-                "unchecked"
-        })
         public Similar createFromParcel(Parcel in) {
             return new Similar(in);
         }

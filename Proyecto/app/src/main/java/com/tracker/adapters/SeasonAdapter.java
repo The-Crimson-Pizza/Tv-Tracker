@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
 import com.tracker.models.seasons.Season;
-import com.tracker.models.series.SerieResponse;
+import com.tracker.models.serie.SerieResponse;
 import com.tracker.util.Util;
 
 import java.util.Collections;

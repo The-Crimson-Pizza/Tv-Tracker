@@ -8,12 +8,14 @@ public class Constants {
     public static final String API_KEY_STRING = "api_key";
     public static final String API_KEY = "18f61adb80d286bb036df43e60d7aae6";
     public static final String BASE_URL = "https://api.themoviedb.org/3/";
-    public static final String BASE_URL_WEB = "https://www.themoviedb.org/movie/";
+    public static final String BASE_URL_WEB_SERIE = "https://www.themoviedb.org/movie/";
+    public static final String BASE_URL_WEB_PERSON = "https://www.themoviedb.org/person/";
     public static final String BASE_URL_IMAGES_POSTER = "https://image.tmdb.org/t/p/w300/";
     public static final String BASE_URL_IMAGES_PORTRAIT = "https://image.tmdb.org/t/p/w185/";
     public static final String BASE_URL_IMAGES_BACK = "https://image.tmdb.org/t/p/w780/";
     public static final String BASE_URL_IMAGES_NETWORK = "https://image.tmdb.org/t/p/w92/";
     public static final String BASE_URL_INSTAGRAM = "https://www.instagram.com/";
+    public static final String BASE_URL_INSTAGRAM_U = "https://www.instagram.com/_u/";
     public static final String BASE_URL_TWITTER = "https://twitter.com/";
     public static final String BASE_URL_IMDB = "https://www.imdb.com/title/";
     public static final String BASE_URL_YOUTUBE = "https://www.youtube.com/watch?v=";

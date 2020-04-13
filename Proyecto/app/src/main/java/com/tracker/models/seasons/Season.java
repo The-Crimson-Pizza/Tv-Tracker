@@ -11,29 +11,17 @@ import com.google.gson.annotations.SerializedName;
 public class Season implements Parcelable
 {
 
-    @SerializedName("id")
-    @Expose
     public int id;
     @SerializedName("air_date")
-    @Expose
     public String airDate;
-    @SerializedName("episodes")
-    @Expose
     public List<Episode> episodes = null;
-    @SerializedName("name")
-    @Expose
     public String name;
-    @SerializedName("overview")
-    @Expose
     public String overview;
     @SerializedName("poster_path")
-    @Expose
     public String posterPath;
     @SerializedName("season_number")
-    @Expose
     public int seasonNumber;
     @SerializedName("episode_count")
-    @Expose
     public int episodeCount;
 
     public final static Creator<Season> CREATOR = new Creator<Season>() {

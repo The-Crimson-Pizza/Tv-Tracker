@@ -9,7 +9,7 @@ import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.tracker.R;
-import com.tracker.models.series.SerieResponse;
+import com.tracker.models.serie.SerieResponse;
 import com.tracker.util.Util;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_BACK;

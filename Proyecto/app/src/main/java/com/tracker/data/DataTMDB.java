@@ -2,9 +2,9 @@ package com.tracker.data;
 
 import com.tracker.models.BasicResponse;
 import com.tracker.models.VideosResponse;
-import com.tracker.models.people.PersonResponse;
+import com.tracker.models.actor.PersonResponse;
 import com.tracker.models.seasons.Season;
-import com.tracker.models.series.SerieResponse;
+import com.tracker.models.serie.SerieResponse;
 
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.GET;

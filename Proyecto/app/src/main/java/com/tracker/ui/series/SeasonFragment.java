@@ -19,7 +19,7 @@ import com.tracker.R;
 import com.tracker.adapters.SeasonAdapter;
 import com.tracker.data.SeriesViewModel;
 import com.tracker.models.seasons.Season;
-import com.tracker.models.series.SerieResponse;
+import com.tracker.models.serie.SerieResponse;
 
 import java.util.List;
 

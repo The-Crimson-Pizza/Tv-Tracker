@@ -18,7 +18,7 @@ import com.tracker.R;
 import com.tracker.adapters.SearchAdapter;
 import com.tracker.data.RepositoryAPI;
 import com.tracker.data.SeriesViewModel;
-import com.tracker.models.series.SerieResponse;
+import com.tracker.models.serie.SerieResponse;
 
 import java.util.ArrayList;
 import java.util.List;

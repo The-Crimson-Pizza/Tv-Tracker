@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.tracker.ui.ActorFragment">
     <item
-        android:id="@+id/action_wiki"
+        android:id="@+id/action_insta"
         android:orderInCategory="100"
         android:title="@string/redes_sociales"
         android:icon="@drawable/instagram"

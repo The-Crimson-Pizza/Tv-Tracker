@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
-import com.tracker.models.people.MovieCredits;
-import com.tracker.models.people.TvCredits;
+import com.tracker.models.actor.MovieCredits;
+import com.tracker.models.actor.TvCredits;
 import com.tracker.ui.WebViewActivity;
 import com.tracker.util.Util;
 
@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
-import static com.tracker.util.Constants.BASE_URL_WEB;
+import static com.tracker.util.Constants.BASE_URL_WEB_SERIE;
 import static com.tracker.util.Constants.ID_SERIE;
 import static com.tracker.util.Constants.URL_WEBVIEW;
 
@@ -76,7 +76,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
                     .setAction("Open in web", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra(URL_WEBVIEW, BASE_URL_WEB + mMovies.get(position).id));
+                            mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra(URL_WEBVIEW, BASE_URL_WEB_SERIE + mMovies.get(position).id));
                         }
                     }).show());
         } else {

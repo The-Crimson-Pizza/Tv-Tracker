@@ -1,5 +1,4 @@
-
-package com.tracker.models.series;
+package com.tracker.models.actor;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,32 +8,33 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Credits implements Parcelable {
+public class TvCredits implements Parcelable {
 
     @SerializedName("cast")
     @Expose
     public List<Cast> cast = null;
-    public final static Creator<Credits> CREATOR = new Creator<Credits>() {
+
+    public final static Creator<TvCredits> CREATOR = new Creator<TvCredits>() {
 
 
         @SuppressWarnings({
                 "unchecked"
         })
-        public Credits createFromParcel(Parcel in) {
-            return new Credits(in);
+        public TvCredits createFromParcel(Parcel in) {
+            return new TvCredits(in);
         }
 
-        public Credits[] newArray(int size) {
-            return (new Credits[size]);
+        public TvCredits[] newArray(int size) {
+            return (new TvCredits[size]);
         }
 
     };
 
-    protected Credits(Parcel in) {
+    protected TvCredits(Parcel in) {
         in.readList(this.cast, (Cast.class.getClassLoader()));
     }
 
-    public Credits() {
+    public TvCredits() {
     }
 
     public void writeToParcel(Parcel dest, int flags) {
@@ -47,23 +47,20 @@ public class Credits implements Parcelable {
 
     public class Cast implements Parcelable {
 
-        @SerializedName("id")
-        @Expose
-        public int id;
-        @SerializedName("name")
-        @Expose
+        @SerializedName("original_name")
+        public String originalName;
         public String name;
-        @SerializedName("character")
-        @Expose
         public String character;
-        @SerializedName("gender")
-        @Expose
-        public int gender;
-        @SerializedName("profile_path")
-        @Expose
-        public String profilePath;
+        @SerializedName("episode_count")
+        public int episodeCount;
+        public int id;
+        @SerializedName("poster_path")
+        public String posterPath;
+        @SerializedName("first_air_date")
+        public String firstAirDate;
 
         public final Creator<Cast> CREATOR = new Creator<Cast>() {
+
 
             @SuppressWarnings({
                     "unchecked"
@@ -79,23 +76,31 @@ public class Credits implements Parcelable {
         };
 
         protected Cast(Parcel in) {
-            this.character = ((String) in.readValue((String.class.getClassLoader())));
-            this.id = ((int) in.readValue((int.class.getClassLoader())));
+            this.originalName = ((String) in.readValue((String.class.getClassLoader())));
             this.name = ((String) in.readValue((String.class.getClassLoader())));
-            this.gender = ((int) in.readValue((int.class.getClassLoader())));
-            this.profilePath = ((String) in.readValue((String.class.getClassLoader())));
+            this.firstAirDate = ((String) in.readValue((String.class.getClassLoader())));
+            this.character = ((String) in.readValue((String.class.getClassLoader())));
+            this.episodeCount = ((int) in.readValue((int.class.getClassLoader())));
+            this.id = ((int) in.readValue((int.class.getClassLoader())));
+            this.posterPath = ((String) in.readValue((String.class.getClassLoader())));
+        }
+
+        public Cast() {
         }
 
         public void writeToParcel(Parcel dest, int flags) {
-            dest.writeValue(character);
-            dest.writeValue(id);
+            dest.writeValue(originalName);
             dest.writeValue(name);
-            dest.writeValue(gender);
-            dest.writeValue(profilePath);
+            dest.writeValue(firstAirDate);
+            dest.writeValue(character);
+            dest.writeValue(episodeCount);
+            dest.writeValue(id);
+            dest.writeValue(posterPath);
         }
 
         public int describeContents() {
             return 0;
         }
+
     }
 }

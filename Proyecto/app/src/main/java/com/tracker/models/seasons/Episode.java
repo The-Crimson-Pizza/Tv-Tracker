@@ -12,31 +12,19 @@ public class Episode implements Parcelable
 {
 
     @SerializedName("air_date")
-    @Expose
     public String airDate;
     @SerializedName("episode_number")
-    @Expose
     public int episodeNumber;
-    @SerializedName("id")
-    @Expose
     public int id;
-    @SerializedName("name")
-    @Expose
     public String name;
-    @SerializedName("overview")
-    @Expose
     public String overview;
     @SerializedName("season_number")
-    @Expose
     public int seasonNumber;
     @SerializedName("show_id")
-    @Expose
     public int showId;
     @SerializedName("still_path")
-    @Expose
     public String stillPath;
     @SerializedName("vote_average")
-    @Expose
     public float voteAverage;
 
     public final static Creator<Episode> CREATOR = new Creator<Episode>() {

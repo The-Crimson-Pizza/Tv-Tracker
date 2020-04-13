@@ -1,5 +1,5 @@
 
-package com.tracker.models.series;
+package com.tracker.models.serie;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -19,71 +19,40 @@ public class SerieResponse {
 
     public class Serie implements Parcelable {
 
-        @SerializedName("id")
-        @Expose
         public int id;
-        @SerializedName("name")
-        @Expose
         public String name;
         @SerializedName("original_name")
-        @Expose
         public String originalName;
         @SerializedName("first_air_date")
-        @Expose
         public String firstAirDate;
         @SerializedName("last_air_date")
-        @Expose
         public String lastAirDate;
         @SerializedName("poster_path")
-        @Expose
         public String posterPath;
         @SerializedName("backdrop_path")
-        @Expose
         public String backdropPath;
-        @SerializedName("status")
-        @Expose
         public String status;
         @SerializedName("episode_run_time")
-        @Expose
         public List<Integer> episodeRunTime = null;
-        @SerializedName("homepage")
-        @Expose
         public String homepage;
         @SerializedName("in_production")
-        @Expose
         public boolean inProduction;
         @SerializedName("number_of_episodes")
-        @Expose
         public int numberOfEpisodes;
         @SerializedName("number_of_seasons")
-        @Expose
         public int numberOfSeasons;
         @SerializedName("origin_country")
-        @Expose
         public List<String> originCountry = null;
         @SerializedName("original_language")
-        @Expose
         public String originalLanguage;
-        @SerializedName("overview")
-        @Expose
         public String overview;
         @SerializedName("vote_average")
-        @Expose
         public float voteAverage;
-        @SerializedName("genres")
-        @Expose
         public List<Genre> genres = null;
-        @SerializedName("networks")
-        @Expose
         public List<Network> networks = null;
-        @SerializedName("credits")
-        @Expose
         public Credits credits;
-        @SerializedName("similar")
-        @Expose
         public Similar similar;
         @SerializedName("external_ids")
-        @Expose
         public ExternalIds externalIds;
 
         public VideosResponse.Video video;

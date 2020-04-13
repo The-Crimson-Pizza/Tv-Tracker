@@ -13,8 +13,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
-import com.tracker.models.series.Credits;
-import com.tracker.models.series.SerieResponse;
+import com.tracker.models.serie.Credits;
+import com.tracker.models.serie.SerieResponse;
 import com.tracker.util.Util;
 
 import java.util.List;
