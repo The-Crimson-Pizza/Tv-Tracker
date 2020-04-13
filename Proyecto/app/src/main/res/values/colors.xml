@@ -10,4 +10,5 @@
     <color name="whiteColor">#ffffff</color>
     <color name="black80">#A1000000</color>
     <color name="black">#000000</color>
+    <color name="tabUnselected">#c4ede5</color>
 </resources>
