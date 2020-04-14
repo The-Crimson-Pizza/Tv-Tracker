@@ -1,6 +1,7 @@
 package com.tracker.adapters;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
@@ -14,13 +15,21 @@ import com.tracker.R;
 import com.tracker.models.actor.PersonResponse;
 import com.tracker.util.Util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_PORTRAIT;
+import static com.tracker.util.Constants.FORMAT_DEFAULT;
 import static com.tracker.util.Constants.FORMAT_LONG;
+import static java.time.OffsetDateTime.parse;
 
 public class FillActor {
 
@@ -42,6 +51,7 @@ public class FillActor {
 
         TextView bornDate = includeView.findViewById(R.id.fecha_actor);
         TextView bornPlace = includeView.findViewById(R.id.lugar_actor);
+        TextView deathDate = includeView.findViewById(R.id.fecha_actor_mortimer);
         ReadMoreTextView biography = includeView.findViewById(R.id.bio_text);
 
         RecyclerView rvMovies = includeView.findViewById(R.id.rvPelis);
@@ -50,7 +60,18 @@ public class FillActor {
         actorName.setTitle(mPerson.name);
         Util.getImagePortrait(BASE_URL_IMAGES_PORTRAIT + mPerson.profilePath, actorPortrait, mContext);
 
-        bornDate.setText(calculateAge());
+        if (mPerson.isDead()) {
+            deathDate.setText(calculateAge(true));
+            deathDate.setVisibility(View.VISIBLE);
+        }else{
+        }
+
+        if (mPerson.birthday != null) {
+            bornDate.setText(calculateAge(false));
+        } else {
+            bornDate.setText(mContext.getString(R.string.no_data));
+        }
+
         bornPlace.setText(Util.checkNull(mPerson.placeOfBirth, mContext));
         biography.setText(Util.checkNull(mPerson.biography, mContext));
 
@@ -61,6 +82,7 @@ public class FillActor {
 
     /**
      * Check that there's data in the recycler and if not, displays a message
+     *
      * @param rvSeries series' recyclerview
      * @param rvMovies films' recyclerView
      */
@@ -89,6 +111,7 @@ public class FillActor {
 
     /**
      * Initialize the recyclerView configuration
+     *
      * @param rv recyclerView
      */
     private void initRecyclers(RecyclerView rv) {
@@ -101,20 +124,52 @@ public class FillActor {
 
     /**
      * Calculate age if date of birth is available
+     *
      * @return the actor's age
      */
-    private String calculateAge() {
-        if (mPerson.birthday != null) {
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                LocalDate today = LocalDate.now();
-                String[] fecha = mPerson.birthday.split("-");
-                LocalDate birthday = LocalDate.of(Integer.parseInt(fecha[0]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[1]));
-                Period p = Period.between(birthday, today);
-                String newDate = Util.getFecha(mPerson.birthday, FORMAT_LONG);
-                return String.format("%s (%s %s)", newDate, p.getYears(), mContext.getString(R.string.years));
+    private String calculateAge(boolean dead) {
+        LocalDate bornDate;
+        LocalDate deathDate;
+        String bornDateNew;
+        String deathDateNew = "";
+        Period period;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            bornDate = parseStringToLocalDate(mPerson.birthday);
+
+            if (mPerson.deathday != null) {
+                deathDate = parseStringToLocalDate(mPerson.deathday);
+                period = Period.between(bornDate, deathDate);
+                bornDateNew = String.format("%s", Util.getFecha(mPerson.birthday, FORMAT_LONG));
+                deathDateNew = String.format("%s (%s %s)", Util.getFecha(mPerson.deathday, FORMAT_LONG), period.getYears(), mContext.getString(R.string.years));
+            } else {
+                period = Period.between(bornDate, LocalDate.now());
+                bornDateNew = String.format("%s (%s %s)", Util.getFecha(mPerson.birthday, FORMAT_LONG), period.getYears(), mContext.getString(R.string.years));
             }
-            return mPerson.birthday;
+
+
+            if (dead) {
+                return deathDateNew;
+            } else {
+                return bornDateNew;
+            }
+
+        } else {
+            if (dead) {
+                return mPerson.deathday;
+            } else {
+                return mPerson.birthday;
+            }
         }
-        return mContext.getString(R.string.no_data);
+    }
+
+
+    private LocalDate parseStringToLocalDate(String oldDate) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_DEFAULT);
+            formatter = formatter.withLocale(Locale.getDefault());
+            return LocalDate.parse(oldDate, formatter);
+        } else {
+            return null;
+        }
     }
 }

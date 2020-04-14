@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -83,27 +84,41 @@ public class FillSerie {
 
     private void fillNetworks() {
         int cont = 1;
-        while (cont <= 3) {
-            String name = NETWORKS + cont;
-            int id = mContext.getResources().getIdentifier(name, ID, mContext.getPackageName());
-            ImageView imageView = mView.findViewById(id);
-            Util.getImageNoPlaceholder(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(cont - 1).logoPath, imageView, mContext);
-            imageView.setVisibility(View.VISIBLE);
-            if (cont == mSerie.networks.size()) break;
-            else cont++;
+        if (mSerie.networks.size() > 0) {
+            while (cont <= 3) {
+                String name = NETWORKS + cont;
+                int id = mContext.getResources().getIdentifier(name, ID, mContext.getPackageName());
+                ImageView imageView = mView.findViewById(id);
+                Util.getImageNoPlaceholder(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(cont - 1).logoPath, imageView, mContext);
+                imageView.setVisibility(View.VISIBLE);
+                if (cont == mSerie.networks.size()) break;
+                else cont++;
+            }
+        } else {
+
         }
     }
 
     private void fillGenres() {
         int cont = 1;
-        while (cont <= 3) {
-            String name = GENRE + cont;
-            int id = mContext.getResources().getIdentifier(name, ID, mContext.getPackageName());
-            TextView textView = mView.findViewById(id);
-            textView.setText(mSerie.genres.get(cont - 1).name);
-            textView.setVisibility(View.VISIBLE);
-            if (cont == mSerie.genres.size()) break;
-            else cont++;
+        if (mSerie.genres.size() > 0) {
+            while (cont <= 3) {
+                String name = GENRE + cont;
+                int id = mContext.getResources().getIdentifier(name, ID, mContext.getPackageName());
+                TextView textView = mView.findViewById(id);
+                textView.setText(mSerie.genres.get(cont - 1).name);
+                textView.setVisibility(View.VISIBLE);
+                if (cont == mSerie.genres.size()) break;
+                else cont++;
+            }
+        } else {
+            ViewSwitcher switcherSeries = mView.findViewById(R.id.switcher_genres);
+
+            if (R.id.generos == switcherSeries.getNextView().getId()) {
+                switcherSeries.showNext();
+            } else if (R.id.nodatagenres == switcherSeries.getNextView().getId()) {
+                switcherSeries.showNext();
+            }
         }
     }
 

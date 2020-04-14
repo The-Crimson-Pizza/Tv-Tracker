@@ -79,8 +79,6 @@ l
 +app/src/main/res/layout/fragment_search.xml,2/f/2f0ecfae4fe398a722fcad4e3b06b75ba69c589a
 Z
 *app/src/main/res/layout/fragment_serie.xml,1/a/1adc6f02a414464cc40fe4a53e65b336ea140988
-]
--app/src/main/res/layout/fragment_sinopsis.xml,6/6/66f655f96307f9c38339935c376c6f6feed610b4
 ^
 .app/src/main/res/layout/lista_series_basic.xml,1/4/149fb68aab5d92e4afcaf8cbfd672728f0f9cc32
 i
@@ -91,8 +89,6 @@ m
 =app/src/main/java/com/tracker/ui/series/SinopsisFragment.java,6/7/673d838a5a24d466388f9aad613a6dc32ee65f0b
 a
 1app/src/main/res/layout/fragment_actor_search.xml,7/2/72d8fe34c271dce51c0e3e855e7c0231c753a6f3
-Y
-)app/src/main/res/layout/fragment_cast.xml,c/5/c55105f7759dd10b6c0f1e2e46fabe1a775730d9
 a
 1app/src/main/res/layout/fragment_serie_search.xml,7/5/75327b1a6c8b264de3cc5bae1baea150aa031ffb
 k
