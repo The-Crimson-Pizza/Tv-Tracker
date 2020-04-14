@@ -32,4 +32,6 @@ public class Constants {
     public static final String NETWORKS = "network";
     public static final String GENRE = "genre";
     public static final String ID = "id";
+    public static final String FORMAT_LONG = "EEE dd, MMMM yyyy";
+    public static final String FORMAT_YEAR = "yyyy";
 }

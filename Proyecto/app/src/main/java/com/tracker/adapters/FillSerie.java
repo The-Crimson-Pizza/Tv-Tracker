@@ -15,6 +15,7 @@ import com.tracker.util.Util;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_BACK;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_NETWORK;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
+import static com.tracker.util.Constants.FORMAT_YEAR;
 import static com.tracker.util.Constants.GENRE;
 import static com.tracker.util.Constants.ID;
 import static com.tracker.util.Constants.NETWORKS;
@@ -67,8 +68,8 @@ public class FillSerie {
         TextView airDate = mView.findViewById(R.id.fechaSerie);
         TextView country = mView.findViewById(R.id.paisSerie);
         TextView status = mView.findViewById(R.id.emisionSerie);
-        airDate.setText(mSerie.firstAirDate);
 
+        airDate.setText(Util.getFecha(mSerie.firstAirDate, FORMAT_YEAR));
 
         if (!mSerie.originCountry.isEmpty()) {
             country.setText(mSerie.originCountry.get(0));

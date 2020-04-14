@@ -8,7 +8,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.tracker.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.Objects;
 
 public class Util {
 
@@ -54,6 +57,17 @@ public class Util {
         }
         return context.getString(R.string.no_data);
     }
+
+    public static String getFecha(String oldDate, String format) {
+        SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat newFormat = new SimpleDateFormat(format);
+        try {
+            return newFormat.format(Objects.requireNonNull(oldFormat.parse(oldDate)));
+        } catch (ParseException e) {
+            return oldDate;
+        }
+    }
+
 
     public static String getLanguage() {
         return Locale.getDefault().toString().replace("_", "-");

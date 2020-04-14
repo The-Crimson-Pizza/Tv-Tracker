@@ -21,6 +21,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
+import static com.tracker.util.Constants.FORMAT_LONG;
 
 public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHolder> {
 
@@ -82,28 +83,18 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
         void bindTo(Episode episode, int runtime) {
             if (episode != null) {
                 episodeName.setText(episode.name);
-                episodeDate.setText(getFecha(episode.airDate));
+                episodeDate.setText(Util.getFecha(episode.airDate, FORMAT_LONG));
                 episodeOverview.setText(episode.overview);
                 episodeTime.setText(getMinutos(runtime));
-
-                // todo - probablemente hay que cambiar la base_url
                 Util.getImage(BASE_URL_IMAGES_POSTER + episode.stillPath, episodeBackdrop, mContext);
             }
         }
 
-        private static String getMinutos(int minutes) {
+        private String getMinutos(int minutes) {
             return String.format(Locale.getDefault(), "%d:%02d", minutes, 0);
 
         }
 
-        private static String getFecha(String oldDate) {
-            SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat newFormat = new SimpleDateFormat("EEE dd, MMMM yyyy");
-            try {
-                return newFormat.format(Objects.requireNonNull(oldFormat.parse(oldDate)));
-            } catch (ParseException e) {
-                return oldDate;
-            }
-        }
+
     }
 }

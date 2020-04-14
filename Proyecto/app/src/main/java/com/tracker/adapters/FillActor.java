@@ -20,6 +20,7 @@ import java.time.Period;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_PORTRAIT;
+import static com.tracker.util.Constants.FORMAT_LONG;
 
 public class FillActor {
 
@@ -109,7 +110,8 @@ public class FillActor {
                 String[] fecha = mPerson.birthday.split("-");
                 LocalDate birthday = LocalDate.of(Integer.parseInt(fecha[0]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[1]));
                 Period p = Period.between(birthday, today);
-                return String.format("%s (%s %s)", mPerson.birthday, p.getYears(), mContext.getString(R.string.years));
+                String newDate = Util.getFecha(mPerson.birthday, FORMAT_LONG);
+                return String.format("%s (%s %s)", newDate, p.getYears(), mContext.getString(R.string.years));
             }
             return mPerson.birthday;
         }
