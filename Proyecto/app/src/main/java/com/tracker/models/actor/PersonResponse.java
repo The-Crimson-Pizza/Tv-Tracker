@@ -37,6 +37,10 @@ public class PersonResponse {
         @SerializedName("movie_credits")
         public MovieCredits movieCredits;
 
+        public boolean isDead(){
+            return deathday != null;
+        }
+
         public final Creator<Person> CREATOR =
                 new Creator<Person>() {
                     public Person createFromParcel(Parcel in) {

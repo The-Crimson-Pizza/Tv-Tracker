@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Objects;
 
+import static com.tracker.util.Constants.FORMAT_DEFAULT;
+
 public class Util {
 
     private Util() {
@@ -59,10 +61,10 @@ public class Util {
     }
 
     public static String getFecha(String oldDate, String format) {
-        SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat oldFormat = new SimpleDateFormat(FORMAT_DEFAULT);
         SimpleDateFormat newFormat = new SimpleDateFormat(format);
         try {
-            return newFormat.format(Objects.requireNonNull(oldFormat.parse(oldDate)));
+            return newFormat.format(oldFormat.parse(oldDate));
         } catch (ParseException e) {
             return oldDate;
         }
