@@ -7,16 +7,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.search.SearchFragment">
+    tools:context=".ui.search.SearchFragment"
+    android:theme="@style/AppTheme2">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="TV Tracker"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:textColor="@color/colorPrimary"
+            android:drawableStart="@drawable/proto_logo"
+            android:textSize="17pt"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/buscador"
+            android:layout_margin="10dp"
+            android:textColor="@color/colorPrimary"
+            android:drawableStart="@drawable/search_icon"
+            android:textSize="17pt"
+            android:textStyle="bold"/>
+    </LinearLayout>-->
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
         android:queryHint="Search"
-        android:background="@color/colorPrimary"
-        android:paddingTop="20dp"/>
+        android:layout_marginEnd="20dp"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
@@ -24,9 +56,9 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         app:tabGravity="fill"
-        app:tabTextColor="@color/tabUnselected"
-        app:tabSelectedTextColor="@color/whiteColor"
-        android:paddingTop="20dp"/>
+        app:tabTextColor="@color/colorAccent"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        android:paddingTop="10dp"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
