@@ -3,23 +3,23 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/homemenu"
+        android:icon="@drawable/home_48"
         android:title="@string/home" />
 
     <item
         android:id="@+id/navigation_search"
-        android:icon="@drawable/searchmenu"
+        android:icon="@drawable/search_48"
         android:title="@string/search"
         android:enabled="true"
         />
 
     <item
         android:id="@+id/navigation_fav"
-        android:icon="@drawable/starmenu"
+        android:icon="@drawable/star_48"
         android:title="@string/favourites" />
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/usermenu"
+        android:icon="@drawable/settings_48"
         android:title="@string/my_profile"/>
 
 </menu>
