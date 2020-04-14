@@ -2,17 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="?android:attr/windowBackground">
 
     <androidx.cardview.widget.CardView
         android:layout_width="140dp"
-        android:layout_height="190dp"
+        android:layout_height="235dp"
+        android:layout_margin="2.5dp"
         android:layout_marginEnd="2dp">
 
         <ImageView
             android:id="@+id/posterBasic"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="190dp"
             android:scaleType="centerCrop"
             android:contentDescription="@string/serie_poster" />
 
@@ -20,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_gravity="bottom"
-            android:background="@color/black80">
+            android:background="@color/whiteColor">
 
             <TextView
                 android:id="@+id/titleBasic"
@@ -32,8 +34,29 @@
                 android:maxLines="2"
                 android:text="@string/texto_prueba_corto"
                 android:textAllCaps="true"
-                android:textColor="@color/whiteColor"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:textSize="6pt" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|top"
+            android:layout_margin="5dp"
+            android:padding="2dp"
+
+            android:background="@drawable/round_val_movie">
+
+            <TextView
+                android:id="@+id/valoration"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:text="@string/valoration_example"
+                android:textColor="@color/whiteColor"
+                android:textSize="6pt"
+                android:gravity="center"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
