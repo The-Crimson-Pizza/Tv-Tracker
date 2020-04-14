@@ -10,6 +10,24 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="TV Tracker"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:textColor="@color/colorPrimary"
+                android:drawableStart="@drawable/proto_logo"
+                android:textSize="17pt"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -20,6 +38,7 @@
                 android:text="@string/favorites"
                 android:layout_margin="10dp"
                 android:textColor="@color/colorPrimary"
+                android:drawableEnd="@drawable/estrellita_inicio"
                 android:textSize="17pt"
                 android:textStyle="bold"/>
         </LinearLayout>
@@ -28,7 +47,7 @@
             android:id="@+id/gridFavs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" />
+            android:orientation="horizontal" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,6 +61,7 @@
                 android:text="@string/series_populares"
                 android:layout_margin="10dp"
                 android:textColor="@color/colorPrimary"
+                android:drawableEnd="@drawable/fueguito"
                 android:textSize="17pt"
                 android:textStyle="bold"/>
         </LinearLayout>
@@ -63,6 +83,7 @@
                 android:text="@string/series_nuevas"
                 android:layout_margin="10dp"
                 android:textColor="@color/colorPrimary"
+                android:drawableEnd="@drawable/nuevo_icon"
                 android:textSize="17pt"
                 android:textStyle="bold"/>
         </LinearLayout>
