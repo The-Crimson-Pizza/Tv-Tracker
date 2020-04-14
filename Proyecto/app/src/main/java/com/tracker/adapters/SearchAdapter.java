@@ -120,7 +120,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             if (person != null) {
                 id = person.id;
                 name.setText(person.name);
-                Util.getImage(BASE_URL_IMAGES_POSTER + person.profilePath, image, mContext);
+                Util.getImagePortrait(BASE_URL_IMAGES_POSTER + person.profilePath, image, mContext);
             }
         }
     }
