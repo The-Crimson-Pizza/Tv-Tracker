@@ -45,7 +45,8 @@
                 android:layout_height="24dp"
                 android:layout_margin="10dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/mortimer"/>
+                android:src="@drawable/mortimer"
+                android:id="@+id/icon_mortimer"/>
             <TextView
                 android:id="@+id/fecha_actor_mortimer"
                 android:layout_width="wrap_content"
