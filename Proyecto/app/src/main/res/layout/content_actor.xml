@@ -31,7 +31,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="Fecha de nacimiento"
                 android:textSize="18sp" />
         </LinearLayout>
         <LinearLayout
@@ -52,7 +51,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="Fecha de fallecimiento"
                 android:textSize="18sp" />
         </LinearLayout>
         <LinearLayout
@@ -72,7 +70,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="Lugar de nacimiento"
                 android:textSize="18sp" />
         </LinearLayout>
 
