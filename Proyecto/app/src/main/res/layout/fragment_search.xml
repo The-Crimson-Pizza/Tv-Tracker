@@ -13,18 +13,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical">
-
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/proto_logo_96"/>
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="TV Tracker"
             android:gravity="center"
-            android:layout_margin="10dp"
             android:textColor="@color/colorPrimary"
-            android:drawableStart="@drawable/proto_logo"
             android:textSize="17pt"
             android:textStyle="bold"/>
+
     </LinearLayout>
 
     <!--<LinearLayout
