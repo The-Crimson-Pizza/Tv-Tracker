@@ -63,9 +63,7 @@ public class FillActor {
         if (mPerson.isDead()) {
             deathDate.setText(calculateAge(true));
             deathDate.setVisibility(View.VISIBLE);
-        }else{
         }
-
         if (mPerson.birthday != null) {
             bornDate.setText(calculateAge(false));
         } else {

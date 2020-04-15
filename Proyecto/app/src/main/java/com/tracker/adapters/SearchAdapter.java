@@ -79,6 +79,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
         ImageView image;
         TextView name;
+        TextView rating;
         int id;
         private static boolean isSerie;
 
@@ -86,6 +87,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             super(itemView);
             image = itemView.findViewById(R.id.posterBasic);
             name = itemView.findViewById(R.id.titleBasic);
+            rating = itemView.findViewById(R.id.valoration);
 
             if (isSerie) {
                 itemView.setOnClickListener(v -> {
@@ -113,6 +115,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 id = serie.id;
                 name.setText(serie.name);
                 Util.getImage(BASE_URL_IMAGES_POSTER + serie.posterPath, image, mContext);
+                rating.setText(String.valueOf(serie.voteAverage));
             }
         }
 
@@ -121,6 +124,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 id = person.id;
                 name.setText(person.name);
                 Util.getImagePortrait(BASE_URL_IMAGES_POSTER + person.profilePath, image, mContext);
+                rating.setVisibility(View.GONE);
             }
         }
     }

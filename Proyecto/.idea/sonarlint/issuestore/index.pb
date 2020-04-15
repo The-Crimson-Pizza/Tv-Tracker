@@ -53,8 +53,6 @@ A
 gradle.properties,2/a/2afbb999f001938c88fa43fc2ef52abf0f8213e4
 ]
 -app/src/main/java/com/tracker/data/RxBus.java,c/4/c494a0ce294551b0d1353ea8708e4270430be82a
-R
-"app/src/main/res/values/colors.xml,9/6/969faa2a5d9f5e8390e958d2c07f2cfd54676e6b
 `
 0app/src/main/java/com/tracker/data/DataTMDB.java,3/0/3013d89754825e690557dac4e257e66846b17727
 e
@@ -75,12 +73,8 @@ e
 .app/src/main/res/layout/lista_series_actor.xml,9/4/94aa773adf79ae014160c4fd5f59661e8b040dcc
 l
 <app/src/main/java/com/tracker/adapters/TabLayoutAdapter.java,4/a/4ac5bd9c8bb20e96dc712e3e7c403baed3cc1411
-[
-+app/src/main/res/layout/fragment_search.xml,2/f/2f0ecfae4fe398a722fcad4e3b06b75ba69c589a
 Z
 *app/src/main/res/layout/fragment_serie.xml,1/a/1adc6f02a414464cc40fe4a53e65b336ea140988
-^
-.app/src/main/res/layout/lista_series_basic.xml,1/4/149fb68aab5d92e4afcaf8cbfd672728f0f9cc32
 i
 9app/src/main/java/com/tracker/adapters/SearchAdapter.java,b/4/b4f3336ee0428e5d1d3b5093b06e3f15559e1c9a
 p
@@ -121,8 +115,6 @@ Y
 )app/src/main/res/layout/list_episodes.xml,6/5/65bdc2b3fd5a168997f9b162f75b1160b88f38fc
 W
 'app/src/main/res/layout/list_season.xml,9/1/911055d31346cd0f554526213b9787ef6e2da4f0
-a
-1app/src/main/res/navigation/mobile_navigation.xml,5/0/50c7987ff387678f825775665976b5fc8ed47989
 S
 #app/src/main/res/values/strings.xml,d/2/d2281fbb3027de2722081a53408dd77628bf080e
 Z
@@ -145,8 +137,6 @@ e
 5app/src/androidTest/java/com/tracker/tracker.plantuml,4/2/4288e09e22bf4f60861a36464d1958b68bcd1343
 `
 0app/src/main/java/com/tracker/util/util.plantuml,5/6/561280c2cdaf00290b1471e76a148a86b299cb66
-Y
-)app/src/main/res/layout/fragment_home.xml,3/1/31c5880846ef63ff1963efbe141ddfd56680bb19
 ]
 -app/src/main/res/menu/menu_detalles_actor.xml,3/d/3d90a778d79a57456406f94b2bc785c692402810
 ^

@@ -25,6 +25,7 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
 
     private List<BasicResponse.SerieBasic> mSeries;
     private static Context mContext;
+    private boolean isSerie;
 
     public SeriesBasicAdapter(Context mContext, List<BasicResponse.SerieBasic> series) {
         this.mSeries = series;
@@ -40,7 +41,9 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.bindTo(mSeries.get(position));
+        if (getItemCount() > 0) {
+            holder.bindTo(mSeries.get(position));
+        }
     }
 
     @Override
@@ -55,12 +58,14 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
 
         ImageView image;
         TextView name;
+        TextView rating;
         int id;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.posterBasic);
             name = itemView.findViewById(R.id.titleBasic);
+            rating = itemView.findViewById(R.id.valoration);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
@@ -80,11 +85,8 @@ public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.
                 id = serieBasic.id;
                 name.setText(serieBasic.name);
                 Util.getImage(BASE_URL_IMAGES_POSTER + serieBasic.poster_path, image, mContext);
-            } else {
-                name.setText("Loading...");
+                rating.setText(String.valueOf(serieBasic.voteAverage));
             }
         }
-
-
     }
 }

@@ -19,6 +19,8 @@ public class BasicResponse {
         public String name;
         public String poster_path;
         public Integer id;
+        @SerializedName("vote_average")
+        public float voteAverage;
 
         public SerieBasic(Parcel in) {
             name = in.readString();

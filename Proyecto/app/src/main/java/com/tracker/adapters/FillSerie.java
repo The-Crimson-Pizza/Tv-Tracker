@@ -95,7 +95,7 @@ public class FillSerie {
                 else cont++;
             }
         } else {
-
+//todo - viewswicter
         }
     }
 

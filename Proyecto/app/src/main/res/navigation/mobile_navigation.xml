@@ -13,6 +13,10 @@
         <action
             android:id="@+id/action_home_to_series"
             app:destination="@id/navigation_series" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_search"
+            app:destination="@id/navigation_search"
+            app:enterAnim="@animator/slide_in_left" />
     </fragment>
 
     <fragment
@@ -64,11 +68,26 @@
             android:id="@+id/action_actores_to_series"
             app:destination="@id/navigation_series" />
     </fragment>
+
     <fragment
         android:id="@+id/episodesFragment"
         android:name="com.tracker.ui.series.EpisodesFragment"
         android:label="fragment_episodes"
         tools:layout="@layout/fragment_episodes" />
+
+    <action
+        android:id="@+id/action_global_navigation_home"
+        app:destination="@id/navigation_home" />
+
+    <action
+        android:id="@+id/action_global_navigation_search"
+        app:destination="@id/navigation_search" />
+    <action
+        android:id="@+id/action_global_navigation_fav"
+        app:destination="@id/navigation_fav" />
+    <action
+        android:id="@+id/action_global_navigation_profile"
+        app:destination="@id/navigation_profile" />
 
 
 </navigation>
