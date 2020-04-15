@@ -21,13 +21,13 @@ import java.util.List;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 import static com.tracker.util.Constants.ID_SERIE;
 
-public class SeriesBasicAdapter extends RecyclerView.Adapter<SeriesBasicAdapter.ViewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     private List<BasicResponse.SerieBasic> mSeries;
     private static Context mContext;
     private boolean isSerie;
 
-    public SeriesBasicAdapter(Context mContext, List<BasicResponse.SerieBasic> series) {
+    public HomeAdapter(Context mContext, List<BasicResponse.SerieBasic> series) {
         this.mSeries = series;
         this.mContext = mContext;
     }

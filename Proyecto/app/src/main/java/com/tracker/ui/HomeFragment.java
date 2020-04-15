@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
-import com.tracker.adapters.SeriesBasicAdapter;
+import com.tracker.adapters.HomeAdapter;
 import com.tracker.data.RepositoryAPI;
 import com.tracker.models.BasicResponse;
 
@@ -35,8 +35,8 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SeriesBasicAdapter adapterPopular = new SeriesBasicAdapter(getActivity(), mPopulares);
-        SeriesBasicAdapter adapterNueva = new SeriesBasicAdapter(getActivity(), mNuevas);
+        HomeAdapter adapterPopular = new HomeAdapter(getActivity(), mPopulares);
+        HomeAdapter adapterNueva = new HomeAdapter(getActivity(), mNuevas);
 
         RecyclerView rvPopulares = view.findViewById(R.id.gridPopulares);
         RecyclerView rvNuevas = view.findViewById(R.id.gridNuevas);
@@ -53,13 +53,13 @@ public class HomeFragment extends Fragment {
                 .subscribe(series -> refreshData(mNuevas, adapterNueva, series.basicSeries));
     }
 
-    private void refreshData(List<BasicResponse.SerieBasic> lista, SeriesBasicAdapter adapter, List<BasicResponse.SerieBasic> response) {
+    private void refreshData(List<BasicResponse.SerieBasic> lista, HomeAdapter adapter, List<BasicResponse.SerieBasic> response) {
         lista.clear();
         lista.addAll(response);
         adapter.notifyDataSetChanged();
     }
 
-    private void initRecycler(RecyclerView rv, SeriesBasicAdapter adapter) {
+    private void initRecycler(RecyclerView rv, HomeAdapter adapter) {
         rv.setHasFixedSize(true);
         rv.setItemViewCacheSize(20);
         rv.setSaveEnabled(true);

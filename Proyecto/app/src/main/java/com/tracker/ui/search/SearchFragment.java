@@ -20,12 +20,11 @@ import com.tracker.data.SeriesViewModel;
 
 public class SearchFragment extends Fragment {
 
-    private String mQuery;
-    private SeriesViewModel model;
+    private SeriesViewModel searchViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_search, container, false);
-        model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
+        searchViewModel = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
         return root;
     }
 
@@ -41,23 +40,14 @@ public class SearchFragment extends Fragment {
                 (tab, position) -> tab.setText(tabs[position])
         ).attach();
 
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-
-            }
-        });
-
         SearchView search = view.findViewById(R.id.searchView);
-
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (query.length() > 0) {
-                    model.setQuery(query);
-                }else{
-                    model.setQuery("");
+                    searchViewModel.setQuery(query);
+                } else {
+                    searchViewModel.setQuery("");
                 }
                 return false;
             }
@@ -65,9 +55,9 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String query) {
                 if (query.length() > 0) {
-                    model.setQuery(query);
-                }else{
-                    model.setQuery("");
+                    searchViewModel.setQuery(query);
+                } else {
+                    searchViewModel.setQuery("");
                 }
                 return true;
             }

@@ -30,7 +30,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 public class SerieSearchFragment extends Fragment {
 
     private SeriesViewModel model;
-    private List<SerieResponse.Serie> mListaSeries;
+    private List<SerieResponse.Serie> mListaSeries = new ArrayList<>();
     private SearchAdapter searchAdapter;
     private Context mContext;
     private RecyclerView rvSeries;
@@ -53,6 +53,8 @@ public class SerieSearchFragment extends Fragment {
         rvSeries.setHasFixedSize(true);
         rvSeries.setItemViewCacheSize(20);
         rvSeries.setSaveEnabled(true);
+        searchAdapter = new SearchAdapter(mContext, mListaSeries, null, true);
+        rvSeries.setAdapter(searchAdapter);
 
         LiveData<String> query = model.getQuery();
         query.observe(getViewLifecycleOwner(), this::getResults);
@@ -64,23 +66,20 @@ public class SerieSearchFragment extends Fragment {
                 .subscribe(new Observer<SerieResponse>() {
                     @Override
                     public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
-                        // No hacer nada
+                        mListaSeries.clear();
                     }
 
                     @Override
                     public void onNext(@io.reactivex.rxjava3.annotations.NonNull SerieResponse serieResponse) {
-                        mListaSeries = serieResponse.results;
-                        if (!mListaSeries.isEmpty()) {
-                            searchAdapter = new SearchAdapter(mContext, mListaSeries, null, true);
-                            rvSeries.setAdapter(searchAdapter);
-                        }
+                        mListaSeries.clear();
+                        mListaSeries.addAll(serieResponse.results);
+                        searchAdapter.notifyDataSetChanged();
                     }
 
                     @Override
                     public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-                        mListaSeries = new ArrayList<>();
-                        searchAdapter = new SearchAdapter(mContext, mListaSeries, null, true);
-                        rvSeries.setAdapter(searchAdapter);
+                        mListaSeries.clear();
+                        searchAdapter.notifyDataSetChanged();
                     }
 
                     @Override

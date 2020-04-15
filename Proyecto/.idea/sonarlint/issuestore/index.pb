@@ -15,8 +15,6 @@ a
 1app/src/main/java/com/tracker/util/Constants.java,1/4/1489dcf55f66a4372b2eaca52c24f1a183e60570
 a
 1app/src/main/res/drawable/drawable_loading_bg.xml,2/c/2c274b9ba943bf5e3c04f0ea474dc617ece9e6fb
-n
->app/src/main/java/com/tracker/adapters/SeriesBasicAdapter.java,1/9/19d26837b2790de51383ecee97d6cb8dfb6ad797
 S
 #.idea/sonarlint/issuestore/index.pb,9/f/9fe84ebb15faf917b7def6236dba604453cc61e0
 g
@@ -33,8 +31,6 @@ h
 8app/src/main/java/com/tracker/models/seasons/Season.java,8/2/82e03d7e133624fb7f7f232e0c061b9125ad9cfa
 X
 (app/src/main/res/animator/slide_down.xml,a/9/a9c40bac3bbc73eed01b22ec5c86ed46dc1dd025
-[
-+app/src/main/res/animator/slide_in_left.xml,a/3/a3de98ee58ecba5ef6ca678122cbed457aca5f26
 ]
 -app/src/main/res/animator/slide_out_right.xml,e/c/ec1fe0fecdf4f1a5452834ccc63ec1ac02cb9290
 V
@@ -83,8 +79,6 @@ m
 =app/src/main/java/com/tracker/ui/series/SinopsisFragment.java,6/7/673d838a5a24d466388f9aad613a6dc32ee65f0b
 a
 1app/src/main/res/layout/fragment_actor_search.xml,7/2/72d8fe34c271dce51c0e3e855e7c0231c753a6f3
-a
-1app/src/main/res/layout/fragment_serie_search.xml,7/5/75327b1a6c8b264de3cc5bae1baea150aa031ffb
 k
 ;app/src/main/java/com/tracker/ui/search/SearchFragment.java,1/6/1654e6e0d08062ae25ac0fb0d95acebdc9b1c406
 p

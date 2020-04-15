@@ -28,33 +28,29 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     private List<SerieResponse.Serie> mSeries;
     private List<PersonResponse.Person> mActores;
-    private List<BasicResponse.SerieBasic> mBasics;
+
     private static Context mContext;
-    private boolean mIsSerie;
+    private boolean isSerie;
 
 
     public SearchAdapter(Context mContext, List<SerieResponse.Serie> series, List<PersonResponse.Person> actores, boolean isSerie) {
         this.mSeries = series;
         this.mActores = actores;
-        this.mIsSerie = isSerie;
+        this.isSerie = isSerie;
         this.mContext = mContext;
     }
 
 
-    private void getList() {
-
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return ViewHolder.create(parent, mIsSerie);
+        return ViewHolder.create(parent, isSerie);
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        if (mIsSerie) {
+        if (isSerie) {
             holder.bindTo(mSeries.get(position));
         } else {
             holder.bindTo(mActores.get(position));
@@ -63,7 +59,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        if (mIsSerie) {
+        if (isSerie) {
             if (mSeries != null) {
                 return mSeries.size();
             }

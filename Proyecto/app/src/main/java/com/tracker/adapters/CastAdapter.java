@@ -72,8 +72,8 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
 
             Util.getImage(BASE_URL_IMAGES_POSTER + mMovies.get(position).posterPath, holder.image, mContext);
 
-            holder.itemView.setOnClickListener(v -> Snackbar.make(v, "Not yet implemented", Snackbar.LENGTH_LONG)
-                    .setAction("Open in web", new View.OnClickListener() {
+            holder.itemView.setOnClickListener(v -> Snackbar.make(v, R.string.not_implemented, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.open_web, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra(URL_WEBVIEW, BASE_URL_WEB_SERIE + mMovies.get(position).id));

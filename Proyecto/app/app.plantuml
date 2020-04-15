@@ -72,7 +72,7 @@ title __APP's Class Diagram__\n
 
   namespace com.tracker {
     namespace adapters {
-      class com.tracker.adapters.SeriesBasicAdapter {
+      class com.tracker.adapters.HomeAdapter {
       }
     }
   }
@@ -358,7 +358,7 @@ title __APP's Class Diagram__\n
   com.tracker.adapters.FillSerie o-- com.tracker.models.series.SerieResponse.Serie : mSerie
   com.tracker.adapters.SearchAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
   com.tracker.adapters.SeasonAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
-  com.tracker.adapters.SeriesBasicAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
+  com.tracker.adapters.HomeAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
   com.tracker.adapters.TabLayoutAdapter -up-|> androidx.viewpager2.adapter.FragmentStateAdapter
   com.tracker.data.SeriesViewModel -up-|> androidx.lifecycle.ViewModel
   com.tracker.models.actor.MovieCredits .up.|> android.os.Parcelable
@@ -371,8 +371,8 @@ title __APP's Class Diagram__\n
   com.tracker.ui.ActorFragment o-- com.tracker.models.actor.PersonResponse.Person : mActor
   com.tracker.ui.FavoritosFragment -up-|> androidx.fragment.app.Fragment
   com.tracker.ui.HomeFragment -up-|> androidx.fragment.app.Fragment
-  com.tracker.ui.HomeFragment o-- com.tracker.adapters.SeriesBasicAdapter : adapterNueva
-  com.tracker.ui.HomeFragment o-- com.tracker.adapters.SeriesBasicAdapter : adapterPopular
+  com.tracker.ui.HomeFragment o-- com.tracker.adapters.HomeAdapter : adapterNueva
+  com.tracker.ui.HomeFragment o-- com.tracker.adapters.HomeAdapter : adapterPopular
   com.tracker.ui.ProfileFragment -up-|> androidx.fragment.app.Fragment
   com.tracker.ui.WebViewActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.tracker.ui.search.ActorSearchFragment -up-|> androidx.fragment.app.Fragment

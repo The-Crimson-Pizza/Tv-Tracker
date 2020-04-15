@@ -1,96 +1,101 @@
 package com.tracker;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.tracker.ui.FavoritosFragment;
-import com.tracker.ui.HomeFragment;
-import com.tracker.ui.search.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     NavController navController;
-    int startingPosition;
-
+    int startingPosition = 0;
+    int newPosition;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.nav_view);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-//        NavigationUI.setupWithNavController(bottomNavigationView, navController);
-        startingPosition = R.id.navigation_home;
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+        startingPosition = 0;
 
-        NavOptions options = new NavOptions.Builder()
-//                .setEnterAnim(R.animator.slide_in_left)
-//                .setExitAnim(R.anim.default_exit_anim)
-//                .setPopEnterAnim(R.anim.default_pop_enter_anim)
-//                .setPopExitAnim(R.anim.default_pop_exit_anim)
-                .setPopUpTo(navController.getCurrentDestination().getId(), true)
-                .build();
-//        navController.navigate(R.id.action_global_navigation_home, null, options)
+        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.navigation_home:
-                        startingPosition = R.id.navigation_home;
-//                            navController.navigate(R.id.action_global_navigation_home, null, options);
+            switch (menuItem.getItemId()) {
+                case R.id.navigation_home:
+                    newPosition = 0;
+                    if(startingPosition==newPosition){
                         navController.navigate(R.id.action_global_navigation_home);
-                        break;
-                    case R.id.navigation_search:
-                        if (startingPosition != R.id.navigation_search) {
-                            startingPosition = R.id.navigation_search;
-                            navController.navigate(R.id.action_global_navigation_search);
-                        }
-                        break;
-                    case R.id.navigation_fav:
-                        if (startingPosition != R.id.navigation_fav) {
-                            startingPosition = R.id.navigation_fav;
-                            navController.navigate(R.id.action_global_navigation_fav);
-                        }
-                        break;
-                    case R.id.navigation_profile:
-                        if (startingPosition != R.id.navigation_profile) {
-                            startingPosition = R.id.navigation_profile;
-                            navController.navigate(R.id.action_global_navigation_profile);
-                        }
-                        break;
-                }
-
-                return true;
+                    }else{
+                        navController.navigate(R.id.action_global_navigation_home_right);
+                    }
+                    break;
+                case R.id.navigation_search:
+                    newPosition = 1;
+                    if (startingPosition < newPosition) {
+                        navController.navigate(R.id.action_global_navigation_search_to_left);
+                    } else if (newPosition < startingPosition) {
+                        startingPosition = R.id.navigation_search;
+                        navController.navigate(R.id.action_global_navigation_search_to_right);
+                    }
+                    break;
+                case R.id.navigation_fav:
+                    newPosition = 2;
+                    if (startingPosition < newPosition) {
+                        navController.navigate(R.id.action_global_navigation_fav_left);
+                    } else if (newPosition < startingPosition) {
+                        navController.navigate(R.id.action_global_navigation_fav_right);
+                    }
+                    break;
+                case R.id.navigation_profile:
+                    newPosition = 3;
+                    if (startingPosition < newPosition) {
+                        navController.navigate(R.id.action_global_navigation_profile);
+                    }
+                    break;
             }
+            startingPosition = newPosition;
+            return true;
         });
+
+
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        int selectedItemId = bottomNavigationView.getSelectedItemId();
-//        if (R.id.navigation_home != selectedItemId) {
-//            loadFragment(mFirstFragment, 1);
-//            bottomNavigationView.setSelectedItemId(R.id.navigation_home);
-//        } else {
-//            super.onBackPressed();
-//        }
-//    }
+    private boolean loadFragment(Fragment fragment, int newPosition) {
+        if (fragment != null) {
+            if (newPosition == 0) {
+                navController.navigate(R.id.action_global_navigation_home, null);
+            }
+            if (startingPosition > newPosition) {
+//                getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+//                        .replace(R.id.contentLayout, fragment).commit();
 
+            }
+            if (startingPosition < newPosition) {
+//                getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+//                        .replace(R.id.contentLayout, fragment).commit();
 
-//    @Override
-//    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
-//        super.onOptionsItemSelected(item);
-//        return false;
-//    }
-
-
+            }
+            startingPosition = newPosition;
+            return true;
+        }
+        return false;
+    }
 }
+//                    navController.navigate(R.id.action_global_navigation_home, null);
+//                            , new NavOptions.Builder()
+//                                    .setEnterAnim(R.animator.slide_up)
+//                                    .setPopEnterAnim(R.anim.default_pop_enter_anim)
+//                                    .setPopExitAnim(R.animator.slide_down)
+//                                    .setPopUpTo(navController.getCurrentDestination().getId(), true)
+//                                    .setLaunchSingleTop(true)
+//                                    .build());
