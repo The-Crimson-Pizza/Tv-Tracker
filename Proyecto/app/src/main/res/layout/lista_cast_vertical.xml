@@ -21,7 +21,6 @@
         android:layout_height="75dp"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
-        android:src="@drawable/jack"
         android:layout_margin="10dp"
         app:civ_border_color="@color/colorAccent"
         app:civ_border_width="1dp" />
@@ -43,7 +42,7 @@
                 android:text="Jack Nicholson"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
-                android:textSize="7.5pt"
+                android:textSize="8pt"
                 android:textStyle="bold" />
     
             <TextView
@@ -56,7 +55,7 @@
                 android:text="Frank Costello"
                 android:textAllCaps="true"
                 android:textColor="@color/colorAccent"
-                android:textSize="5.5pt" />
+                android:textSize="6pt" />
         </LinearLayout>
     </LinearLayout>
 
