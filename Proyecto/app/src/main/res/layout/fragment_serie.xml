@@ -115,7 +115,7 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/view_pager"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@drawable/star_white" />
+        app:srcCompat="@drawable/checked_white" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
