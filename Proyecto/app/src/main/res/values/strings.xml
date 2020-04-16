@@ -53,4 +53,8 @@
     <string name="n_episodes">%1$d episodes</string>
     <string name="open_web">Open in web</string>
     <string name="not_implemented">Not yet implemented</string>
+    <string name="add_fav">Added to following list</string>
+    <string name="already_fav">Already following</string>
+    <string name="delete_fav">Delete from list</string>
+    <string name="borrado_correcto">Deleted</string>
 </resources>

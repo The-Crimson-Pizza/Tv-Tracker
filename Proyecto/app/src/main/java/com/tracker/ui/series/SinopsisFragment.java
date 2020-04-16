@@ -23,14 +23,13 @@ import io.reactivex.rxjava3.disposables.Disposable;
 public class SinopsisFragment extends Fragment {
 
     private SerieResponse.Serie mSerie;
-    private YouTubePlayerView youTubePlayerView;
     private Context mContext;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_sinopsis, container, false);
-        youTubePlayerView = root.findViewById(R.id.youtube_player_view);
+        YouTubePlayerView youTubePlayerView = root.findViewById(R.id.youtube_player_view);
         getLifecycle().addObserver(youTubePlayerView);
         mContext = getActivity().getApplicationContext();
         return root;
@@ -45,6 +44,7 @@ public class SinopsisFragment extends Fragment {
                 .subscribe(new Observer<SerieResponse.Serie>() {
                     @Override
                     public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+                        // Nada de momento
                     }
 
                     @Override
@@ -55,10 +55,12 @@ public class SinopsisFragment extends Fragment {
 
                     @Override
                     public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                        // Nada de momento
                     }
 
                     @Override
                     public void onComplete() {
+                        // Nada de momento
                     }
                 });
     }

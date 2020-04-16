@@ -40,4 +40,9 @@
     <string name="n_episodes">%1$d capítulos</string>
     <string name="buscador">Buscador</string>
     <string name="checked">Siguiendo</string>
+    <string name="open_web">Abrir en navegador</string>
+    <string name="not_implemented">No implementado aún</string>
+    <string name="add_fav">Añadido a lista de seguimiento</string>
+    <string name="already_fav">Ya estás siguiendo esta serie</string>
+    <string name="delete_fav">Dejar de seguir esta serie</string>
 </resources>

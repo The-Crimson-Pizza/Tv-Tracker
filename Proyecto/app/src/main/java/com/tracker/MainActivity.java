@@ -12,9 +12,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.tracker.data.SeriesViewModel;
 import com.tracker.models.SerieFav;
-import com.tracker.util.Util;
 
-import static com.tracker.util.Constants.KEY_PREFERENCES;
 import static com.tracker.util.Constants.URL_FAV;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,13 +21,14 @@ public class MainActivity extends AppCompatActivity {
     int startingPosition = 0;
     int newPosition;
     SharedPreferences mPrefs;
+    private SeriesViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SeriesViewModel model = new ViewModelProvider(MainActivity.this).get(SeriesViewModel.class);
+        model = new ViewModelProvider(MainActivity.this).get(SeriesViewModel.class);
 
         SerieFav.readFav(getFilesDir() + URL_FAV, model);
 
@@ -76,4 +75,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
+
+
 }

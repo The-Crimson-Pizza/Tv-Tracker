@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +22,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.tracker.R;
 import com.tracker.adapters.FillSerie;
 import com.tracker.adapters.TabLayoutAdapter;
@@ -31,6 +34,9 @@ import com.tracker.models.SerieFav;
 import com.tracker.models.serie.SerieResponse;
 import com.tracker.util.Util;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,23 +81,47 @@ public class SerieFragment extends Fragment {
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(v -> {
+            SerieFav.readFav(mContext.getFilesDir() + URL_FAV, model);
             if (!isFav) {
                 SerieFav.writeFav(mFavs, mSerie, mContext.getFilesDir() + URL_FAV, model);
                 RxBus.getInstance().publish(mSerie);
-                Snackbar.make(v, "Added to favorites", Snackbar.LENGTH_LONG)
+                isFav = true;
+                Snackbar.make(v, R.string.add_fav, Snackbar.LENGTH_LONG)
                         .setAction("Undo", null).show();
 
             } else {
-                Snackbar.make(v, "Already in favorites", Snackbar.LENGTH_LONG)
-                        .setAction("Undo", null).show();
+                Snackbar.make(v, R.string.already_fav, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.delete_fav, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try (Writer writer = new FileWriter(mContext.getFilesDir() + URL_FAV)) {
+                                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                                    int pos = SerieFav.getPosition(mSerie, mFavs);
+                                    if (pos != -1) {
+                                        SerieFav p = mFavs.get(pos);
+                                        mFavs.remove(p);
+                                        gson.toJson(mFavs, writer);
+                                        Toast.makeText(getActivity(), R.string.borrado_correcto, Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                SerieFav.readFav(mContext.getFilesDir() + URL_FAV, model);
+                                mSerie.isFav = false;
+                                RxBus.getInstance().publish(mSerie);
+                                isFav = false;
+                            }
+                        }).show();
             }
 
         });
 
         LiveData<List<SerieFav>> seriesFavs = model.getFavs();
         seriesFavs.observe(getViewLifecycleOwner(), series -> {
-            mFavs.clear();
-            mFavs.addAll(series);
+            if (series != null) {
+                mFavs.clear();
+                mFavs.addAll(series);
+            }
         });
 
         getSerie(view);
@@ -121,9 +151,6 @@ public class SerieFragment extends Fragment {
         toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
     }
 
-    private void getFavoritos() {
-
-    }
 
     private void getSerie(View view) {
 
@@ -133,7 +160,7 @@ public class SerieFragment extends Fragment {
                     mSerie = serie;
                     isFav = SerieFav.checkFav(mSerie, mFavs);
                     if (isFav) {
-                        mSerie.setFav(true);
+                        mSerie.isFav = true;
                     }
                     SerieFav.readFav(mContext.getFilesDir() + URL_FAV, model);
 

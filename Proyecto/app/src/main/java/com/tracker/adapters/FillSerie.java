@@ -44,9 +44,11 @@ public class FillSerie {
     public void fillOverview() {
         if (mSerie != null) {
 
+            LinearLayout check = mView.findViewById(R.id.seguimiento);
             if (mSerie.isFav()) {
-                LinearLayout check = mView.findViewById(R.id.seguimiento);
                 check.setVisibility(View.VISIBLE);
+            }else{
+                check.setVisibility(View.GONE);
             }
 
             ReadMoreTextView overview = mView.findViewById(R.id.sinopsis_text);

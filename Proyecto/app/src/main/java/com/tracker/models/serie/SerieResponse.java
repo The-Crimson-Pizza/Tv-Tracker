@@ -64,9 +64,7 @@ public class SerieResponse {
             return isFav;
         }
 
-        public void setFav(boolean fav) {
-            isFav = fav;
-        }
+
 
         public SerieFav convertSerieToFav() {
             return new SerieFav(this.id, this.name, this.status,

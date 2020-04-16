@@ -24,6 +24,8 @@ public class Season implements Parcelable
     @SerializedName("episode_count")
     public int episodeCount;
 
+    public boolean visto;
+
     public final static Creator<Season> CREATOR = new Creator<Season>() {
 
 

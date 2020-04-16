@@ -80,18 +80,27 @@ public class SerieFav implements Parcelable {
     public static boolean checkFav(SerieResponse.Serie serie, List<SerieFav> favs) {
         for (SerieFav s : favs) {
             if (serie.id == s.id) {
-                serie.setFav(true);
+                serie.isFav = true;
                 return true;
             }
         }
         return false;
     }
 
+    public static int getPosition(SerieResponse.Serie serie, List<SerieFav> favs) {
+        for (int i = 0; i < favs.size(); i++) {
+            if (favs.get(i).id == serie.id) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public static void writeFav(List<SerieFav> favs, SerieResponse.Serie serie, String file, SeriesViewModel model) {
         try {
             Writer writer = new FileWriter(file);
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            serie.setFav(true);
+            serie.isFav = true;
             SerieFav s = serie.convertSerieToFav();
 
             RepositoryAPI.getInstance().getSeasons(s.id, s.seasons.get(0).seasonNumber, s.numberOfSeasons)
