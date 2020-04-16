@@ -38,13 +38,31 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="7.5pt"
                 android:textStyle="bold"
-                android:maxLines="2"/>
+                android:maxLines="2"
+                android:layout_marginBottom="5dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
+                <TextView
+                    android:id="@+id/episode_fecha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="marquee"
+                    android:maxLines="2"
+                    android:text="Fecha de episodio"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="5.5pt"
+                    android:textStyle="bold" />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:id="@+id/episode_fecha"
+                    android:id="@+id/nose"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
