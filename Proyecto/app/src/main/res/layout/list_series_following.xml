@@ -8,56 +8,32 @@
     android:padding="10dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardview"
-        android:layout_width="150dp"
-        android:layout_height="100dp"
+        android:layout_width="140dp"
+        android:layout_height="190dp"
+        android:layout_margin="2.5dp"
         android:layout_marginEnd="2dp"
-        app:cardCornerRadius="5dp">
+        app:cardCornerRadius="10dp">
 
         <ImageView
-            android:id="@+id/image_episode"
+            android:id="@+id/posterBasic"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="190dp"
             android:scaleType="centerCrop"
             android:contentDescription="@string/serie_poster" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:background="@color/black80"
-            android:padding="2dp"
-            android:layout_margin="3dp">
-
-            <TextView
-                android:id="@+id/episode_time"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:ellipsize="marquee"
-                android:gravity="center_horizontal"
-                android:text="52:04"
-                android:textColor="@color/whiteColor"
-                android:textSize="5pt" />
-        </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="15dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <TextView
-                android:id="@+id/episode_name"
+                android:id="@+id/serie_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre de episodio"
+                android:text="Nombre de serie"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
                 android:textSize="7.5pt"
@@ -79,16 +55,6 @@
                     android:textSize="5.5pt"
                     android:textStyle="bold" />
             </LinearLayout>
-            <TextView
-                android:id="@+id/episode_sinopsis"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:ellipsize="marquee"
-                android:text="@string/large_text"
-                android:textColor="@color/colorAccent"
-                android:textSize="5.5pt" />
-        </LinearLayout>
     </LinearLayout>
 
 
