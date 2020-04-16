@@ -6,6 +6,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.tracker.models.SerieFav;
 import com.tracker.models.VideosResponse;
 import com.tracker.models.seasons.Season;
 
@@ -54,9 +55,24 @@ public class SerieResponse {
         public Similar similar;
         @SerializedName("external_ids")
         public ExternalIds externalIds;
+        public boolean isFav = false;
 
         public VideosResponse.Video video;
         public List<Season> seasons;
+
+        public boolean isFav() {
+            return isFav;
+        }
+
+        public void setFav(boolean fav) {
+            isFav = fav;
+        }
+
+        public SerieFav convertSerieToFav() {
+            return new SerieFav(this.id, this.name, this.status,
+                    this.posterPath, this.episodeRunTime,
+                    this.numberOfEpisodes, this.numberOfSeasons, this.seasons);
+        }
 
         public void setSeasons(List<Season> seasons) {
             this.seasons = seasons;
@@ -99,8 +115,10 @@ public class SerieResponse {
             this.status = ((String) in.readValue((String.class.getClassLoader())));
             this.voteAverage = ((float) in.readValue((float.class.getClassLoader())));
             this.credits = ((Credits) in.readValue((Credits.class.getClassLoader())));
+            this.video = ((VideosResponse.Video) in.readValue((VideosResponse.Video.class.getClassLoader())));
             this.similar = ((Similar) in.readValue((Similar.class.getClassLoader())));
             this.externalIds = ((ExternalIds) in.readValue((ExternalIds.class.getClassLoader())));
+            this.isFav = ((boolean) in.readValue((boolean.class.getClassLoader())));
         }
 
         public Serie() {
@@ -129,6 +147,8 @@ public class SerieResponse {
             dest.writeValue(credits);
             dest.writeValue(similar);
             dest.writeValue(externalIds);
+            dest.writeValue(video);
+            dest.writeValue(isFav);
         }
 
         public int describeContents() {

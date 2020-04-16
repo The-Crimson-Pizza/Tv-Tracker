@@ -16,10 +16,13 @@
         android:padding="20dp">
 
         <LinearLayout
+            android:id="@+id/seguimiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:visibility="gone"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/checked"
                 android:layout_width="24dp"
@@ -28,14 +31,15 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/checked_primary"/>
+                android:src="@drawable/checked_primary" />
+
             <TextView
                 android:id="@+id/checked_text"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:textSize="18sp"
-                android:text="@string/checked"/>
+                android:text="@string/checked"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <!-- SINOPSIS -->
@@ -118,12 +122,13 @@
                     android:visibility="gone" />
 
             </LinearLayout>
+
             <TextView
                 android:id="@+id/nodatagenres"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:text="@string/no_data"/>
+                android:text="@string/no_data" />
         </ViewSwitcher>
 
         <!-- NETWORKS -->
@@ -180,15 +185,17 @@
             android:id="@+id/trailer_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/trailer_title"
             android:textSize="20sp"
             android:textStyle="bold" />
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:cardCornerRadius="5dp">
+
             <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                 android:id="@+id/youtube_player_view"
                 android:layout_width="match_parent"

@@ -10,7 +10,11 @@ import com.tracker.util.Util;
 import java.util.List;
 
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -93,15 +97,34 @@ public class RepositoryAPI {
         return getRetrofitService().getSeason(serie.id, numSeason, language);
     }
 
-    public Observable<PersonResponse.Person> getPerson(int idPerson) {
-        return getRetrofitService().getPerson(idPerson, language, GET_PEOPLE_API_EXTRAS);
+    public Single<List<Season>> getSeasons(int idSerie, int firstSeason, int numSeasons) {
+        return Observable.range(1, numSeasons)
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(i -> getRetrofitService().getSeason(idSerie, i, language))
+                .toList();
+//                .subscribe(new DisposableSingleObserver<List<Season>>() {
+//                    @Override
+//                    public void onSuccess(@NonNull List<Season> seasons) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+
+//                });
     }
 
-    public Observable<PersonResponse> searchPerson(String query) {
-        return getRetrofitService().searchPerson(query, language);
-    }
+        public Observable<PersonResponse.Person> getPerson ( int idPerson){
+            return getRetrofitService().getPerson(idPerson, language, GET_PEOPLE_API_EXTRAS);
+        }
 
-    public Observable<SerieResponse> searchSerie(String query) {
-        return getRetrofitService().searchSerie(query, language);
+        public Observable<PersonResponse> searchPerson (String query){
+            return getRetrofitService().searchPerson(query, language);
+        }
+
+        public Observable<SerieResponse> searchSerie (String query){
+            return getRetrofitService().searchSerie(query, language);
+        }
     }
-}

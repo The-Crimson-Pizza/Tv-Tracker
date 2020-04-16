@@ -35,4 +35,6 @@ public class Constants {
     public static final String FORMAT_DEFAULT = "yyyy-MM-dd";
     public static final String FORMAT_LONG = "EEE dd, MMMM yyyy";
     public static final String FORMAT_YEAR = "yyyy";
+    public static final String KEY_PREFERENCES = "PREFERENCES_FAV";
+    public static final String URL_FAV = "/fav.json";
 }

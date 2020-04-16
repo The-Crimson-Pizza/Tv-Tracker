@@ -1,31 +1,44 @@
 package com.tracker;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.tracker.data.SeriesViewModel;
+import com.tracker.models.SerieFav;
+import com.tracker.util.Util;
+
+import static com.tracker.util.Constants.KEY_PREFERENCES;
+import static com.tracker.util.Constants.URL_FAV;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     NavController navController;
     int startingPosition = 0;
     int newPosition;
+    SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SeriesViewModel model = new ViewModelProvider(this).get(SeriesViewModel.class);
+
+        SerieFav.readFav(getFilesDir() + URL_FAV, model);
+
         bottomNavigationView = findViewById(R.id.nav_view);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
         startingPosition = 0;
 
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
-
             switch (menuItem.getItemId()) {
                 case R.id.navigation_home:
                     newPosition = 0;

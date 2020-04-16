@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -25,18 +27,26 @@ import com.tracker.adapters.TabLayoutAdapter;
 import com.tracker.data.RepositoryAPI;
 import com.tracker.data.RxBus;
 import com.tracker.data.SeriesViewModel;
+import com.tracker.models.SerieFav;
 import com.tracker.models.serie.SerieResponse;
+import com.tracker.util.Util;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 import static com.tracker.util.Constants.ID_SERIE;
+import static com.tracker.util.Constants.URL_FAV;
 
 public class SerieFragment extends Fragment {
 
     private int idSerie;
     private SerieResponse.Serie mSerie;
+    private List<SerieFav> mFavs = new ArrayList<>();
     private SeriesViewModel model;
     private Context mContext;
+    private boolean isFav = false;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,24 +66,40 @@ public class SerieFragment extends Fragment {
 
         model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
 
-        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
-        toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
+        hideKeyboard();
+        setToolbar(view);
+        setViewPager(view);
 
 //        ProgressBar bar = view.findViewById(R.id.progreso);
 //        bar.setVisibility(View.VISIBLE);
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(v -> {
-            Snackbar.make(v, "Added to favourites", Snackbar.LENGTH_LONG)
-                    .setAction("Undo", null).show();
+            if (!isFav) {
+
+                SerieFav.writeFav(mFavs, mSerie, mContext.getFilesDir() + URL_FAV, model);
+                Snackbar.make(v, "Added to favorites", Snackbar.LENGTH_LONG)
+                        .setAction("Undo", null).show();
+
+            } else {
+                Snackbar.make(v, "Already in favorites", Snackbar.LENGTH_LONG)
+                        .setAction("Undo", null).show();
+            }
+
         });
 
+        getFavoritos();
+        getSerie(view);
+    }
+
+    private void hideKeyboard() {
+        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+    }
+
+    private void setViewPager(@NonNull View view) {
         ViewPager2 viewPager = view.findViewById(R.id.view_pager);
-//        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(new TabLayoutAdapter(this, false));
 
         String[] tabs = {getString(R.string.sinopsis), getString(R.string.reparto), getString(R.string.temporadas)};
@@ -82,8 +108,20 @@ public class SerieFragment extends Fragment {
         new TabLayoutMediator(tabLayout, viewPager, false,
                 (tab, position) -> tab.setText(tabs[position])
         ).attach();
+    }
 
-        getSerie(view);
+    private void setToolbar(@NonNull View view) {
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
+    }
+
+    private void getFavoritos() {
+        LiveData<List<SerieFav>> seriesFavs = model.getFavs();
+        seriesFavs.observe(getViewLifecycleOwner(), series -> {
+            mFavs.clear();
+            mFavs.addAll(series);
+        });
     }
 
     private void getSerie(View view) {
@@ -91,9 +129,15 @@ public class SerieFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(serie -> {
                     mSerie = serie;
-                    new FillSerie(view, mSerie, mContext).fillCollapseBar();
-                    RxBus.getInstance().publish(mSerie);
+
+                    isFav = SerieFav.checkFav(mSerie, mFavs);
+                    if(isFav){
+                        mSerie.setFav(true);
+                    }
+
                     model.setSerie(mSerie);
+                    RxBus.getInstance().publish(mSerie);
+                    new FillSerie(view, mSerie, mContext).fillCollapseBar();
                 });
     }
 }

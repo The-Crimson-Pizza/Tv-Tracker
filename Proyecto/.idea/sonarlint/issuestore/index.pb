@@ -63,12 +63,8 @@ e
 .app/src/main/res/layout/fragment_favoritos.xml,d/7/d77eb8b0817a5ba52bb6171aab5f1c1f7ab1a927
 \
 ,app/src/main/res/layout/fragment_profile.xml,b/4/b4466735edf81a3353097aecb75b46205cdee6b6
-^
-.app/src/main/res/layout/lista_series_actor.xml,9/4/94aa773adf79ae014160c4fd5f59661e8b040dcc
 l
 <app/src/main/java/com/tracker/adapters/TabLayoutAdapter.java,4/a/4ac5bd9c8bb20e96dc712e3e7c403baed3cc1411
-Z
-*app/src/main/res/layout/fragment_serie.xml,1/a/1adc6f02a414464cc40fe4a53e65b336ea140988
 i
 9app/src/main/java/com/tracker/adapters/SearchAdapter.java,b/4/b4f3336ee0428e5d1d3b5093b06e3f15559e1c9a
 p
@@ -103,10 +99,6 @@ j
 -app/src/main/res/layout/fragment_episodes.xml,4/0/40c268a21213a85a4cc4d4c4afd371d8f8ea3c38
 \
 ,app/src/main/res/layout/fragment_seasons.xml,9/5/950d9422cbbe151de3a21ecdf1159e15c0cfdc4c
-Y
-)app/src/main/res/layout/list_episodes.xml,6/5/65bdc2b3fd5a168997f9b162f75b1160b88f38fc
-W
-'app/src/main/res/layout/list_season.xml,9/1/911055d31346cd0f554526213b9787ef6e2da4f0
 S
 #app/src/main/res/values/strings.xml,d/2/d2281fbb3027de2722081a53408dd77628bf080e
 Z

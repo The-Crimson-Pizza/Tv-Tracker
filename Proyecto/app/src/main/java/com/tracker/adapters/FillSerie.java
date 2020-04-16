@@ -3,6 +3,7 @@ package com.tracker.adapters;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -42,6 +43,12 @@ public class FillSerie {
 
     public void fillOverview() {
         if (mSerie != null) {
+
+            if (mSerie.isFav()) {
+                LinearLayout check = mView.findViewById(R.id.seguimiento);
+                check.setVisibility(View.VISIBLE);
+            }
+
             ReadMoreTextView overview = mView.findViewById(R.id.sinopsis_text);
             overview.setText(mSerie.overview);
 
@@ -95,7 +102,7 @@ public class FillSerie {
                 else cont++;
             }
         } else {
-//todo - viewswicter
+            //todo - viewswitcher
         }
     }
 
