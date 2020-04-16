@@ -31,8 +31,6 @@ h
 8app/src/main/java/com/tracker/models/seasons/Season.java,8/2/82e03d7e133624fb7f7f232e0c061b9125ad9cfa
 X
 (app/src/main/res/animator/slide_down.xml,a/9/a9c40bac3bbc73eed01b22ec5c86ed46dc1dd025
-]
--app/src/main/res/animator/slide_out_right.xml,e/c/ec1fe0fecdf4f1a5452834ccc63ec1ac02cb9290
 V
 &app/src/main/res/animator/slide_up.xml,e/4/e4954cc78e8a8babf54884b5af3302736b2f6a0f
 h
@@ -142,3 +140,15 @@ e
 .gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
 @
 TFG2020.plantuml,1/f/1f5f9caa6318710b45b1ee9889706dc852fd8f38
+g
+7app/src/main/java/com/tracker/adapters/HomeAdapter.java,7/4/74859aa40831f027cd93c787dbbaeeac40382137
+X
+(app/src/main/res/anim/slide_in_right.xml,9/2/9228a7462534b2939dd6114fc12c58212458f530
+X
+(app/src/main/res/anim/slide_out_left.xml,f/1/f13772ab7e9e3f9d2ded5f58ea3d9f5fdf35626a
+Y
+)app/src/main/res/anim/slide_out_right.xml,2/c/2cbcd465c47013a9dbc291d35e93819539996728
+[
++app/src/main/res/layout/fragment_search.xml,2/f/2f0ecfae4fe398a722fcad4e3b06b75ba69c589a
+W
+'app/src/main/res/anim/slide_in_left.xml,1/d/1d36ebec16ad94763db5ede623941c97e2bd0185

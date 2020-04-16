@@ -3,7 +3,6 @@ package com.tracker;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -15,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     NavController navController;
     int startingPosition = 0;
     int newPosition;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
             switch (menuItem.getItemId()) {
                 case R.id.navigation_home:
                     newPosition = 0;
-                    if(startingPosition==newPosition){
+                    if (startingPosition == newPosition) {
                         navController.navigate(R.id.action_global_navigation_home);
-                    }else{
+                    } else {
                         navController.navigate(R.id.action_global_navigation_home_right);
                     }
                     break;
@@ -62,40 +62,5 @@ public class MainActivity extends AppCompatActivity {
             startingPosition = newPosition;
             return true;
         });
-
-
-    }
-
-    private boolean loadFragment(Fragment fragment, int newPosition) {
-        if (fragment != null) {
-            if (newPosition == 0) {
-                navController.navigate(R.id.action_global_navigation_home, null);
-            }
-            if (startingPosition > newPosition) {
-//                getSupportFragmentManager()
-//                        .beginTransaction()
-//                        .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-//                        .replace(R.id.contentLayout, fragment).commit();
-
-            }
-            if (startingPosition < newPosition) {
-//                getSupportFragmentManager()
-//                        .beginTransaction()
-//                        .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-//                        .replace(R.id.contentLayout, fragment).commit();
-
-            }
-            startingPosition = newPosition;
-            return true;
-        }
-        return false;
     }
 }
-//                    navController.navigate(R.id.action_global_navigation_home, null);
-//                            , new NavOptions.Builder()
-//                                    .setEnterAnim(R.animator.slide_up)
-//                                    .setPopEnterAnim(R.anim.default_pop_enter_anim)
-//                                    .setPopExitAnim(R.animator.slide_down)
-//                                    .setPopUpTo(navController.getCurrentDestination().getId(), true)
-//                                    .setLaunchSingleTop(true)
-//                                    .build());

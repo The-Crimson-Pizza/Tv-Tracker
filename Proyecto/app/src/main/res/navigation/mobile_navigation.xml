@@ -80,60 +80,60 @@
         app:destination="@id/navigation_home"
         app:launchSingleTop="true"
         app:popUpTo="@id/navigation_home"
-        app:popUpToInclusive="false"/>
+        app:popUpToInclusive="false" />
     <action
         android:id="@+id/action_global_navigation_home_right"
         app:destination="@id/navigation_home"
-        app:launchSingleTop="true"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"
+        app:launchSingleTop="true"
         app:popUpTo="@id/navigation_home"
-        app:popUpToInclusive="false"/>
+        app:popUpToInclusive="false" />
+
 
     <action
         android:id="@+id/action_global_navigation_search_to_left"
         app:destination="@id/navigation_search"
-        app:launchSingleTop="true"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
+        app:launchSingleTop="true"
         app:popUpTo="@id/navigation_home"
-        app:popUpToInclusive="false"/>
+        app:popUpToInclusive="false" />
     <action
         android:id="@+id/action_global_navigation_search_to_right"
         app:destination="@id/navigation_search"
-        app:launchSingleTop="true"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"
+        app:launchSingleTop="true"
         app:popUpTo="@id/navigation_home"
-        app:popUpToInclusive="false"/>
+        app:popUpToInclusive="false" />
 
 
     <action
         android:id="@+id/action_global_navigation_fav_left"
         app:destination="@id/navigation_fav"
-        app:launchSingleTop="true"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
+        app:launchSingleTop="true"
         app:popUpTo="@id/navigation_home"
-        app:popUpToInclusive="false"/>
+        app:popUpToInclusive="false" />
     <action
         android:id="@+id/action_global_navigation_fav_right"
         app:destination="@id/navigation_fav"
-        app:launchSingleTop="true"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"
+        app:launchSingleTop="true"
         app:popUpTo="@id/navigation_home"
-        app:popUpToInclusive="false"/>
+        app:popUpToInclusive="false" />
 
 
     <action
         android:id="@+id/action_global_navigation_profile"
         app:destination="@id/navigation_profile"
-        app:launchSingleTop="true"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
+        app:launchSingleTop="true"
         app:popUpTo="@id/navigation_home"
-        app:popUpToInclusive="false"/>
-
+        app:popUpToInclusive="false" />
 
 </navigation>

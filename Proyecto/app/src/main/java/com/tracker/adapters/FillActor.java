@@ -1,27 +1,35 @@
 package com.tracker.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.borjabravo.readmoretextview.ReadMoreTextView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.tracker.R;
 import com.tracker.models.actor.PersonResponse;
 import com.tracker.util.Util;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -29,7 +37,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_PORTRAIT;
 import static com.tracker.util.Constants.FORMAT_DEFAULT;
 import static com.tracker.util.Constants.FORMAT_LONG;
-import static java.time.OffsetDateTime.parse;
 
 public class FillActor {
 
@@ -47,11 +54,31 @@ public class FillActor {
 
         Toolbar actorName = mView.findViewById(R.id.toolbar_actor);
         CircleImageView actorPortrait = mView.findViewById(R.id.profile_image);
+        CollapsingToolbarLayout collapsingToolbarLayout = mView.findViewById(R.id.toolbar_layout);
         View includeView = mView.findViewById(R.id.include_actor);
+
+        RequestOptions options = new RequestOptions()
+                .placeholder(R.drawable.loading_poster)
+                .error(R.drawable.default_portrait_big)
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(mContext).load(BASE_URL_IMAGES_PORTRAIT + mPerson.profilePath).apply(options).into(new CustomTarget<Drawable>() {
+            @Override
+            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                collapsingToolbarLayout.setBackground(resource);
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+            }
+        });
+
 
         TextView bornDate = includeView.findViewById(R.id.fecha_actor);
         TextView bornPlace = includeView.findViewById(R.id.lugar_actor);
         TextView deathDate = includeView.findViewById(R.id.fecha_actor_mortimer);
+        ImageView deathDateIcon = includeView.findViewById(R.id.icon_mortimer);
         ReadMoreTextView biography = includeView.findViewById(R.id.bio_text);
 
         RecyclerView rvMovies = includeView.findViewById(R.id.rvPelis);
@@ -63,7 +90,10 @@ public class FillActor {
         if (mPerson.isDead()) {
             deathDate.setText(calculateAge(true));
             deathDate.setVisibility(View.VISIBLE);
+            deathDateIcon.setVisibility(View.VISIBLE);
+        } else {
         }
+
         if (mPerson.birthday != null) {
             bornDate.setText(calculateAge(false));
         } else {
