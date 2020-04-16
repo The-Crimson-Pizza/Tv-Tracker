@@ -20,6 +20,7 @@
     <string name="serie_poster">Serie poster</string>
     <string name="texto_prueba_corto" translatable="false">I am not Okay with this</string>
     <string name="valoration_example" translatable="false">9.0</string>
+    <string name="checked">Following</string>
     <string name="tv_search">TV Search</string>
     <string name="my_profile">My Profile</string>
     <string name="favourites">Favourites</string>

@@ -6,13 +6,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="20dp"
+
     tools:context=".ui.series.SinopsisFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+            <ImageView
+                android:id="@+id/checked"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/checked_icon"/>
+            <TextView
+                android:id="@+id/checked_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textSize="18sp"
+                android:text="@string/checked"/>
+        </LinearLayout>
 
         <!-- SINOPSIS -->
 
@@ -47,13 +71,14 @@
         <ViewSwitcher
             android:id="@+id/switcher_genres"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
 
             <LinearLayout
                 android:id="@+id/generos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -106,15 +131,16 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="15dp"
             android:text="@string/networks_title"
             android:textSize="20sp"
+
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="20dp">
 
             <ImageView
                 android:id="@+id/network1"
@@ -155,6 +181,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
             android:text="@string/trailer_title"
             android:textSize="20sp"
             android:textStyle="bold" />

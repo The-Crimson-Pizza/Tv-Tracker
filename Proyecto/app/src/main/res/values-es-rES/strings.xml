@@ -39,4 +39,5 @@
     <string name="no_data">Sin datos</string>
     <string name="n_episodes">%1$d capítulos</string>
     <string name="buscador">Buscador</string>
+    <string name="checked">Siguiendo</string>
 </resources>
