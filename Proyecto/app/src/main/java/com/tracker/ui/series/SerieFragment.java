@@ -76,8 +76,8 @@ public class SerieFragment extends Fragment {
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(v -> {
             if (!isFav) {
-
                 SerieFav.writeFav(mFavs, mSerie, mContext.getFilesDir() + URL_FAV, model);
+                RxBus.getInstance().publish(mSerie);
                 Snackbar.make(v, "Added to favorites", Snackbar.LENGTH_LONG)
                         .setAction("Undo", null).show();
 
@@ -88,7 +88,12 @@ public class SerieFragment extends Fragment {
 
         });
 
-        getFavoritos();
+        LiveData<List<SerieFav>> seriesFavs = model.getFavs();
+        seriesFavs.observe(getViewLifecycleOwner(), series -> {
+            mFavs.clear();
+            mFavs.addAll(series);
+        });
+
         getSerie(view);
     }
 
@@ -117,23 +122,20 @@ public class SerieFragment extends Fragment {
     }
 
     private void getFavoritos() {
-        LiveData<List<SerieFav>> seriesFavs = model.getFavs();
-        seriesFavs.observe(getViewLifecycleOwner(), series -> {
-            mFavs.clear();
-            mFavs.addAll(series);
-        });
+
     }
 
     private void getSerie(View view) {
+
         RepositoryAPI.getInstance().getSerie(idSerie)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(serie -> {
                     mSerie = serie;
-
                     isFav = SerieFav.checkFav(mSerie, mFavs);
-                    if(isFav){
+                    if (isFav) {
                         mSerie.setFav(true);
                     }
+                    SerieFav.readFav(mContext.getFilesDir() + URL_FAV, model);
 
                     model.setSerie(mSerie);
                     RxBus.getInstance().publish(mSerie);

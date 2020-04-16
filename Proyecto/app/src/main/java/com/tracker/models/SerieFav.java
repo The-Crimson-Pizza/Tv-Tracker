@@ -101,7 +101,7 @@ public class SerieFav implements Parcelable {
                         favs.add(s);
                         gson.toJson(favs, writer);
                         writer.close();
-                        model.setFavs(favs);
+//                        model.setFavs(favs);
                     });
         } catch (IOException e) {
 

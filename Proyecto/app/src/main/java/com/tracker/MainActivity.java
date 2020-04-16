@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SeriesViewModel model = new ViewModelProvider(this).get(SeriesViewModel.class);
+        SeriesViewModel model = new ViewModelProvider(MainActivity.this).get(SeriesViewModel.class);
 
         SerieFav.readFav(getFilesDir() + URL_FAV, model);
 
