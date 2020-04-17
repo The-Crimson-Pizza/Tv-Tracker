@@ -39,18 +39,18 @@
             android:id="@+id/serie_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="2.5dp"
             android:maxLines="2"
             android:text="Nombre de serie"
             android:textAllCaps="true"
             android:textColor="@color/colorPrimary"
-            android:textSize="7.5pt"
+            android:textSize="11pt"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="7.5dp"
+            android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -62,7 +62,7 @@
                 android:maxLines="2"
                 android:text="En emisión"
                 android:textColor="@color/colorAccent"
-                android:textSize="5.5pt"
+                android:textSize="7pt"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -70,29 +70,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="5dp">
+            android:layout_marginBottom="2.5dp">
 
             <ProgressBar
                 android:id="@+id/progreso"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:theme="@style/Widget.AppCompat.ProgressBar.Horizontal.Personal"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
+                android:layout_weight="10"
                 android:layout_gravity="center_vertical"/>
 
             <TextView
                 android:id="@+id/vistos"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end|center_vertical"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="1"
                 android:text="@string/num_vistos" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="12.5dp"
+
             android:orientation="vertical">
 
             <TextView
@@ -101,10 +103,10 @@
                 android:layout_gravity="center_vertical"
                 android:ellipsize="marquee"
                 android:maxLines="2"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="2.5dp"
                 android:text="Next episode: "
                 android:textColor="@color/colorAccent"
-                android:textSize="5.5pt"
+                android:textSize="6.5pt"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/next_episode"
@@ -113,9 +115,9 @@
                 android:layout_gravity="center_vertical"
                 android:ellipsize="marquee"
                 android:maxLines="2"
-                android:text="3x03 - Matando a un ruiseñor"
+                android:text="3x03 - Matando a un ruiseñor en la casa del cuco y algo mas"
                 android:textColor="@color/colorAccent"
-                android:textSize="7pt"
+                android:textSize="8pt"
  />
         </LinearLayout>
     </LinearLayout>
