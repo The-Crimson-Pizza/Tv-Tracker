@@ -140,8 +140,6 @@ Y
 +app/src/main/res/layout/fragment_search.xml,2/f/2f0ecfae4fe398a722fcad4e3b06b75ba69c589a
 W
 'app/src/main/res/anim/slide_in_left.xml,1/d/1d36ebec16ad94763db5ede623941c97e2bd0185
-a
-1app/src/main/res/navigation/mobile_navigation.xml,5/0/50c7987ff387678f825775665976b5fc8ed47989
 Z
 *app/src/main/res/layout/fragment_actor.xml,e/6/e6a4beb2f14e855a1f2c6eafe195c66474f1ce9d
 ]

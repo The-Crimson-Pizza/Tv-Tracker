@@ -2,6 +2,7 @@ package com.tracker.adapters;
 
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
@@ -18,9 +20,11 @@ import com.tracker.models.seasons.Episode;
 import com.tracker.models.seasons.Season;
 import com.tracker.util.Util;
 
+import java.util.Collections;
 import java.util.List;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
+import static com.tracker.util.Constants.ID_SERIE;
 
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.ViewHolder> {
 
@@ -57,6 +61,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         TextView favName;
         TextView favStatus;
         TextView favVistos;
+        TextView next;
         ProgressBar favProgress;
         int id;
 
@@ -67,12 +72,13 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             favStatus = itemView.findViewById(R.id.episode_fecha);
             favProgress = itemView.findViewById(R.id.progreso);
             favVistos = itemView.findViewById(R.id.vistos);
+            next = itemView.findViewById(R.id.next_episode);
 
             itemView.setOnClickListener(v -> {
-//                int pos = getAdapterPosition();
-//                Bundle bundle = new Bundle();
-//                bundle.putInt(ID_SEASON, id);
-//                Navigation.findNavController(v).navigate(R.id.action_series_to_episodes, bundle);
+                int pos = getAdapterPosition();
+                Bundle bundle = new Bundle();
+                bundle.putInt(ID_SERIE, id);
+                Navigation.findNavController(v).navigate(R.id.action_navigation_fav_to_navigation_series, bundle);
             });
         }
 
@@ -83,7 +89,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
 
         void bindTo(SerieFav favSerie) {
             if (favSerie != null) {
-//                id = favSerie.seasonNumber;
+                sortSeason(favSerie.seasons);
+                id = favSerie.id;
                 favName.setText(favSerie.name);
                 Util.getImage(BASE_URL_IMAGES_POSTER + favSerie.posterPath, favPoster, mContext);
                 favStatus.setText(favSerie.status);
@@ -95,8 +102,20 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                 }
                 favVistos.setText(mContext.getString(R.string.num_vistos, vistos, totalEpisodes));
                 favProgress.setProgress(progress);
+                next.setText(getLastEpisode(favSerie));
 
             }
+        }
+
+        String getLastEpisode(SerieFav serieFav) {
+            for (Season s : serieFav.seasons) {
+                for (Episode e : s.episodes) {
+                    if (!e.visto) {
+                        return String.format("%02dx%02d - %s", e.seasonNumber, e.episodeNumber, e.name);
+                    }
+                }
+            }
+            return "You just watched every episode!";
         }
 
         int countEpisodes(SerieFav serieFav) {
@@ -110,6 +129,20 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             }
             return cont;
 
+        }
+
+        private void sortSeason(List<Season> seasons) {
+            Collections.sort(seasons, (season1, season2) -> {
+                String numSeason1 = String.valueOf(season1.seasonNumber);
+                String numSeason2 = String.valueOf(season2.seasonNumber);
+                if (numSeason1 != null && numSeason2 != null) {
+                    return numSeason1.compareTo(numSeason2);
+                } else {
+                    String fecha1 = season1.airDate;
+                    String fecha2 = season2.airDate;
+                    return fecha1.compareTo(fecha2);
+                }
+            });
         }
     }
 }
