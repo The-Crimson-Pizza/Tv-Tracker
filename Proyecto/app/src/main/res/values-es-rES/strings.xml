@@ -11,6 +11,7 @@
     <string name="nav_header_desc">Encabezado de navegación</string>
     <string name="redes_sociales">Redes Sociales</string>
     <string name="menu_slideshow">Diapositiva</string>
+    <string name="series_favoritas">Series Favoritas</string>
     <string name="series_populares">Series Populares</string>
     <string name="series_nuevas">Series Nuevas</string>
     <string name="no_conn">Sin Conexión</string>
