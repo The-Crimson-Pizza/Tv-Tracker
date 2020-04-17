@@ -58,4 +58,5 @@
     <string name="already_fav">Already following</string>
     <string name="delete_fav">Delete from list</string>
     <string name="borrado_correcto">Deleted</string>
+    <string name="num_vistos">%1$d/%2$d</string>
 </resources>

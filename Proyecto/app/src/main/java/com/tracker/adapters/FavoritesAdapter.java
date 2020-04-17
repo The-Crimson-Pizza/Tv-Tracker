@@ -56,6 +56,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         ImageView favPoster;
         TextView favName;
         TextView favStatus;
+        TextView favVistos;
         ProgressBar favProgress;
         int id;
 
@@ -65,6 +66,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             favName = itemView.findViewById(R.id.serie_name);
             favStatus = itemView.findViewById(R.id.episode_fecha);
             favProgress = itemView.findViewById(R.id.progreso);
+            favVistos = itemView.findViewById(R.id.vistos);
 
             itemView.setOnClickListener(v -> {
 //                int pos = getAdapterPosition();
@@ -89,9 +91,9 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                 int vistos = countEpisodes(favSerie);
                 int progress = 0;
                 if (vistos > 0) {
-                    progress = (totalEpisodes / vistos) * 100;
+                    progress = (vistos * 100) / totalEpisodes;
                 }
-
+                favVistos.setText(mContext.getString(R.string.num_vistos, vistos, totalEpisodes));
                 favProgress.setProgress(progress);
 
             }

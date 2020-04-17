@@ -148,8 +148,6 @@ Z
 -app/src/main/res/layout/fragment_sinopsis.xml,6/6/66f655f96307f9c38339935c376c6f6feed610b4
 W
 'app/src/main/res/layout/list_season.xml,9/1/911055d31346cd0f554526213b9787ef6e2da4f0
-S
-#app/src/main/res/values/strings.xml,d/2/d2281fbb3027de2722081a53408dd77628bf080e
 @
 local.properties,0/7/0712df971a99ac4d2fccb8e0fb19f377f3374cca
 ?
