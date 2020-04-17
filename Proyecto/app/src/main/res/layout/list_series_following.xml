@@ -70,7 +70,7 @@
                 android:id="@+id/progreso"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:theme="@style/Widget.AppCompat.ProgressBar.Horizontal.Personal"
-                android:layout_width="165dp"
+                android:layout_width="200dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"/>
 
