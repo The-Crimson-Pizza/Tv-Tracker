@@ -57,22 +57,22 @@ public class FillActor {
         CollapsingToolbarLayout collapsingToolbarLayout = mView.findViewById(R.id.toolbar_layout);
         View includeView = mView.findViewById(R.id.include_actor);
 
-        RequestOptions options = new RequestOptions()
-                .placeholder(R.drawable.loading_poster)
-                .error(R.drawable.default_portrait_big)
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL);
-        Glide.with(mContext).load(BASE_URL_IMAGES_PORTRAIT + mPerson.profilePath).apply(options).into(new CustomTarget<Drawable>() {
-            @Override
-            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                collapsingToolbarLayout.setBackground(resource);
-            }
-
-            @Override
-            public void onLoadCleared(@Nullable Drawable placeholder) {
-
-            }
-        });
+//        RequestOptions options = new RequestOptions()
+//                .placeholder(R.drawable.loading_poster)
+//                .error(R.drawable.default_portrait_big)
+//                .centerCrop()
+//                .diskCacheStrategy(DiskCacheStrategy.ALL);
+//        Glide.with(mContext).load(BASE_URL_IMAGES_PORTRAIT + mPerson.profilePath).apply(options).into(new CustomTarget<Drawable>() {
+//            @Override
+//            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+//                collapsingToolbarLayout.setBackground(resource);
+//            }
+//
+//            @Override
+//            public void onLoadCleared(@Nullable Drawable placeholder) {
+//
+//            }
+//        });
 
 
         TextView bornDate = includeView.findViewById(R.id.fecha_actor);
