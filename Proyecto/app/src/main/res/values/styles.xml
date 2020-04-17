@@ -27,4 +27,9 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
+    <style name="Widget.AppCompat.ProgressBar.Horizontal.Personal" parent="Base.Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:scaleY">3</item>
+    </style>
+
 </resources>

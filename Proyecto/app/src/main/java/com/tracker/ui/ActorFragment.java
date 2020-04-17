@@ -89,7 +89,7 @@ public class ActorFragment extends Fragment {
             }
         });
 
-        FloatingActionButton fabFavorito = view.findViewById(R.id.fab);
+ /*       FloatingActionButton fabFavorito = view.findViewById(R.id.fab);
         fabFavorito.setOnClickListener(view1 -> {
             Snackbar.make(view1, "Added to favourites", Snackbar.LENGTH_LONG)
                     .setAction("Undo", new View.OnClickListener() {
@@ -98,7 +98,7 @@ public class ActorFragment extends Fragment {
 
                         }
                     }).show();
-        });
+        });*/
         getActor(view);
     }
 

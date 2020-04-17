@@ -8,8 +8,8 @@
     android:padding="10dp">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="140dp"
-        android:layout_height="190dp"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
         android:layout_margin="2.5dp"
         android:layout_marginEnd="2dp"
         app:cardCornerRadius="10dp">
@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/posterBasic"
             android:layout_width="match_parent"
-            android:layout_height="190dp"
+            android:layout_height="wrap_content"
             android:contentDescription="@string/serie_poster"
             android:scaleType="centerCrop" />
 
@@ -68,23 +68,21 @@
 
             <ProgressBar
                 android:id="@+id/progreso"
-                style="@android:style/Widget.ProgressBar.Horizontal"
-                android:layout_width="170dp"
-                android:layout_height="wrap_content" />
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:theme="@style/Widget.AppCompat.ProgressBar.Horizontal.Personal"
+                android:layout_width="165dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"/>
 
             <TextView
                 android:id="@+id/vistos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
+                android:gravity="end|center_vertical"
+                android:layout_gravity="center_vertical"
                 android:text="@string/num_vistos" />
         </LinearLayout>
 
-        <Button
-            style="@style/Widget.AppCompat.Button.Colored.Personal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="EPISODE INFO" />
     </LinearLayout>
 
 
