@@ -27,7 +27,6 @@ public class SinopsisFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View root = inflater.inflate(R.layout.fragment_sinopsis, container, false);
         YouTubePlayerView youTubePlayerView = root.findViewById(R.id.youtube_player_view);
         getLifecycle().addObserver(youTubePlayerView);

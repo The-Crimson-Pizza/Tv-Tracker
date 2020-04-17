@@ -16,11 +16,18 @@ public class BasicResponse {
 
     public static class SerieBasic implements Parcelable {
 
+        public Integer id;
         public String name;
         public String poster_path;
-        public Integer id;
         @SerializedName("vote_average")
         public float voteAverage;
+
+        public SerieBasic(Integer id, String name, String poster_path, float voteAverage) {
+            this.id = id;
+            this.name = name;
+            this.poster_path = poster_path;
+            this.voteAverage = voteAverage;
+        }
 
         public SerieBasic(Parcel in) {
             name = in.readString();

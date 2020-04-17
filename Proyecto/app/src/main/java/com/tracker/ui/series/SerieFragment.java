@@ -2,10 +2,10 @@ package com.tracker.ui.series;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -13,8 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -22,8 +20,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 import com.tracker.R;
 import com.tracker.adapters.FillSerie;
 import com.tracker.adapters.TabLayoutAdapter;
@@ -32,45 +34,39 @@ import com.tracker.data.RxBus;
 import com.tracker.data.SeriesViewModel;
 import com.tracker.models.SerieFav;
 import com.tracker.models.serie.SerieResponse;
-import com.tracker.util.Util;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
 import static com.tracker.util.Constants.ID_SERIE;
-import static com.tracker.util.Constants.URL_FAV;
 
 public class SerieFragment extends Fragment {
 
     private int idSerie;
-    private SerieResponse.Serie mSerie;
-    private List<SerieFav> mFavs = new ArrayList<>();
-    private SeriesViewModel model;
     private Context mContext;
     private boolean isFav = false;
+    private SeriesViewModel seriesViewModel;
+    private DatabaseReference databaseRef;
+    private SerieResponse.Serie mSerie;
+    private List<SerieFav> mFavs;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View root = inflater.inflate(R.layout.fragment_serie, container, false);
-        mContext = getActivity();
-//        getActivity().getApplicationContext()
         if (getArguments() != null) {
             idSerie = getArguments().getInt(ID_SERIE);
         }
-        return root;
+        mContext = getActivity();
+        return inflater.inflate(R.layout.fragment_serie, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
+        seriesViewModel = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
 
         hideKeyboard();
         setToolbar(view);
@@ -80,51 +76,74 @@ public class SerieFragment extends Fragment {
 //        bar.setVisibility(View.VISIBLE);
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
-        fab.setOnClickListener(v -> {
-            SerieFav.readFav(mContext.getFilesDir() + URL_FAV, model);
+        fab.setOnClickListener(viewFab -> {
             if (!isFav) {
-                SerieFav.writeFav(mFavs, mSerie, mContext.getFilesDir() + URL_FAV, model);
-                RxBus.getInstance().publish(mSerie);
-                isFav = true;
-                Snackbar.make(v, R.string.add_fav, Snackbar.LENGTH_LONG)
-                        .setAction("Undo", null).show();
-
+                addFav();
+                Snackbar.make(viewFab, R.string.add_fav, Snackbar.LENGTH_LONG).show();
             } else {
-                Snackbar.make(v, R.string.already_fav, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.delete_fav, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                try (Writer writer = new FileWriter(mContext.getFilesDir() + URL_FAV)) {
-                                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                                    int pos = SerieFav.getPosition(mSerie, mFavs);
-                                    if (pos != -1) {
-                                        SerieFav p = mFavs.get(pos);
-                                        mFavs.remove(p);
-                                        gson.toJson(mFavs, writer);
-                                        Toast.makeText(getActivity(), R.string.borrado_correcto, Toast.LENGTH_SHORT).show();
-                                    }
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                SerieFav.readFav(mContext.getFilesDir() + URL_FAV, model);
-                                mSerie.isFav = false;
-                                RxBus.getInstance().publish(mSerie);
-                                isFav = false;
-                            }
-                        }).show();
-            }
-
-        });
-
-        LiveData<List<SerieFav>> seriesFavs = model.getFavs();
-        seriesFavs.observe(getViewLifecycleOwner(), series -> {
-            if (series != null) {
-                mFavs.clear();
-                mFavs.addAll(series);
+                Snackbar.make(viewFab, R.string.already_fav, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.delete_fav, viewSnack -> deleteFav()).show();
             }
         });
 
-        getSerie(view);
+        databaseRef = FirebaseDatabase.getInstance().getReference();
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                GenericTypeIndicator<List<SerieFav>> genericTypeIndicator = new GenericTypeIndicator<List<SerieFav>>() {
+                };
+                mFavs = dataSnapshot.getValue(genericTypeIndicator);
+                getSerie(view);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getSerie(View view) {
+        RepositoryAPI.getInstance().getSerie(idSerie)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(serie -> {
+                    mSerie = serie;
+                    isFav = SerieFav.checkFav(mSerie, mFavs);
+                    if (isFav) {
+                        mSerie.isFav = true;
+                    }
+                    RxBus.getInstance().publish(mSerie);
+                    seriesViewModel.setSerie(mSerie);
+                    new FillSerie(view, mSerie, mContext).fillCollapseBar();
+                });
+    }
+
+    private void addFav() {
+        SerieFav s = mSerie.convertSerieToFav();
+        RepositoryAPI.getInstance().getSeasons(s.id, s.seasons.get(0).seasonNumber, s.numberOfSeasons)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(lista -> {
+                    s.seasons = lista;
+                    mFavs.add(s);
+                    databaseRef.setValue(mFavs);
+                });
+
+        mSerie.isFav = true;
+        RxBus.getInstance().publish(mSerie);
+        isFav = true;
+    }
+
+    private void deleteFav() {
+        int pos = SerieFav.getPosition(mSerie, mFavs);
+        if (pos != -1) {
+            SerieFav serieDeleted = mFavs.get(pos);
+            mFavs.remove(serieDeleted);
+            databaseRef.setValue(mFavs);
+            Toast.makeText(getActivity(), R.string.borrado_correcto, Toast.LENGTH_SHORT).show();
+            mSerie.isFav = false;
+            RxBus.getInstance().publish(mSerie);
+            isFav = false;
+        }
     }
 
     private void hideKeyboard() {
@@ -149,24 +168,5 @@ public class SerieFragment extends Fragment {
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
-    }
-
-
-    private void getSerie(View view) {
-
-        RepositoryAPI.getInstance().getSerie(idSerie)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(serie -> {
-                    mSerie = serie;
-                    isFav = SerieFav.checkFav(mSerie, mFavs);
-                    if (isFav) {
-                        mSerie.isFav = true;
-                    }
-                    SerieFav.readFav(mContext.getFilesDir() + URL_FAV, model);
-
-                    model.setSerie(mSerie);
-                    RxBus.getInstance().publish(mSerie);
-                    new FillSerie(view, mSerie, mContext).fillCollapseBar();
-                });
     }
 }

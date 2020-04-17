@@ -2,6 +2,7 @@ package com.tracker;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -10,9 +11,18 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 import com.tracker.data.SeriesViewModel;
 import com.tracker.models.SerieFav;
 
+import java.util.List;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 import static com.tracker.util.Constants.URL_FAV;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,10 +37,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        model = new ViewModelProvider(MainActivity.this).get(SeriesViewModel.class);
-
-        SerieFav.readFav(getFilesDir() + URL_FAV, model);
 
         bottomNavigationView = findViewById(R.id.nav_view);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);

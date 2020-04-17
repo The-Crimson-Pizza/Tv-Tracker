@@ -64,12 +64,10 @@ public class SerieResponse {
             return isFav;
         }
 
-
-
         public SerieFav convertSerieToFav() {
             return new SerieFav(this.id, this.name, this.status,
                     this.posterPath, this.episodeRunTime,
-                    this.numberOfEpisodes, this.numberOfSeasons, this.seasons);
+                    this.numberOfEpisodes, this.numberOfSeasons, this.seasons, this.voteAverage);
         }
 
         public void setSeasons(List<Season> seasons) {
