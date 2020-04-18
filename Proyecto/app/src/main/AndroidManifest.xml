@@ -18,8 +18,13 @@
         <activity
             android:name=".ui.ActorFragment"
             android:label="@string/title_activity_detalles_actor" />
-        <activity android:name=".SplashScreen">
+        <activity android:name=".SplashScreen" android:theme="@style/bgSplashScreenStyle">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.series.SerieFragment"
@@ -29,8 +34,9 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>
