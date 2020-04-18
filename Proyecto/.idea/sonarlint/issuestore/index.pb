@@ -69,8 +69,6 @@ p
 @app/src/main/java/com/tracker/ui/search/SerieSearchFragment.java,8/6/860657602e57ddc35aeded5bdf6951b0cd6d5dc9
 m
 =app/src/main/java/com/tracker/ui/series/SinopsisFragment.java,6/7/673d838a5a24d466388f9aad613a6dc32ee65f0b
-a
-1app/src/main/res/layout/fragment_actor_search.xml,7/2/72d8fe34c271dce51c0e3e855e7c0231c753a6f3
 k
 ;app/src/main/java/com/tracker/ui/search/SearchFragment.java,1/6/1654e6e0d08062ae25ac0fb0d95acebdc9b1c406
 p
@@ -136,16 +134,10 @@ X
 (app/src/main/res/anim/slide_out_left.xml,f/1/f13772ab7e9e3f9d2ded5f58ea3d9f5fdf35626a
 Y
 )app/src/main/res/anim/slide_out_right.xml,2/c/2cbcd465c47013a9dbc291d35e93819539996728
-[
-+app/src/main/res/layout/fragment_search.xml,2/f/2f0ecfae4fe398a722fcad4e3b06b75ba69c589a
 W
 'app/src/main/res/anim/slide_in_left.xml,1/d/1d36ebec16ad94763db5ede623941c97e2bd0185
 Z
 *app/src/main/res/layout/fragment_actor.xml,e/6/e6a4beb2f14e855a1f2c6eafe195c66474f1ce9d
-]
--app/src/main/res/layout/fragment_sinopsis.xml,6/6/66f655f96307f9c38339935c376c6f6feed610b4
-W
-'app/src/main/res/layout/list_season.xml,9/1/911055d31346cd0f554526213b9787ef6e2da4f0
 @
 local.properties,0/7/0712df971a99ac4d2fccb8e0fb19f377f3374cca
 ?
@@ -154,3 +146,11 @@ F
 app/proguard-rules.pro,9/e/9e08934d811afe28fbc77aaa3c0d747b94348db9
 b
 2app/src/main/java/com/tracker/models/SerieFav.java,9/3/93b4ecc2c8e2ed31f6951ccb725693d46a3e0b20
+Y
+)app/src/main/res/layout/fragment_home.xml,3/1/31c5880846ef63ff1963efbe141ddfd56680bb19
+H
+app/google-services.json,f/d/fd8d34b142d02ec743a8efefefd2c097961666e9
+l
+<app/src/main/java/com/tracker/adapters/FavoritesAdapter.java,c/1/c1d81181e12aedad3006d33960d044572f41ab47
+a
+1app/src/main/res/navigation/mobile_navigation.xml,5/0/50c7987ff387678f825775665976b5fc8ed47989

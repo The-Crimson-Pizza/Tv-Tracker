@@ -43,13 +43,9 @@ public class FillSerie {
 
     public void fillOverview() {
         if (mSerie != null) {
-
             LinearLayout check = mView.findViewById(R.id.seguimiento);
-            if (mSerie.isFav()) {
-                check.setVisibility(View.VISIBLE);
-            } else {
-                check.setVisibility(View.GONE);
-            }
+            if (mSerie.isFav()) check.setVisibility(View.VISIBLE);
+            else check.setVisibility(View.GONE);
 
             ReadMoreTextView overview = mView.findViewById(R.id.sinopsis_text);
             overview.setText(mSerie.overview);
@@ -81,11 +77,8 @@ public class FillSerie {
 
         airDate.setText(Util.getFecha(mSerie.firstAirDate, FORMAT_YEAR));
 
-        if (!mSerie.originCountry.isEmpty()) {
-            country.setText(mSerie.originCountry.get(0));
-        } else {
-            country.setText(mContext.getString(R.string.no_data));
-        }
+        if (!mSerie.originCountry.isEmpty()) country.setText(mSerie.originCountry.get(0));
+        else country.setText(mContext.getString(R.string.no_data));
 
         status.setText(mSerie.status);
         collapseToolbar.setTitle(mSerie.name);

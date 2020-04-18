@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,8 +31,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 
 public class ActorSearchFragment extends Fragment {
 
-    private SeriesViewModel model;
-    private List<PersonResponse.Person> mListaPersonas;
+    private List<PersonResponse.Person> mListaPersonas = new ArrayList<>();
     private SearchAdapter searchAdapter;
     private Context mContext;
     private RecyclerView rvCast;
@@ -47,16 +47,33 @@ public class ActorSearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
-
+        ViewSwitcher switcherActor = view.findViewById(R.id.switcherSearchActor);
+        SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
+        searchAdapter = new SearchAdapter(mContext, null, mListaPersonas, false);
         rvCast = view.findViewById(R.id.rvActores);
+
+        setRecycler();
+
+        model.setQuery(getString(R.string.empty));
+        LiveData<String> queryResult = model.getQuery();
+        queryResult.observe(getViewLifecycleOwner(), query -> {
+            if (query.isEmpty()) {
+                if (R.id.search_image == switcherActor.getNextView().getId())
+                    switcherActor.showNext();
+            } else {
+                if (R.id.rvActores == switcherActor.getNextView().getId())
+                    switcherActor.showNext();
+                getResults(query);
+            }
+        });
+    }
+
+    private void setRecycler() {
         rvCast.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         rvCast.setHasFixedSize(true);
         rvCast.setItemViewCacheSize(20);
         rvCast.setSaveEnabled(true);
-
-        LiveData<String> query = model.getQuery();
-        query.observe(getViewLifecycleOwner(), this::getResults);
+        rvCast.setAdapter(searchAdapter);
     }
 
     private void getResults(String query) {
@@ -65,23 +82,21 @@ public class ActorSearchFragment extends Fragment {
                 .subscribe(new Observer<PersonResponse>() {
                     @Override
                     public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
-                        // No hacer nada
+                        mListaPersonas.clear();
+                        searchAdapter.notifyDataSetChanged();
                     }
 
                     @Override
                     public void onNext(@io.reactivex.rxjava3.annotations.NonNull PersonResponse personResponse) {
-                        mListaPersonas = personResponse.results;
-                        if (!mListaPersonas.isEmpty()) {
-                            searchAdapter = new SearchAdapter(mContext, null, mListaPersonas, false);
-                            rvCast.setAdapter(searchAdapter);
-                        }
+                        mListaPersonas.clear();
+                        mListaPersonas.addAll(personResponse.results);
+                        searchAdapter.notifyDataSetChanged();
                     }
 
                     @Override
                     public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-                        mListaPersonas = new ArrayList<>();
-                        searchAdapter = new SearchAdapter(mContext, null, mListaPersonas, false);
-                        rvCast.setAdapter(searchAdapter);
+                        mListaPersonas.clear();
+                        searchAdapter.notifyDataSetChanged();
                     }
 
                     @Override

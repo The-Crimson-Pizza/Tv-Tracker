@@ -5,10 +5,23 @@
     android:layout_height="match_parent"
     tools:context=".ui.search.SerieSearchFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvSeries"
+    <ViewSwitcher
+        android:id="@+id/switcherSearchSerie"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" />
+        android:layout_height="match_parent">
+
+
+        <include
+            android:id="@+id/search_image"
+            layout="@layout/search_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSeries"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+    </ViewSwitcher>
 
 </FrameLayout>
