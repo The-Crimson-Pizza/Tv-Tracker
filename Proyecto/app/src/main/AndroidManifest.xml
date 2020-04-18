@@ -18,7 +18,7 @@
         <activity
             android:name=".ui.ActorFragment"
             android:label="@string/title_activity_detalles_actor" />
-        <activity android:name=".SplashScreen" android:theme="@style/bgSplashScreenStyle">
+        <activity android:name=".SplashScreen" android:theme="@style/bgSplashScreenStyle" android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
