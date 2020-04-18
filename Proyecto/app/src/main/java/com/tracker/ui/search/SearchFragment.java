@@ -47,7 +47,7 @@ public class SearchFragment extends Fragment {
                 if (query.length() > 0) {
                     searchViewModel.setQuery(query);
                 } else {
-                    searchViewModel.setQuery("");
+                    searchViewModel.setQuery(getString(R.string.empty));
                 }
                 return false;
             }
@@ -57,7 +57,7 @@ public class SearchFragment extends Fragment {
                 if (query.length() > 0) {
                     searchViewModel.setQuery(query);
                 } else {
-                    searchViewModel.setQuery("");
+                    searchViewModel.setQuery(getString(R.string.empty));
                 }
                 return true;
             }

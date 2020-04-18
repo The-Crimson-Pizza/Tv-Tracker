@@ -2,19 +2,12 @@ package com.tracker.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
-import com.tracker.data.SeriesViewModel;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.List;
 
 public class SerieFav implements Parcelable {
@@ -33,9 +26,10 @@ public class SerieFav implements Parcelable {
     public List<Integer> episodeRunTime = null;
     @SerializedName("vote_average")
     public float voteAverage;
+    public Date addedDate;
+    public Date finishDate;
 
     public SerieFav() {
-
     }
 
     public SerieFav(int id, String name, String status, String posterPath, List<Integer> episodeRunTime, int numberOfEpisodes, int numberOfSeasons, List<Season> seasons, float voteAverage) {
@@ -74,7 +68,7 @@ public class SerieFav implements Parcelable {
     }
 
 
-    protected SerieFav(Parcel in) {
+    private SerieFav(Parcel in) {
         in.readList(this.seasons, (Season.class.getClassLoader()));
         this.id = ((int) in.readValue((int.class.getClassLoader())));
         in.readList(this.episodeRunTime, (Integer.class.getClassLoader()));

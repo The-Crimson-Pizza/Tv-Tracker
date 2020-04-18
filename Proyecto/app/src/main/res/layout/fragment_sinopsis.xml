@@ -19,9 +19,9 @@
             android:id="@+id/seguimiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/checked"
@@ -139,45 +139,62 @@
             android:layout_marginBottom="15dp"
             android:text="@string/networks_title"
             android:textSize="20sp"
-
             android:textStyle="bold" />
 
-        <LinearLayout
+        <ViewSwitcher
+            android:id="@+id/switcher_networks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="10dp">
 
-            <ImageView
-                android:id="@+id/network1"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="15dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/netflix"
-                android:visibility="gone" />
 
-            <ImageView
-                android:id="@+id/network2"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="15dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/netflix"
-                android:visibility="gone" />
+            <LinearLayout
+                android:id="@+id/networks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
 
-            <ImageView
-                android:id="@+id/network3"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="15dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/amazon"
-                android:visibility="gone" />
+                <ImageView
+                    android:id="@+id/network1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="15dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/netflix"
+                    android:visibility="gone" />
 
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/network2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="15dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/netflix"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/network3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="15dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/amazon"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/nodatanetworks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:text="@string/no_data" />
+
+
+        </ViewSwitcher>
 
         <!-- TRAILER-->
 

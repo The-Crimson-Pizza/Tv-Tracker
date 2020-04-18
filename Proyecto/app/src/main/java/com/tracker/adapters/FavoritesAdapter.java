@@ -22,6 +22,7 @@ import com.tracker.util.Util;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 import static com.tracker.util.Constants.ID_SERIE;
@@ -111,11 +112,11 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             for (Season s : serieFav.seasons) {
                 for (Episode e : s.episodes) {
                     if (!e.visto) {
-                        return String.format("%02dx%02d - %s", e.seasonNumber, e.episodeNumber, e.name);
+                        return String.format(Locale.getDefault(), "%02dx%02d - %s", e.seasonNumber, e.episodeNumber, e.name);
                     }
                 }
             }
-            return "You just watched every episode!";
+            return mContext.getString(R.string.just_watch);
         }
 
         int countEpisodes(SerieFav serieFav) {

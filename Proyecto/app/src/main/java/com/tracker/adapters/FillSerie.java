@@ -47,7 +47,7 @@ public class FillSerie {
             LinearLayout check = mView.findViewById(R.id.seguimiento);
             if (mSerie.isFav()) {
                 check.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 check.setVisibility(View.GONE);
             }
 
@@ -104,7 +104,9 @@ public class FillSerie {
                 else cont++;
             }
         } else {
-            //todo - viewswitcher
+            ViewSwitcher switcherNetworks = mView.findViewById(R.id.switcher_networks);
+            if (R.id.networks == switcherNetworks.getNextView().getId() || R.id.nodatanetworks == switcherNetworks.getNextView().getId())
+                switcherNetworks.showNext();
         }
     }
 
@@ -121,13 +123,9 @@ public class FillSerie {
                 else cont++;
             }
         } else {
-            ViewSwitcher switcherSeries = mView.findViewById(R.id.switcher_genres);
-
-            if (R.id.generos == switcherSeries.getNextView().getId()) {
-                switcherSeries.showNext();
-            } else if (R.id.nodatagenres == switcherSeries.getNextView().getId()) {
-                switcherSeries.showNext();
-            }
+            ViewSwitcher switcherGenres = mView.findViewById(R.id.switcher_genres);
+            if (R.id.generos == switcherGenres.getNextView().getId() || R.id.nodatagenres == switcherGenres.getNextView().getId())
+                switcherGenres.showNext();
         }
     }
 

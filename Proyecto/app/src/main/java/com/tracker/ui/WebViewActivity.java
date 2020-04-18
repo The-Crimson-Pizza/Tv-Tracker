@@ -30,6 +30,5 @@ public class WebViewActivity extends AppCompatActivity {
 
         mWebView.loadUrl(url);
 
-//        TODO - VER OTRAS OPCIONES QUE AÑADIR AL WEBVIEW
     }
 }
