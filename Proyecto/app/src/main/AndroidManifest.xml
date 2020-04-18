@@ -14,10 +14,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.WebViewActivity"></activity>
+        <activity android:name=".ui.WebViewActivity"/>
         <activity
             android:name=".ui.ActorFragment"
             android:label="@string/title_activity_detalles_actor" />
+        <activity android:name=".SplashScreen">
+
+        </activity>
         <activity
             android:name=".ui.series.SerieFragment"
             android:label="@string/title_activity_detalles_serie" />
