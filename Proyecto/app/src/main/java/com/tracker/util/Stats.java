@@ -15,4 +15,6 @@ public class Stats {
 //todo - arreglar splash
 //todo - memorias/presentación
 
+//    checkbox_watched
+
 }

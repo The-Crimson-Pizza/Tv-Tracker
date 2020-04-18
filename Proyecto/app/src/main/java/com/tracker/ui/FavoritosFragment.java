@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tracker.R;
 import com.tracker.adapters.FavoritesAdapter;
 import com.tracker.adapters.HomeAdapter;
+import com.tracker.data.FirebaseDb;
 import com.tracker.models.SerieFav;
 
 import java.util.ArrayList;
@@ -52,15 +53,17 @@ public class FavoritosFragment extends Fragment {
         rvFavs.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvFavs.setAdapter(favAdapter);
 
-        databaseRef = FirebaseDatabase.getInstance().getReference();
-        databaseRef.addValueEventListener(new ValueEventListener() {
+        FirebaseDb.getInstance().getSeriesFav().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 GenericTypeIndicator<List<SerieFav>> genericTypeIndicator = new GenericTypeIndicator<List<SerieFav>>() {
                 };
                 mFavs.clear();
-                mFavs.addAll(dataSnapshot.getValue(genericTypeIndicator));
-                favAdapter.notifyDataSetChanged();
+                List<SerieFav> favTemp = dataSnapshot.getValue(genericTypeIndicator);
+                if (favTemp != null) {
+                    mFavs.addAll(favTemp);
+                    favAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override

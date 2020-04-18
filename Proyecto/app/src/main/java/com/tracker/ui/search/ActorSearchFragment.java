@@ -28,7 +28,6 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-
 public class ActorSearchFragment extends Fragment {
 
     private List<PersonResponse.Person> mListaPersonas = new ArrayList<>();
@@ -37,8 +36,7 @@ public class ActorSearchFragment extends Fragment {
     private RecyclerView rvCast;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
         return inflater.inflate(R.layout.fragment_actor_search, container, false);
     }

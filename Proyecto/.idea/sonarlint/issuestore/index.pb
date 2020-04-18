@@ -146,8 +146,6 @@ F
 app/proguard-rules.pro,9/e/9e08934d811afe28fbc77aaa3c0d747b94348db9
 b
 2app/src/main/java/com/tracker/models/SerieFav.java,9/3/93b4ecc2c8e2ed31f6951ccb725693d46a3e0b20
-Y
-)app/src/main/res/layout/fragment_home.xml,3/1/31c5880846ef63ff1963efbe141ddfd56680bb19
 H
 app/google-services.json,f/d/fd8d34b142d02ec743a8efefefd2c097961666e9
 l

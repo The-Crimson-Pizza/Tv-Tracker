@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tracker.R;
 import com.tracker.adapters.FavoritesAdapter;
 import com.tracker.adapters.HomeAdapter;
+import com.tracker.data.FirebaseDb;
 import com.tracker.data.RepositoryAPI;
 import com.tracker.models.BasicResponse;
 import com.tracker.models.SerieFav;
@@ -36,7 +38,6 @@ public class HomeFragment extends Fragment {
     private List<BasicResponse.SerieBasic> mNuevas = new ArrayList<>();
     private List<BasicResponse.SerieBasic> mFavs = new ArrayList<>();
     private Context mContext;
-    private DatabaseReference databaseRef;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class HomeFragment extends Fragment {
         RecyclerView rvPopulares = view.findViewById(R.id.gridPopulares);
         RecyclerView rvNuevas = view.findViewById(R.id.gridNuevas);
         RecyclerView rvFavs = view.findViewById(R.id.gridFavs);
+        ViewSwitcher switcherFavs = view.findViewById(R.id.switcher_favs);
 
         initRecycler(rvNuevas, adapterNueva);
         initRecycler(rvPopulares, adapterPopular);
@@ -68,18 +70,22 @@ public class HomeFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(series -> refreshData(mNuevas, adapterNueva, series.basicSeries));
 
-        databaseRef = FirebaseDatabase.getInstance().getReference();
-        databaseRef.addValueEventListener(new ValueEventListener() {
+        FirebaseDb.getInstance().getSeriesFav().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 GenericTypeIndicator<List<SerieFav>> genericTypeIndicator = new GenericTypeIndicator<List<SerieFav>>() {
                 };
                 mFavs.clear();
                 List<SerieFav> mFaaavs = dataSnapshot.getValue(genericTypeIndicator);
-                for(SerieFav fav : mFaaavs){
-                    mFavs.add(fav.toBasic());
+                if (mFaaavs != null) {
+                    for (SerieFav fav : mFaaavs) {
+                        mFavs.add(fav.toBasic());
+                    }
+                    adapterFav.notifyDataSetChanged();
+                } else {
+                    if (R.id.no_data_favs == switcherFavs.getNextView().getId())
+                        switcherFavs.showNext();
                 }
-                adapterFav.notifyDataSetChanged();
             }
 
             @Override

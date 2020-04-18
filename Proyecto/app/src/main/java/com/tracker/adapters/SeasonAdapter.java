@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.tracker.R;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
@@ -26,9 +27,11 @@ import static com.tracker.util.Constants.ID_SEASON;
 public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder> {
 
     private List<Season> mSeasons;
+    private SerieResponse.Serie mSerie;
     private static Context mContext;
 
     public SeasonAdapter(Context mContext, SerieResponse.Serie serie) {
+        this.mSerie = serie;
         this.mSeasons = serie.seasons;
         this.mContext = mContext;
         if (mSeasons != null) {
@@ -45,7 +48,7 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull SeasonAdapter.ViewHolder holder, final int position) {
-        holder.bindTo(mSeasons.get(position));
+        holder.bindTo(mSeasons.get(position), mSerie);
     }
 
     @Override
@@ -61,6 +64,8 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
         ImageView seasonPoster;
         TextView seasonName;
         TextView numEpisodes;
+        MaterialCheckBox watchedCheck;
+
         int id;
 
         ViewHolder(@NonNull View itemView) {
@@ -68,9 +73,9 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
             seasonPoster = itemView.findViewById(R.id.image_season);
             seasonName = itemView.findViewById(R.id.season_name);
             numEpisodes = itemView.findViewById(R.id.episode_number);
+            watchedCheck = itemView.findViewById(R.id.checkbox_watched);
 
             itemView.setOnClickListener(v -> {
-                int pos = getAdapterPosition();
                 Bundle bundle = new Bundle();
                 bundle.putInt(ID_SEASON, id);
                 Navigation.findNavController(v).navigate(R.id.action_series_to_episodes, bundle);
@@ -82,13 +87,19 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
             return new SeasonAdapter.ViewHolder(view);
         }
 
-        void bindTo(Season season) {
+        void bindTo(Season season, SerieResponse.Serie serie) {
             if (season != null) {
                 id = season.seasonNumber;
                 seasonName.setText(season.name);
                 String capis = mContext.getString(R.string.n_episodes, season.episodeCount);
                 numEpisodes.setText(capis);
                 Util.getImage(BASE_URL_IMAGES_POSTER + season.posterPath, seasonPoster, mContext);
+
+                if (serie.isFav) {
+                    watchedCheck.setVisibility(View.VISIBLE);
+                    watchedCheck.setChecked(season.visto);
+
+                }
             }
         }
     }

@@ -36,8 +36,7 @@ public class SerieSearchFragment extends Fragment {
     private RecyclerView rvSeries;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
         return inflater.inflate(R.layout.fragment_serie_search, container, false);
     }
