@@ -14,4 +14,5 @@
     <color name="black">#000000</color>
     <color name="tabUnselected">#c4ede5</color>
     <color name="splashScreenBg">#d1f2eb </color>
+    <color name="bgTotal">#fafafa</color>
 </resources>
