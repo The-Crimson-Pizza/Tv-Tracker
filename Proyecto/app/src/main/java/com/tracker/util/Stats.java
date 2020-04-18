@@ -14,7 +14,6 @@ public class Stats {
 
 //todo - arreglar splash
 //todo - memorias/presentación
-
-//    checkbox_watched
+//    todo - terminar el adapter de seasons y empezar el de episodios
 
 }

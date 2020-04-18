@@ -73,12 +73,12 @@ public class HomeFragment extends Fragment {
         FirebaseDb.getInstance().getSeriesFav().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mFavs.clear();
                 GenericTypeIndicator<List<SerieFav>> genericTypeIndicator = new GenericTypeIndicator<List<SerieFav>>() {
                 };
-                mFavs.clear();
-                List<SerieFav> mFaaavs = dataSnapshot.getValue(genericTypeIndicator);
-                if (mFaaavs != null) {
-                    for (SerieFav fav : mFaaavs) {
+                List<SerieFav> favTemp = dataSnapshot.getValue(genericTypeIndicator);
+                if (favTemp != null) {
+                    for (SerieFav fav : favTemp) {
                         mFavs.add(fav.toBasic());
                     }
                     adapterFav.notifyDataSetChanged();

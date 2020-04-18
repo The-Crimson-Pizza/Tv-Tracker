@@ -32,7 +32,8 @@ public class SerieFav implements Parcelable {
     public SerieFav() {
     }
 
-    public SerieFav(int id, String name, String status, String posterPath, List<Integer> episodeRunTime, int numberOfEpisodes, int numberOfSeasons, List<Season> seasons, float voteAverage) {
+    public SerieFav(int id, String name, String status, String posterPath, List<Integer> episodeRunTime,
+                    int numberOfEpisodes, int numberOfSeasons, List<Season> seasons, float voteAverage) {
         this.id = id;
         this.name = name;
         this.status = status;
@@ -66,7 +67,6 @@ public class SerieFav implements Parcelable {
         }
         return -1;
     }
-
 
     private SerieFav(Parcel in) {
         in.readList(this.seasons, (Season.class.getClassLoader()));

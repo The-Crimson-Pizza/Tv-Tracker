@@ -15,12 +15,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 import com.tracker.R;
 import com.tracker.adapters.SeasonAdapter;
+import com.tracker.data.FirebaseDb;
 import com.tracker.data.SeriesViewModel;
+import com.tracker.models.SerieFav;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE;
@@ -28,10 +35,10 @@ import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH
 public class SeasonFragment extends Fragment {
 
     private Context mContext;
-    private List<Season> mSeasonList;
-    private SeasonAdapter adapter;
+    private SeasonAdapter mSeasonAdapter;
     private RecyclerView rvSeasons;
     private SerieResponse.Serie mSerie;
+    private List<SerieFav> mFavs = new ArrayList<>();
 
     @Nullable
     @Override
@@ -54,16 +61,36 @@ public class SeasonFragment extends Fragment {
         rvSeasons.setSaveEnabled(true);
 
         LiveData<SerieResponse.Serie> s = model.getSerie();
-        s.observe(getViewLifecycleOwner(), serie -> {
-            if (serie.numberOfSeasons > 0) {
-                mSerie = serie;
-                adapter = new SeasonAdapter(mContext, mSerie);
-                rvSeasons.setAdapter(adapter);
-            } else {
-                adapter = new SeasonAdapter(mContext, null);
-                rvSeasons.setAdapter(adapter);
-                Snackbar.make(view, R.string.no_seasons, LENGTH_INDEFINITE).show();
+        s.observe(getViewLifecycleOwner(), serie -> setAdapters(view, serie));
+
+        FirebaseDb.getInstance().getSeriesFav().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                GenericTypeIndicator<List<SerieFav>> genericTypeIndicator = new GenericTypeIndicator<List<SerieFav>>() {
+                };
+                mFavs.clear();
+                List<SerieFav> favTemp = dataSnapshot.getValue(genericTypeIndicator);
+                if (favTemp != null) {
+                    mFavs.addAll(favTemp);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Nada de momento
             }
         });
+    }
+
+    private void setAdapters(@NonNull View view, SerieResponse.Serie serie) {
+        if (serie.numberOfSeasons > 0) {
+            mSerie = serie;
+            mSeasonAdapter = new SeasonAdapter(mContext, mSerie, mFavs);
+            rvSeasons.setAdapter(mSeasonAdapter);
+        } else {
+            mSeasonAdapter = new SeasonAdapter(mContext, null, mFavs);
+            rvSeasons.setAdapter(mSeasonAdapter);
+            Snackbar.make(view, R.string.no_seasons, LENGTH_INDEFINITE).show();
+        }
     }
 }

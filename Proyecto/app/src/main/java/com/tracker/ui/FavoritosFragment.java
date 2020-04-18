@@ -15,12 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.tracker.R;
 import com.tracker.adapters.FavoritesAdapter;
-import com.tracker.adapters.HomeAdapter;
 import com.tracker.data.FirebaseDb;
 import com.tracker.models.SerieFav;
 
@@ -56,9 +54,9 @@ public class FavoritosFragment extends Fragment {
         FirebaseDb.getInstance().getSeriesFav().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mFavs.clear();
                 GenericTypeIndicator<List<SerieFav>> genericTypeIndicator = new GenericTypeIndicator<List<SerieFav>>() {
                 };
-                mFavs.clear();
                 List<SerieFav> favTemp = dataSnapshot.getValue(genericTypeIndicator);
                 if (favTemp != null) {
                     mFavs.addAll(favTemp);

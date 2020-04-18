@@ -34,9 +34,6 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
         this.mEpisodes = episodes;
         this.mContext = mContext;
         this.mRuntime = runtime;
-//        if(mEpisodes !=null){
-//            new Util().ordenarTemporadas(mEpisodes);
-//        }
     }
 
     @NonNull
@@ -98,8 +95,9 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
 
         private String getMinutos(int minutes) {
             return String.format(Locale.getDefault(), "%d:%02d", minutes, 0);
-
         }
+
+
 
 
     }
