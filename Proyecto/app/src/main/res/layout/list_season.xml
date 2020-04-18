@@ -27,7 +27,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -56,6 +56,21 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="7pt"
                 android:textStyle="bold" />
+
+
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_margin="15dp">
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/checkbox_watched"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimary"
+                />
+
         </LinearLayout>
     </LinearLayout>
 
