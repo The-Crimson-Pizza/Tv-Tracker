@@ -64,15 +64,8 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
         if (isMovie) {
             holder.name.setText(mMovies.get(position).title);
             holder.character.setText(mMovies.get(position).character);
-            /*if (mMovies.get(position).releaseDate != null) {
-                holder.fecha.setText(mMovies.get(position).releaseDate.split("-")[0]);
-            } else {
-                holder.fecha.setText("");
-            }*/
-
             Util.getImage(BASE_URL_IMAGES_POSTER + mMovies.get(position).posterPath, holder.image, mContext);
             holder.rating.setText(String.valueOf(mMovies.get(position).voteAverage));
-
             holder.itemView.setOnClickListener(v -> Snackbar.make(v, R.string.not_implemented, Snackbar.LENGTH_LONG)
                     .setAction(R.string.open_web, new View.OnClickListener() {
                         @Override
@@ -83,11 +76,6 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
         } else {
             holder.name.setText(mSeries.get(position).name);
             holder.character.setText(mSeries.get(position).character);
-            /*if (mSeries.get(position).firstAirDate != null) {
-                holder.fecha.setText(mSeries.get(position).firstAirDate.split("-")[0]);
-            } else {
-                holder.fecha.setText("");
-            }*/
             Util.getImage(BASE_URL_IMAGES_POSTER + mSeries.get(position).posterPath, holder.image, mContext);
             holder.rating.setText(String.valueOf(mSeries.get(position).voteAverage));
 
@@ -118,7 +106,6 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
         TextView name;
         TextView character;
         TextView rating;
-        //TextView fecha;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -126,7 +113,6 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
             name = itemView.findViewById(R.id.title);
             character = itemView.findViewById(R.id.name_character);
             rating = itemView.findViewById(R.id.valoration);
-            //fecha = itemView.findViewById(R.id.fecha);
         }
     }
 

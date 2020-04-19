@@ -71,6 +71,7 @@ public class SeasonFragment extends Fragment {
                 if (favTemp != null) {
                     mFavs.addAll(favTemp);
                     if (mSerie != null) {
+                        mSerie.checkFav(mFavs);
                         mSeasonAdapter = new SeasonAdapter(mContext, mSerie, mFavs);
                         rvSeasons.setAdapter(mSeasonAdapter);
                     }
