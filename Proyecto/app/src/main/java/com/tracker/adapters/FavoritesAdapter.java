@@ -104,11 +104,11 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                 if (expandableView.getVisibility()==View.GONE){
                     TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
                     expandableView.setVisibility(View.VISIBLE);
-                    arrowBtn.setBackgroundResource(R.drawable.sort_added);
+                    arrowBtn.setBackgroundResource(R.drawable.arrow_collapse);
                 } else {
                     TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
                     expandableView.setVisibility(View.GONE);
-                    arrowBtn.setBackgroundResource(R.drawable.sort_recently);
+                    arrowBtn.setBackgroundResource(R.drawable.arrow_expand);
                 }
             });
 

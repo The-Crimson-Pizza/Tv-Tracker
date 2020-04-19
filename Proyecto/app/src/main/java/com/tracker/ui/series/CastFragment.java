@@ -58,7 +58,7 @@ public class CastFragment extends Fragment {
             } else {
                 adapterActor = new ActorBasicAdapter(mContext, null);
                 rvCasting.setAdapter(adapterActor);
-                Snackbar.make(view, R.string.no_cast, LENGTH_SHORT).show();
+                //Snackbar.make(view, R.string.no_cast, LENGTH_SHORT).show();
             }
         });
     }
