@@ -48,8 +48,6 @@ public class FavoritosFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
         favAdapter = new FavoritesAdapter(getActivity(), mFavs);
         rvFavs = view.findViewById(R.id.grid_favoritas);
 
