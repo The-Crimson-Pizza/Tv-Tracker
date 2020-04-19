@@ -121,14 +121,14 @@
                             <TextView
                                 android:id="@+id/next_episode_2"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginBottom="15dp"
+
                                 android:ellipsize="marquee"
                                 android:maxLines="2"
-
+                                android:text="Hola muchacho esto es un epidodios super latrgo vales jajajajaj es lo qb e tienene"
                                 android:textColor="@color/colorAccent"
-                                android:textSize="5.5pt" />
+                                android:textSize="6pt" />
                         </LinearLayout>
 
 
@@ -154,7 +154,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/expandableView"
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
