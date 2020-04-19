@@ -64,11 +64,11 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
         if (isMovie) {
             holder.name.setText(mMovies.get(position).title);
             holder.character.setText(mMovies.get(position).character);
-            if (mMovies.get(position).releaseDate != null) {
+            /*if (mMovies.get(position).releaseDate != null) {
                 holder.fecha.setText(mMovies.get(position).releaseDate.split("-")[0]);
             } else {
                 holder.fecha.setText("");
-            }
+            }*/
 
             Util.getImage(BASE_URL_IMAGES_POSTER + mMovies.get(position).posterPath, holder.image, mContext);
 
@@ -82,11 +82,11 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
         } else {
             holder.name.setText(mSeries.get(position).name);
             holder.character.setText(mSeries.get(position).character);
-            if (mSeries.get(position).firstAirDate != null) {
+            /*if (mSeries.get(position).firstAirDate != null) {
                 holder.fecha.setText(mSeries.get(position).firstAirDate.split("-")[0]);
             } else {
                 holder.fecha.setText("");
-            }
+            }*/
             Util.getImage(BASE_URL_IMAGES_POSTER + mSeries.get(position).posterPath, holder.image, mContext);
 
             holder.itemView.setOnClickListener(v -> {
@@ -115,14 +115,14 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
         ImageView image;
         TextView name;
         TextView character;
-        TextView fecha;
+        //TextView fecha;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.posters);
             name = itemView.findViewById(R.id.title);
             character = itemView.findViewById(R.id.name_character);
-            fecha = itemView.findViewById(R.id.fecha);
+            //fecha = itemView.findViewById(R.id.fecha);
         }
     }
 

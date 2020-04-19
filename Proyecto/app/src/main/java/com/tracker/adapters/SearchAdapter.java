@@ -102,7 +102,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
         static ViewHolder create(ViewGroup parent, boolean serie) {
             isSerie = serie;
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_basic, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_basic_search, parent, false);
             return new ViewHolder(view);
         }
 
@@ -111,7 +111,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 id = serie.id;
                 name.setText(serie.name);
                 Util.getImage(BASE_URL_IMAGES_POSTER + serie.posterPath, image, mContext);
-                rating.setText(String.valueOf(serie.voteAverage));
+                //rating.setText(String.valueOf(serie.voteAverage));
             }
         }
 
@@ -120,7 +120,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 id = person.id;
                 name.setText(person.name);
                 Util.getImagePortrait(BASE_URL_IMAGES_POSTER + person.profilePath, image, mContext);
-                rating.setVisibility(View.GONE);
+                //rating.setVisibility(View.GONE);
             }
         }
     }
