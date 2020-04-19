@@ -34,7 +34,7 @@
                     android:layout_height="32dp"
                     android:scaleType="fitCenter"
                     android:layout_gravity="center"
-                    android:src="@drawable/sort_added"
+                    android:src="@drawable/sort_recently"
                     android:tooltipText="Recently added"
                     android:background="@color/bgTotal"
                     android:layout_marginEnd="15dp"
@@ -67,7 +67,7 @@
                 android:layout_height="32dp"
                 android:layout_gravity="end"
                 android:scaleType="fitCenter"
-                android:tooltipText="Last seen"
+                android:tooltipText="Last watched"
                 android:src="@drawable/sort_watched"
                 android:background="@color/bgTotal"
                 android:layout_marginEnd="15dp"/>

@@ -23,6 +23,7 @@
     <string name="valoration_example" translatable="false">9.0</string>
     <string name="checked">Following</string>
     <string name="tv_search">TV Search</string>
+    <string name="search_info_desc">Find your favourite TV shows \n and people</string>
     <string name="my_profile">My Profile</string>
     <string name="favourites">Following</string>
     <string name="search">Search</string>
@@ -46,7 +47,10 @@
     <string name="peliculas">Movies</string>
     <string name="years">years</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="people">Actors</string>
+    <string name="people">People</string>
+    <string name="last_watched">Last watched</string>
+    <string name="name">Name</string>
+    <string name="recently_added">Recently added</string>
     <string name="favorites">Favorite Series</string>
     <string name="no_data">No data</string>
     <string name="no_cast">No data of cast</string>

@@ -14,7 +14,7 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/search_48"
+            android:src="@drawable/search_icon_96"
             android:layout_gravity="center_horizontal"/>
         <TextView
             android:layout_width="wrap_content"

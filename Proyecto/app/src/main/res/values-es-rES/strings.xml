@@ -12,6 +12,7 @@
     <string name="redes_sociales">Redes Sociales</string>
     <string name="menu_slideshow">Diapositiva</string>
     <string name="series_favoritas">Series Favoritas</string>
+    <string name="search_info_desc">Encuentra tus series favoritas \n o tus actores y actrices favoritos</string>
     <string name="series_populares">Series Populares</string>
     <string name="series_nuevas">Series Nuevas</string>
     <string name="no_conn">Sin Conexión</string>
@@ -46,4 +47,7 @@
     <string name="add_fav">Añadido a lista de seguimiento</string>
     <string name="already_fav">Ya estás siguiendo esta serie</string>
     <string name="delete_fav">Dejar de seguir esta serie</string>
+    <string name="last_watched">Último visto</string>
+    <string name="name">Nombre</string>
+    <string name="recently_added">Añadidos recientemente</string>
 </resources>
