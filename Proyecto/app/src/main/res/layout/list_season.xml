@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/listSeason"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:id="@+id/listSeason"
     android:padding="10dp">
 
     <androidx.cardview.widget.CardView
@@ -18,7 +18,7 @@
             android:id="@+id/image_season"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop" />
 
     </androidx.cardview.widget.CardView>
 
@@ -58,21 +58,21 @@
                 android:textStyle="bold" />
 
 
-    </LinearLayout>
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:layout_margin="15dp">
+            android:layout_margin="15dp"
+            android:gravity="end">
+
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/checkbox_watched"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/colorPrimary"
-                />
+                android:visibility="gone" />
 
         </LinearLayout>
     </LinearLayout>
-
-
 </LinearLayout>

@@ -58,5 +58,8 @@
     <string name="already_fav">Already following</string>
     <string name="delete_fav">Delete from list</string>
     <string name="borrado_correcto">Deleted</string>
-    <string name="num_vistos">%1$d/%2$d</string>
+    <string name="num_vistos" translatable="false">%1$d/%2$d</string>
+    <string name="next_episode">"Next episode: "</string>
+    <string name="just_watch">You just watched every episode!</string>
+    <string name="empty" translatable="false" />
 </resources>

@@ -2,7 +2,6 @@ package com.tracker.ui.series;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,25 +21,23 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.tracker.R;
 import com.tracker.adapters.FillSerie;
 import com.tracker.adapters.TabLayoutAdapter;
+import com.tracker.data.FirebaseDb;
 import com.tracker.data.RepositoryAPI;
 import com.tracker.data.RxBus;
 import com.tracker.data.SeriesViewModel;
 import com.tracker.models.SerieFav;
 import com.tracker.models.serie.SerieResponse;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
 import static com.tracker.util.Constants.ID_SERIE;
 
 public class SerieFragment extends Fragment {
@@ -49,9 +46,8 @@ public class SerieFragment extends Fragment {
     private Context mContext;
     private boolean isFav = false;
     private SeriesViewModel seriesViewModel;
-    private DatabaseReference databaseRef;
     private SerieResponse.Serie mSerie;
-    private List<SerieFav> mFavs;
+    private List<SerieFav> mFavs = new ArrayList<>();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,13 +82,15 @@ public class SerieFragment extends Fragment {
             }
         });
 
-        databaseRef = FirebaseDatabase.getInstance().getReference();
-        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDb.getInstance().getSeriesFav().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 GenericTypeIndicator<List<SerieFav>> genericTypeIndicator = new GenericTypeIndicator<List<SerieFav>>() {
                 };
-                mFavs = dataSnapshot.getValue(genericTypeIndicator);
+                mFavs.clear();
+                if (dataSnapshot.getValue(genericTypeIndicator) != null) {
+                    mFavs.addAll(dataSnapshot.getValue(genericTypeIndicator));
+                }
                 getSerie(view);
             }
 
@@ -108,9 +106,11 @@ public class SerieFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(serie -> {
                     mSerie = serie;
-                    isFav = SerieFav.checkFav(mSerie, mFavs);
-                    if (isFav) {
-                        mSerie.isFav = true;
+                    if (mFavs != null) {
+                        isFav = SerieFav.checkFav(mSerie, mFavs);
+                        if (isFav) {
+                            mSerie.isFav = true;
+                        }
                     }
                     RxBus.getInstance().publish(mSerie);
                     seriesViewModel.setSerie(mSerie);
@@ -125,7 +125,7 @@ public class SerieFragment extends Fragment {
                 .subscribe(lista -> {
                     s.seasons = lista;
                     mFavs.add(s);
-                    databaseRef.setValue(mFavs);
+                    FirebaseDb.getInstance().setSeriesFav(mFavs);
                 });
 
         mSerie.isFav = true;
@@ -138,7 +138,7 @@ public class SerieFragment extends Fragment {
         if (pos != -1) {
             SerieFav serieDeleted = mFavs.get(pos);
             mFavs.remove(serieDeleted);
-            databaseRef.setValue(mFavs);
+            FirebaseDb.getInstance().setSeriesFav(mFavs);
             Toast.makeText(getActivity(), R.string.borrado_correcto, Toast.LENGTH_SHORT).show();
             mSerie.isFav = false;
             RxBus.getInstance().publish(mSerie);

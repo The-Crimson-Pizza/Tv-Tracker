@@ -78,8 +78,12 @@ public class EpisodesFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(season -> {
                     mEpisodes = season.episodes;
-                    if (mEpisodes.size() > 0) {
-                        adapter = new EpisodeAdapter(mContext, mEpisodes, mSerie.episodeRunTime.get(0));
+                    if (!mEpisodes.isEmpty()) {
+                        int runtime = 0;
+                        if (!mSerie.episodeRunTime.isEmpty()) {
+                            runtime = mSerie.episodeRunTime.get(0);
+                        }
+                        adapter = new EpisodeAdapter(mContext, mEpisodes, runtime);
                         rvEpisodes.setAdapter(adapter);
                     } else {
                         adapter = new EpisodeAdapter(mContext, null, mSerie.episodeRunTime.get(0));

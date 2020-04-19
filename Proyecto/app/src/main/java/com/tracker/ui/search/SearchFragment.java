@@ -23,22 +23,15 @@ public class SearchFragment extends Fragment {
     private SeriesViewModel searchViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_search, container, false);
         searchViewModel = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
-        return root;
+        return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ViewPager2 viewPager = view.findViewById(R.id.view_pager);
-        viewPager.setAdapter(new TabLayoutAdapter(this, true));
-        String[] tabs = {getString(R.string.series), getString(R.string.people)};
-        TabLayout tabLayout = view.findViewById(R.id.tabs);
-        new TabLayoutMediator(tabLayout, viewPager,
-                (tab, position) -> tab.setText(tabs[position])
-        ).attach();
+        setViewPager(view);
 
         SearchView search = view.findViewById(R.id.searchView);
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -47,7 +40,7 @@ public class SearchFragment extends Fragment {
                 if (query.length() > 0) {
                     searchViewModel.setQuery(query);
                 } else {
-                    searchViewModel.setQuery("");
+                    searchViewModel.setQuery(getString(R.string.empty));
                 }
                 return false;
             }
@@ -57,11 +50,21 @@ public class SearchFragment extends Fragment {
                 if (query.length() > 0) {
                     searchViewModel.setQuery(query);
                 } else {
-                    searchViewModel.setQuery("");
+                    searchViewModel.setQuery(getString(R.string.empty));
                 }
                 return true;
             }
         });
 
+    }
+
+    private void setViewPager(@NonNull View view) {
+        ViewPager2 viewPager = view.findViewById(R.id.view_pager);
+        viewPager.setAdapter(new TabLayoutAdapter(this, true));
+        String[] tabs = {getString(R.string.series), getString(R.string.people)};
+        TabLayout tabLayout = view.findViewById(R.id.tabs);
+        new TabLayoutMediator(tabLayout, viewPager,
+                (tab, position) -> tab.setText(tabs[position])
+        ).attach();
     }
 }

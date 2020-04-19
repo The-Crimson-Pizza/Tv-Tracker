@@ -8,7 +8,7 @@
     android:theme="@style/AppTheme2"
     tools:context=".ui.search.SearchFragment">
 
-    <include layout="@layout/main_title"/>
+    <include layout="@layout/main_title" />
 
     <SearchView
         android:id="@+id/searchView"

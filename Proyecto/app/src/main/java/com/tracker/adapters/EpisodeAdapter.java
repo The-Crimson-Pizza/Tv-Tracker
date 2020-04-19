@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.tracker.R;
 import com.tracker.models.seasons.Episode;
 import com.tracker.util.Util;
@@ -33,9 +34,6 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
         this.mEpisodes = episodes;
         this.mContext = mContext;
         this.mRuntime = runtime;
-//        if(mEpisodes !=null){
-//            new Util().ordenarTemporadas(mEpisodes);
-//        }
     }
 
     @NonNull
@@ -65,6 +63,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
         TextView episodeDate;
         TextView episodeOverview;
         TextView episodeTime;
+        MaterialCheckBox watchedCheck;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +72,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
             episodeDate = itemView.findViewById(R.id.episode_fecha);
             episodeOverview = itemView.findViewById(R.id.episode_sinopsis);
             episodeTime = itemView.findViewById(R.id.episode_time);
+            watchedCheck = itemView.findViewById(R.id.checkbox_watched);
         }
 
         static EpisodeAdapter.ViewHolder create(ViewGroup parent) {
@@ -87,13 +87,17 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
                 episodeOverview.setText(episode.overview);
                 episodeTime.setText(getMinutos(runtime));
                 Util.getImage(BASE_URL_IMAGES_POSTER + episode.stillPath, episodeBackdrop, mContext);
+
+
+                watchedCheck.setChecked(episode.visto);
             }
         }
 
         private String getMinutos(int minutes) {
             return String.format(Locale.getDefault(), "%d:%02d", minutes, 0);
-
         }
+
+
 
 
     }

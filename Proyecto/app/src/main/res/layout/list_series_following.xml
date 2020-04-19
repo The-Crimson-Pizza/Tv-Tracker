@@ -30,9 +30,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="15dp"
         android:orientation="vertical"
-        android:paddingTop="5dp"
-        android:paddingEnd="5dp"
-        android:paddingBottom="5dp">
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/serie_name"
@@ -40,7 +38,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="2.5dp"
             android:maxLines="2"
-            android:text="Nombre de serie"
             android:textAllCaps="true"
             android:textColor="@color/colorPrimary"
             android:textSize="10pt"
@@ -59,7 +56,6 @@
                 android:layout_gravity="center_vertical"
                 android:ellipsize="marquee"
                 android:maxLines="2"
-                android:text="En emisión"
                 android:textColor="@color/colorAccent"
                 android:textSize="7pt"
                 android:textStyle="bold" />
@@ -103,7 +99,7 @@
                 android:layout_marginBottom="2.5dp"
                 android:ellipsize="marquee"
                 android:maxLines="2"
-                android:text="Next episode: "
+                android:text="@string/next_episode"
                 android:textColor="@color/colorAccent"
                 android:textSize="6.5pt"
                 android:textStyle="bold" />
@@ -119,6 +115,4 @@
                 android:textSize="7.5pt" />
         </LinearLayout>
     </LinearLayout>
-
-
 </LinearLayout>

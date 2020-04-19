@@ -55,14 +55,12 @@ public class SerieResponse {
         public Similar similar;
         @SerializedName("external_ids")
         public ExternalIds externalIds;
+
         public boolean isFav = false;
 
         public VideosResponse.Video video;
         public List<Season> seasons;
 
-        public boolean isFav() {
-            return isFav;
-        }
 
         public SerieFav convertSerieToFav() {
             return new SerieFav(this.id, this.name, this.status,

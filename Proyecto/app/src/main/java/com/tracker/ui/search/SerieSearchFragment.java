@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,15 +30,13 @@ import io.reactivex.rxjava3.disposables.Disposable;
 
 public class SerieSearchFragment extends Fragment {
 
-    private SeriesViewModel model;
     private List<SerieResponse.Serie> mListaSeries = new ArrayList<>();
     private SearchAdapter searchAdapter;
     private Context mContext;
     private RecyclerView rvSeries;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
         return inflater.inflate(R.layout.fragment_serie_search, container, false);
     }
@@ -46,18 +45,33 @@ public class SerieSearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
-
+        ViewSwitcher switcherSerie = view.findViewById(R.id.switcherSearchSerie);
+        SeriesViewModel searchViewModel = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
+        searchAdapter = new SearchAdapter(mContext, mListaSeries, null, true);
         rvSeries = view.findViewById(R.id.rvSeries);
+
+        setRecycler();
+
+        searchViewModel.setQuery(getString(R.string.empty));
+        LiveData<String> queryResult = searchViewModel.getQuery();
+        queryResult.observe(getViewLifecycleOwner(), query -> {
+            if (query.isEmpty()) {
+                if (R.id.search_image == switcherSerie.getNextView().getId())
+                    switcherSerie.showNext();
+            } else {
+                if (R.id.rvSeries == switcherSerie.getNextView().getId())
+                    switcherSerie.showNext();
+                getResults(query);
+            }
+        });
+    }
+
+    private void setRecycler() {
         rvSeries.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         rvSeries.setHasFixedSize(true);
         rvSeries.setItemViewCacheSize(20);
         rvSeries.setSaveEnabled(true);
-        searchAdapter = new SearchAdapter(mContext, mListaSeries, null, true);
         rvSeries.setAdapter(searchAdapter);
-
-        LiveData<String> query = model.getQuery();
-        query.observe(getViewLifecycleOwner(), this::getResults);
     }
 
     private void getResults(String query) {
@@ -67,6 +81,7 @@ public class SerieSearchFragment extends Fragment {
                     @Override
                     public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
                         mListaSeries.clear();
+                        searchAdapter.notifyDataSetChanged();
                     }
 
                     @Override

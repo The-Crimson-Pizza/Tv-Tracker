@@ -43,13 +43,9 @@ public class FillSerie {
 
     public void fillOverview() {
         if (mSerie != null) {
-
             LinearLayout check = mView.findViewById(R.id.seguimiento);
-            if (mSerie.isFav()) {
-                check.setVisibility(View.VISIBLE);
-            }else{
-                check.setVisibility(View.GONE);
-            }
+            if (mSerie.isFav) check.setVisibility(View.VISIBLE);
+            else check.setVisibility(View.GONE);
 
             ReadMoreTextView overview = mView.findViewById(R.id.sinopsis_text);
             overview.setText(mSerie.overview);
@@ -81,11 +77,8 @@ public class FillSerie {
 
         airDate.setText(Util.getFecha(mSerie.firstAirDate, FORMAT_YEAR));
 
-        if (!mSerie.originCountry.isEmpty()) {
-            country.setText(mSerie.originCountry.get(0));
-        } else {
-            country.setText(mContext.getString(R.string.no_data));
-        }
+        if (!mSerie.originCountry.isEmpty()) country.setText(mSerie.originCountry.get(0));
+        else country.setText(mContext.getString(R.string.no_data));
 
         status.setText(mSerie.status);
         collapseToolbar.setTitle(mSerie.name);
@@ -104,7 +97,9 @@ public class FillSerie {
                 else cont++;
             }
         } else {
-            //todo - viewswitcher
+            ViewSwitcher switcherNetworks = mView.findViewById(R.id.switcher_networks);
+            if (R.id.networks == switcherNetworks.getNextView().getId() || R.id.nodatanetworks == switcherNetworks.getNextView().getId())
+                switcherNetworks.showNext();
         }
     }
 
@@ -121,13 +116,9 @@ public class FillSerie {
                 else cont++;
             }
         } else {
-            ViewSwitcher switcherSeries = mView.findViewById(R.id.switcher_genres);
-
-            if (R.id.generos == switcherSeries.getNextView().getId()) {
-                switcherSeries.showNext();
-            } else if (R.id.nodatagenres == switcherSeries.getNextView().getId()) {
-                switcherSeries.showNext();
-            }
+            ViewSwitcher switcherGenres = mView.findViewById(R.id.switcher_genres);
+            if (R.id.generos == switcherGenres.getNextView().getId() || R.id.nodatagenres == switcherGenres.getNextView().getId())
+                switcherGenres.showNext();
         }
     }
 

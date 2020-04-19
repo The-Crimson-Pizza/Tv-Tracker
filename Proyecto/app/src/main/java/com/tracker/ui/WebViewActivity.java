@@ -1,10 +1,11 @@
 package com.tracker.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.tracker.R;
 
@@ -18,10 +19,9 @@ public class WebViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_web_view);
 
         Intent intent = getIntent();
-
         String url = intent.getStringExtra(URL_WEBVIEW);
 
-        android.webkit.WebView mWebView = findViewById(R.id.webviewtransporte);
+        WebView mWebView = findViewById(R.id.webviewtransporte);
 
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.getSettings().setUserAgentString("Android");
@@ -29,7 +29,5 @@ public class WebViewActivity extends AppCompatActivity {
         mWebView.getSettings().setAppCacheEnabled(true);
 
         mWebView.loadUrl(url);
-
-//        TODO - VER OTRAS OPCIONES QUE AÑADIR AL WEBVIEW
     }
 }
