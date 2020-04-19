@@ -32,6 +32,8 @@ public class MovieCredits implements Serializable {
         @SerializedName("release_date")
         @Expose
         public String releaseDate;
+        @SerializedName("vote_average")
+        public float voteAverage;
 
 
         public Cast() {

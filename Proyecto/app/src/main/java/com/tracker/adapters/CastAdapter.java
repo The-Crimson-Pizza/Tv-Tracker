@@ -71,6 +71,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
             }*/
 
             Util.getImage(BASE_URL_IMAGES_POSTER + mMovies.get(position).posterPath, holder.image, mContext);
+            holder.rating.setText(String.valueOf(mMovies.get(position).voteAverage));
 
             holder.itemView.setOnClickListener(v -> Snackbar.make(v, R.string.not_implemented, Snackbar.LENGTH_LONG)
                     .setAction(R.string.open_web, new View.OnClickListener() {
@@ -88,6 +89,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
                 holder.fecha.setText("");
             }*/
             Util.getImage(BASE_URL_IMAGES_POSTER + mSeries.get(position).posterPath, holder.image, mContext);
+            holder.rating.setText(String.valueOf(mSeries.get(position).voteAverage));
 
             holder.itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
@@ -115,6 +117,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
         ImageView image;
         TextView name;
         TextView character;
+        TextView rating;
         //TextView fecha;
 
         ViewHolder(@NonNull View itemView) {
@@ -122,6 +125,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
             image = itemView.findViewById(R.id.posters);
             name = itemView.findViewById(R.id.title);
             character = itemView.findViewById(R.id.name_character);
+            rating = itemView.findViewById(R.id.valoration);
             //fecha = itemView.findViewById(R.id.fecha);
         }
     }

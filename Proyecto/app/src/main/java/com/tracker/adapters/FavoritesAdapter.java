@@ -150,7 +150,6 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                 for (Episode e : s.episodes) {
                     if (!e.visto) {
                         return e.overview;
-//                        return String.format(Locale.getDefault(), "%02dx%02d - %s", e.seasonNumber, e.episodeNumber, e.name);
                     }
                 }
             }

@@ -34,6 +34,8 @@ public class TvCredits implements Serializable {
         public String posterPath;
         @SerializedName("first_air_date")
         public String firstAirDate;
+        @SerializedName("vote_average")
+        public float voteAverage;
 
 
 
