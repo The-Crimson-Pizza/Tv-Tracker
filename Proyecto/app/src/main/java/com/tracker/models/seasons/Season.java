@@ -1,15 +1,17 @@
 
 package com.tracker.models.seasons;
 
-import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Season implements Parcelable
-{
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
+public class Season implements Serializable {
 
     public int id;
     @SerializedName("air_date")
@@ -24,50 +26,25 @@ public class Season implements Parcelable
     @SerializedName("episode_count")
     public int episodeCount;
 
-    public boolean visto;
+    public boolean visto = false;
+    public Date watchedDate;
 
-    public final static Creator<Season> CREATOR = new Creator<Season>() {
-
-
-        @SuppressWarnings({
-            "unchecked"
-        })
-        public Season createFromParcel(Parcel in) {
-            return new Season(in);
-        }
-
-        public Season[] newArray(int size) {
-            return (new Season[size]);
-        }
-
-    }
-    ;
-
-    protected Season(Parcel in) {
-        this.airDate = ((String) in.readValue((String.class.getClassLoader())));
-        in.readList(this.episodes, (com.tracker.models.seasons.Episode.class.getClassLoader()));
-        this.name = ((String) in.readValue((String.class.getClassLoader())));
-        this.overview = ((String) in.readValue((String.class.getClassLoader())));
-        this.id = ((int) in.readValue((int.class.getClassLoader())));
-        this.posterPath = ((String) in.readValue((String.class.getClassLoader())));
-        this.seasonNumber = ((int) in.readValue((int.class.getClassLoader())));
-    }
 
     public Season() {
     }
 
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(airDate);
-        dest.writeList(episodes);
-        dest.writeValue(name);
-        dest.writeValue(overview);
-        dest.writeValue(id);
-        dest.writeValue(posterPath);
-        dest.writeValue(seasonNumber);
-    }
-
-    public int describeContents() {
-        return  0;
+    public static void sortSeason(List<Season> seasons) {
+        Collections.sort(seasons, (season1, season2) -> {
+            String numSeason1 = String.valueOf(season1.seasonNumber);
+            String numSeason2 = String.valueOf(season2.seasonNumber);
+            if (numSeason1 != null && numSeason2 != null) {
+                return numSeason1.compareTo(numSeason2);
+            } else {
+                String fecha1 = season1.airDate;
+                String fecha2 = season2.airDate;
+                return fecha1.compareTo(fecha2);
+            }
+        });
     }
 
 }

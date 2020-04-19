@@ -30,7 +30,7 @@ import com.tracker.data.FirebaseDb;
 import com.tracker.data.RepositoryAPI;
 import com.tracker.data.RxBus;
 import com.tracker.data.SeriesViewModel;
-import com.tracker.models.SerieFav;
+import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
 
 import java.util.ArrayList;
@@ -44,10 +44,9 @@ public class SerieFragment extends Fragment {
 
     private int idSerie;
     private Context mContext;
-    private boolean isFav = false;
     private SeriesViewModel seriesViewModel;
     private SerieResponse.Serie mSerie;
-    private List<SerieFav> mFavs = new ArrayList<>();
+    private List<SerieResponse.Serie> mFavs = new ArrayList<>();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +72,7 @@ public class SerieFragment extends Fragment {
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(viewFab -> {
-            if (!isFav) {
+            if (!mSerie.fav) {
                 addFav();
                 Snackbar.make(viewFab, R.string.add_fav, Snackbar.LENGTH_LONG).show();
             } else {
@@ -85,18 +84,22 @@ public class SerieFragment extends Fragment {
         FirebaseDb.getInstance().getSeriesFav().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                GenericTypeIndicator<List<SerieFav>> genericTypeIndicator = new GenericTypeIndicator<List<SerieFav>>() {
+                GenericTypeIndicator<List<SerieResponse.Serie>> genericTypeIndicator = new GenericTypeIndicator<List<SerieResponse.Serie>>() {
                 };
                 mFavs.clear();
                 if (dataSnapshot.getValue(genericTypeIndicator) != null) {
                     mFavs.addAll(dataSnapshot.getValue(genericTypeIndicator));
                 }
-                getSerie(view);
+                if (mSerie == null) {
+                    getSerie(view);
+                } else {
+                    setProgress(mSerie, view);
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+//                nada de momento
             }
         });
     }
@@ -106,43 +109,44 @@ public class SerieFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(serie -> {
                     mSerie = serie;
-                    if (mFavs != null) {
-                        isFav = SerieFav.checkFav(mSerie, mFavs);
-                        if (isFav) {
-                            mSerie.isFav = true;
-                        }
-                    }
-                    RxBus.getInstance().publish(mSerie);
-                    seriesViewModel.setSerie(mSerie);
-                    new FillSerie(view, mSerie, mContext).fillCollapseBar();
+                    getSeasons(mSerie, view);
                 });
     }
 
-    private void addFav() {
-        SerieFav s = mSerie.convertSerieToFav();
-        RepositoryAPI.getInstance().getSeasons(s.id, s.seasons.get(0).seasonNumber, s.numberOfSeasons)
+    private void getSeasons(SerieResponse.Serie s, View view) {
+        RepositoryAPI.getInstance().getSeasons(s.id, 1, s.numberOfSeasons)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(lista -> {
                     s.seasons = lista;
-                    mFavs.add(s);
-                    FirebaseDb.getInstance().setSeriesFav(mFavs);
+                    Season.sortSeason(s.seasons);
+                    setProgress(s, view);
                 });
+    }
 
-        mSerie.isFav = true;
+    private void setProgress(SerieResponse.Serie s, View view) {
+        if (mFavs != null) {
+            s.checkFav(mFavs);
+        }
+        RxBus.getInstance().publish(s);
+        seriesViewModel.setSerie(s);
+        new FillSerie(view, s, mContext).fillCollapseBar();
+    }
+
+    private void addFav() {
+        mSerie.fav = true;
+        mFavs.add(mSerie);
+        FirebaseDb.getInstance().setSeriesFav(mFavs);
         RxBus.getInstance().publish(mSerie);
-        isFav = true;
     }
 
     private void deleteFav() {
-        int pos = SerieFav.getPosition(mSerie, mFavs);
+        int pos = mSerie.getPosition(mFavs);
         if (pos != -1) {
-            SerieFav serieDeleted = mFavs.get(pos);
-            mFavs.remove(serieDeleted);
+            mFavs.remove(pos);
             FirebaseDb.getInstance().setSeriesFav(mFavs);
-            Toast.makeText(getActivity(), R.string.borrado_correcto, Toast.LENGTH_SHORT).show();
-            mSerie.isFav = false;
+            mSerie.fav = false;
             RxBus.getInstance().publish(mSerie);
-            isFav = false;
+            Toast.makeText(getActivity(), R.string.borrado_correcto, Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -128,7 +128,7 @@ title __APP's Class Diagram__\n
 
   namespace com.tracker {
     namespace models {
-      class com.tracker.models.VideosResponse {
+      class com.tracker.models.serie.VideosResponse {
       }
     }
   }

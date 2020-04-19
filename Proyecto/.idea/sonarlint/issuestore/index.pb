@@ -150,5 +150,15 @@ H
 app/google-services.json,f/d/fd8d34b142d02ec743a8efefefd2c097961666e9
 l
 <app/src/main/java/com/tracker/adapters/FavoritesAdapter.java,c/1/c1d81181e12aedad3006d33960d044572f41ab47
+_
+/app/src/main/java/com/tracker/SplashScreen.java,7/9/79ddc55e1c1bbe42c832291380e8f075ced85d30
+[
++app/src/main/res/layout/fragment_search.xml,2/f/2f0ecfae4fe398a722fcad4e3b06b75ba69c589a
 a
-1app/src/main/res/navigation/mobile_navigation.xml,5/0/50c7987ff387678f825775665976b5fc8ed47989
+1app/src/main/res/layout/fragment_serie_search.xml,7/5/75327b1a6c8b264de3cc5bae1baea150aa031ffb
+W
+'app/src/main/res/layout/list_season.xml,9/1/911055d31346cd0f554526213b9787ef6e2da4f0
+b
+2app/src/main/java/com/tracker/data/FirebaseDb.java,3/5/355c4410166ae4cb3813469f6d359bf2ec73cb88
+]
+-app/src/main/java/com/tracker/util/Stats.java,1/b/1be4fce51d10af7f9bc7e43fb13a5d6f833b9947

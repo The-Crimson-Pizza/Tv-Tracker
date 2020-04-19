@@ -50,4 +50,8 @@
     <string name="last_watched">Último visto</string>
     <string name="name">Nombre</string>
     <string name="recently_added">Añadidos recientemente</string>
+    <string name="tus_series_seguidas_aparecer_aqu">Tus series seguidas aparecerán aquí</string>
+    <string name="next_episode">"Siguiente capítulo: "</string>
+    <string name="just_watch">Ya has visto todos los capítulos</string>
+    <string name="borrado_correcto">Borrada</string>
 </resources>

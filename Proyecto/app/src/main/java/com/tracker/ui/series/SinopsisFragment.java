@@ -37,7 +37,6 @@ public class SinopsisFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         RxBus.getInstance().listen()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<SerieResponse.Serie>() {

@@ -36,7 +36,6 @@ public class EpisodesFragment extends Fragment {
     private Context mContext;
     private EpisodeAdapter adapter;
     private SerieResponse.Serie mSerie;
-    private List<Episode> mEpisodes;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,28 +67,21 @@ public class EpisodesFragment extends Fragment {
         LiveData<SerieResponse.Serie> serieLiveData = model.getSerie();
         serieLiveData.observe(getViewLifecycleOwner(), serie -> {
             mSerie = serie;
-            getEpisodes(view);
+            if (!mSerie.seasons.get(mNumTemporada).episodes.isEmpty()) {
+                int runtime = 0;
+                if (!mSerie.episodeRunTime.isEmpty()) {
+                    runtime = mSerie.episodeRunTime.get(0);
+                }
+                adapter = new EpisodeAdapter(mContext, mSerie.seasons.get(mNumTemporada).episodes, runtime);
+                rvEpisodes.setAdapter(adapter);
+            } else {
+                adapter = new EpisodeAdapter(mContext, null, mSerie.episodeRunTime.get(0));
+                rvEpisodes.setAdapter(adapter);
+                Snackbar.make(view, R.string.no_data, LENGTH_INDEFINITE).show();
+            }
+
+//            getEpisodes(view);
         });
 
-    }
-
-    private void getEpisodes(View view) {
-        RepositoryAPI.getInstance().getSeason(mSerie, mNumTemporada)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(season -> {
-                    mEpisodes = season.episodes;
-                    if (!mEpisodes.isEmpty()) {
-                        int runtime = 0;
-                        if (!mSerie.episodeRunTime.isEmpty()) {
-                            runtime = mSerie.episodeRunTime.get(0);
-                        }
-                        adapter = new EpisodeAdapter(mContext, mEpisodes, runtime);
-                        rvEpisodes.setAdapter(adapter);
-                    } else {
-                        adapter = new EpisodeAdapter(mContext, null, mSerie.episodeRunTime.get(0));
-                        rvEpisodes.setAdapter(adapter);
-                        Snackbar.make(view, R.string.no_data, LENGTH_INDEFINITE).show();
-                    }
-                });
     }
 }

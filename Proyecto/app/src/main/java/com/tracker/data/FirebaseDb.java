@@ -2,7 +2,7 @@ package com.tracker.data;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.tracker.models.SerieFav;
+import com.tracker.models.serie.SerieResponse;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class FirebaseDb {
         return mFavs;
     }
 
-    public void setSeriesFav(List<SerieFav> favs) {
+    public void setSeriesFav(List<SerieResponse.Serie> favs) {
         mFavs.setValue(favs);
     }
 

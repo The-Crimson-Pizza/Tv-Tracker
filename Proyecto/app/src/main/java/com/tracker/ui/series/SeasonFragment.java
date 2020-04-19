@@ -23,8 +23,6 @@ import com.tracker.R;
 import com.tracker.adapters.SeasonAdapter;
 import com.tracker.data.FirebaseDb;
 import com.tracker.data.SeriesViewModel;
-import com.tracker.models.SerieFav;
-import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
 
 import java.util.ArrayList;
@@ -38,7 +36,7 @@ public class SeasonFragment extends Fragment {
     private SeasonAdapter mSeasonAdapter;
     private RecyclerView rvSeasons;
     private SerieResponse.Serie mSerie;
-    private List<SerieFav> mFavs = new ArrayList<>();
+    private List<SerieResponse.Serie> mFavs = new ArrayList<>();
 
     @Nullable
     @Override
@@ -66,12 +64,16 @@ public class SeasonFragment extends Fragment {
         FirebaseDb.getInstance().getSeriesFav().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                GenericTypeIndicator<List<SerieFav>> genericTypeIndicator = new GenericTypeIndicator<List<SerieFav>>() {
+                GenericTypeIndicator<List<SerieResponse.Serie>> genericTypeIndicator = new GenericTypeIndicator<List<SerieResponse.Serie>>() {
                 };
                 mFavs.clear();
-                List<SerieFav> favTemp = dataSnapshot.getValue(genericTypeIndicator);
+                List<SerieResponse.Serie> favTemp = dataSnapshot.getValue(genericTypeIndicator);
                 if (favTemp != null) {
                     mFavs.addAll(favTemp);
+                    if (mSerie != null) {
+                        mSeasonAdapter = new SeasonAdapter(mContext, mSerie, mFavs);
+                        rvSeasons.setAdapter(mSeasonAdapter);
+                    }
                 }
             }
 

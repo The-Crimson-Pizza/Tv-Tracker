@@ -15,17 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.tracker.R;
-import com.tracker.adapters.FavoritesAdapter;
 import com.tracker.adapters.HomeAdapter;
 import com.tracker.data.FirebaseDb;
 import com.tracker.data.RepositoryAPI;
 import com.tracker.models.BasicResponse;
-import com.tracker.models.SerieFav;
+import com.tracker.models.serie.SerieResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,11 +71,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mFavs.clear();
-                GenericTypeIndicator<List<SerieFav>> genericTypeIndicator = new GenericTypeIndicator<List<SerieFav>>() {
+                GenericTypeIndicator<List<SerieResponse.Serie>> genericTypeIndicator = new GenericTypeIndicator<List<SerieResponse.Serie>>() {
                 };
-                List<SerieFav> favTemp = dataSnapshot.getValue(genericTypeIndicator);
+                List<SerieResponse.Serie> favTemp = dataSnapshot.getValue(genericTypeIndicator);
                 if (favTemp != null) {
-                    for (SerieFav fav : favTemp) {
+                    for (SerieResponse.Serie fav : favTemp) {
                         mFavs.add(fav.toBasic());
                     }
                     adapterFav.notifyDataSetChanged();

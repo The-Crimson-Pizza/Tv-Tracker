@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,13 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.tracker.R;
 import com.tracker.data.FirebaseDb;
-import com.tracker.models.SerieFav;
 import com.tracker.models.seasons.Episode;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
 import com.tracker.util.Util;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
@@ -32,16 +31,16 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
 
     private List<Season> mSeasons;
     private SerieResponse.Serie mSerie;
-    private List<SerieFav> mFavs;
+    private List<SerieResponse.Serie> mFavs;
     private static Context mContext;
 
-    public SeasonAdapter(Context mContext, SerieResponse.Serie serie, List<SerieFav> favs) {
+    public SeasonAdapter(Context mContext, SerieResponse.Serie serie, List<SerieResponse.Serie> favs) {
         this.mFavs = favs;
         this.mSerie = serie;
         this.mSeasons = serie.seasons;
         this.mContext = mContext;
         if (mSeasons != null) {
-            ViewHolder.sortSeason(mSeasons);
+            Season.sortSeason(mSeasons);
         }
     }
 
@@ -83,7 +82,7 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
 
             itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
-                bundle.putInt(ID_SEASON, id);
+                bundle.putInt(ID_SEASON, getAdapterPosition());
                 Navigation.findNavController(v).navigate(R.id.action_series_to_episodes, bundle);
             });
         }
@@ -93,57 +92,55 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
             return new SeasonAdapter.ViewHolder(view);
         }
 
-        void bindTo(Season season, SerieResponse.Serie serie, List<SerieFav> mFavs) {
+        void bindTo(Season season, SerieResponse.Serie serie, List<SerieResponse.Serie> mFavs) {
             if (season != null) {
-                id = season.seasonNumber;
-                seasonName.setText(season.name);
-                String capis = mContext.getString(R.string.n_episodes, season.episodeCount);
-                numEpisodes.setText(capis);
-                Util.getImage(BASE_URL_IMAGES_POSTER + season.posterPath, seasonPoster, mContext);
-
-                if (serie.isFav) {
+                if (serie.fav) {
                     watchedCheck.setVisibility(View.VISIBLE);
                     watchedCheck.setChecked(season.visto);
                     watchedCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
                         if (isChecked) {
-                            addSeen(season, serie, mFavs, getAdapterPosition());
+                            watchSeason(season, serie, mFavs, getAdapterPosition());
                         } else {
-                            // todo-borrar
+                            unwatchSeason(season, serie, mFavs, getAdapterPosition());
                         }
                     });
+                }
 
+                id = season.seasonNumber;
+                seasonName.setText(season.name);
+                Util.getImage(BASE_URL_IMAGES_POSTER + season.posterPath, seasonPoster, mContext);
+                if (season.episodes != null) {
+                    numEpisodes.setText(mContext.getString(R.string.n_episodes, season.episodes.size()));
+                } else {
+                    numEpisodes.setText(mContext.getString(R.string.no_data));
                 }
             }
         }
 
-        private void addSeen(Season season, SerieResponse.Serie serie, List<SerieFav> favs, int temporada) {
-//        todo - añadir campo fecha terminado y añadido a temporadas y episodios
-//            todo - checkear favs en episodios y season
-            int pos = SerieFav.getPosition(serie, favs);
-            SerieFav fav = favs.get(pos);
+        private void watchSeason(Season season, SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int temporada) {
+            int pos = serie.getPosition(favs);
+            SerieResponse.Serie fav = favs.get(pos);
 
-            sortSeason(fav.seasons);
-
-            fav.seasons.get(pos).visto = true;
-            for (Episode e : fav.seasons.get(pos).episodes) {
+            Season.sortSeason(fav.seasons);
+            fav.seasons.get(temporada).visto = true;
+            fav.seasons.get(temporada).watchedDate = new Date();
+            for (Episode e : fav.seasons.get(temporada).episodes) {
                 e.visto = true;
             }
             FirebaseDb.getInstance().setSeriesFav(favs);
-
         }
 
-        private static void sortSeason(List<Season> seasons) {
-            Collections.sort(seasons, (season1, season2) -> {
-                String numSeason1 = String.valueOf(season1.seasonNumber);
-                String numSeason2 = String.valueOf(season2.seasonNumber);
-                if (numSeason1 != null && numSeason2 != null) {
-                    return numSeason1.compareTo(numSeason2);
-                } else {
-                    String fecha1 = season1.airDate;
-                    String fecha2 = season2.airDate;
-                    return fecha1.compareTo(fecha2);
-                }
-            });
+        private void unwatchSeason(Season season, SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int temporada) {
+            int pos = serie.getPosition(favs);
+            SerieResponse.Serie fav = favs.get(pos);
+
+            Season.sortSeason(fav.seasons);
+            fav.seasons.get(temporada).visto = false;
+            fav.seasons.get(temporada).watchedDate = null;
+            for (Episode e : fav.seasons.get(temporada).episodes) {
+                e.visto = false;
+            }
+            FirebaseDb.getInstance().setSeriesFav(favs);
         }
     }
 }

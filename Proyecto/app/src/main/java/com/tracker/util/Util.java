@@ -1,29 +1,15 @@
 package com.tracker.util;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.tracker.R;
-import com.tracker.data.SeriesViewModel;
-import com.tracker.models.SerieFav;
-import com.tracker.models.serie.SerieResponse;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Locale;
 
 import static com.tracker.util.Constants.FORMAT_DEFAULT;

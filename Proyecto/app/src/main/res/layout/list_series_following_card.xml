@@ -124,7 +124,6 @@
                                 android:layout_height="match_parent"
                                 android:ellipsize="marquee"
                                 android:maxLines="2"
-                                android:text="Hola muchacho e"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="6pt" />
                         </LinearLayout>
@@ -172,11 +171,11 @@
                         android:layout_marginBottom="15dp"/>
 
                     <TextView
+                        android:id="@+id/sinopsis"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/large_text"
                         tools:ignore="MissingConstraints" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

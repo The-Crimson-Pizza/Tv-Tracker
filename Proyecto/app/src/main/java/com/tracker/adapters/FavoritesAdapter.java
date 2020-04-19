@@ -21,9 +21,9 @@ import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 
 import com.tracker.R;
-import com.tracker.models.SerieFav;
 import com.tracker.models.seasons.Episode;
 import com.tracker.models.seasons.Season;
+import com.tracker.models.serie.SerieResponse;
 import com.tracker.util.Util;
 
 import java.util.Collections;
@@ -35,10 +35,10 @@ import static com.tracker.util.Constants.ID_SERIE;
 
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.ViewHolder> {
 
-    private List<SerieFav> mSeriesFavs;
+    private List<SerieResponse.Serie> mSeriesFavs;
     private static Context mContext;
 
-    public FavoritesAdapter(Context mContext, List<SerieFav> serie) {
+    public FavoritesAdapter(Context mContext, List<SerieResponse.Serie> serie) {
         this.mSeriesFavs = serie;
         this.mContext = mContext;
     }
@@ -70,6 +70,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         TextView favVistos;
         TextView next;
         TextView next2;
+        TextView sinopsis;
         ProgressBar favProgress;
         int id;
 
@@ -86,6 +87,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             favVistos = itemView.findViewById(R.id.vistos);
             next = itemView.findViewById(R.id.next_episode);
             next2 = itemView.findViewById(R.id.next_episode_2);
+            sinopsis = itemView.findViewById(R.id.sinopsis);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
@@ -101,7 +103,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             cardView = itemView.findViewById(R.id.cardView);
 
             arrowBtn.setOnClickListener(v -> {
-                if (expandableView.getVisibility()==View.GONE){
+                if (expandableView.getVisibility() == View.GONE) {
                     TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
                     expandableView.setVisibility(View.VISIBLE);
                     arrowBtn.setBackgroundResource(R.drawable.arrow_collapse);
@@ -120,7 +122,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             return new FavoritesAdapter.ViewHolder(view);
         }
 
-        void bindTo(SerieFav favSerie) {
+        void bindTo(SerieResponse.Serie favSerie) {
             if (favSerie != null) {
                 sortSeason(favSerie.seasons);
                 id = favSerie.id;
@@ -137,11 +139,26 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                 favProgress.setProgress(progress);
                 next.setText(getLastEpisode(favSerie));
                 next2.setText(getLastEpisode(favSerie));
-                // Añadir sinopsis
+                sinopsis.setText(getLastEpisodeSinopsis(favSerie));
+
             }
         }
 
-        String getLastEpisode(SerieFav serieFav) {
+        String getLastEpisodeSinopsis(SerieResponse.Serie serieFav) {
+            Season.sortSeason(serieFav.seasons);
+            for (Season s : serieFav.seasons) {
+                for (Episode e : s.episodes) {
+                    if (!e.visto) {
+                        return e.overview;
+//                        return String.format(Locale.getDefault(), "%02dx%02d - %s", e.seasonNumber, e.episodeNumber, e.name);
+                    }
+                }
+            }
+            return mContext.getString(R.string.no_data);
+        }
+
+        String getLastEpisode(SerieResponse.Serie serieFav) {
+            Season.sortSeason(serieFav.seasons);
             for (Season s : serieFav.seasons) {
                 for (Episode e : s.episodes) {
                     if (!e.visto) {
@@ -152,7 +169,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             return mContext.getString(R.string.just_watch);
         }
 
-        int countEpisodes(SerieFav serieFav) {
+        int countEpisodes(SerieResponse.Serie serieFav) {
             int cont = 0;
             for (Season s : serieFav.seasons) {
                 for (Episode e : s.episodes) {
@@ -162,7 +179,6 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                 }
             }
             return cont;
-
         }
 
         private void sortSeason(List<Season> seasons) {

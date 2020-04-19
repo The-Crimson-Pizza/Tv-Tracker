@@ -111,6 +111,7 @@
                 android:layout_gravity="center_vertical"
                 android:ellipsize="marquee"
                 android:maxLines="2"
+                android:text="hola"
                 android:textColor="@color/colorAccent"
                 android:textSize="7.5pt" />
         </LinearLayout>

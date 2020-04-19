@@ -1,7 +1,7 @@
 package com.tracker.data;
 
 import com.tracker.models.BasicResponse;
-import com.tracker.models.VideosResponse;
+import com.tracker.models.serie.VideosResponse;
 import com.tracker.models.actor.PersonResponse;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
@@ -11,10 +11,8 @@ import java.util.List;
 
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -85,7 +83,7 @@ public class RepositoryAPI {
             List<VideosResponse.Video> trailers = videosResponse.results;
             for (VideosResponse.Video v : trailers) {
                 if (v.type.equals(TRAILER)) {
-                    serie.setVideos(v);
+                    serie.video = v;
                     break;
                 }
             }
@@ -98,33 +96,21 @@ public class RepositoryAPI {
     }
 
     public Single<List<Season>> getSeasons(int idSerie, int firstSeason, int numSeasons) {
-        return Observable.range(1, numSeasons)
+        return Observable.range(firstSeason, numSeasons)
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(i -> getRetrofitService().getSeason(idSerie, i, language))
                 .toList();
-//                .subscribe(new DisposableSingleObserver<List<Season>>() {
-//                    @Override
-//                    public void onSuccess(@NonNull List<Season> seasons) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                    }
-
-//                });
     }
 
-        public Observable<PersonResponse.Person> getPerson ( int idPerson){
-            return getRetrofitService().getPerson(idPerson, language, GET_PEOPLE_API_EXTRAS);
-        }
-
-        public Observable<PersonResponse> searchPerson (String query){
-            return getRetrofitService().searchPerson(query, language);
-        }
-
-        public Observable<SerieResponse> searchSerie (String query){
-            return getRetrofitService().searchSerie(query, language);
-        }
+    public Observable<PersonResponse.Person> getPerson(int idPerson) {
+        return getRetrofitService().getPerson(idPerson, language, GET_PEOPLE_API_EXTRAS);
     }
+
+    public Observable<PersonResponse> searchPerson(String query) {
+        return getRetrofitService().searchPerson(query, language);
+    }
+
+    public Observable<SerieResponse> searchSerie(String query) {
+        return getRetrofitService().searchSerie(query, language);
+    }
+}

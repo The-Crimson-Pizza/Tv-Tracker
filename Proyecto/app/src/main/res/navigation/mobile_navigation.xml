@@ -129,6 +129,12 @@
         app:launchSingleTop="true"
         app:popUpTo="@id/navigation_home"
         app:popUpToInclusive="false" />
+    <action
+        android:id="@+id/action_global_navigation_fav"
+        app:destination="@id/navigation_fav"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/navigation_home"
+        app:popUpToInclusive="false" />
 
 
     <action
