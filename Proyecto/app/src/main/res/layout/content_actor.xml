@@ -158,4 +158,5 @@
 
         </ViewSwitcher>
     </LinearLayout>
+
 </androidx.core.widget.NestedScrollView>

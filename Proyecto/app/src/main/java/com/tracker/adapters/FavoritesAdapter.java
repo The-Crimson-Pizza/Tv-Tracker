@@ -6,13 +6,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
 
 import com.tracker.R;
 import com.tracker.models.SerieFav;
@@ -63,8 +69,13 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         TextView favStatus;
         TextView favVistos;
         TextView next;
+        TextView next2;
         ProgressBar favProgress;
         int id;
+
+        ConstraintLayout expandableView;
+        Button arrowBtn;
+        LinearLayout cardView;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +85,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             favProgress = itemView.findViewById(R.id.progreso);
             favVistos = itemView.findViewById(R.id.vistos);
             next = itemView.findViewById(R.id.next_episode);
+            next2 = itemView.findViewById(R.id.next_episode_2);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
@@ -81,10 +93,30 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                 bundle.putInt(ID_SERIE, id);
                 Navigation.findNavController(v).navigate(R.id.action_navigation_fav_to_navigation_series, bundle);
             });
+
+            // Cardview interaction
+
+            expandableView = itemView.findViewById(R.id.expandableView);
+            arrowBtn = itemView.findViewById(R.id.arrowBtn);
+            cardView = itemView.findViewById(R.id.cardView);
+
+            arrowBtn.setOnClickListener(v -> {
+                if (expandableView.getVisibility()==View.GONE){
+                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                    expandableView.setVisibility(View.VISIBLE);
+                    arrowBtn.setBackgroundResource(R.drawable.sort_added);
+                } else {
+                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                    expandableView.setVisibility(View.GONE);
+                    arrowBtn.setBackgroundResource(R.drawable.sort_recently);
+                }
+            });
+
+            //
         }
 
         static FavoritesAdapter.ViewHolder create(ViewGroup parent) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_series_following, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_series_following_card, parent, false);
             return new FavoritesAdapter.ViewHolder(view);
         }
 
@@ -104,7 +136,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                 favVistos.setText(mContext.getString(R.string.num_vistos, vistos, totalEpisodes));
                 favProgress.setProgress(progress);
                 next.setText(getLastEpisode(favSerie));
-
+                next2.setText(getLastEpisode(favSerie));
+                // Añadir sinopsis
             }
         }
 
