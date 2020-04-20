@@ -11,19 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="10dp"
-            android:gravity="center_vertical">
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/checkbox_watched"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/colorPrimary" />
-
-        </LinearLayout>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardview"
@@ -63,42 +50,46 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="5dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="175dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
                 android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/episode_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="2"
-                    android:text="Nombre de episodio"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="7.5pt"
-                    android:textStyle="bold" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/episode_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="2"
+                            android:text="Nombre de episodio"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="7.5pt"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/episode_fecha"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:ellipsize="marquee"
-                        android:maxLines="2"
-                        android:text="Fecha de episodio"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="5.5pt"
-                        android:textStyle="bold" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/episode_fecha"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:ellipsize="marquee"
+                                android:maxLines="2"
+                                android:text="Fecha de episodio"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="5.5pt"
+                                android:textStyle="bold" />
+                        </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -106,70 +97,86 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/episode_fecha"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:ellipsize="marquee"
                         android:maxLines="2"
-                        android:text="Episode description: "
+
+                        android:text="Expand for episode description "
                         android:textColor="@color/colorAccent"
                         android:textSize="5.5pt"
                         android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
 
-                    <LinearLayout
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/checkbox_watched"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="end|center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary"
+                        android:gravity="center"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                        <Button
-                            android:id="@+id/arrowBtn"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:layout_marginEnd="12dp"
-
-                            android:background="@drawable/arrow_expand" />
-                    </LinearLayout>
+                    <Button
+                        android:id="@+id/arrowBtn"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/arrow_expand" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/expandableView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="20dp">
-        <TextView
-            android:id="@+id/next_episode"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/expandableView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:ellipsize="marquee"
-            android:maxLines="2"
-            android:textColor="@color/colorAccent"
-            android:textSize="7.5pt"
-            android:textStyle="bold"
-            android:layout_marginBottom="15dp"/>
+            android:visibility="gone">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="20dp">
+                <TextView
+                    android:id="@+id/next_episode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="marquee"
+                    android:maxLines="2"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="7.5pt"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="15dp"/>
 
-        <TextView
-            android:id="@+id/episode_sinopsis"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="MissingConstraints"
-            android:layout_gravity="center_vertical"
-            android:ellipsize="marquee"
-            android:textColor="@color/colorAccent"
-            android:textSize="5.5pt" />/>
+                <TextView
+                    android:id="@+id/episode_sinopsis"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="MissingConstraints"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="marquee"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="5.5pt" />/>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
 </LinearLayout>
