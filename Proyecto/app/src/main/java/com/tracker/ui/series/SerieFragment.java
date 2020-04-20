@@ -1,8 +1,12 @@
 package com.tracker.ui.series;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -38,6 +42,9 @@ import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
+import static com.tracker.util.Constants.BASE_URL_INSTAGRAM;
+import static com.tracker.util.Constants.BASE_URL_INSTAGRAM_U;
+import static com.tracker.util.Constants.BASE_URL_WEB_PERSON;
 import static com.tracker.util.Constants.ID_SERIE;
 
 public class SerieFragment extends Fragment {
@@ -47,6 +54,7 @@ public class SerieFragment extends Fragment {
     private SeriesViewModel seriesViewModel;
     private SerieResponse.Serie mSerie;
     private List<SerieResponse.Serie> mFavs = new ArrayList<>();
+    private MenuItem itemShare;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,6 +69,47 @@ public class SerieFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        /*Toolbar toolbar = view.findViewById(R.id.toolbar_actor);
+
+        itemShare = toolbar.getMenu().findItem(R.id.action_share);
+        itemShare.setVisible(true);
+
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_share) {
+                    Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TITLE, mActor.name);
+                    sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Sharing URL");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, BASE_URL_WEB_PERSON + mActor.id);
+                    sendIntent.setType("text/plain");
+
+                    startActivity(Intent.createChooser(sendIntent, null));
+
+
+                    return true;
+                } else if (item.getItemId() == R.id.action_insta) {
+                    Uri uri = Uri.parse(BASE_URL_INSTAGRAM_U + mActor.externalIds.instagramId);
+                    Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+                    likeIng.setPackage("com.instagram.android");
+                    try {
+                        startActivity(likeIng);
+                    } catch (ActivityNotFoundException e) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(BASE_URL_INSTAGRAM + mActor.externalIds.instagramId)));
+                    }
+
+                    return true;
+                }
+                return false;
+            }
+        });*/
+
+        //////////////////////////////////////////////////////////////////////////////////7
+
         seriesViewModel = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
 
         hideKeyboard();

@@ -50,9 +50,6 @@ public class ActorFragment extends Fragment {
         if (getArguments() != null) {
             idActor = getArguments().getInt(ID_ACTOR);
         }
-
-
-
         return inflater.inflate(R.layout.fragment_actor, container, false);
     }
 
