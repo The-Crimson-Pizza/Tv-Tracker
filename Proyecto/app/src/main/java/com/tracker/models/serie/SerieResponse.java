@@ -8,6 +8,8 @@ import com.tracker.models.seasons.Episode;
 import com.tracker.models.seasons.Season;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +20,7 @@ public class SerieResponse {
     public final List<Serie> results = null;
 
     public SerieResponse() {
-
+//        Empty constructor for Firebase serialize
     }
 
     public static class Serie implements Serializable {
@@ -62,7 +64,8 @@ public class SerieResponse {
         public VideosResponse.Video video;
 
         //        FOLLOWING
-        public boolean fav = false;
+        public boolean added = false;
+        public boolean finished = false;
         public Date addedDate;
         public Date finishDate;
 
@@ -78,29 +81,83 @@ public class SerieResponse {
         public void checkFav(List<Serie> seriesFavs) {
             for (Serie s : seriesFavs) {
                 if (this.id == s.id) {
-                    this.fav = true;
-                    checkSeason(s);
+                    this.added = true;
+                    setSeasonWatched(s);
                     break;
                 }
             }
         }
 
-        private void checkSeason(Serie s) {
-            for (int i = 0; i < s.seasons.size(); i++) {
-                this.seasons.get(i).visto = s.seasons.get(i).visto;
-                for (int j = 0; j < s.seasons.get(i).episodes.size(); j++) {
-                    this.seasons.get(i).episodes.get(j).visto = s.seasons.get(i).episodes.get(j).visto;
-                }
-                if (checkAllEpisodes(s.seasons.get(i).episodes)) this.seasons.get(i).visto = true;
+        private void setSeasonWatched(Serie serie) {
+            int cont = 0;
+            for (int i = 0; i < serie.seasons.size(); i++) {
+                this.seasons.get(i).visto = serie.seasons.get(i).visto;
+                this.seasons.get(i).watchedDate = serie.seasons.get(i).watchedDate;
+                setEpisodeWatched(serie, i);
+                if (this.seasons.get(i).visto) cont++;
+            }
+            isSerieFinished(cont);
+        }
+
+        private void setEpisodeWatched(Serie serie, int i) {
+            for (int j = 0; j < serie.seasons.get(i).episodes.size(); j++) {
+                this.seasons.get(i).episodes.get(j).visto = serie.seasons.get(i).episodes.get(j).visto;
+                this.seasons.get(i).episodes.get(j).watchedDate = serie.seasons.get(i).episodes.get(j).watchedDate;
+            }
+            if (checkAllEpisodes(serie.seasons.get(i).episodes)) {
+                this.seasons.get(i).visto = true;
+                this.seasons.get(i).watchedDate = getMaxDate(getDatesEpisodes(serie.seasons.get(i).episodes));
+            } else {
+                this.seasons.get(i).visto = false;
+                this.seasons.get(i).watchedDate = null;
+            }
+        }
+
+        private void isSerieFinished(int cont) {
+            if (this.seasons.size() == cont) {
+                this.finished = true;
+                this.finishDate = getMaxDate(getDatesSeason(this.seasons));
+            } else {
+                this.finished = false;
+                this.finishDate = null;
             }
         }
 
         private boolean checkAllEpisodes(List<Episode> episodes) {
             int cont = 0;
             for (int i = 0; i < episodes.size(); i++) {
-                if (episodes.get(i).visto) cont++;
+                if (episodes.get(i).visto) {
+                    cont++;
+                }
             }
             return cont == episodes.size();
+        }
+
+        private Date getMaxDate(List<Date> datesList) {
+            if (datesList.isEmpty()) {
+                return null;
+            }
+            return Collections.max(datesList);
+        }
+
+        private List<Date> getDatesEpisodes(List<Episode> episodes) {
+            List<Date> dates = new ArrayList<>();
+            for (Episode e : episodes) {
+                if (e.watchedDate != null) {
+                    dates.add(e.watchedDate);
+                }
+            }
+            return dates;
+        }
+
+        private List<Date> getDatesSeason(List<Season> seasons) {
+            List<Date> dates = new ArrayList<>();
+            for (Season s : seasons) {
+                if (s.watchedDate != null) {
+                    dates.add(s.watchedDate);
+                }
+            }
+            return dates;
         }
 
         public int getPosition(List<Serie> favs) {

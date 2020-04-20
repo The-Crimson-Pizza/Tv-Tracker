@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,6 +50,15 @@ public class FavoritosFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setRecycler(view);
         getFollowingSeries();
+
+        ImageButton sortAdded = view.findViewById(R.id.added_button);
+        ImageButton sortName = view.findViewById(R.id.name_button);
+        ImageButton sortLastWatched = view.findViewById(R.id.watched_button);
+
+
+
+
+
     }
 
     private void getFollowingSeries() {
@@ -56,9 +66,8 @@ public class FavoritosFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mFavs.clear();
-                GenericTypeIndicator<List<SerieResponse.Serie>> genericTypeIndicator = new GenericTypeIndicator<List<SerieResponse.Serie>>() {
-                };
-                List<SerieResponse.Serie> favTemp = dataSnapshot.getValue(genericTypeIndicator);
+                List<SerieResponse.Serie> favTemp = dataSnapshot.getValue(new GenericTypeIndicator<List<SerieResponse.Serie>>() {
+                });
                 if (favTemp != null) {
                     mFavs.addAll(favTemp);
                     favAdapter.notifyDataSetChanged();

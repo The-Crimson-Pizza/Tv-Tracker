@@ -68,4 +68,8 @@
     <string name="empty" translatable="false" />
     <string name="tus_series_seguidas_aparecer_aqu">Your following list will appear here</string>
     <string name="sharing_url">Sharing URL</string>
+    <string name="recent_added">Sort by recently added</string>
+    <string name="sort_name">Sort by name</string>
+    <string name="sort_watched">Sort by last watched</string>
+    <string name="sort_by">Sort by:</string>
 </resources>

@@ -20,7 +20,6 @@ import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
 import com.tracker.util.Util;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -94,7 +93,7 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
 
         void bindTo(Season season, SerieResponse.Serie serie, List<SerieResponse.Serie> mFavs) {
             if (season != null) {
-                if (serie.fav) {
+                if (serie.added) {
                     watchedCheck.setVisibility(View.VISIBLE);
                     watchedCheck.setChecked(season.visto);
 
@@ -124,26 +123,51 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
 
         private void watchSeason(SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int temporada) {
             int pos = serie.getPosition(favs);
-
             Season.sortSeason(favs.get(pos).seasons);
+
+//            MARCAR TEMPORADA
             favs.get(pos).seasons.get(temporada).visto = true;
             favs.get(pos).seasons.get(temporada).watchedDate = new Date();
+
+//            MARCAR EPISODIOS
             for (Episode e : favs.get(pos).seasons.get(temporada).episodes) {
                 e.visto = true;
+                e.watchedDate = new Date();
             }
+
+//            MARCAR SERIE
+            int cont = 0;
+            for (Season s : favs.get(pos).seasons) {
+                if (s.visto) cont++;
+            }
+            if (cont == favs.get(pos).seasons.size()) {
+                favs.get(pos).finished = true;
+                favs.get(pos).finishDate = new Date();
+            }
+
+//            GUARDAR FAVORITOS EN BBDD
             FirebaseDb.getInstance().setSeriesFav(favs);
         }
 
         private void unwatchSeason(SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int temporada) {
             int pos = serie.getPosition(favs);
-            SerieResponse.Serie fav = favs.get(pos);
+            Season.sortSeason(favs.get(pos).seasons);
 
-            Season.sortSeason(fav.seasons);
-            fav.seasons.get(temporada).visto = false;
-            fav.seasons.get(temporada).watchedDate = null;
-            for (Episode e : fav.seasons.get(temporada).episodes) {
+//            UNWATCH TEMPORADA
+            favs.get(pos).seasons.get(temporada).visto = false;
+            favs.get(pos).seasons.get(temporada).watchedDate = null;
+
+//            UNWATCH EPISODIOS
+            for (Episode e : favs.get(pos).seasons.get(temporada).episodes) {
                 e.visto = false;
+                e.watchedDate = null;
+
             }
+
+//            UNWATCH SERIE
+            favs.get(pos).finished = false;
+            favs.get(pos).finishDate = null;
+
             FirebaseDb.getInstance().setSeriesFav(favs);
         }
     }

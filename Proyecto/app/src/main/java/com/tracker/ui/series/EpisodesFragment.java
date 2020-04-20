@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.GenericTypeIndicator;
@@ -29,8 +28,6 @@ import com.tracker.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE;
 
 public class EpisodesFragment extends Fragment {
 
@@ -62,7 +59,7 @@ public class EpisodesFragment extends Fragment {
 
         setRecycler(view);
 
-        SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
+        SeriesViewModel model = new ViewModelProvider(requireActivity()).get(SeriesViewModel.class);
         LiveData<SerieResponse.Serie> serieLiveData = model.getSerie();
         serieLiveData.observe(getViewLifecycleOwner(), serie -> {
             mSerie = serie;

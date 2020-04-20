@@ -18,11 +18,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="15dp"
             android:gravity="center_vertical"
-            android:text="@string/sort_by"
+            android:text="Sort by: "
+            android:textStyle="bold"
             android:textSize="7pt"
-            android:textStyle="bold" />
+            android:layout_marginStart="15dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,21 +33,24 @@
                 android:id="@+id/added_button"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="15dp"
-                android:background="@color/bgTotal"
                 android:scaleType="fitCenter"
-                android:src="@drawable/sort_recently" />
+                android:layout_gravity="center"
+                android:src="@drawable/sort_recently"
+                android:tooltipText="@string/recent_added"
+                android:background="@color/bgTotal"
+                android:layout_marginEnd="15dp" />
 
             <ImageButton
                 android:id="@+id/name_button"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_gravity="end"
-                android:layout_marginEnd="15dp"
-                android:background="@color/bgTotal"
                 android:scaleType="fitCenter"
-                android:src="@drawable/sort_name" />
+                android:src="@drawable/sort_name"
+                android:tooltipText="@string/sort_name"
+                android:background="@color/bgTotal"
+
+                android:layout_marginEnd="15dp" />
             <!--<ImageButton
                 android:layout_width="32dp"
                 android:layout_height="32dp"
@@ -63,10 +66,11 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_gravity="end"
-                android:layout_marginEnd="15dp"
-                android:background="@color/bgTotal"
                 android:scaleType="fitCenter"
-                android:src="@drawable/sort_watched" />
+                android:tooltipText="@string/sort_watched"
+                android:src="@drawable/sort_watched"
+                android:background="@color/bgTotal"
+                android:layout_marginEnd="15dp" />
         </LinearLayout>
 
     </LinearLayout>

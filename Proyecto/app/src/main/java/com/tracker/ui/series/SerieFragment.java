@@ -3,6 +3,7 @@ package com.tracker.ui.series;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,7 +41,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
@@ -85,7 +85,7 @@ public class SerieFragment extends Fragment {
         getFollowingSeries(view);
     }
 
-    private void getFollowingSeries(@NonNull View view) {
+    private void getFollowingSeries(View view) {
         FirebaseDb.getInstance().getSeriesFav().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -134,6 +134,9 @@ public class SerieFragment extends Fragment {
     private void setProgress(SerieResponse.Serie s, View view) {
         if (mFavs != null) {
             s.checkFav(mFavs);
+            if (s.finished) {
+                Log.e("TAG", "COMPLETITA");
+            }
         }
         RxBus.getInstance().publish(s);
         seriesViewModel.setSerie(s);
@@ -141,7 +144,7 @@ public class SerieFragment extends Fragment {
     }
 
     private void addFav() {
-        mSerie.fav = true;
+        mSerie.added = true;
         mFavs.add(mSerie);
         FirebaseDb.getInstance().setSeriesFav(mFavs);
         RxBus.getInstance().publish(mSerie);
@@ -152,7 +155,7 @@ public class SerieFragment extends Fragment {
         if (pos != -1) {
             mFavs.remove(pos);
             FirebaseDb.getInstance().setSeriesFav(mFavs);
-            mSerie.fav = false;
+            mSerie.added = false;
             RxBus.getInstance().publish(mSerie);
             Toast.makeText(getActivity(), R.string.borrado_correcto, Toast.LENGTH_SHORT).show();
         }
@@ -207,7 +210,7 @@ public class SerieFragment extends Fragment {
     private void setFloatingButton(@NonNull View view) {
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(viewFab -> {
-            if (!mSerie.fav) {
+            if (!mSerie.added) {
                 addFav();
                 Snackbar.make(viewFab, R.string.add_fav, Snackbar.LENGTH_LONG).show();
             } else {
