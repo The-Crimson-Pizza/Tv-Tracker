@@ -4,11 +4,16 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.tracker.R;
@@ -60,10 +65,15 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
 
         ImageView episodeBackdrop;
         TextView episodeName;
+        TextView episodeName2;
         TextView episodeDate;
         TextView episodeOverview;
         TextView episodeTime;
         MaterialCheckBox watchedCheck;
+
+        ConstraintLayout expandableView;
+        Button arrowBtn;
+        LinearLayout cardView;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +83,27 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
             episodeOverview = itemView.findViewById(R.id.episode_sinopsis);
             episodeTime = itemView.findViewById(R.id.episode_time);
             watchedCheck = itemView.findViewById(R.id.checkbox_watched);
+            episodeName2 = itemView.findViewById(R.id.next_episode);
+
+            // Cardview interaction
+
+            expandableView = itemView.findViewById(R.id.expandableViewEpi);
+            arrowBtn = itemView.findViewById(R.id.arrowBtnEpi);
+            cardView = itemView.findViewById(R.id.cardview);
+
+            arrowBtn.setOnClickListener(v -> {
+                if (expandableView.getVisibility() == View.GONE) {
+                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                    expandableView.setVisibility(View.VISIBLE);
+                    arrowBtn.setBackgroundResource(R.drawable.arrow_collapse);
+                } else {
+                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                    expandableView.setVisibility(View.GONE);
+                    arrowBtn.setBackgroundResource(R.drawable.arrow_expand);
+                }
+            });
+
+            //
         }
 
         static EpisodeAdapter.ViewHolder create(ViewGroup parent) {
@@ -83,6 +114,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
         void bindTo(Episode episode, int runtime) {
             if (episode != null) {
                 episodeName.setText(episode.name);
+                episodeName2.setText(episode.name);
                 episodeDate.setText(Util.getFecha(episode.airDate, FORMAT_LONG));
                 episodeOverview.setText(episode.overview);
                 episodeTime.setText(getMinutos(runtime));
