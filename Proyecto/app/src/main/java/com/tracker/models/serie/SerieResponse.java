@@ -86,13 +86,9 @@ public class SerieResponse {
 
         private void checkSeason(Serie s) {
             for (int i = 0; i < s.seasons.size(); i++) {
-                if (s.seasons.get(i).visto) {
-                    this.seasons.get(i).visto = true;
-                    for (int j = 0; j < s.seasons.get(i).episodes.size(); j++) {
-                        if (s.seasons.get(i).episodes.get(j).visto) {
-                            this.seasons.get(i).episodes.get(j).visto = true;
-                        }
-                    }
+                this.seasons.get(i).visto = s.seasons.get(i).visto;
+                for (int j = 0; j < s.seasons.get(i).episodes.size(); j++) {
+                    this.seasons.get(i).episodes.get(j).visto = s.seasons.get(i).episodes.get(j).visto;
                 }
             }
         }

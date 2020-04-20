@@ -57,24 +57,6 @@ public class FillActor {
         CollapsingToolbarLayout collapsingToolbarLayout = mView.findViewById(R.id.toolbar_layout);
         View includeView = mView.findViewById(R.id.include_actor);
 
-//        RequestOptions options = new RequestOptions()
-//                .placeholder(R.drawable.loading_poster)
-//                .error(R.drawable.default_portrait_big)
-//                .centerCrop()
-//                .diskCacheStrategy(DiskCacheStrategy.ALL);
-//        Glide.with(mContext).load(BASE_URL_IMAGES_PORTRAIT + mPerson.profilePath).apply(options).into(new CustomTarget<Drawable>() {
-//            @Override
-//            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-//                collapsingToolbarLayout.setBackground(resource);
-//            }
-//
-//            @Override
-//            public void onLoadCleared(@Nullable Drawable placeholder) {
-//
-//            }
-//        });
-
-
         TextView bornDate = includeView.findViewById(R.id.fecha_actor);
         TextView bornPlace = includeView.findViewById(R.id.lugar_actor);
         TextView deathDate = includeView.findViewById(R.id.fecha_actor_mortimer);
@@ -118,7 +100,7 @@ public class FillActor {
         ViewSwitcher switcherFilms = mView.findViewById(R.id.switcherFilms);
         ViewSwitcher switcherSeries = mView.findViewById(R.id.switcherSeries);
 
-        if (mPerson.tvCredits.cast.size() > 0) {
+        if (!mPerson.tvCredits.cast.isEmpty()) {
             rvSeries.setAdapter(new CastAdapter(mContext, mPerson.tvCredits.cast));
             if (R.id.rvSeries == switcherSeries.getNextView().getId()) {
                 switcherSeries.showNext();
@@ -127,7 +109,7 @@ public class FillActor {
             switcherSeries.showNext();
         }
 
-        if (mPerson.movieCredits.cast.size() > 0) {
+        if (!mPerson.movieCredits.cast.isEmpty()) {
             rvMovies.setAdapter(new CastAdapter(mContext, mPerson.movieCredits.cast, true));
             if (R.id.rvPelis == switcherFilms.getNextView().getId()) {
                 switcherFilms.showNext();

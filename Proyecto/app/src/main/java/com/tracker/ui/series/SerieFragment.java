@@ -1,9 +1,7 @@
 package com.tracker.ui.series;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -36,16 +34,16 @@ import com.tracker.data.RxBus;
 import com.tracker.data.SeriesViewModel;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
+import com.tracker.ui.WebViewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
-import static com.tracker.util.Constants.BASE_URL_INSTAGRAM;
-import static com.tracker.util.Constants.BASE_URL_INSTAGRAM_U;
-import static com.tracker.util.Constants.BASE_URL_WEB_PERSON;
+import static com.tracker.util.Constants.BASE_URL_WEB_TV;
 import static com.tracker.util.Constants.ID_SERIE;
+import static com.tracker.util.Constants.URL_WEBVIEW;
 
 public class SerieFragment extends Fragment {
 
@@ -54,7 +52,7 @@ public class SerieFragment extends Fragment {
     private SeriesViewModel seriesViewModel;
     private SerieResponse.Serie mSerie;
     private List<SerieResponse.Serie> mFavs = new ArrayList<>();
-    private MenuItem itemShare;
+    private MenuItem itemWeb;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,45 +68,41 @@ public class SerieFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        /*Toolbar toolbar = view.findViewById(R.id.toolbar_actor);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
 
-        itemShare = toolbar.getMenu().findItem(R.id.action_share);
-        itemShare.setVisible(true);
+        itemWeb = toolbar.getMenu().findItem(R.id.action_web);
+        itemWeb.setVisible(false);
 
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
-
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.action_share) {
-                    Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TITLE, mActor.name);
-                    sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Sharing URL");
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, BASE_URL_WEB_PERSON + mActor.id);
-                    sendIntent.setType("text/plain");
-
-                    startActivity(Intent.createChooser(sendIntent, null));
+        toolbar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.action_share) {
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TITLE, mSerie.name);
+                sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Sharing URL");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, BASE_URL_WEB_TV + mSerie.id);
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, null));
 
 
-                    return true;
-                } else if (item.getItemId() == R.id.action_insta) {
-                    Uri uri = Uri.parse(BASE_URL_INSTAGRAM_U + mActor.externalIds.instagramId);
-                    Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
-                    likeIng.setPackage("com.instagram.android");
-                    try {
-                        startActivity(likeIng);
-                    } catch (ActivityNotFoundException e) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(BASE_URL_INSTAGRAM + mActor.externalIds.instagramId)));
-                    }
+                return true;
+            } else if (item.getItemId() == R.id.action_web) {
+//                Uri uri = Uri.parse(mSerie.homepage);
+//                Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+//                likeIng.setPackage("com.instagram.android");
 
-                    return true;
-                }
-                return false;
+                startActivity(new Intent(mContext, WebViewActivity.class).putExtra(URL_WEBVIEW, mSerie.homepage));
+
+//                try {
+//                    startActivity(likeIng);
+//                } catch (ActivityNotFoundException e) {
+//                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mSerie.homepage)));
+//                }
+
+                return true;
             }
-        });*/
-
-        //////////////////////////////////////////////////////////////////////////////////7
+            return false;
+        });
 
         seriesViewModel = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
 
@@ -158,6 +152,9 @@ public class SerieFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(serie -> {
                     mSerie = serie;
+                    if (mSerie.homepage != null && !mSerie.homepage.isEmpty()) {
+                        itemWeb.setVisible(true);
+                    }
                     getSeasons(mSerie, view);
                 });
     }

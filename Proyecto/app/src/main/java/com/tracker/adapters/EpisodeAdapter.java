@@ -17,28 +17,34 @@ import androidx.transition.TransitionManager;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.tracker.R;
+import com.tracker.data.FirebaseDb;
 import com.tracker.models.seasons.Episode;
+import com.tracker.models.serie.SerieResponse;
+import com.tracker.util.Constants;
 import com.tracker.util.Util;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 import static com.tracker.util.Constants.FORMAT_LONG;
 
 public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHolder> {
 
-    private List<Episode> mEpisodes;
     private static Context mContext;
-    private int mRuntime;
+    private List<Episode> mEpisodes;
+    private SerieResponse.Serie mSerie;
+    private List<SerieResponse.Serie> mFavs;
+    private int mSeasonPosition;
 
-    public EpisodeAdapter(Context mContext, List<Episode> episodes, int runtime) {
+    public EpisodeAdapter(Context mContext, List<Episode> episodes, SerieResponse.Serie serie,
+                          List<SerieResponse.Serie> favs, int seasonPos) {
+        this.mFavs = favs;
+        this.mSerie = serie;
         this.mEpisodes = episodes;
         this.mContext = mContext;
-        this.mRuntime = runtime;
+        this.mSeasonPosition = seasonPos;
     }
 
     @NonNull
@@ -50,7 +56,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull EpisodeAdapter.ViewHolder holder, final int position) {
-        holder.bindTo(mEpisodes.get(position), mRuntime);
+        holder.bindTo(mEpisodes.get(position), mSerie, mFavs, mSeasonPosition);
     }
 
     @Override
@@ -65,7 +71,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
 
         ImageView episodeBackdrop;
         TextView episodeName;
-        TextView episodeName2;
+        TextView episodeNameExpandable;
         TextView episodeDate;
         TextView episodeOverview;
         TextView episodeTime;
@@ -83,14 +89,12 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
             episodeOverview = itemView.findViewById(R.id.episode_sinopsis);
             episodeTime = itemView.findViewById(R.id.episode_time);
             watchedCheck = itemView.findViewById(R.id.checkbox_watched);
-            episodeName2 = itemView.findViewById(R.id.next_episode);
+            episodeNameExpandable = itemView.findViewById(R.id.next_episode);
 
-            // Cardview interaction
-
+            // CARDVIEW INTERACTION
             expandableView = itemView.findViewById(R.id.expandableViewEpi);
             arrowBtn = itemView.findViewById(R.id.arrowBtnEpi);
             cardView = itemView.findViewById(R.id.cardview);
-
             arrowBtn.setOnClickListener(v -> {
                 if (expandableView.getVisibility() == View.GONE) {
                     TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
@@ -102,8 +106,6 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
                     arrowBtn.setBackgroundResource(R.drawable.arrow_expand);
                 }
             });
-
-            //
         }
 
         static EpisodeAdapter.ViewHolder create(ViewGroup parent) {
@@ -111,25 +113,74 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
             return new EpisodeAdapter.ViewHolder(view);
         }
 
-        void bindTo(Episode episode, int runtime) {
+        void bindTo(Episode episode, SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int mSeasonPos) {
             if (episode != null) {
+                if (serie.fav) {
+                    watchedCheck.setVisibility(View.VISIBLE);
+                    watchedCheck.setChecked(episode.visto);
+                    watchedCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                        if (isChecked) {
+                            if (!episode.visto) {
+                                watchEpisode(serie, favs, getAdapterPosition(), mSeasonPos);
+                            }
+                        } else {
+                            if (episode.visto) {
+                                unwatchEpisode(serie, favs, getAdapterPosition(), mSeasonPos);
+                            }
+                        }
+                    });
+                }
+
                 episodeName.setText(episode.name);
-                episodeName2.setText(episode.name);
+                episodeNameExpandable.setText(episode.name);
                 episodeDate.setText(Util.getFecha(episode.airDate, FORMAT_LONG));
                 episodeOverview.setText(episode.overview);
-                episodeTime.setText(getMinutos(runtime));
                 Util.getImage(BASE_URL_IMAGES_POSTER + episode.stillPath, episodeBackdrop, mContext);
 
+                // RUNTIME
+                if (!serie.episodeRunTime.isEmpty()) {
+                    episodeTime.setText(getMinutos(serie.episodeRunTime.get(0)));
+                } else {
+                    episodeTime.setText(getMinutos(0));
+                }
+            }
+        }
 
-                watchedCheck.setChecked(episode.visto);
+        private void watchEpisode(SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int adapterPosition, int seasonPos) {
+            int favPosition = serie.getPosition(favs);
+            if (favPosition != -1) {
+                favs.get(favPosition)
+                        .seasons.get(seasonPos)
+                        .episodes.get(adapterPosition)
+                        .visto = true;
+                favs.get(favPosition)
+                        .seasons.get(seasonPos)
+                        .episodes.get(adapterPosition)
+                        .watchedDate = new Date();
+
+                FirebaseDb.getInstance().setSeriesFav(favs);
+            }
+        }
+
+        private void unwatchEpisode(SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int adapterPosition, int seasonPos) {
+            int favPosition = serie.getPosition(favs);
+            if (favPosition != -1) {
+                favs.get(favPosition)
+                        .seasons.get(seasonPos)
+                        .episodes.get(adapterPosition)
+                        .visto = false;
+                favs.get(favPosition)
+                        .seasons.get(seasonPos)
+                        .episodes.get(adapterPosition)
+                        .watchedDate = null;
+
+                FirebaseDb.getInstance().setSeriesFav(favs);
             }
         }
 
         private String getMinutos(int minutes) {
-            return String.format(Locale.getDefault(), "%d:%02d", minutes, 0);
+            return String.format(Locale.getDefault(), Constants.FORMAT_MINUTES, minutes, 0);
         }
-
-
 
 
     }

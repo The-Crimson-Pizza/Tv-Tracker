@@ -22,12 +22,10 @@ public class WebViewActivity extends AppCompatActivity {
         String url = intent.getStringExtra(URL_WEBVIEW);
 
         WebView mWebView = findViewById(R.id.webviewtransporte);
-
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.getSettings().setUserAgentString("Android");
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setAppCacheEnabled(true);
-
         mWebView.loadUrl(url);
     }
 }

@@ -48,7 +48,7 @@ public class FillSerie {
             else check.setVisibility(View.GONE);
 
             ReadMoreTextView overview = mView.findViewById(R.id.sinopsis_text);
-            overview.setText(mSerie.overview);
+            overview.setText(Util.checkNull(mSerie.overview, mContext));
 
             fillGenres();
             fillNetworks();
@@ -86,7 +86,7 @@ public class FillSerie {
 
     private void fillNetworks() {
         int cont = 1;
-        if (mSerie.networks.size() > 0) {
+        if (!mSerie.networks.isEmpty()) {
             while (cont <= 3) {
                 String name = NETWORKS + cont;
                 int id = mContext.getResources().getIdentifier(name, ID, mContext.getPackageName());
@@ -105,7 +105,7 @@ public class FillSerie {
 
     private void fillGenres() {
         int cont = 1;
-        if (mSerie.genres.size() > 0) {
+        if (!mSerie.genres.isEmpty()) {
             while (cont <= 3) {
                 String name = GENRE + cont;
                 int id = mContext.getResources().getIdentifier(name, ID, mContext.getPackageName());

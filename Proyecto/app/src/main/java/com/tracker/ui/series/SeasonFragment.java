@@ -41,23 +41,17 @@ public class SeasonFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_seasons, container, false);
         mContext = getActivity();
-        return view;
+        return inflater.inflate(R.layout.fragment_seasons, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setRecycler(view);
+
         SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
-
-        rvSeasons = view.findViewById(R.id.gridSeasons);
-        rvSeasons.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        rvSeasons.setHasFixedSize(true);
-        rvSeasons.setItemViewCacheSize(20);
-        rvSeasons.setSaveEnabled(true);
-
         LiveData<SerieResponse.Serie> s = model.getSerie();
         s.observe(getViewLifecycleOwner(), serie -> setAdapters(view, serie));
 
@@ -72,8 +66,7 @@ public class SeasonFragment extends Fragment {
                     mFavs.addAll(favTemp);
                     if (mSerie != null) {
                         mSerie.checkFav(mFavs);
-                        mSeasonAdapter = new SeasonAdapter(mContext, mSerie, mFavs);
-                        rvSeasons.setAdapter(mSeasonAdapter);
+                        rvSeasons.setAdapter(new SeasonAdapter(mContext, mSerie, mFavs));
                     }
                 }
             }
@@ -86,8 +79,8 @@ public class SeasonFragment extends Fragment {
     }
 
     private void setAdapters(@NonNull View view, SerieResponse.Serie serie) {
-        if (serie.numberOfSeasons > 0) {
-            mSerie = serie;
+        mSerie = serie;
+        if (mSerie.numberOfSeasons > 0) {
             mSeasonAdapter = new SeasonAdapter(mContext, mSerie, mFavs);
             rvSeasons.setAdapter(mSeasonAdapter);
         } else {
@@ -95,5 +88,13 @@ public class SeasonFragment extends Fragment {
             rvSeasons.setAdapter(mSeasonAdapter);
             Snackbar.make(view, R.string.no_seasons, LENGTH_INDEFINITE).show();
         }
+    }
+
+    private void setRecycler(@NonNull View view) {
+        rvSeasons = view.findViewById(R.id.gridSeasons);
+        rvSeasons.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        rvSeasons.setHasFixedSize(true);
+        rvSeasons.setItemViewCacheSize(20);
+        rvSeasons.setSaveEnabled(true);
     }
 }

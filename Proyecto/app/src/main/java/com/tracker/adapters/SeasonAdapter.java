@@ -29,10 +29,10 @@ import static com.tracker.util.Constants.ID_SEASON;
 
 public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder> {
 
+    private static Context mContext;
     private List<Season> mSeasons;
     private SerieResponse.Serie mSerie;
     private List<SerieResponse.Serie> mFavs;
-    private static Context mContext;
 
     public SeasonAdapter(Context mContext, SerieResponse.Serie serie, List<SerieResponse.Serie> favs) {
         this.mFavs = favs;
@@ -97,11 +97,16 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
                 if (serie.fav) {
                     watchedCheck.setVisibility(View.VISIBLE);
                     watchedCheck.setChecked(season.visto);
+
                     watchedCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
                         if (isChecked) {
-                            watchSeason(season, serie, mFavs, getAdapterPosition());
+                            if (!season.visto) {
+                                watchSeason(serie, mFavs, getAdapterPosition());
+                            }
                         } else {
-                            unwatchSeason(season, serie, mFavs, getAdapterPosition());
+                            if (season.visto) {
+                                unwatchSeason(serie, mFavs, getAdapterPosition());
+                            }
                         }
                     });
                 }
@@ -117,20 +122,19 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
             }
         }
 
-        private void watchSeason(Season season, SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int temporada) {
+        private void watchSeason(SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int temporada) {
             int pos = serie.getPosition(favs);
-            SerieResponse.Serie fav = favs.get(pos);
 
-            Season.sortSeason(fav.seasons);
-            fav.seasons.get(temporada).visto = true;
-            fav.seasons.get(temporada).watchedDate = new Date();
-            for (Episode e : fav.seasons.get(temporada).episodes) {
+            Season.sortSeason(favs.get(pos).seasons);
+            favs.get(pos).seasons.get(temporada).visto = true;
+            favs.get(pos).seasons.get(temporada).watchedDate = new Date();
+            for (Episode e : favs.get(pos).seasons.get(temporada).episodes) {
                 e.visto = true;
             }
             FirebaseDb.getInstance().setSeriesFav(favs);
         }
 
-        private void unwatchSeason(Season season, SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int temporada) {
+        private void unwatchSeason(SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int temporada) {
             int pos = serie.getPosition(favs);
             SerieResponse.Serie fav = favs.get(pos);
 

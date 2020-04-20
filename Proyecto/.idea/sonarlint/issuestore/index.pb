@@ -19,8 +19,6 @@ S
 #.idea/sonarlint/issuestore/index.pb,9/f/9fe84ebb15faf917b7def6236dba604453cc61e0
 g
 7app/src/main/java/com/tracker/ui/FavoritosFragment.java,e/8/e8d440adaf91e03eedbfa8c33757e3553777fc69
-]
--app/src/main/res/menu/menu_detalles_serie.xml,6/3/63648780d98527fd381ea1a423d83fdcc5203850
 b
 2app/src/main/java/com/tracker/ui/HomeFragment.java,9/d/9da4f10dc011573087dd8025d5a722d3e023a38e
 e
@@ -33,8 +31,6 @@ X
 (app/src/main/res/animator/slide_down.xml,a/9/a9c40bac3bbc73eed01b22ec5c86ed46dc1dd025
 V
 &app/src/main/res/animator/slide_up.xml,e/4/e4954cc78e8a8babf54884b5af3302736b2f6a0f
-h
-8app/src/main/java/com/tracker/models/VideosResponse.java,c/8/c8feb727f3da39e68db07d5d6c726f1c31cbd591
 g
 7app/src/main/java/com/tracker/models/BasicResponse.java,4/4/443893c5ad91206fed125dc9535d0186551b1404
 \
@@ -144,8 +140,6 @@ Z
 settings.gradle,0/5/05efc8b1657769a27696d478ded1e95f38737233
 F
 app/proguard-rules.pro,9/e/9e08934d811afe28fbc77aaa3c0d747b94348db9
-b
-2app/src/main/java/com/tracker/models/SerieFav.java,9/3/93b4ecc2c8e2ed31f6951ccb725693d46a3e0b20
 H
 app/google-services.json,f/d/fd8d34b142d02ec743a8efefefd2c097961666e9
 l
@@ -162,3 +156,15 @@ b
 2app/src/main/java/com/tracker/data/FirebaseDb.java,3/5/355c4410166ae4cb3813469f6d359bf2ec73cb88
 ]
 -app/src/main/java/com/tracker/util/Stats.java,1/b/1be4fce51d10af7f9bc7e43fb13a5d6f833b9947
+n
+>app/src/main/java/com/tracker/models/serie/VideosResponse.java,6/a/6aa9f1ad02421404ec65e1f9472e32920b39566e
+Y
+)app/src/main/res/layout/fragment_home.xml,3/1/31c5880846ef63ff1963efbe141ddfd56680bb19
+a
+1app/src/main/res/layout/list_series_following.xml,a/9/a902913bc6a31564ce9679c61b2b139321d8384d
+f
+6app/src/main/res/layout/list_series_following_card.xml,3/5/355054d8be7933a00a3f867d60cfe490a35b0916
+a
+1app/src/main/res/navigation/mobile_navigation.xml,5/0/50c7987ff387678f825775665976b5fc8ed47989
+^
+.app/src/main/res/layout/lista_series_actor.xml,9/4/94aa773adf79ae014160c4fd5f59661e8b040dcc

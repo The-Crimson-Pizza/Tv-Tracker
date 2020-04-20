@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
-import static com.tracker.util.Constants.BASE_URL_WEB_SERIE;
+import static com.tracker.util.Constants.BASE_URL_WEB_MOVIE;
 import static com.tracker.util.Constants.ID_SERIE;
 import static com.tracker.util.Constants.URL_WEBVIEW;
 
@@ -70,7 +70,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
                     .setAction(R.string.open_web, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra(URL_WEBVIEW, BASE_URL_WEB_SERIE + mMovies.get(position).id));
+                            mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra(URL_WEBVIEW, BASE_URL_WEB_MOVIE + mMovies.get(position).id));
                         }
                     }).show());
         } else {
