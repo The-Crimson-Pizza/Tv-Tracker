@@ -13,8 +13,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -171,6 +169,8 @@
                     tools:ignore="MissingConstraints"
                     android:layout_gravity="center_vertical"
                     android:ellipsize="marquee"
+                    android:text="@string/large_text"
+                    android:lineSpacingExtra="4dp"
                     android:textColor="@color/colorAccent"
                     android:textSize="5.5pt" />
             </LinearLayout>
