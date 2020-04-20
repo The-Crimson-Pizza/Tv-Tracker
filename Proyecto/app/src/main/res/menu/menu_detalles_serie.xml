@@ -3,10 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.tracker.ui.series.SerieFragment">
     <item
+        android:id="@+id/action_web"
+        android:orderInCategory="100"
+        android:title="@string/menu_share"
+        android:icon="@drawable/web_icon"
+        app:showAsAction="ifRoom"
+        android:iconTint="@color/whiteColor"/>
+    <item
         android:id="@+id/action_share"
         android:orderInCategory="100"
         android:title="@string/menu_share"
         android:icon="@drawable/share_hd"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:iconTint="@color/whiteColor"/>
 </menu>
