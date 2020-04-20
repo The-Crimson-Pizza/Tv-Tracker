@@ -66,14 +66,12 @@ public class EpisodesFragment extends Fragment {
         LiveData<SerieResponse.Serie> serieLiveData = model.getSerie();
         serieLiveData.observe(getViewLifecycleOwner(), serie -> {
             mSerie = serie;
-            setAdapters(view, mSerie);
+            setAdapters(mSerie);
         });
 
         FirebaseDb.getInstance().getSeriesFav().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                GenericTypeIndicator<List<SerieResponse.Serie>> genericTypeIndicator =
-
                 mFavs.clear();
                 List<SerieResponse.Serie> favTemp = dataSnapshot.getValue(new GenericTypeIndicator<List<SerieResponse.Serie>>() {
                 });
@@ -83,8 +81,6 @@ public class EpisodesFragment extends Fragment {
                         mSerie.checkFav(mFavs);
                         mEpisodes.clear();
                         mEpisodes.addAll(mSerie.seasons.get(mPosTemporada).episodes);
-                        mEpisodeAdapter.notifyDataSetChanged();
-//                        rvEpisodes.setAdapter(new EpisodeAdapter(mContext, mSerie.seasons.get(mPosTemporada).episodes, mSerie, mFavs, mPosTemporada));
                     }
                 }
             }
@@ -96,16 +92,12 @@ public class EpisodesFragment extends Fragment {
         });
     }
 
-    private void setAdapters(@NonNull View view, SerieResponse.Serie serie) {
+    private void setAdapters(SerieResponse.Serie serie) {
         if (!serie.seasons.get(mPosTemporada).episodes.isEmpty()) {
             mEpisodes.clear();
             mEpisodes.addAll(serie.seasons.get(mPosTemporada).episodes);
             mEpisodeAdapter = new EpisodeAdapter(mContext, mEpisodes, serie, mFavs, mPosTemporada);
             rvEpisodes.setAdapter(mEpisodeAdapter);
-//        } else {
-//            mEpisodeAdapter = new EpisodeAdapter(mContext, null, serie, mFavs, mPosTemporada);
-//            rvEpisodes.setAdapter(mEpisodeAdapter);
-////            Snackbar.make(view, R.string.no_data, LENGTH_INDEFINITE).show();
         }
     }
 
@@ -115,6 +107,5 @@ public class EpisodesFragment extends Fragment {
         rvEpisodes.setHasFixedSize(true);
         rvEpisodes.setItemViewCacheSize(20);
         rvEpisodes.setSaveEnabled(true);
-//        rvEpisodes.setAdapter(mEpisodeAdapter);
     }
 }
