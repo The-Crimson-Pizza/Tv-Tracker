@@ -67,4 +67,5 @@
     <string name="just_watch">You just watched every episode!</string>
     <string name="empty" translatable="false" />
     <string name="tus_series_seguidas_aparecer_aqu">Your following list will appear here</string>
+    <string name="sharing_url">Sharing URL</string>
 </resources>

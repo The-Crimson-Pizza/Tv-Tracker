@@ -47,16 +47,11 @@ public class FavoritosFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setRecycler(view);
+        getFollowingSeries();
+    }
 
-        favAdapter = new FavoritesAdapter(getActivity(), mFavs);
-        rvFavs = view.findViewById(R.id.grid_favoritas);
-
-        rvFavs.setHasFixedSize(true);
-        rvFavs.setItemViewCacheSize(20);
-        rvFavs.setSaveEnabled(true);
-        rvFavs.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-        rvFavs.setAdapter(favAdapter);
-
+    private void getFollowingSeries() {
         FirebaseDb.getInstance().getSeriesFav().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -75,5 +70,15 @@ public class FavoritosFragment extends Fragment {
 
             }
         });
+    }
+
+    private void setRecycler(@NonNull View view) {
+        favAdapter = new FavoritesAdapter(getActivity(), mFavs);
+        rvFavs = view.findViewById(R.id.grid_favoritas);
+        rvFavs.setHasFixedSize(true);
+        rvFavs.setItemViewCacheSize(20);
+        rvFavs.setSaveEnabled(true);
+        rvFavs.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        rvFavs.setAdapter(favAdapter);
     }
 }

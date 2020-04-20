@@ -23,6 +23,7 @@ import com.tracker.R;
 import com.tracker.adapters.EpisodeAdapter;
 import com.tracker.data.FirebaseDb;
 import com.tracker.data.SeriesViewModel;
+import com.tracker.models.seasons.Episode;
 import com.tracker.models.serie.SerieResponse;
 import com.tracker.util.Constants;
 
@@ -39,6 +40,7 @@ public class EpisodesFragment extends Fragment {
     private EpisodeAdapter mEpisodeAdapter;
     private SerieResponse.Serie mSerie;
     private List<SerieResponse.Serie> mFavs = new ArrayList<>();
+    private List<Episode> mEpisodes = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,21 +64,27 @@ public class EpisodesFragment extends Fragment {
 
         SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
         LiveData<SerieResponse.Serie> serieLiveData = model.getSerie();
-        serieLiveData.observe(getViewLifecycleOwner(), serie -> setAdapters(view, serie));
+        serieLiveData.observe(getViewLifecycleOwner(), serie -> {
+            mSerie = serie;
+            setAdapters(view, mSerie);
+        });
 
         FirebaseDb.getInstance().getSeriesFav().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                GenericTypeIndicator<List<SerieResponse.Serie>> genericTypeIndicator = new GenericTypeIndicator<List<SerieResponse.Serie>>() {
-                };
+//                GenericTypeIndicator<List<SerieResponse.Serie>> genericTypeIndicator =
+
                 mFavs.clear();
-                List<SerieResponse.Serie> favTemp = dataSnapshot.getValue(genericTypeIndicator);
+                List<SerieResponse.Serie> favTemp = dataSnapshot.getValue(new GenericTypeIndicator<List<SerieResponse.Serie>>() {
+                });
                 if (favTemp != null) {
                     mFavs.addAll(favTemp);
                     if (mSerie != null) {
                         mSerie.checkFav(mFavs);
-                        mEpisodeAdapter = new EpisodeAdapter(mContext, mSerie.seasons.get(mPosTemporada).episodes, mSerie, mFavs, mPosTemporada);
-                        rvEpisodes.setAdapter(mEpisodeAdapter);
+                        mEpisodes.clear();
+                        mEpisodes.addAll(mSerie.seasons.get(mPosTemporada).episodes);
+                        mEpisodeAdapter.notifyDataSetChanged();
+//                        rvEpisodes.setAdapter(new EpisodeAdapter(mContext, mSerie.seasons.get(mPosTemporada).episodes, mSerie, mFavs, mPosTemporada));
                     }
                 }
             }
@@ -89,14 +97,15 @@ public class EpisodesFragment extends Fragment {
     }
 
     private void setAdapters(@NonNull View view, SerieResponse.Serie serie) {
-        mSerie = serie;
-        if (!mSerie.seasons.get(mPosTemporada).episodes.isEmpty()) {
-            mEpisodeAdapter = new EpisodeAdapter(mContext, mSerie.seasons.get(mPosTemporada).episodes, mSerie, mFavs, mPosTemporada);
+        if (!serie.seasons.get(mPosTemporada).episodes.isEmpty()) {
+            mEpisodes.clear();
+            mEpisodes.addAll(serie.seasons.get(mPosTemporada).episodes);
+            mEpisodeAdapter = new EpisodeAdapter(mContext, mEpisodes, serie, mFavs, mPosTemporada);
             rvEpisodes.setAdapter(mEpisodeAdapter);
-        } else {
-            mEpisodeAdapter = new EpisodeAdapter(mContext, null, mSerie, mFavs, mPosTemporada);
-            rvEpisodes.setAdapter(mEpisodeAdapter);
-            Snackbar.make(view, R.string.no_data, LENGTH_INDEFINITE).show();
+//        } else {
+//            mEpisodeAdapter = new EpisodeAdapter(mContext, null, serie, mFavs, mPosTemporada);
+//            rvEpisodes.setAdapter(mEpisodeAdapter);
+////            Snackbar.make(view, R.string.no_data, LENGTH_INDEFINITE).show();
         }
     }
 
@@ -106,5 +115,6 @@ public class EpisodesFragment extends Fragment {
         rvEpisodes.setHasFixedSize(true);
         rvEpisodes.setItemViewCacheSize(20);
         rvEpisodes.setSaveEnabled(true);
+//        rvEpisodes.setAdapter(mEpisodeAdapter);
     }
 }

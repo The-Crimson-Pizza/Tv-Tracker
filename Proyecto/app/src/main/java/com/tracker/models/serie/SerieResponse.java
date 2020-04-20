@@ -4,6 +4,7 @@ package com.tracker.models.serie;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.tracker.models.BasicResponse;
+import com.tracker.models.seasons.Episode;
 import com.tracker.models.seasons.Season;
 
 import java.io.Serializable;
@@ -66,7 +67,7 @@ public class SerieResponse {
         public Date finishDate;
 
         public Serie() {
-
+//            Empty constructor for Firebase serialize
         }
 
 
@@ -90,7 +91,16 @@ public class SerieResponse {
                 for (int j = 0; j < s.seasons.get(i).episodes.size(); j++) {
                     this.seasons.get(i).episodes.get(j).visto = s.seasons.get(i).episodes.get(j).visto;
                 }
+                if (checkAllEpisodes(s.seasons.get(i).episodes)) this.seasons.get(i).visto = true;
             }
+        }
+
+        private boolean checkAllEpisodes(List<Episode> episodes) {
+            int cont = 0;
+            for (int i = 0; i < episodes.size(); i++) {
+                if (episodes.get(i).visto) cont++;
+            }
+            return cont == episodes.size();
         }
 
         public int getPosition(List<Serie> favs) {
@@ -103,41 +113,36 @@ public class SerieResponse {
         }
 
         public static class Genre implements Serializable {
-            @SerializedName("name")
-            @Expose
+
+            public int id;
             public String name;
 
             public Genre() {
-
+//                 Empty constructor for Firebase serialize
             }
         }
 
         public static class Network implements Serializable {
-            @SerializedName("name")
-            @Expose
+
+            public int id;
             public String name;
             @SerializedName("logo_path")
-            @Expose
             public String logoPath;
 
             public Network() {
-
+//                Empty constructor for Firebase serialize
             }
         }
 
         public static class ExternalIds implements Serializable {
 
             @SerializedName("imdb_id")
-            @Expose
             public String imdbId;
             @SerializedName("instagram_id")
-            @Expose
             public String instagramId;
-            @SerializedName("twitter_id")
-            @Expose
-            public String twitterId;
 
             public ExternalIds() {
+//                Empty constructor for Firebase serialize
             }
         }
     }

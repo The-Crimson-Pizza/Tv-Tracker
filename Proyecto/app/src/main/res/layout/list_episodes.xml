@@ -45,7 +45,6 @@
                         android:layout_gravity="end"
                         android:ellipsize="marquee"
                         android:gravity="center_horizontal"
-                        android:text="52:04"
                         android:textColor="@color/whiteColor"
                         android:textSize="5pt" />
                 </LinearLayout>
@@ -66,7 +65,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="2"
-                            android:text="Nombre de episodio"
                             android:textAllCaps="true"
                             android:textColor="@color/colorPrimary"
                             android:textSize="7.5pt"

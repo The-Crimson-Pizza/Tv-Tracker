@@ -36,13 +36,17 @@ import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
 import com.tracker.ui.WebViewActivity;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 import static com.tracker.util.Constants.BASE_URL_WEB_TV;
 import static com.tracker.util.Constants.ID_SERIE;
+import static com.tracker.util.Constants.TEXT_PLAIN;
 import static com.tracker.util.Constants.URL_WEBVIEW;
 
 public class SerieFragment extends Fragment {
@@ -68,62 +72,20 @@ public class SerieFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        seriesViewModel = new ViewModelProvider(requireActivity()).get(SeriesViewModel.class);
 
-        itemWeb = toolbar.getMenu().findItem(R.id.action_web);
-        itemWeb.setVisible(false);
-
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
-        toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
-        toolbar.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() == R.id.action_share) {
-                Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TITLE, mSerie.name);
-                sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Sharing URL");
-                sendIntent.putExtra(Intent.EXTRA_TEXT, BASE_URL_WEB_TV + mSerie.id);
-                sendIntent.setType("text/plain");
-                startActivity(Intent.createChooser(sendIntent, null));
-
-
-                return true;
-            } else if (item.getItemId() == R.id.action_web) {
-//                Uri uri = Uri.parse(mSerie.homepage);
-//                Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
-//                likeIng.setPackage("com.instagram.android");
-
-                startActivity(new Intent(mContext, WebViewActivity.class).putExtra(URL_WEBVIEW, mSerie.homepage));
-
-//                try {
-//                    startActivity(likeIng);
-//                } catch (ActivityNotFoundException e) {
-//                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mSerie.homepage)));
-//                }
-
-                return true;
-            }
-            return false;
-        });
-
-        seriesViewModel = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
-
-        hideKeyboard();
-        setToolbar(view);
-        setViewPager(view);
-
-//        ProgressBar bar = view.findViewById(R.id.progreso);
+//        todo - ProgressBar bar = view.findViewById(R.id.progreso);
 //        bar.setVisibility(View.VISIBLE);
 
-        FloatingActionButton fab = view.findViewById(R.id.fab);
-        fab.setOnClickListener(viewFab -> {
-            if (!mSerie.fav) {
-                addFav();
-                Snackbar.make(viewFab, R.string.add_fav, Snackbar.LENGTH_LONG).show();
-            } else {
-                Snackbar.make(viewFab, R.string.already_fav, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.delete_fav, viewSnack -> deleteFav()).show();
-            }
-        });
+        setToolbar(view);
+        hideKeyboard();
+        setViewPager(view);
+        setFloatingButton(view);
 
+        getFollowingSeries(view);
+    }
+
+    private void getFollowingSeries(@NonNull View view) {
         FirebaseDb.getInstance().getSeriesFav().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -216,7 +178,42 @@ public class SerieFragment extends Fragment {
 
     private void setToolbar(@NonNull View view) {
         Toolbar toolbar = view.findViewById(R.id.toolbar);
+        itemWeb = toolbar.getMenu().findItem(R.id.action_web);
+        itemWeb.setVisible(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
-        toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
+        toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
+        toolbar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.action_share) {
+                startActivity(Intent.createChooser(setIntent(), null));
+                return true;
+            } else if (item.getItemId() == R.id.action_web) {
+                startActivity(new Intent(mContext, WebViewActivity.class).putExtra(URL_WEBVIEW, mSerie.homepage));
+                return true;
+            }
+            return false;
+        });
+    }
+
+    @NotNull
+    private Intent setIntent() {
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TITLE, mSerie.name);
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.sharing_url));
+        sendIntent.putExtra(Intent.EXTRA_TEXT, BASE_URL_WEB_TV + mSerie.id);
+        sendIntent.setType(TEXT_PLAIN);
+        return sendIntent;
+    }
+
+    private void setFloatingButton(@NonNull View view) {
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(viewFab -> {
+            if (!mSerie.fav) {
+                addFav();
+                Snackbar.make(viewFab, R.string.add_fav, Snackbar.LENGTH_LONG).show();
+            } else {
+                Snackbar.make(viewFab, R.string.already_fav, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.delete_fav, viewSnack -> deleteFav()).show();
+            }
+        });
     }
 }

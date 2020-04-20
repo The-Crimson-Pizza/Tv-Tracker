@@ -168,3 +168,7 @@ a
 1app/src/main/res/navigation/mobile_navigation.xml,5/0/50c7987ff387678f825775665976b5fc8ed47989
 ^
 .app/src/main/res/layout/lista_series_actor.xml,9/4/94aa773adf79ae014160c4fd5f59661e8b040dcc
+]
+-app/src/main/res/menu/menu_detalles_serie.xml,6/3/63648780d98527fd381ea1a423d83fdcc5203850
+`
+0app/src/main/res/xml/network_security_config.xml,9/d/9d239a9c6e0f3ce6bc750ee58e30863a8efd3403

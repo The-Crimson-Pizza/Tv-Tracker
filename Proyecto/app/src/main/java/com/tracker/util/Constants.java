@@ -4,6 +4,7 @@ public class Constants {
 
     public static final String COM_INSTAGRAM_ANDROID = "com.instagram.android";
     public static final String FORMAT_MINUTES = "%d:%02d";
+    public static final String TEXT_PLAIN = "text/plain";
 
     private Constants() {
     }
