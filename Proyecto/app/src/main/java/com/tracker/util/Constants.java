@@ -27,6 +27,8 @@ public class Constants {
     public static final String ID_SERIE = "id_serie";
     public static final String ID_ACTOR = "id_actor";
     public static final String ID_SEASON = "id_season";
+    public static final String ID_GENRE = "id_genre";
+    public static final String ID_NETWORK = "id_network";
     //    API CALLS
     public static final String GET_SERIE_API_EXTRAS = "credits,similar,external_ids";
     public static final String GET_PEOPLE_API_EXTRAS = "tv_credits,movie_credits,external_ids";
@@ -37,7 +39,7 @@ public class Constants {
     public static final String FORMAT_DEFAULT = "yyyy-MM-dd";
     public static final String FORMAT_LONG = "EEE dd, MMMM yyyy";
     public static final String FORMAT_YEAR = "yyyy";
-    public static final String FORMAT_HOURS = "hh:mm";
+    public static final String FORMAT_HOURS = "HH:mm";
     public static final String FORMAT_MINUTES = "%d:%02d";
     //    SHARED PREFERENCES
     public static final String KEY_PREFERENCES = "PREFERENCES_FAV";

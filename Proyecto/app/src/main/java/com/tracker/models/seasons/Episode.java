@@ -31,5 +31,7 @@ public class Episode implements Serializable {
     public Episode() {
     }
 
-
+    public Date getWatchedDate() {
+        return watchedDate;
+    }
 }

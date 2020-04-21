@@ -140,7 +140,7 @@ public class SerieResponse {
             return Collections.max(datesList);
         }
 
-        private List<Date> getDatesEpisodes(List<Episode> episodes) {
+        public List<Date> getDatesEpisodes(List<Episode> episodes) {
             List<Date> dates = new ArrayList<>();
             for (Episode e : episodes) {
                 if (e.watchedDate != null) {

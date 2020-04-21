@@ -75,8 +75,7 @@
         <ViewSwitcher
             android:id="@+id/switcher_genres"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/generos"
@@ -85,38 +84,47 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <Button
                     android:id="@+id/genre1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:background="@drawable/round"
+                    android:background="@drawable/ripple"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
                     android:padding="7.5dp"
                     android:text="@string/genre"
+                    android:textAllCaps="false"
                     android:textColor="@color/whiteColor"
                     android:textStyle="bold"
                     android:visibility="gone" />
 
-                <TextView
+                <Button
                     android:id="@+id/genre2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:background="@drawable/round"
+                    android:background="@drawable/ripple"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
                     android:padding="7.5dp"
                     android:text="@string/genre"
+                    android:textAllCaps="false"
                     android:textColor="@color/whiteColor"
                     android:textStyle="bold"
                     android:visibility="gone" />
 
-                <TextView
+                <Button
                     android:id="@+id/genre3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:background="@drawable/round"
+                    android:background="@drawable/ripple"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
                     android:padding="7.5dp"
                     android:text="@string/genre"
+                    android:textAllCaps="false"
                     android:textColor="@color/whiteColor"
                     android:textStyle="bold"
                     android:visibility="gone" />
@@ -143,41 +151,47 @@
         <ViewSwitcher
             android:id="@+id/switcher_networks"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/networks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/network1"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="15dp"
+                    android:background="@drawable/button_effect"
+                    android:padding="6dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/netflix"
                     android:visibility="gone" />
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/network2"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="15dp"
+                    android:background="@drawable/button_effect"
+                    android:padding="6dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/netflix"
+                    android:src="@drawable/amazon"
                     android:visibility="gone" />
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/network3"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="15dp"
+                    android:background="@drawable/button_effect"
+                    android:padding="6dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/amazon"
                     android:visibility="gone" />

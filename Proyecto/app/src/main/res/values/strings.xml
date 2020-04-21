@@ -73,4 +73,10 @@
     <string name="sort_name">Sort by name</string>
     <string name="sort_watched">Sort by last watched</string>
     <string name="sort_by">Sort by:</string>
+    <string name="finished_date">Finished: %1$s at %2$s</string>
+    <string name="hours_watched_total">%1$d hours, %2$d minutes watching</string>
+    <string name="days_watched_total">%1$d days, %2$d hours, %3$d minutes watching</string>
+    <string name="year_watched_total">%1$d years, %2$d days, %3$d hours, %4$d minutes watching</string>
+    <string name="number_shows">You follow %1$d tv-shows</string>
+    <string name="episodes_watched_total">You have watched %1$d episodes</string>
 </resources>

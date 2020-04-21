@@ -18,20 +18,20 @@ import com.tracker.data.FirebaseDb;
 import com.tracker.models.seasons.Episode;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
+import com.tracker.util.Constants;
 import com.tracker.util.Util;
 
 import java.util.Date;
 import java.util.List;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
-import static com.tracker.util.Constants.ID_SEASON;
 
 public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder> {
 
-    private static Context mContext;
-    private List<Season> mSeasons;
-    private SerieResponse.Serie mSerie;
-    private List<SerieResponse.Serie> mFavs;
+    private final Context mContext;
+    private final List<Season> mSeasons;
+    private final SerieResponse.Serie mSerie;
+    private final List<SerieResponse.Serie> mFavs;
 
     public SeasonAdapter(Context mContext, SerieResponse.Serie serie, List<SerieResponse.Serie> favs) {
         this.mFavs = favs;
@@ -52,7 +52,7 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull SeasonAdapter.ViewHolder holder, final int position) {
-        holder.bindTo(mSeasons.get(position), mSerie, mFavs);
+        holder.bindTo(mSeasons.get(position), mSerie, mFavs, mContext);
     }
 
     @Override
@@ -65,12 +65,10 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView seasonPoster;
-        TextView seasonName;
-        TextView numEpisodes;
-        MaterialCheckBox watchedCheck;
-
-        int id;
+        final ImageView seasonPoster;
+        final TextView seasonName;
+        final TextView numEpisodes;
+        final MaterialCheckBox watchedCheck;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,7 +79,7 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
 
             itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
-                bundle.putInt(ID_SEASON, getAdapterPosition());
+                bundle.putInt(Constants.ID_SEASON, getAdapterPosition());
                 Navigation.findNavController(v).navigate(R.id.action_series_to_episodes, bundle);
             });
         }
@@ -91,46 +89,47 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
             return new SeasonAdapter.ViewHolder(view);
         }
 
-        void bindTo(Season season, SerieResponse.Serie serie, List<SerieResponse.Serie> mFavs) {
+        void bindTo(Season season, SerieResponse.Serie serie, List<SerieResponse.Serie> mFavs, Context context) {
             if (season != null) {
                 if (serie.added) {
-                    watchedCheck.setVisibility(View.VISIBLE);
-                    watchedCheck.setChecked(season.visto);
-
-                    watchedCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                        if (isChecked) {
-                            if (!season.visto) {
-                                watchSeason(serie, mFavs, getAdapterPosition());
-                            }
-                        } else {
-                            if (season.visto) {
-                                unwatchSeason(serie, mFavs, getAdapterPosition());
-                            }
-                        }
-                    });
+                    setWatchCheck(season, serie, mFavs);
                 }
-
-                id = season.seasonNumber;
                 seasonName.setText(season.name);
-                Util.getImage(BASE_URL_IMAGES_POSTER + season.posterPath, seasonPoster, mContext);
+                Util.getImage(BASE_URL_IMAGES_POSTER + season.posterPath, seasonPoster, context);
                 if (season.episodes != null) {
                     if (serie.added) {
                         numEpisodes.setText(
-                                mContext.getString(R.string.num_episodes_follow,
+                                context.getString(R.string.num_episodes_follow,
                                         countEpisodes(season),
                                         season.episodes.size())
                         );
                     } else {
                         numEpisodes.setText(
-                                mContext.getString(R.string.n_episodes,
+                                context.getString(R.string.n_episodes,
                                         season.episodes.size())
                         );
                     }
 
                 } else {
-                    numEpisodes.setText(mContext.getString(R.string.no_data));
+                    numEpisodes.setText(context.getString(R.string.no_data));
                 }
             }
+        }
+
+        private void setWatchCheck(Season season, SerieResponse.Serie serie, List<SerieResponse.Serie> mFavs) {
+            watchedCheck.setVisibility(View.VISIBLE);
+            watchedCheck.setChecked(season.visto);
+            watchedCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    if (!season.visto) {
+                        watchSeason(serie, mFavs, getAdapterPosition());
+                    }
+                } else {
+                    if (season.visto) {
+                        unwatchSeason(serie, mFavs, getAdapterPosition());
+                    }
+                }
+            });
         }
 
         int countEpisodes(Season season) {
@@ -173,7 +172,7 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
                 favs.get(pos).finishDate = null;
             }
 
-//            GUARDAR FAVORITOS EN BBDD
+//            GUARDAR FAVORITOS EN FIREBASE
             FirebaseDb.getInstance().setSeriesFav(favs);
         }
 

@@ -134,7 +134,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                 getEpisodesWatched(favSerie);
                 next.setText(getLastEpisode(favSerie));
                 next2.setText(getLastEpisode(favSerie));
-                sinopsis.setText(getLastEpisodeSinopsis(favSerie));
+                sinopsis.setText(getLastEpisodeSinopsis(favSerie, mContext));
 
             }
         }
@@ -150,7 +150,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             favProgress.setProgress(progress);
         }
 
-        String getLastEpisodeSinopsis(SerieResponse.Serie serieFav) {
+        String getLastEpisodeSinopsis(SerieResponse.Serie serieFav, Context context) {
             Season.sortSeason(serieFav.seasons);
             for (Season s : serieFav.seasons) {
                 for (Episode e : s.episodes) {
@@ -159,8 +159,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                     }
                 }
             }
-            return "Terminada el: " + Util.formatDateToString(serieFav.finishDate, FORMAT_LONG) + " a las " + Util.formatDateToString(serieFav.finishDate, FORMAT_HOURS);
-//            return mContext.getString(R.string.no_data);
+            return String.format(context.getString(R.string.finished_date), Util.formatDateToString(serieFav.finishDate, FORMAT_LONG), Util.formatDateToString(serieFav.finishDate, FORMAT_HOURS));
         }
 
         String getLastEpisode(SerieResponse.Serie serieFav) {

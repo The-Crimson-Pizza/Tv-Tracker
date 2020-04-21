@@ -1,7 +1,10 @@
 package com.tracker.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +23,8 @@ import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 import static com.tracker.util.Constants.FORMAT_YEAR;
 import static com.tracker.util.Constants.GENRE;
 import static com.tracker.util.Constants.ID;
+import static com.tracker.util.Constants.ID_GENRE;
+import static com.tracker.util.Constants.ID_NETWORK;
 import static com.tracker.util.Constants.NETWORKS;
 
 public class FillSerie {
@@ -88,11 +93,17 @@ public class FillSerie {
         int cont = 1;
         if (!mSerie.networks.isEmpty()) {
             while (cont <= 3) {
+                int pos = cont - 1;
                 String name = NETWORKS + cont;
                 int id = mContext.getResources().getIdentifier(name, ID, mContext.getPackageName());
-                ImageView imageView = mView.findViewById(id);
+                ImageButton imageView = mView.findViewById(id);
                 Util.getImageNoPlaceholder(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(cont - 1).logoPath, imageView, mContext);
                 imageView.setVisibility(View.VISIBLE);
+                imageView.setOnClickListener(v -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(ID_NETWORK, mSerie.networks.get(pos).id);
+//                        Navigation.findNavController(v).navigate(R.id.action_navigation_fav_to_navigation_series, bundle);
+                });
                 if (cont == mSerie.networks.size()) break;
                 else cont++;
             }
@@ -107,11 +118,18 @@ public class FillSerie {
         int cont = 1;
         if (!mSerie.genres.isEmpty()) {
             while (cont <= 3) {
+                int pos = cont - 1;
                 String name = GENRE + cont;
                 int id = mContext.getResources().getIdentifier(name, ID, mContext.getPackageName());
-                TextView textView = mView.findViewById(id);
-                textView.setText(mSerie.genres.get(cont - 1).name);
+                Button textView = mView.findViewById(id);
+                textView.setText(mSerie.genres.get(pos).name);
                 textView.setVisibility(View.VISIBLE);
+                textView.setOnClickListener(v -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(ID_GENRE, mSerie.genres.get(pos).id);
+//                        Navigation.findNavController(v).navigate(R.id.action_navigation_fav_to_navigation_series, bundle);
+
+                });
                 if (cont == mSerie.genres.size()) break;
                 else cont++;
             }

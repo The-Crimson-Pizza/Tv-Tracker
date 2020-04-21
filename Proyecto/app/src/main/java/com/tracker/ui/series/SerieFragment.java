@@ -36,6 +36,7 @@ import com.tracker.data.SeriesViewModel;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
 import com.tracker.ui.WebViewActivity;
+import com.tracker.util.Stats;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -136,8 +137,9 @@ public class SerieFragment extends Fragment {
         if (mFavs != null) {
             s.checkFav(mFavs);
             if (s.finished) {
-                Log.e("TAG", "COMPLETITA");
+                //nada
             }
+            Stats.getInstance(mFavs, mContext).mostWatchedSerie();
         }
         RxBus.getInstance().publish(s);
         seriesViewModel.setSerie(s);
