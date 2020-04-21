@@ -114,11 +114,19 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
                 seasonName.setText(season.name);
                 Util.getImage(BASE_URL_IMAGES_POSTER + season.posterPath, seasonPoster, mContext);
                 if (season.episodes != null) {
-                    numEpisodes.setText(
-                            mContext.getString(R.string.n_episodes,
-                                    countEpisodes(season),
-                                    season.episodes.size())
-                    );
+                    if (serie.added) {
+                        numEpisodes.setText(
+                                mContext.getString(R.string.num_episodes_follow,
+                                        countEpisodes(season),
+                                        season.episodes.size())
+                        );
+                    } else {
+                        numEpisodes.setText(
+                                mContext.getString(R.string.n_episodes,
+                                        season.episodes.size())
+                        );
+                    }
+
                 } else {
                     numEpisodes.setText(mContext.getString(R.string.no_data));
                 }

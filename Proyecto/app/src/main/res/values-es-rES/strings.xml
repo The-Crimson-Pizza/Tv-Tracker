@@ -39,7 +39,7 @@
     <string name="no_cast">Sin datos de reparto</string>
     <string name="no_seasons">Sin datos de temporadas</string>
     <string name="no_data">Sin datos</string>
-    <string name="n_episodes">%1$d/%2$d capítulos</string>
+    <string name="n_episodes">%1$d capítulos</string>
     <string name="buscador">Buscador</string>
     <string name="checked">Siguiendo</string>
     <string name="open_web">Abrir en navegador</string>
@@ -54,4 +54,5 @@
     <string name="next_episode">"Siguiente capítulo: "</string>
     <string name="just_watch">Ya has visto todos los capítulos</string>
     <string name="borrado_correcto">Borrada</string>
+    <string name="num_episodes_follow">%1$d/%2$d capítulos</string>
 </resources>

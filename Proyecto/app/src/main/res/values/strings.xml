@@ -55,7 +55,8 @@
     <string name="no_data">No data</string>
     <string name="no_cast">No data of cast</string>
     <string name="no_seasons">No data of seasons</string>
-    <string name="n_episodes">%1$d/%2$d episodes</string>
+    <string name="num_episodes_follow">%1$d/%2$d episodes</string>
+    <string name="n_episodes">%1$d episodes</string>
     <string name="open_web">Open in web</string>
     <string name="not_implemented">Not yet implemented</string>
     <string name="add_fav">Added to following list</string>

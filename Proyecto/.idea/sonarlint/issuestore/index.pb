@@ -91,8 +91,6 @@ j
 -app/src/main/res/layout/fragment_episodes.xml,4/0/40c268a21213a85a4cc4d4c4afd371d8f8ea3c38
 \
 ,app/src/main/res/layout/fragment_seasons.xml,9/5/950d9422cbbe151de3a21ecdf1159e15c0cfdc4c
-Z
-*app/src/main/res/values-es-rES/strings.xml,5/e/5e384da4a2f12548b1c82f7021b5d1db7e1bb238
 R
 "app/src/main/java/DiagramaTfg.puml,4/f/4fe282c992760d6f70734f60735c2ff08428cb22
 n
