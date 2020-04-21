@@ -172,3 +172,7 @@ a
 -app/src/main/res/menu/menu_detalles_serie.xml,6/3/63648780d98527fd381ea1a423d83fdcc5203850
 `
 0app/src/main/res/xml/network_security_config.xml,9/d/9d239a9c6e0f3ce6bc750ee58e30863a8efd3403
+Y
+)app/src/main/res/layout/list_episodes.xml,6/5/65bdc2b3fd5a168997f9b162f75b1160b88f38fc
+b
+2app/src/main/res/layout-v26/fragment_favoritos.xml,3/2/32fd8fcb080c070539141816ece5b54a92c5c359

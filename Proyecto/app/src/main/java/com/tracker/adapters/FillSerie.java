@@ -75,7 +75,7 @@ public class FillSerie {
         TextView country = mView.findViewById(R.id.paisSerie);
         TextView status = mView.findViewById(R.id.emisionSerie);
 
-        airDate.setText(Util.getFecha(mSerie.firstAirDate, FORMAT_YEAR));
+        airDate.setText(Util.convertStringDateFormat(mSerie.firstAirDate, FORMAT_YEAR));
 
         if (!mSerie.originCountry.isEmpty()) country.setText(mSerie.originCountry.get(0));
         else country.setText(mContext.getString(R.string.no_data));

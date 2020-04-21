@@ -19,6 +19,7 @@ import com.google.android.material.checkbox.MaterialCheckBox;
 import com.tracker.R;
 import com.tracker.data.FirebaseDb;
 import com.tracker.models.seasons.Episode;
+import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
 import com.tracker.util.Constants;
 import com.tracker.util.Util;
@@ -119,7 +120,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
 
                 episodeName.setText(episode.name);
                 episodeNameExpandable.setText(episode.name);
-                episodeDate.setText(Util.getFecha(episode.airDate, FORMAT_LONG));
+                episodeDate.setText(Util.convertStringDateFormat(episode.airDate, FORMAT_LONG));
                 episodeOverview.setText(episode.overview);
                 Util.getImage(BASE_URL_IMAGES_POSTER + episode.stillPath, episodeBackdrop, c);
 
@@ -158,6 +159,23 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
             }
         }
 
+        private boolean checkSeasonFinished(SerieResponse.Serie serie) {
+            for (Season s : serie.seasons) {
+                if (!s.visto) return false;
+            }
+            return true;
+        }
+
+
+        private boolean checkEpisodesFinished(SerieResponse.Serie serie) {
+            for (Season s : serie.seasons) {
+                for (Episode e : s.episodes) {
+                    if (!e.visto) return false;
+                }
+            }
+            return true;
+        }
+
         /**
          * Set as watched the episode in the RecyclerView
          *
@@ -177,6 +195,26 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
                         .seasons.get(seasonPos)
                         .episodes.get(episodePos)
                         .watchedDate = new Date();
+
+                if (checkEpisodesFinished(favs.get(favPosition))) {
+                    favs.get(favPosition)
+                            .seasons.get(seasonPos).visto = true;
+                    favs.get(favPosition)
+                            .seasons.get(seasonPos).watchedDate = new Date();
+                } else {
+                    favs.get(favPosition)
+                            .seasons.get(seasonPos).visto = false;
+                    favs.get(favPosition)
+                            .seasons.get(seasonPos).watchedDate = null;
+                }
+
+                if (checkSeasonFinished(favs.get(favPosition))) {
+                    favs.get(favPosition).finished = true;
+                    favs.get(favPosition).finishDate = new Date();
+                } else {
+                    favs.get(favPosition).finished = false;
+                    favs.get(favPosition).finishDate = null;
+                }
 
                 FirebaseDb.getInstance().setSeriesFav(favs);
             }
@@ -201,6 +239,14 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
                         .seasons.get(seasonPos)
                         .episodes.get(episodePos)
                         .watchedDate = null;
+
+                favs.get(favPosition)
+                        .seasons.get(seasonPos).visto = false;
+                favs.get(favPosition)
+                        .seasons.get(seasonPos).watchedDate = null;
+
+                favs.get(favPosition).finished = false;
+                favs.get(favPosition).finishDate = null;
 
                 FirebaseDb.getInstance().setSeriesFav(favs);
             }

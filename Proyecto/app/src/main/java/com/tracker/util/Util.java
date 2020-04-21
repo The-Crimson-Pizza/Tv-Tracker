@@ -10,6 +10,7 @@ import com.tracker.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import static com.tracker.util.Constants.FORMAT_DEFAULT;
@@ -53,12 +54,19 @@ public class Util {
         return data != null && data.length() > 0 ? data : context.getString(R.string.no_data);
     }
 
-    public static String getFecha(String oldDate, String format) {
+    public static String convertStringDateFormat(String oldDate, String format) {
         try {
-            return new SimpleDateFormat(format).format(new SimpleDateFormat(FORMAT_DEFAULT).parse(oldDate));
+            return new SimpleDateFormat(format, Locale.getDefault()).format(new SimpleDateFormat(FORMAT_DEFAULT, Locale.getDefault()).parse(oldDate));
         } catch (ParseException e) {
             return oldDate;
         }
+    }
+
+    public static String formatDateToString(Date oldDate, String pattern) {
+        if (oldDate != null) {
+            return new SimpleDateFormat("yyyy-mm-dd hh:mm:ss", Locale.getDefault()).format(oldDate);
+        }
+        return "No data";
     }
 
 

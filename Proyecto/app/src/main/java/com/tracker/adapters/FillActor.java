@@ -1,27 +1,17 @@
 package com.tracker.adapters;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.borjabravo.readmoretextview.ReadMoreTextView;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.target.DrawableImageViewTarget;
-import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.request.transition.Transition;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.tracker.R;
 import com.tracker.models.actor.PersonResponse;
@@ -149,11 +139,11 @@ public class FillActor {
             if (mPerson.deathday != null) {
                 deathDate = parseStringToLocalDate(mPerson.deathday);
                 period = Period.between(bornDate, deathDate);
-                bornDateNew = String.format("%s", Util.getFecha(mPerson.birthday, FORMAT_LONG));
-                deathDateNew = String.format("%s (%s %s)", Util.getFecha(mPerson.deathday, FORMAT_LONG), period.getYears(), mContext.getString(R.string.years));
+                bornDateNew = String.format("%s", Util.convertStringDateFormat(mPerson.birthday, FORMAT_LONG));
+                deathDateNew = String.format("%s (%s %s)", Util.convertStringDateFormat(mPerson.deathday, FORMAT_LONG), period.getYears(), mContext.getString(R.string.years));
             } else {
                 period = Period.between(bornDate, LocalDate.now());
-                bornDateNew = String.format("%s (%s %s)", Util.getFecha(mPerson.birthday, FORMAT_LONG), period.getYears(), mContext.getString(R.string.years));
+                bornDateNew = String.format("%s (%s %s)", Util.convertStringDateFormat(mPerson.birthday, FORMAT_LONG), period.getYears(), mContext.getString(R.string.years));
             }
 
 

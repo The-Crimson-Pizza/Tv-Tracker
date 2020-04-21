@@ -114,11 +114,32 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
                 seasonName.setText(season.name);
                 Util.getImage(BASE_URL_IMAGES_POSTER + season.posterPath, seasonPoster, mContext);
                 if (season.episodes != null) {
-                    numEpisodes.setText(mContext.getString(R.string.n_episodes, season.episodes.size()));
+                    numEpisodes.setText(
+                            mContext.getString(R.string.n_episodes,
+                                    countEpisodes(season),
+                                    season.episodes.size())
+                    );
                 } else {
                     numEpisodes.setText(mContext.getString(R.string.no_data));
                 }
             }
+        }
+
+        int countEpisodes(Season season) {
+            int cont = 0;
+            for (Episode e : season.episodes) {
+                if (e.visto) {
+                    cont++;
+                }
+            }
+            return cont;
+        }
+
+        private boolean checkSeasonFinished(SerieResponse.Serie serie) {
+            for (Season s : serie.seasons) {
+                if (!s.visto) return false;
+            }
+            return true;
         }
 
         private void watchSeason(SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int temporada) {
@@ -136,13 +157,12 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
             }
 
 //            MARCAR SERIE
-            int cont = 0;
-            for (Season s : favs.get(pos).seasons) {
-                if (s.visto) cont++;
-            }
-            if (cont == favs.get(pos).seasons.size()) {
+            if (checkSeasonFinished(favs.get(pos))) {
                 favs.get(pos).finished = true;
                 favs.get(pos).finishDate = new Date();
+            } else {
+                favs.get(pos).finished = false;
+                favs.get(pos).finishDate = null;
             }
 
 //            GUARDAR FAVORITOS EN BBDD

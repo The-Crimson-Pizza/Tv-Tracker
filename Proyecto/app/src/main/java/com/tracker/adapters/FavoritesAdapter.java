@@ -129,19 +129,23 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                 favName.setText(favSerie.name);
                 Util.getImage(BASE_URL_IMAGES_POSTER + favSerie.posterPath, favPoster, mContext);
                 favStatus.setText(favSerie.status);
-                int totalEpisodes = favSerie.numberOfEpisodes;
-                int vistos = countEpisodes(favSerie);
-                int progress = 0;
-                if (vistos > 0) {
-                    progress = (vistos * 100) / totalEpisodes;
-                }
-                favVistos.setText(mContext.getString(R.string.num_vistos, vistos, totalEpisodes));
-                favProgress.setProgress(progress);
+                getEpisodesWatched(favSerie);
                 next.setText(getLastEpisode(favSerie));
                 next2.setText(getLastEpisode(favSerie));
                 sinopsis.setText(getLastEpisodeSinopsis(favSerie));
 
             }
+        }
+
+        private void getEpisodesWatched(SerieResponse.Serie favSerie) {
+            int totalEpisodes = favSerie.numberOfEpisodes;
+            int vistos = countEpisodes(favSerie);
+            int progress = 0;
+            if (vistos > 0) {
+                progress = (vistos * 100) / totalEpisodes;
+            }
+            favVistos.setText(mContext.getString(R.string.num_vistos, vistos, totalEpisodes));
+            favProgress.setProgress(progress);
         }
 
         String getLastEpisodeSinopsis(SerieResponse.Serie serieFav) {
@@ -153,7 +157,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                     }
                 }
             }
-            return mContext.getString(R.string.no_data);
+            return String.valueOf(serieFav.finishDate);
+//            return mContext.getString(R.string.no_data);
         }
 
         String getLastEpisode(SerieResponse.Serie serieFav) {

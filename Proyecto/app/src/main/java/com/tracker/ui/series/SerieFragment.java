@@ -40,6 +40,7 @@ import com.tracker.ui.WebViewActivity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -145,6 +146,7 @@ public class SerieFragment extends Fragment {
 
     private void addFav() {
         mSerie.added = true;
+        mSerie.addedDate = new Date();
         mFavs.add(mSerie);
         FirebaseDb.getInstance().setSeriesFav(mFavs);
         RxBus.getInstance().publish(mSerie);
@@ -156,6 +158,7 @@ public class SerieFragment extends Fragment {
             mFavs.remove(pos);
             FirebaseDb.getInstance().setSeriesFav(mFavs);
             mSerie.added = false;
+            mSerie.addedDate = null;
             RxBus.getInstance().publish(mSerie);
             Toast.makeText(getActivity(), R.string.borrado_correcto, Toast.LENGTH_SHORT).show();
         }
