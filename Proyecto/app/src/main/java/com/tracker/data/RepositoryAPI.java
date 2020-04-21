@@ -5,6 +5,7 @@ import com.tracker.models.serie.VideosResponse;
 import com.tracker.models.actor.PersonResponse;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
+import com.tracker.util.Constants;
 import com.tracker.util.Util;
 
 import java.util.List;
@@ -26,6 +27,7 @@ import static com.tracker.util.Constants.API_KEY_STRING;
 import static com.tracker.util.Constants.BASE_URL;
 import static com.tracker.util.Constants.GET_PEOPLE_API_EXTRAS;
 import static com.tracker.util.Constants.GET_SERIE_API_EXTRAS;
+import static com.tracker.util.Constants.MADRID;
 import static com.tracker.util.Constants.POP_DESC;
 import static com.tracker.util.Constants.TRAILER;
 
@@ -113,4 +115,13 @@ public class RepositoryAPI {
     public Observable<SerieResponse> searchSerie(String query) {
         return getRetrofitService().searchSerie(query, language);
     }
+
+    public Observable<BasicResponse> getByGenre(int idGenre) {
+        return getRetrofitService().getSeriesByGenre(idGenre, language, MADRID, POP_DESC);
+    }
+
+    public Observable<BasicResponse> getByNetwork(int idNetwork) {
+        return getRetrofitService().getSeriesByNetwork(idNetwork, language, MADRID, POP_DESC);
+    }
+
 }

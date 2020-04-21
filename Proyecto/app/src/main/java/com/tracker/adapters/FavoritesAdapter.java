@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
+import static com.tracker.util.Constants.FORMAT_HOURS;
+import static com.tracker.util.Constants.FORMAT_LONG;
 import static com.tracker.util.Constants.ID_SERIE;
 
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.ViewHolder> {
@@ -157,7 +159,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                     }
                 }
             }
-            return String.valueOf(serieFav.finishDate);
+            return "Terminada el: " + Util.formatDateToString(serieFav.finishDate, FORMAT_LONG) + " a las " + Util.formatDateToString(serieFav.finishDate, FORMAT_HOURS);
 //            return mContext.getString(R.string.no_data);
         }
 

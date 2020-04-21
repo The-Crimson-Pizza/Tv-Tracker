@@ -64,7 +64,7 @@ public class Util {
 
     public static String formatDateToString(Date oldDate, String pattern) {
         if (oldDate != null) {
-            return new SimpleDateFormat("yyyy-mm-dd hh:mm:ss", Locale.getDefault()).format(oldDate);
+            return new SimpleDateFormat(pattern, Locale.getDefault()).format(oldDate);
         }
         return "No data";
     }

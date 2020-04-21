@@ -16,6 +16,5 @@ public class Stats {
 //todo - memorias/presentación
 //    todo - terminar el adapter de seasons y empezar el de episodios
 //    todo - pulsar en generos > recycler con series de ese genero
-//    todo - añadir fecha al ver capitulo
 
 }

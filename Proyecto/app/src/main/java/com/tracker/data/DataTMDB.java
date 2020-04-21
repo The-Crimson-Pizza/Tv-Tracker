@@ -58,4 +58,18 @@ public interface DataTMDB {
     Observable<SerieResponse> searchSerie(@Query("query") String query,
                                           @Query("language") String language);
 
+    @Headers("Accept: application/json")
+    @GET("discover/tv")
+    Observable<BasicResponse> getSeriesByGenre(@Query("with_genres") int idGenre,
+                                               @Query("language") String language,
+                                               @Query("timezone") String zone,
+                                               @Query("sort_by") String sort);
+
+    @Headers("Accept: application/json")
+    @GET("discover/tv")
+    Observable<BasicResponse> getSeriesByNetwork(@Query("with_networks") int idNetwork,
+                                                 @Query("language") String language,
+                                                 @Query("timezone") String zone,
+                                                 @Query("sort_by") String sort);
+
 }
