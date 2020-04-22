@@ -4,7 +4,9 @@ package com.tracker.models.seasons;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Episode implements Serializable {
 
@@ -31,7 +33,9 @@ public class Episode implements Serializable {
     public Episode() {
     }
 
+
     public Date getWatchedDate() {
         return watchedDate;
     }
+
 }

@@ -1,8 +1,8 @@
 package com.tracker.ui;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +10,12 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.tracker.R;
@@ -27,26 +25,21 @@ import com.tracker.models.seasons.Episode;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class FavoritosFragment extends Fragment {
 
     private Context mContext;
-    private DatabaseReference databaseRef;
     private List<SerieResponse.Serie> mFavs = new ArrayList<>();
     private FavoritesAdapter favAdapter;
-    private RecyclerView rvFavs;
 
-
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getActivity();
         return inflater.inflate(R.layout.fragment_favoritos, container, false);
@@ -63,25 +56,25 @@ public class FavoritosFragment extends Fragment {
         ImageButton sortLastWatched = view.findViewById(R.id.watched_button);
 
         sortAdded.setOnClickListener(v -> {
-
+            sortSeasonByAdded(mFavs);
+            favAdapter.notifyDataSetChanged();
         });
-
         sortName.setOnClickListener(v -> {
-
+            sortSeasonByName(mFavs);
+            favAdapter.notifyDataSetChanged();
         });
-
         sortLastWatched.setOnClickListener(v -> {
-
+            sortSeasonByLastWatched(mFavs);
+            favAdapter.notifyDataSetChanged();
         });
-
 
     }
 
     private void sortSeasonByAdded(List<SerieResponse.Serie> favs) {
         Collections.sort(favs, (fav1, fav2) -> {
-            String name1 = String.valueOf(fav1.addedDate);
-            String name2 = String.valueOf(fav2.addedDate);
-            return name1.compareTo(name2);
+            String added1 = String.valueOf(fav1.addedDate);
+            String added2 = String.valueOf(fav2.addedDate);
+            return added1.compareTo(added2);
         });
     }
 
@@ -94,53 +87,43 @@ public class FavoritosFragment extends Fragment {
     }
 
     private void sortSeasonByLastWatched(List<SerieResponse.Serie> favs) {
+        getLastWatched(favs);
         Collections.sort(favs, (fav1, fav2) -> {
-            String name1 = String.valueOf(fav1.name);
-            String name2 = String.valueOf(fav2.name);
-            return name1.compareTo(name2);
+            if (fav1.lastEpisodeWatched != null && fav2.lastEpisodeWatched != null) {
+                Date last1 = fav1.lastEpisodeWatched.watchedDate;
+                Date last2 = (fav2.lastEpisodeWatched.watchedDate);
+                return last2.compareTo(last1);
+            }
+            return (fav1.lastEpisodeWatched == null) ? 1 : -1;
         });
     }
 
-    private void getLastwatched() {
+    private void getLastWatched(List<SerieResponse.Serie> favs) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            List<Episode> lastEpis = new ArrayList<>();
-            HashMap<String, Date> fechas = new HashMap<>();
-            for (SerieResponse.Serie ser : mFavs) {
+            Date fechaMin = new GregorianCalendar(1900, 1, 1).getTime();
+            for (SerieResponse.Serie ser : favs) {
+                Episode mostSeasonRecent = new Episode();
+                mostSeasonRecent.watchedDate = fechaMin;
                 for (Season s : ser.seasons) {
-                    Episode last = null;
+                    Episode d = s.episodes
+                            .stream()
+                            .filter(x -> x.watchedDate != null)
+                            .collect(Collectors.toList())
+                            .stream()
+                            .max(Comparator.comparing(episode -> episode.watchedDate))
+                            .orElse(null);
 
-                    last = s.episodes.stream().max(Comparator.comparing(Episode::getWatchedDate)).get();
-
-                    fechas.put(ser.name, last.watchedDate);
-//                lastEpis.add(last);
+                    if (d != null && d.watchedDate.after(mostSeasonRecent.watchedDate))
+                        mostSeasonRecent = d;
                 }
+                if (mostSeasonRecent.watchedDate != fechaMin)
+                    ser.lastEpisodeWatched = mostSeasonRecent;
             }
+        } else {
+            Log.e("getLastWatched_API<23", "Sin implementar");
         }
     }
 
-//    private void sortHash() {
-//        Map<Integer, String> sortedMap =
-//                unsortedMap.entrySet().stream()
-//                        .sorted(Entry.comparingByValue())
-//                        .collect(Collectors.toMap(Entry::getKey, Entry::getValue,
-//                                (e1, e2) -> e1, LinkedHashMap::new));
-//    }
-//
-//    void maxHash() {
-//        Collections.max(seriesMap.entrySet(), (entry1, entry2) -> entry1.getValue() - entry2.getValue()).getKey();
-//    }
-
-    String getLastEpisode(SerieResponse.Serie serieFav) {
-        Season.sortSeason(serieFav.seasons);
-        for (Season s : serieFav.seasons) {
-            for (Episode e : s.episodes) {
-                if (!e.visto) {
-                    return String.format(Locale.getDefault(), "%02dx%02d - %s", e.seasonNumber, e.episodeNumber, e.name);
-                }
-            }
-        }
-        return mContext.getString(R.string.just_watch);
-    }
 
     private void getFollowingSeries() {
         FirebaseDb.getInstance().getSeriesFav().addValueEventListener(new ValueEventListener() {
@@ -157,14 +140,14 @@ public class FavoritosFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+//                Sin implementar
             }
         });
     }
 
     private void setRecycler(@NonNull View view) {
         favAdapter = new FavoritesAdapter(getActivity(), mFavs);
-        rvFavs = view.findViewById(R.id.grid_favoritas);
+        RecyclerView rvFavs = view.findViewById(R.id.grid_favoritas);
         rvFavs.setHasFixedSize(true);
         rvFavs.setItemViewCacheSize(20);
         rvFavs.setSaveEnabled(true);

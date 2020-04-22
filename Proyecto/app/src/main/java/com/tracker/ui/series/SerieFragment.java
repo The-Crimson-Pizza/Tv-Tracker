@@ -136,10 +136,6 @@ public class SerieFragment extends Fragment {
     private void setProgress(SerieResponse.Serie s, View view) {
         if (mFavs != null) {
             s.checkFav(mFavs);
-            if (s.finished) {
-                //nada
-            }
-            Stats.getInstance(mFavs, mContext).mostWatchedSerie();
         }
         RxBus.getInstance().publish(s);
         seriesViewModel.setSerie(s);

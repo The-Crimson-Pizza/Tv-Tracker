@@ -79,6 +79,10 @@ public class Stats {
         return Collections.max(seriesMap.entrySet(), (entry1, entry2) -> entry1.getValue() - entry2.getValue()).getKey();
     }
 
+    void getTopFiveGenres() {
+
+    }
+
     private String toDaysHoursMinutes(int time) {
         int totalDays = 364;
 

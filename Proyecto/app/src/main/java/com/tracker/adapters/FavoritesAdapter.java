@@ -98,8 +98,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                 Navigation.findNavController(v).navigate(R.id.action_navigation_fav_to_navigation_series, bundle);
             });
 
-            // Cardview interaction
-
+            // CARDVIEW INTERACTION
             expandableView = itemView.findViewById(R.id.expandableView);
             arrowBtn = itemView.findViewById(R.id.arrowBtn);
             cardView = itemView.findViewById(R.id.cardView);
@@ -115,8 +114,6 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                     arrowBtn.setBackgroundResource(R.drawable.arrow_expand);
                 }
             });
-
-            //
         }
 
         static FavoritesAdapter.ViewHolder create(ViewGroup parent) {
@@ -135,7 +132,6 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                 next.setText(getLastEpisode(favSerie));
                 next2.setText(getLastEpisode(favSerie));
                 sinopsis.setText(getLastEpisodeSinopsis(favSerie, mContext));
-
             }
         }
 
@@ -155,7 +151,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             for (Season s : serieFav.seasons) {
                 for (Episode e : s.episodes) {
                     if (!e.visto) {
-                        return e.overview;
+                        return e.overview.isEmpty() ? mContext.getString(R.string.no_data) : e.overview;
                     }
                 }
             }
@@ -190,13 +186,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             Collections.sort(seasons, (season1, season2) -> {
                 String numSeason1 = String.valueOf(season1.seasonNumber);
                 String numSeason2 = String.valueOf(season2.seasonNumber);
-                if (numSeason1 != null && numSeason2 != null) {
-                    return numSeason1.compareTo(numSeason2);
-                } else {
-                    String fecha1 = season1.airDate;
-                    String fecha2 = season2.airDate;
-                    return fecha1.compareTo(fecha2);
-                }
+                return numSeason1.compareTo(numSeason2);
             });
         }
     }

@@ -68,6 +68,7 @@ public class SerieResponse {
         public boolean finished = false;
         public Date addedDate;
         public Date finishDate;
+        public Episode lastEpisodeWatched;
 
         public Serie() {
 //            Empty constructor for Firebase serialize
@@ -140,7 +141,7 @@ public class SerieResponse {
             return Collections.max(datesList);
         }
 
-        public List<Date> getDatesEpisodes(List<Episode> episodes) {
+        List<Date> getDatesEpisodes(List<Episode> episodes) {
             List<Date> dates = new ArrayList<>();
             for (Episode e : episodes) {
                 if (e.watchedDate != null) {
