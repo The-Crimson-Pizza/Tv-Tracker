@@ -1,6 +1,7 @@
 package com.tracker.util;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.tracker.R;
 import com.tracker.models.seasons.Episode;
@@ -11,11 +12,16 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.TemporalAdjuster;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class Stats {
 
@@ -80,19 +86,21 @@ public class Stats {
         return Collections.max(seriesMap.entrySet(), (entry1, entry2) -> entry1.getValue() - entry2.getValue()).getKey();
     }
 
-    void getTopFiveGenres() {
+    public Map<String, Integer> getTopTenGenres() {
         HashMap<String, Integer> countGenres = new HashMap<>();
         for (SerieResponse.Serie serie : mFavs) {
             for (SerieResponse.Serie.Genre genre : serie.genres) {
                 countGenres.merge(genre.name, 1, Integer::sum);
             }
         }
-
+        return countGenres.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .limit(10)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (e1, e2) -> e1, LinkedHashMap::new));
     }
 
     private String toDaysHoursMinutes(int time) {
-        int totalDays = 364;
-
 //        int hola = (int) TimeUnit.MINUTES.toDays(time);
         int minutesInYear = 60 * 24 * 365;
         int year = time / minutesInYear;

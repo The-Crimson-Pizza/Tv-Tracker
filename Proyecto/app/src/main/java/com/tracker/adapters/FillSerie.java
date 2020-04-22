@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import androidx.navigation.Navigation;
+
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
@@ -102,7 +104,7 @@ public class FillSerie {
                 imageView.setOnClickListener(v -> {
                     Bundle bundle = new Bundle();
                     bundle.putInt(ID_NETWORK, mSerie.networks.get(pos).id);
-//                        Navigation.findNavController(v).navigate(R.id.action_navigation_fav_to_navigation_series, bundle);
+                    Navigation.findNavController(v).navigate(R.id.action_navigation_series_to_networkFragment, bundle);
                 });
                 if (cont == mSerie.networks.size()) break;
                 else cont++;
@@ -127,7 +129,7 @@ public class FillSerie {
                 textView.setOnClickListener(v -> {
                     Bundle bundle = new Bundle();
                     bundle.putInt(ID_GENRE, mSerie.genres.get(pos).id);
-//                        Navigation.findNavController(v).navigate(R.id.action_navigation_fav_to_navigation_series, bundle);
+                    Navigation.findNavController(v).navigate(R.id.action_navigation_series_to_genreFragment, bundle);
 
                 });
                 if (cont == mSerie.genres.size()) break;

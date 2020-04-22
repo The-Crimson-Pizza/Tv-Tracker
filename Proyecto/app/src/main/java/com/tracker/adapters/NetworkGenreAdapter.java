@@ -21,12 +21,14 @@ import java.util.List;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 import static com.tracker.util.Constants.ID_SERIE;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
+public class NetworkGenreAdapter extends RecyclerView.Adapter<NetworkGenreAdapter.ViewHolder> {
 
     private List<BasicResponse.SerieBasic> mSeries;
     private static Context mContext;
+    private boolean isGenre;
 
-    public HomeAdapter(Context mContext, List<BasicResponse.SerieBasic> series) {
+    public NetworkGenreAdapter(Context mContext, List<BasicResponse.SerieBasic> series, boolean genre) {
+        this.isGenre = genre;
         this.mSeries = series;
         this.mContext = mContext;
     }
@@ -41,7 +43,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         if (getItemCount() > 0) {
-            holder.bindTo(mSeries.get(position));
+            holder.bindTo(mSeries.get(position), isGenre);
         }
     }
 
@@ -59,6 +61,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         TextView name;
         TextView rating;
         int id;
+        boolean isGenre;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,12 +69,21 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             name = itemView.findViewById(R.id.titleBasic);
             rating = itemView.findViewById(R.id.valoration);
 
-            itemView.setOnClickListener(v -> {
-                int pos = getAdapterPosition();
-                Bundle bundle = new Bundle();
-                bundle.putInt(ID_SERIE, id);
-                Navigation.findNavController(v).navigate(R.id.action_home_to_series, bundle);
-            });
+            if (isGenre) {
+                itemView.setOnClickListener(v -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(ID_SERIE, id);
+                    Navigation.findNavController(v).navigate(R.id.action_genreFragment_to_navigation_series, bundle);
+                });
+            } else {
+                itemView.setOnClickListener(v -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(ID_SERIE, id);
+                    Navigation.findNavController(v).navigate(R.id.action_networkFragment_to_navigation_series, bundle);
+                });
+            }
+
+
         }
 
         static ViewHolder create(ViewGroup parent) {
@@ -79,7 +91,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             return new ViewHolder(view);
         }
 
-        void bindTo(BasicResponse.SerieBasic serieBasic) {
+        void bindTo(BasicResponse.SerieBasic serieBasic, boolean genre) {
+            isGenre = genre;
             if (serieBasic != null) {
                 id = serieBasic.id;
                 name.setText(serieBasic.name);

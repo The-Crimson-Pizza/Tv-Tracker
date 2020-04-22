@@ -162,8 +162,6 @@ a
 1app/src/main/res/layout/list_series_following.xml,a/9/a902913bc6a31564ce9679c61b2b139321d8384d
 f
 6app/src/main/res/layout/list_series_following_card.xml,3/5/355054d8be7933a00a3f867d60cfe490a35b0916
-a
-1app/src/main/res/navigation/mobile_navigation.xml,5/0/50c7987ff387678f825775665976b5fc8ed47989
 ]
 -app/src/main/res/menu/menu_detalles_serie.xml,6/3/63648780d98527fd381ea1a423d83fdcc5203850
 `
