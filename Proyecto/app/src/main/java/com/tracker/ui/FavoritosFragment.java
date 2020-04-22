@@ -2,7 +2,6 @@ package com.tracker.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,28 +99,24 @@ public class FavoritosFragment extends Fragment {
     }
 
     private void getLastWatched(List<SerieResponse.Serie> favs) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            Date fechaMin = new GregorianCalendar(1900, 1, 1).getTime();
-            for (SerieResponse.Serie ser : favs) {
-                Episode mostSeasonRecent = new Episode();
-                mostSeasonRecent.watchedDate = fechaMin;
-                for (Season s : ser.seasons) {
-                    Episode d = s.episodes
-                            .stream()
-                            .filter(x -> x.watchedDate != null)
-                            .collect(Collectors.toList())
-                            .stream()
-                            .max(Comparator.comparing(episode -> episode.watchedDate))
-                            .orElse(null);
+        Date fechaMin = new GregorianCalendar(1900, 1, 1).getTime();
+        for (SerieResponse.Serie ser : favs) {
+            Episode mostSeasonRecent = new Episode();
+            mostSeasonRecent.watchedDate = fechaMin;
+            for (Season s : ser.seasons) {
+                Episode d = s.episodes
+                        .stream()
+                        .filter(x -> x.watchedDate != null)
+                        .collect(Collectors.toList())
+                        .stream()
+                        .max(Comparator.comparing(episode -> episode.watchedDate))
+                        .orElse(null);
 
-                    if (d != null && d.watchedDate.after(mostSeasonRecent.watchedDate))
-                        mostSeasonRecent = d;
-                }
-                if (mostSeasonRecent.watchedDate != fechaMin)
-                    ser.lastEpisodeWatched = mostSeasonRecent;
+                if (d != null && d.watchedDate.after(mostSeasonRecent.watchedDate))
+                    mostSeasonRecent = d;
             }
-        } else {
-            Log.e("getLastWatched_API<23", "Sin implementar");
+            if (mostSeasonRecent.watchedDate != fechaMin)
+                ser.lastEpisodeWatched = mostSeasonRecent;
         }
     }
 

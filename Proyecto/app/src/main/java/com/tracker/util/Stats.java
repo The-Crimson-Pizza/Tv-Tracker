@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Stats {
 
@@ -80,15 +81,22 @@ public class Stats {
     }
 
     void getTopFiveGenres() {
+        HashMap<String, Integer> countGenres = new HashMap<>();
+        for (SerieResponse.Serie serie : mFavs) {
+            for (SerieResponse.Serie.Genre genre : serie.genres) {
+                countGenres.merge(genre.name, 1, Integer::sum);
+            }
+        }
 
     }
 
     private String toDaysHoursMinutes(int time) {
         int totalDays = 364;
 
-        int hola = (int) TimeUnit.MINUTES.toDays(time);
-        int days = time / 24 / 60; // todo-limitar a 365 dias
-        int year = days / 365;
+//        int hola = (int) TimeUnit.MINUTES.toDays(time);
+        int minutesInYear = 60 * 24 * 365;
+        int year = time / minutesInYear;
+        int days = (time / 24 / 60) % 365;
         int hours = time / 60 % 24;
         int minutes = time % 60;
         if (days == 0) {
@@ -110,9 +118,5 @@ public class Stats {
 
   */
 
-//todo - arreglar splash
-//todo - memorias/presentación
-//    todo - terminar el adapter de seasons y empezar el de episodios
-//    todo - pulsar en generos > recycler con series de ese genero
 
 }

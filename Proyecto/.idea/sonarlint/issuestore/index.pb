@@ -176,7 +176,5 @@ b
 +app/src/main/res/drawable/button_effect.xml,4/7/47d2a09308f85f49007067888f94d90e028854b0
 T
 $app/src/main/res/drawable/ripple.xml,5/0/503fd7b7989a21003ce64564552172fa4df8e622
-S
-#app/src/main/res/values/strings.xml,d/2/d2281fbb3027de2722081a53408dd77628bf080e
 Z
 *app/src/main/res/values-es-rES/strings.xml,5/e/5e384da4a2f12548b1c82f7021b5d1db7e1bb238
