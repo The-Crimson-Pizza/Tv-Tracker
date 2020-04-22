@@ -164,8 +164,6 @@ f
 6app/src/main/res/layout/list_series_following_card.xml,3/5/355054d8be7933a00a3f867d60cfe490a35b0916
 a
 1app/src/main/res/navigation/mobile_navigation.xml,5/0/50c7987ff387678f825775665976b5fc8ed47989
-^
-.app/src/main/res/layout/lista_series_actor.xml,9/4/94aa773adf79ae014160c4fd5f59661e8b040dcc
 ]
 -app/src/main/res/menu/menu_detalles_serie.xml,6/3/63648780d98527fd381ea1a423d83fdcc5203850
 `
@@ -178,8 +176,6 @@ b
 +app/src/main/res/drawable/button_effect.xml,4/7/47d2a09308f85f49007067888f94d90e028854b0
 T
 $app/src/main/res/drawable/ripple.xml,5/0/503fd7b7989a21003ce64564552172fa4df8e622
-]
--app/src/main/res/layout/fragment_sinopsis.xml,6/6/66f655f96307f9c38339935c376c6f6feed610b4
 S
 #app/src/main/res/values/strings.xml,d/2/d2281fbb3027de2722081a53408dd77628bf080e
 Z

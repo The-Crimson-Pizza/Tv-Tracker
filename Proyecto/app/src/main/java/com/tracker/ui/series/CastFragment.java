@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,6 +43,7 @@ public class CastFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
+        ViewSwitcher switcherCast = view.findViewById(R.id.switcher_cast);
 
         ActorBasicAdapter adapterActor = new ActorBasicAdapter(mContext, mCast);
         RecyclerView rvCasting = view.findViewById(R.id.gridCasting);
@@ -54,9 +56,12 @@ public class CastFragment extends Fragment {
                 mSerie = serie;
                 mCast.addAll(mSerie.credits.cast);
                 adapterActor.notifyDataSetChanged();
+                if (R.id.gridCasting == switcherCast.getNextView().getId())
+                    switcherCast.showNext();
             } else {
                 adapterActor.notifyDataSetChanged();
-//                TODO - PONER UN SWITCHER VIEW
+                if (R.id.no_data_cast == switcherCast.getNextView().getId())
+                    switcherCast.showNext();
 //                Snackbar.make(view, R.string.no_cast, LENGTH_SHORT).show();
             }
         });

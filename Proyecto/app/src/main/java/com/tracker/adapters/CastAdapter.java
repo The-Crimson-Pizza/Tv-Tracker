@@ -18,15 +18,13 @@ import com.tracker.R;
 import com.tracker.models.actor.MovieCredits;
 import com.tracker.models.actor.TvCredits;
 import com.tracker.ui.WebViewActivity;
+import com.tracker.util.Constants;
 import com.tracker.util.Util;
 
 import java.util.Collections;
 import java.util.List;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
-import static com.tracker.util.Constants.BASE_URL_WEB_MOVIE;
-import static com.tracker.util.Constants.ID_SERIE;
-import static com.tracker.util.Constants.URL_WEBVIEW;
 
 public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
 
@@ -38,7 +36,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
     CastAdapter(Context mContext, List<MovieCredits.Cast> movies, boolean movie) {
         this.mMovies = movies;
         this.mContext = mContext;
-        isMovie = true;
+        this.isMovie = movie;
         if (!mMovies.isEmpty()) {
             sortFilms(mMovies);
         }
@@ -67,21 +65,16 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
             Util.getImage(BASE_URL_IMAGES_POSTER + mMovies.get(position).posterPath, holder.image, mContext);
             holder.rating.setText(String.valueOf(mMovies.get(position).voteAverage));
             holder.itemView.setOnClickListener(v -> Snackbar.make(v, R.string.not_implemented, Snackbar.LENGTH_LONG)
-                    .setAction(R.string.open_web, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra(URL_WEBVIEW, BASE_URL_WEB_MOVIE + mMovies.get(position).id));
-                        }
-                    }).show());
+                    .setAction(R.string.open_web, v1 -> mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra(Constants.URL_WEBVIEW, Constants.BASE_URL_WEB_MOVIE + mMovies.get(position).id))).show());
         } else {
             holder.name.setText(mSeries.get(position).name);
             holder.character.setText(mSeries.get(position).character);
-            Util.getImage(BASE_URL_IMAGES_POSTER + mSeries.get(position).posterPath, holder.image, mContext);
+            Util.getImage(Constants.BASE_URL_IMAGES_POSTER + mSeries.get(position).posterPath, holder.image, mContext);
             holder.rating.setText(String.valueOf(mSeries.get(position).voteAverage));
 
             holder.itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
-                bundle.putInt(ID_SERIE, mSeries.get(position).id);
+                bundle.putInt(Constants.ID_SERIE, mSeries.get(position).id);
                 Navigation.findNavController(v).navigate(R.id.action_actores_to_series, bundle);
             });
         }
