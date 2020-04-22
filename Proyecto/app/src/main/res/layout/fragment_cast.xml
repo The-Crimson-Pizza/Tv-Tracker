@@ -10,8 +10,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/gridCasting"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:orientation="vertical" />
 
     <TextView
@@ -19,8 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
-        android:textSize="25sp"
+        android:text="@string/no_data"
         android:textAlignment="center"
-        android:text="@string/no_data" />
+        android:textSize="25sp" />
 
 </ViewSwitcher>

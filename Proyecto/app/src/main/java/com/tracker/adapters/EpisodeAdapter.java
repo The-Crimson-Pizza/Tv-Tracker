@@ -121,7 +121,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
                 episodeName.setText(episode.name);
                 episodeNameExpandable.setText(episode.name);
                 episodeDate.setText(Util.convertStringDateFormat(episode.airDate, FORMAT_LONG));
-                episodeOverview.setText(episode.overview);
+                episodeOverview.setText(Util.checkNull(episode.overview, c));
                 Util.getImage(BASE_URL_IMAGES_POSTER + episode.stillPath, episodeBackdrop, c);
 
                 // RUNTIME

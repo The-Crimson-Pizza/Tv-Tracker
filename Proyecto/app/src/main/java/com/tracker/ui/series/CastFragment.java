@@ -31,18 +31,16 @@ public class CastFragment extends Fragment {
     private List<Credits.Cast> mCast = new ArrayList<>();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cast, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
-        return view;
+        return inflater.inflate(R.layout.fragment_cast, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
+        SeriesViewModel model = new ViewModelProvider(requireActivity()).get(SeriesViewModel.class);
         ViewSwitcher switcherCast = view.findViewById(R.id.switcher_cast);
 
         ActorBasicAdapter adapterActor = new ActorBasicAdapter(mContext, mCast);
@@ -62,7 +60,6 @@ public class CastFragment extends Fragment {
                 adapterActor.notifyDataSetChanged();
                 if (R.id.no_data_cast == switcherCast.getNextView().getId())
                     switcherCast.showNext();
-//                Snackbar.make(view, R.string.no_cast, LENGTH_SHORT).show();
             }
         });
     }
@@ -74,5 +71,4 @@ public class CastFragment extends Fragment {
         rvCasting.setSaveEnabled(true);
         rvCasting.setAdapter(adapterActor);
     }
-
 }

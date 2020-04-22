@@ -55,6 +55,7 @@ public class FavoritosFragment extends Fragment {
         ImageButton sortName = view.findViewById(R.id.name_button);
         ImageButton sortLastWatched = view.findViewById(R.id.watched_button);
 
+        // TODO: 22/04/20 Reverse sorting
         sortAdded.setOnClickListener(v -> {
             sortSeasonByAdded(mFavs);
             favAdapter.notifyDataSetChanged();

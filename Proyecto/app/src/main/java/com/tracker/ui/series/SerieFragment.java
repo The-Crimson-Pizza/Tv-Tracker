@@ -75,7 +75,6 @@ public class SerieFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         seriesViewModel = new ViewModelProvider(requireActivity()).get(SeriesViewModel.class);
-
 //        todo - ProgressBar bar = view.findViewById(R.id.progreso);
 //        bar.setVisibility(View.VISIBLE);
 
@@ -101,6 +100,9 @@ public class SerieFragment extends Fragment {
                     getSerie(view);
                 } else {
                     setProgress(mSerie, view);
+                    if (mSerie.homepage != null && !mSerie.homepage.isEmpty()) {
+                        itemWeb.setVisible(true);
+                    }
                 }
             }
 
