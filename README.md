@@ -66,14 +66,14 @@ To be made...
 ## ⛏️ Built Using <a name = "built_using"></a>
 - [Android Studio](https://developer.android.com/) - IDE
 - [Java 8](https://docs.oracle.com/javase/8/docs/api/) - Programming Language
+- [Firebase](https://firebase.google.com/) - Database
 - [TMDB](https://www.themoviedb.org/) - API provider
 - [Retrofit3](https://square.github.io/retrofit/) - HTTP client 
-- [Glide](https://github.com/bumptech/glide) - Image downloader
-- [OkHttp](https://square.github.io/okhttp/) - HTTP request
-- [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart) - Chart library
-- [Gson](https://github.com/google/gson) - Serialization/deserialization library
 - [RxJava3](https://github.com/ReactiveX/RxJava) - Asynchronous and event-based programs using observables
-
+- [OkHttp](https://square.github.io/okhttp/) - HTTP request
+- [Gson](https://github.com/google/gson) - Serialization/deserialization library
+- [Glide](https://github.com/bumptech/glide) - Image downloader
+- [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart) - Chart library
 
 ## :pencil2: To-Do <a name = "todo"></a>
 
