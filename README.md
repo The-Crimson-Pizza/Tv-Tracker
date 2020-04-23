@@ -11,8 +11,9 @@
   
   [![Status](https://img.shields.io/badge/status-active-success.svg)]()
   [![GitHub issues](https://img.shields.io/github/issues/The-Crimson-Pizza/TFG2020)](https://github.com/The-Crimson-Pizza/TFG2020/issues)
-  [![GitHub forks](https://img.shields.io/github/forks/The-Crimson-Pizza/TFG2020?style=flat-square)](https://github.com/The-Crimson-Pizza/TFG2020/network)
+  [![GitHub forks](https://img.shields.io/github/forks/The-Crimson-Pizza/TFG2020)](https://github.com/The-Crimson-Pizza/TFG2020/network)
   [![GitHub stars](https://img.shields.io/github/stars/The-Crimson-Pizza/TFG2020)](https://github.com/The-Crimson-Pizza/TFG2020/stargazers)
+  
 </div>
 
 ---
