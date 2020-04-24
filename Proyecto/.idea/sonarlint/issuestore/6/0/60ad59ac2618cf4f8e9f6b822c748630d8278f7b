@@ -1,0 +1,11 @@
+
+Q
+java:S1128"=Remove this unused import 'com.tracker.adapters.HomeAdapter'.(Ô—­Ï
+R
+java:S1854"9Remove this useless assignment to local variable "model".(’§Àüÿÿÿÿ
+U
+java:S1854"<Remove this useless assignment to local variable "switcher".(‘ë§­ûÿÿÿÿ
+F
+java:S1481"-Remove this unused "switcher" local variable.(‘ë§­ûÿÿÿÿ
+C
+java:S1481"*Remove this unused "model" local variable.(’§Àüÿÿÿÿ
