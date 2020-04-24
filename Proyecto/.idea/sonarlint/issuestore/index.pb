@@ -27,10 +27,6 @@ i
 9app/src/main/java/com/tracker/models/seasons/Episode.java,6/c/6c493636d38e746691a8d3351b6724a9745e2361
 h
 8app/src/main/java/com/tracker/models/seasons/Season.java,8/2/82e03d7e133624fb7f7f232e0c061b9125ad9cfa
-X
-(app/src/main/res/animator/slide_down.xml,a/9/a9c40bac3bbc73eed01b22ec5c86ed46dc1dd025
-V
-&app/src/main/res/animator/slide_up.xml,e/4/e4954cc78e8a8babf54884b5af3302736b2f6a0f
 g
 7app/src/main/java/com/tracker/models/BasicResponse.java,4/4/443893c5ad91206fed125dc9535d0186551b1404
 \
@@ -176,3 +172,15 @@ T
 $app/src/main/res/drawable/ripple.xml,5/0/503fd7b7989a21003ce64564552172fa4df8e622
 Z
 *app/src/main/res/values-es-rES/strings.xml,5/e/5e384da4a2f12548b1c82f7021b5d1db7e1bb238
+Y
+)app/src/main/res/layout/fragment_cast.xml,c/5/c55105f7759dd10b6c0f1e2e46fabe1a775730d9
+j
+:app/src/main/java/com/tracker/ui/series/GenreFragment.java,6/0/60ad59ac2618cf4f8e9f6b822c748630d8278f7b
+l
+<app/src/main/java/com/tracker/ui/series/NetworkFragment.java,7/b/7bd37db0c543524d67008aef19c5cd8224d27265
+Z
+*app/src/main/res/layout/fragment_genre.xml,6/8/683837d61d8c5b99f94b2729bceeed1fd087213a
+\
+,app/src/main/res/layout/fragment_network.xml,f/8/f87271b9839acd52b2531a64f2ffe550aaaf2fcd
+o
+?app/src/main/java/com/tracker/adapters/NetworkGenreAdapter.java,f/9/f931d56be3d9fcdd91af86bdf35cbd8998754a4f

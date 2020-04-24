@@ -155,19 +155,17 @@
         android:id="@+id/genreFragment"
         android:name="com.tracker.ui.series.GenreFragment"
         android:label="fragment_genre"
-        tools:layout="@layout/fragment_genre">
-        <action
-            android:id="@+id/action_genreFragment_to_navigation_series"
-            app:destination="@id/navigation_series" />
-    </fragment>
+        tools:layout="@layout/fragment_genre" />
     <fragment
         android:id="@+id/networkFragment"
         android:name="com.tracker.ui.series.NetworkFragment"
         android:label="fragment_network"
-        tools:layout="@layout/fragment_network">
-        <action
-            android:id="@+id/action_networkFragment_to_navigation_series"
-            app:destination="@id/navigation_series" />
-    </fragment>
+        tools:layout="@layout/fragment_network" />
+    <action
+        android:id="@+id/action_global_navigation_series"
+        app:destination="@id/navigation_series"
+        app:enterAnim="@animator/slide_up"
+        app:exitAnim="@animator/slide_down"
+        app:launchSingleTop="true" />
 
 </navigation>

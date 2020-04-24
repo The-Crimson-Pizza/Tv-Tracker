@@ -14,17 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
 import com.tracker.models.BasicResponse;
+import com.tracker.util.Constants;
 import com.tracker.util.Util;
 
 import java.util.List;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
-import static com.tracker.util.Constants.ID_SERIE;
 
 public class NetworkGenreAdapter extends RecyclerView.Adapter<NetworkGenreAdapter.ViewHolder> {
 
     private List<BasicResponse.SerieBasic> mSeries;
-    private static Context mContext;
+    private Context mContext;
     private boolean isGenre;
 
     public NetworkGenreAdapter(Context mContext, List<BasicResponse.SerieBasic> series, boolean genre) {
@@ -43,7 +43,7 @@ public class NetworkGenreAdapter extends RecyclerView.Adapter<NetworkGenreAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         if (getItemCount() > 0) {
-            holder.bindTo(mSeries.get(position), isGenre);
+            holder.bindTo(mSeries.get(position), isGenre, mContext);
         }
     }
 
@@ -69,19 +69,11 @@ public class NetworkGenreAdapter extends RecyclerView.Adapter<NetworkGenreAdapte
             name = itemView.findViewById(R.id.titleBasic);
             rating = itemView.findViewById(R.id.valoration);
 
-            if (isGenre) {
-                itemView.setOnClickListener(v -> {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(ID_SERIE, id);
-                    Navigation.findNavController(v).navigate(R.id.action_genreFragment_to_navigation_series, bundle);
-                });
-            } else {
-                itemView.setOnClickListener(v -> {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(ID_SERIE, id);
-                    Navigation.findNavController(v).navigate(R.id.action_networkFragment_to_navigation_series, bundle);
-                });
-            }
+            itemView.setOnClickListener(v -> {
+                Bundle bundle = new Bundle();
+                bundle.putInt(Constants.ID_SERIE, id);
+                Navigation.findNavController(v).navigate(R.id.action_global_navigation_series, bundle);
+            });
 
 
         }
@@ -91,12 +83,12 @@ public class NetworkGenreAdapter extends RecyclerView.Adapter<NetworkGenreAdapte
             return new ViewHolder(view);
         }
 
-        void bindTo(BasicResponse.SerieBasic serieBasic, boolean genre) {
+        void bindTo(BasicResponse.SerieBasic serieBasic, boolean genre, Context context) {
             isGenre = genre;
             if (serieBasic != null) {
                 id = serieBasic.id;
                 name.setText(serieBasic.name);
-                Util.getImage(BASE_URL_IMAGES_POSTER + serieBasic.poster_path, image, mContext);
+                Util.getImage(BASE_URL_IMAGES_POSTER + serieBasic.poster_path, image, context);
                 rating.setText(String.valueOf(serieBasic.voteAverage));
             }
         }
