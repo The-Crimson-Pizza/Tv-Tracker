@@ -20,7 +20,7 @@
             android:name=".ui.ActorFragment"
             android:label="@string/title_activity_detalles_actor" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".util.SplashScreen"
             android:noHistory="true"
             android:theme="@style/bgSplashScreenStyle">
             <intent-filter>

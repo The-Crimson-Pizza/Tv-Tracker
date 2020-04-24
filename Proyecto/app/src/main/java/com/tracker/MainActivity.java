@@ -1,6 +1,5 @@
 package com.tracker;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,15 +8,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.tracker.data.SeriesViewModel;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     NavController navController;
     int startingPosition = 0;
     int newPosition;
-    SharedPreferences mPrefs;
-    private SeriesViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +24,10 @@ public class MainActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
         startingPosition = 0;
+        setNavigationView();
+    }
 
+    private void setNavigationView() {
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.navigation_home:
@@ -64,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
                         navController.navigate(R.id.action_global_navigation_profile);
                     }
                     break;
+                default:
+                    return true;
             }
             startingPosition = newPosition;
             return true;

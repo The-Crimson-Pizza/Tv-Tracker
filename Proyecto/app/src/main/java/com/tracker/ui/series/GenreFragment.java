@@ -15,11 +15,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
-import com.tracker.adapters.HomeAdapter;
 import com.tracker.adapters.NetworkGenreAdapter;
-import com.tracker.data.RepositoryAPI;
-import com.tracker.data.SeriesViewModel;
 import com.tracker.models.BasicResponse;
+import com.tracker.repositories.SeriesViewModel;
+import com.tracker.repositories.TmdbRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +70,7 @@ public class GenreFragment extends Fragment {
     }
 
     private void getSeriesByGenre() {
-        RepositoryAPI.getInstance().getByGenre(idGenre)
+        TmdbRepository.getInstance().getByGenre(idGenre)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BasicResponse>() {
                     @Override

@@ -79,4 +79,7 @@
     <string name="year_watched_total">%1$d years, %2$d days, %3$d hours, %4$d minutes watching</string>
     <string name="number_shows">You follow %1$d tv-shows</string>
     <string name="episodes_watched_total">You have watched %1$d episodes</string>
+    <string name="app_name_final" translatable="false">TV Tracker</string>
+    <string name="app_logo" translatable="false">app_logo</string>
+    <string name="fecha_de_episodio">"Date: "</string>
 </resources>

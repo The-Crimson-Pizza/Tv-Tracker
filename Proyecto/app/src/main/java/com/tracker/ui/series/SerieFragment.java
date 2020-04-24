@@ -28,14 +28,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.tracker.R;
 import com.tracker.adapters.FillSerie;
 import com.tracker.adapters.TabLayoutAdapter;
-import com.tracker.data.FirebaseDb;
-import com.tracker.data.RepositoryAPI;
-import com.tracker.data.RxBus;
-import com.tracker.data.SeriesViewModel;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
+import com.tracker.repositories.FirebaseDb;
+import com.tracker.repositories.RxBus;
+import com.tracker.repositories.SeriesViewModel;
+import com.tracker.repositories.TmdbRepository;
 import com.tracker.ui.WebViewActivity;
-import com.tracker.util.Stats;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -113,7 +112,7 @@ public class SerieFragment extends Fragment {
     }
 
     private void getSerie(View view) {
-        RepositoryAPI.getInstance().getSerie(idSerie)
+        TmdbRepository.getInstance().getSerie(idSerie)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(serie -> {
                     mSerie = serie;
@@ -125,7 +124,7 @@ public class SerieFragment extends Fragment {
     }
 
     private void getSeasons(SerieResponse.Serie s, View view) {
-        RepositoryAPI.getInstance().getSeasons(s.id, 1, s.numberOfSeasons)
+        TmdbRepository.getInstance().getSeasons(s.id, 1, s.numberOfSeasons)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(lista -> {
                     s.seasons = lista;

@@ -1,10 +1,13 @@
-package com.tracker.data;
+package com.tracker.repositories;
 
 import com.tracker.models.serie.SerieResponse;
 
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 
+/**
+ * Class that sends the Serie data from {@link com.tracker.ui.series.SerieFragment} to {@link com.tracker.ui.series.SinopsisFragment}
+ */
 public class RxBus {
 
     private static RxBus mInstance;

@@ -17,9 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
 import com.tracker.adapters.SearchAdapter;
-import com.tracker.data.RepositoryAPI;
-import com.tracker.data.SeriesViewModel;
 import com.tracker.models.serie.SerieResponse;
+import com.tracker.repositories.SeriesViewModel;
+import com.tracker.repositories.TmdbRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +75,7 @@ public class SerieSearchFragment extends Fragment {
     }
 
     private void getResults(String query) {
-        RepositoryAPI.getInstance().searchSerie(query)
+        TmdbRepository.getInstance().searchSerie(query)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<SerieResponse>() {
                     @Override

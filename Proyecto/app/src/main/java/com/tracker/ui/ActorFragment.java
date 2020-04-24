@@ -17,8 +17,8 @@ import androidx.fragment.app.Fragment;
 
 import com.tracker.R;
 import com.tracker.adapters.FillActor;
-import com.tracker.data.RepositoryAPI;
 import com.tracker.models.actor.PersonResponse;
+import com.tracker.repositories.TmdbRepository;
 import com.tracker.util.Constants;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -91,7 +91,7 @@ public class ActorFragment extends Fragment {
     }
 
     private void getActor(View view) {
-        RepositoryAPI.getInstance().getPerson(idActor)
+        TmdbRepository.getInstance().getPerson(idActor)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(Throwable::printStackTrace)
                 .subscribe(actor -> {

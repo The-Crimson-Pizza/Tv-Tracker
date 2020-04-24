@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.tracker.R;
-import com.tracker.data.FirebaseDb;
 import com.tracker.models.seasons.Episode;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
+import com.tracker.repositories.FirebaseDb;
 import com.tracker.util.Constants;
 import com.tracker.util.Util;
 

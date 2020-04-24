@@ -19,10 +19,10 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.tracker.R;
 import com.tracker.adapters.HomeAdapter;
-import com.tracker.data.FirebaseDb;
-import com.tracker.data.RepositoryAPI;
 import com.tracker.models.BasicResponse;
 import com.tracker.models.serie.SerieResponse;
+import com.tracker.repositories.FirebaseDb;
+import com.tracker.repositories.TmdbRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,11 +59,11 @@ public class HomeFragment extends Fragment {
         initRecycler(rvPopulares, adapterPopular);
         initRecycler(rvFavs, adapterFav);
 
-        RepositoryAPI.getInstance().getTrendingSeries()
+        TmdbRepository.getInstance().getTrendingSeries()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(series -> refreshData(mPopulares, adapterPopular, series.basicSeries));
 
-        RepositoryAPI.getInstance().getNewSeries()
+        TmdbRepository.getInstance().getNewSeries()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(series -> refreshData(mNuevas, adapterNueva, series.basicSeries));
 

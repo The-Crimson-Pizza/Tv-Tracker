@@ -57,5 +57,14 @@
     <string name="num_episodes_follow">%1$d/%2$d capítulos</string>
     <string name="finished_date">Terminada el: %1$s a las %2$s</string>
     <string name="episodes_watched_total">Has visto un total de %1$d capítulos.</string>
-    <string name="fecha_de_episodio">"Fecha de episodio: "</string>
+    <string name="fecha_de_episodio">"Fecha de emisión: "</string>
+    <string name="sharing_url">Compartir URL</string>
+    <string name="recent_added">Ordenar por añadidos recientemente</string>
+    <string name="sort_name">Ordenar alfabéticamente</string>
+    <string name="sort_watched">Ordenar por visto más reciente</string>
+    <string name="sort_by">Ordenar por:</string>
+    <string name="number_shows">Sigues %1$d series</string>
+    <string name="year_watched_total">%1$d años, %2$d días, %3$d horas, %4$d minutos vistos</string>
+    <string name="days_watched_total">%1$d días, %2$d horas, %3$d minutos vistos</string>
+    <string name="hours_watched_total">%1$d horas, %2$d minutos vistos</string>
 </resources>

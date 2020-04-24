@@ -1,10 +1,10 @@
-package com.tracker.data;
+package com.tracker.repositories;
 
 import com.tracker.models.BasicResponse;
-import com.tracker.models.serie.VideosResponse;
 import com.tracker.models.actor.PersonResponse;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
+import com.tracker.models.serie.VideosResponse;
 
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.GET;
@@ -15,7 +15,7 @@ import retrofit2.http.Query;
 /**
  * Interface with the TMDB API calls
  */
-public interface DataTMDB {
+public interface TmdbApi {
     @Headers("Accept: application/json")
     @GET("trending/tv/day")
     Observable<BasicResponse> getTrendingSeries();

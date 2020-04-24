@@ -1,11 +1,10 @@
-package com.tracker.data;
+package com.tracker.repositories;
 
 import com.tracker.models.BasicResponse;
-import com.tracker.models.serie.VideosResponse;
 import com.tracker.models.actor.PersonResponse;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
-import com.tracker.util.Constants;
+import com.tracker.models.serie.VideosResponse;
 import com.tracker.util.Util;
 
 import java.util.List;
@@ -32,25 +31,25 @@ import static com.tracker.util.Constants.POP_DESC;
 import static com.tracker.util.Constants.TRAILER;
 
 /**
- * Class that manages the Retrofit API calls
+ * Class that manages the Retrofit API to TMDB API
  */
-public class RepositoryAPI {
+public class TmdbRepository {
 
-    private static RepositoryAPI repoTMDB;
+    private static TmdbRepository repoTMDB;
     private String language;
 
-    public static RepositoryAPI getInstance() {
+    public static TmdbRepository getInstance() {
         if (repoTMDB == null) {
-            repoTMDB = new RepositoryAPI();
+            repoTMDB = new TmdbRepository();
         }
         return repoTMDB;
     }
 
-    private RepositoryAPI() {
+    private TmdbRepository() {
         language = Util.getLanguage();
     }
 
-    private DataTMDB getRetrofitService() {
+    private TmdbApi getRetrofitService() {
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(chain -> {
                     Request request = chain.request();
@@ -67,7 +66,7 @@ public class RepositoryAPI {
                         .client(client)
                         .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
                         .build();
-        return retrofit.create(DataTMDB.class);
+        return retrofit.create(TmdbApi.class);
     }
 
     public Observable<BasicResponse> getTrendingSeries() {
@@ -91,10 +90,6 @@ public class RepositoryAPI {
             }
             return serie;
         });
-    }
-
-    public Observable<Season> getSeason(SerieResponse.Serie serie, int numSeason) {
-        return getRetrofitService().getSeason(serie.id, numSeason, language);
     }
 
     public Single<List<Season>> getSeasons(int idSerie, int firstSeason, int numSeasons) {

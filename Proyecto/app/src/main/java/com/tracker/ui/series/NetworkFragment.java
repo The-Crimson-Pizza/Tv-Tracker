@@ -2,6 +2,10 @@ package com.tracker.ui.series;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,18 +14,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ViewSwitcher;
-
 import com.tracker.R;
-import com.tracker.adapters.HomeAdapter;
 import com.tracker.adapters.NetworkGenreAdapter;
-import com.tracker.data.RepositoryAPI;
-import com.tracker.data.SeriesViewModel;
 import com.tracker.models.BasicResponse;
-import com.tracker.models.actor.PersonResponse;
+import com.tracker.repositories.SeriesViewModel;
+import com.tracker.repositories.TmdbRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +71,7 @@ public class NetworkFragment extends Fragment {
     }
 
     private void getSeriesByNetwork() {
-        RepositoryAPI.getInstance().getByNetwork(idNetwork)
+        TmdbRepository.getInstance().getByNetwork(idNetwork)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BasicResponse>() {
                     @Override

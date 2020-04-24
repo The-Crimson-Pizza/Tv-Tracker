@@ -1,4 +1,4 @@
-package com.tracker.data;
+package com.tracker.repositories;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -6,6 +6,9 @@ import com.tracker.models.serie.SerieResponse;
 
 import java.util.List;
 
+/**
+ * Class that manages the connections to the Firebase Database, getting and uploading data
+ */
 public class FirebaseDb {
 
     private static FirebaseDb firebaseDb;
