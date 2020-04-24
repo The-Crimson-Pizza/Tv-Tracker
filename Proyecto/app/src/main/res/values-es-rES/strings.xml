@@ -57,4 +57,5 @@
     <string name="num_episodes_follow">%1$d/%2$d capítulos</string>
     <string name="finished_date">Terminada el: %1$s a las %2$s</string>
     <string name="episodes_watched_total">Has visto un total de %1$d capítulos.</string>
+    <string name="fecha_de_episodio">"Fecha de episodio: "</string>
 </resources>
