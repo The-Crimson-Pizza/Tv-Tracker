@@ -1,83 +1,72 @@
 package com.tracker;
 
-import android.app.SearchManager;
-import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.view.MenuItem;
-import android.view.View;
-
-import androidx.core.view.MenuItemCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.Menu;
-import android.widget.SearchView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.tracker.data.SeriesViewModel;
 
 public class MainActivity extends AppCompatActivity {
-
-    private AppBarConfiguration mAppBarConfiguration;
+    BottomNavigationView bottomNavigationView;
+    NavController navController;
+    int startingPosition = 0;
+    int newPosition;
+    SharedPreferences mPrefs;
+    private SeriesViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+        bottomNavigationView = findViewById(R.id.nav_view);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+        startingPosition = 0;
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.navigation_home:
+                    newPosition = 0;
+                    if (startingPosition == newPosition) {
+                        navController.navigate(R.id.action_global_navigation_home);
+                    } else {
+                        navController.navigate(R.id.action_global_navigation_home_right);
+                    }
+                    break;
+                case R.id.navigation_search:
+                    newPosition = 1;
+                    if (startingPosition < newPosition) {
+                        navController.navigate(R.id.action_global_navigation_search_to_left);
+                    } else if (newPosition < startingPosition) {
+                        startingPosition = R.id.navigation_search;
+                        navController.navigate(R.id.action_global_navigation_search_to_right);
+                    }
+                    break;
+                case R.id.navigation_fav:
+                    newPosition = 2;
+                    if (startingPosition < newPosition) {
+                        navController.navigate(R.id.action_global_navigation_fav_left);
+                    } else if (newPosition < startingPosition) {
+                        navController.navigate(R.id.action_global_navigation_fav_right);
+                    } else {
+                        navController.navigate(R.id.action_global_navigation_fav_left);
+                    }
+                    break;
+                case R.id.navigation_profile:
+                    newPosition = 3;
+                    if (startingPosition < newPosition) {
+                        navController.navigate(R.id.action_global_navigation_profile);
+                    }
+                    break;
             }
+            startingPosition = newPosition;
+            return true;
         });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.prueba,R.id.nav_share, R.id.nav_send)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
-
-        return true;
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
     }
 }

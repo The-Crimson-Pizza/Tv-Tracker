@@ -3,46 +3,169 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@id/navigation_home">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.tracker.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_home"
+        android:name="com.tracker.ui.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_to_series"
+            app:destination="@id/navigation_series"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.tracker.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/navigation_fav"
+        android:name="com.tracker.ui.FavoritosFragment"
+        android:label="@string/favourites"
+        tools:layout="@layout/fragment_favoritos">
+        <action
+            android:id="@+id/action_navigation_fav_to_navigation_series"
+            app:destination="@id/navigation_series" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.tracker.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/navigation_profile"
+        android:name="com.tracker.ui.ProfileFragment"
+        android:label="@string/my_profile"
+        tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.tracker.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
+        android:id="@+id/navigation_search"
+        android:name="com.tracker.ui.search.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_search_to_actores"
+            app:destination="@id/navigation_actores"
+            app:popUpTo="@id/navigation_search" />
+        <action
+            android:id="@+id/action_search_to_series"
+            app:destination="@id/navigation_series" />
+
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_share"
-        android:name="com.tracker.ui.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
+        android:id="@+id/navigation_series"
+        android:name="com.tracker.ui.series.SerieFragment"
+        android:label="SerieDetalle"
+        tools:layout="@layout/fragment_serie">
+        <action
+            android:id="@+id/action_series_to_actores"
+            app:destination="@id/navigation_actores" />
+        <action
+            android:id="@+id/action_series_to_episodes"
+            app:destination="@id/episodesFragment"
+            app:popUpTo="@id/navigation_series" />
+        <action
+            android:id="@+id/action_navigation_series_to_genreFragment"
+            app:destination="@id/genreFragment" />
+        <action
+            android:id="@+id/action_navigation_series_to_networkFragment"
+            app:destination="@id/networkFragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_send"
-        android:name="com.tracker.ui.send.SendFragment"
-        android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
+        android:id="@+id/navigation_actores"
+        android:name="com.tracker.ui.ActorFragment"
+        android:label="ActorDetalle"
+        tools:layout="@layout/fragment_actor">
+        <action
+            android:id="@+id/action_actores_to_series"
+            app:destination="@id/navigation_series" />
+    </fragment>
+
     <fragment
-        android:id="@+id/prueba"
-        android:name="com.tracker.ui.prueba.PruebaFragment"
-        android:label="prueba_fragment"
-        tools:layout="@layout/prueba_fragment" />
+        android:id="@+id/episodesFragment"
+        android:name="com.tracker.ui.series.EpisodesFragment"
+        android:label="fragment_episodes"
+        tools:layout="@layout/fragment_episodes" />
+
+    <action
+        android:id="@+id/action_global_navigation_home"
+        app:destination="@id/navigation_home"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/navigation_home"
+        app:popUpToInclusive="false" />
+    <action
+        android:id="@+id/action_global_navigation_home_right"
+        app:destination="@id/navigation_home"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/navigation_home"
+        app:popUpToInclusive="false" />
+
+
+    <action
+        android:id="@+id/action_global_navigation_search_to_left"
+        app:destination="@id/navigation_search"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/navigation_home"
+        app:popUpToInclusive="false" />
+    <action
+        android:id="@+id/action_global_navigation_search_to_right"
+        app:destination="@id/navigation_search"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/navigation_home"
+        app:popUpToInclusive="false" />
+
+
+    <action
+        android:id="@+id/action_global_navigation_fav_left"
+        app:destination="@id/navigation_fav"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/navigation_home"
+        app:popUpToInclusive="false" />
+    <action
+        android:id="@+id/action_global_navigation_fav_right"
+        app:destination="@id/navigation_fav"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/navigation_home"
+        app:popUpToInclusive="false" />
+    <action
+        android:id="@+id/action_global_navigation_fav"
+        app:destination="@id/navigation_fav"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/navigation_home"
+        app:popUpToInclusive="false" />
+
+
+    <action
+        android:id="@+id/action_global_navigation_profile"
+        app:destination="@id/navigation_profile"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/navigation_home"
+        app:popUpToInclusive="false" />
+    <fragment
+        android:id="@+id/genreFragment"
+        android:name="com.tracker.ui.series.GenreFragment"
+        android:label="fragment_genre"
+        tools:layout="@layout/fragment_genre" />
+    <fragment
+        android:id="@+id/networkFragment"
+        android:name="com.tracker.ui.series.NetworkFragment"
+        android:label="fragment_network"
+        tools:layout="@layout/fragment_network" />
+    <action
+        android:id="@+id/action_global_navigation_series"
+        app:destination="@id/navigation_series"
+        app:enterAnim="@animator/slide_up"
+        app:exitAnim="@animator/slide_down"
+        app:launchSingleTop="true" />
+
 </navigation>

@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="whiteColor">#ffffff</color>
+    <color name="colorPrimary">#48c9b0</color>
+    <color name="colorPrimaryTrans">#CC48c9b0</color>
+    <color name="colorPrimaryDark">#1abc9c</color>
+    <color name="colorAccent">#737373</color>
     <color name="rowBg">#E4E4E4</color>
     <color name="movieTitle">#797979</color>
     <color name="yearTitle">#CC8BDA</color>
     <color name="rateTitle">#CFC767</color>
+    <color name="whiteColor">#ffffff</color>
+    <color name="almostWhite">#f1f1f1</color>
+    <color name="black80">#A1000000</color>
+    <color name="black">#000000</color>
+    <color name="tabUnselected">#c4ede5</color>
+    <color name="splashScreenBg">#d1f2eb </color>
+    <color name="bgTotal">#fafafa</color>
 </resources>
