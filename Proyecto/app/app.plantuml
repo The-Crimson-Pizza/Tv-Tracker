@@ -240,7 +240,7 @@ title __APP's Class Diagram__\n
 
   namespace com.tracker {
     namespace ui {
-      class com.tracker.ui.ProfileFragment {
+      class com.tracker.ui.StatsFragment {
       }
     }
   }
@@ -373,7 +373,7 @@ title __APP's Class Diagram__\n
   com.tracker.ui.HomeFragment -up-|> androidx.fragment.app.Fragment
   com.tracker.ui.HomeFragment o-- com.tracker.adapters.HomeAdapter : adapterNueva
   com.tracker.ui.HomeFragment o-- com.tracker.adapters.HomeAdapter : adapterPopular
-  com.tracker.ui.ProfileFragment -up-|> androidx.fragment.app.Fragment
+  com.tracker.ui.StatsFragment -up-|> androidx.fragment.app.Fragment
   com.tracker.ui.WebViewActivity -up-|> androidx.appcompat.app.AppCompatActivity
   com.tracker.ui.search.ActorSearchFragment -up-|> androidx.fragment.app.Fragment
   com.tracker.ui.search.ActorSearchFragment o-- com.tracker.data.SeriesViewModel : model

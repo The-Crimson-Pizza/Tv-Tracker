@@ -1,5 +1,6 @@
 package com.tracker.repositories;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.tracker.models.serie.SerieResponse;
@@ -14,15 +15,15 @@ public class FirebaseDb {
     private static FirebaseDb firebaseDb;
     private DatabaseReference mFavs;
 
-    public static FirebaseDb getInstance() {
+    public static FirebaseDb getInstance(FirebaseUser currentUser) {
         if (firebaseDb == null) {
-            firebaseDb = new FirebaseDb();
+            firebaseDb = new FirebaseDb(currentUser);
         }
         return firebaseDb;
     }
 
-    private FirebaseDb() {
-        mFavs = FirebaseDatabase.getInstance().getReference("favs");
+    private FirebaseDb(FirebaseUser currentUser) {
+        mFavs = FirebaseDatabase.getInstance().getReference(currentUser.getUid() + "/favs");
     }
 
     public DatabaseReference getSeriesFav() {

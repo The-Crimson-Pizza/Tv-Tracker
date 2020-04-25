@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.GenericTypeIndicator;
@@ -55,6 +56,8 @@ public class HomeFragment extends Fragment {
         RecyclerView rvFavs = view.findViewById(R.id.gridFavs);
         ViewSwitcher switcherFavs = view.findViewById(R.id.switcher_favs);
 
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
         initRecycler(rvNuevas, adapterNueva);
         initRecycler(rvPopulares, adapterPopular);
         initRecycler(rvFavs, adapterFav);
@@ -67,7 +70,7 @@ public class HomeFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(series -> refreshData(mNuevas, adapterNueva, series.basicSeries));
 
-        FirebaseDb.getInstance().getSeriesFav().addValueEventListener(new ValueEventListener() {
+        FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).getSeriesFav().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mFavs.clear();
@@ -79,6 +82,8 @@ public class HomeFragment extends Fragment {
                         mFavs.add(fav.toBasic());
                     }
                     adapterFav.notifyDataSetChanged();
+                    if (R.id.gridFavs == switcherFavs.getNextView().getId())
+                        switcherFavs.showNext();
                 } else {
                     if (R.id.no_data_favs == switcherFavs.getNextView().getId())
                         switcherFavs.showNext();

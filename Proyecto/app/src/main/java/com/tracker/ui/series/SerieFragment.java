@@ -21,6 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.GenericTypeIndicator;
@@ -85,7 +86,7 @@ public class SerieFragment extends Fragment {
     }
 
     private void getFollowingSeries(View view) {
-        FirebaseDb.getInstance().getSeriesFav().addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).getSeriesFav().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 GenericTypeIndicator<List<SerieResponse.Serie>> genericTypeIndicator = new GenericTypeIndicator<List<SerieResponse.Serie>>() {
@@ -94,21 +95,25 @@ public class SerieFragment extends Fragment {
                 if (dataSnapshot.getValue(genericTypeIndicator) != null) {
                     mFavs.addAll(dataSnapshot.getValue(genericTypeIndicator));
                 }
-                if (mSerie == null) {
-                    getSerie(view);
-                } else {
-                    setProgress(mSerie, view);
-                    if (mSerie.homepage != null && !mSerie.homepage.isEmpty()) {
-                        itemWeb.setVisible(true);
-                    }
-                }
+                setSerie(view);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-//                nada de momento
+                setSerie(view);
             }
         });
+    }
+
+    private void setSerie(View view) {
+        if (mSerie == null) {
+            getSerie(view);
+        } else {
+            setProgress(mSerie, view);
+            if (mSerie.homepage != null && !mSerie.homepage.isEmpty()) {
+                itemWeb.setVisible(true);
+            }
+        }
     }
 
     private void getSerie(View view) {
@@ -146,7 +151,7 @@ public class SerieFragment extends Fragment {
         mSerie.added = true;
         mSerie.addedDate = new Date();
         mFavs.add(mSerie);
-        FirebaseDb.getInstance().setSeriesFav(mFavs);
+        FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(mFavs);
         RxBus.getInstance().publish(mSerie);
     }
 
@@ -154,7 +159,7 @@ public class SerieFragment extends Fragment {
         int pos = mSerie.getPosition(mFavs);
         if (pos != -1) {
             mFavs.remove(pos);
-            FirebaseDb.getInstance().setSeriesFav(mFavs);
+            FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(mFavs);
             mSerie.added = false;
             mSerie.addedDate = null;
             RxBus.getInstance().publish(mSerie);
