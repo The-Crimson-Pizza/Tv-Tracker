@@ -36,8 +36,8 @@
                 android:scaleType="fitCenter"
                 android:layout_gravity="center"
                 android:src="@drawable/sort_recently"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:tooltipText="@string/recent_added"
-                android:background="@color/bgTotal"
                 android:layout_marginEnd="15dp" />
 
             <ImageButton
@@ -48,8 +48,7 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/sort_name"
                 android:tooltipText="@string/sort_name"
-                android:background="@color/bgTotal"
-
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_marginEnd="15dp" />
             <!--<ImageButton
                 android:layout_width="32dp"
@@ -69,7 +68,7 @@
                 android:scaleType="fitCenter"
                 android:tooltipText="@string/sort_watched"
                 android:src="@drawable/sort_watched"
-                android:background="@color/bgTotal"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_marginEnd="15dp" />
         </LinearLayout>
 
