@@ -7,24 +7,19 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
-    FirebaseAuth firebaseAuth;
-    GoogleSignInClient googleSignInClient;
 
-    BottomNavigationView bottomNavigationView;
-    NavController navController;
-    int startingPosition = 0;
-    int newPosition;
+    private BottomNavigationView bottomNavigationView;
+    private NavController navController;
+    private int startingPosition = 0;
+    private int newPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         bottomNavigationView = findViewById(R.id.nav_view);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -37,37 +32,16 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.navigation_home:
-                    newPosition = 0;
-                    if (startingPosition == newPosition) {
-                        navController.navigate(R.id.action_global_navigation_home);
-                    } else {
-                        navController.navigate(R.id.action_global_navigation_home_right);
-                    }
+                    goToHome();
                     break;
                 case R.id.navigation_search:
-                    newPosition = 1;
-                    if (startingPosition < newPosition) {
-                        navController.navigate(R.id.action_global_navigation_search_to_left);
-                    } else if (newPosition < startingPosition) {
-                        startingPosition = R.id.navigation_search;
-                        navController.navigate(R.id.action_global_navigation_search_to_right);
-                    }
+                    goToSearch();
                     break;
                 case R.id.navigation_fav:
-                    newPosition = 2;
-                    if (startingPosition < newPosition) {
-                        navController.navigate(R.id.action_global_navigation_fav_left);
-                    } else if (newPosition < startingPosition) {
-                        navController.navigate(R.id.action_global_navigation_fav_right);
-                    } else {
-                        navController.navigate(R.id.action_global_navigation_fav_left);
-                    }
+                    goToFavs();
                     break;
                 case R.id.navigation_profile:
-                    newPosition = 3;
-                    if (startingPosition < newPosition) {
-                        navController.navigate(R.id.action_global_navigation_profile);
-                    }
+                    goToProfile();
                     break;
                 default:
                     return true;
@@ -75,5 +49,42 @@ public class MainActivity extends AppCompatActivity {
             startingPosition = newPosition;
             return true;
         });
+    }
+
+    private void goToProfile() {
+        newPosition = 3;
+        if (startingPosition < newPosition) {
+            navController.navigate(R.id.action_global_navigation_profile);
+        }
+    }
+
+    private void goToFavs() {
+        newPosition = 2;
+        if (startingPosition < newPosition) {
+            navController.navigate(R.id.action_global_navigation_fav_left);
+        } else if (newPosition < startingPosition) {
+            navController.navigate(R.id.action_global_navigation_fav_right);
+        } else {
+            navController.navigate(R.id.action_global_navigation_fav_left);
+        }
+    }
+
+    private void goToSearch() {
+        newPosition = 1;
+        if (startingPosition < newPosition) {
+            navController.navigate(R.id.action_global_navigation_search_to_left);
+        } else if (newPosition < startingPosition) {
+            startingPosition = R.id.navigation_search;
+            navController.navigate(R.id.action_global_navigation_search_to_right);
+        }
+    }
+
+    private void goToHome() {
+        newPosition = 0;
+        if (startingPosition == newPosition) {
+            navController.navigate(R.id.action_global_navigation_home);
+        } else {
+            navController.navigate(R.id.action_global_navigation_home_right);
+        }
     }
 }
