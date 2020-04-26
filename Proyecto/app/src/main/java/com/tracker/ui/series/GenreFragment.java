@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
@@ -72,7 +73,8 @@ public class GenreFragment extends Fragment {
         SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
         genreAdapter = new NetworkGenreAdapter(mContext, mSeriesByGenre, true);
 
-        ImageView genre_icon = view.findViewById(R.id.genre_icon);
+        ImageView ivGenreIcon = view.findViewById(R.id.genre_icon);
+        TextView tvGenre = view.findViewById(R.id.genre_name);
 
         setRecycler(view);
 
@@ -84,46 +86,48 @@ public class GenreFragment extends Fragment {
                     .setAction(R.string.activate_net, v1 -> mContext.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
         }
 
-        // Title and icon genre
+        setGenreIcon(ivGenreIcon, tvGenre);
 
-        String variable = mGenre.name;
+    }
 
-        if(variable.equalsIgnoreCase("Action & Adventure")){
-            genre_icon.setImageResource(R.drawable.genre_adventure);
-        }else if(variable.equalsIgnoreCase("Animation")){
-            genre_icon.setImageResource(R.drawable.genre_animation);
-        }else if(variable.equalsIgnoreCase("Comedy")){
-            genre_icon.setImageResource(R.drawable.genre_comedy);
-        }else if(variable.equalsIgnoreCase("Documental")){
-            genre_icon.setImageResource(R.drawable.genre_documental);
-        }else if(variable.equalsIgnoreCase("Drama")){
-            genre_icon.setImageResource(R.drawable.genre_drama);
-        }else if(variable.equalsIgnoreCase("Family")){
-            genre_icon.setImageResource(R.drawable.genre_family);
-        }else if(variable.equalsIgnoreCase("Kids")){
-            genre_icon.setImageResource(R.drawable.genre_kids);
-        }else if(variable.equalsIgnoreCase("Mistery")){
-            genre_icon.setImageResource(R.drawable.genre_mistery);
-        }else if(variable.equalsIgnoreCase("News")){
-            genre_icon.setImageResource(R.drawable.genre_news);
-        }else if(variable.equalsIgnoreCase("Reality")){
-            genre_icon.setImageResource(R.drawable.genre_reality);
-        }else if(variable.equalsIgnoreCase("Sci-Fi & Fantasy")){
-            genre_icon.setImageResource(R.drawable.genre_sci_fi);
-        }else if(variable.equalsIgnoreCase("Soap")){
-            genre_icon.setImageResource(R.drawable.genre_soap);
-        }else if(variable.equalsIgnoreCase("Talk")){
-            genre_icon.setImageResource(R.drawable.genre_talk);
-        }else if(variable.equalsIgnoreCase("War & Politics")){
-            genre_icon.setImageResource(R.drawable.genre_war);
-        }else if(variable.equalsIgnoreCase("Western")){
-            genre_icon.setImageResource(R.drawable.genre_western);
-        }else{
-            genre_icon.setImageResource(R.drawable.amazon);
-
+    private void setGenreIcon(ImageView genreIcon, TextView tvGenre) {
+        if (mGenre != null) {
+            String genreName = mGenre.name;
+            tvGenre.setText(genreName);
+            if (mGenre.id == 10759) {
+                genreIcon.setImageResource(R.drawable.genre_adventure);
+            } else if (mGenre.id == 16) {
+                genreIcon.setImageResource(R.drawable.genre_animation);
+            } else if (mGenre.id == 35) {
+                genreIcon.setImageResource(R.drawable.genre_comedy);
+            } else if (mGenre.id == 99) {
+                genreIcon.setImageResource(R.drawable.genre_documental);
+            } else if (mGenre.id == 18) {
+                genreIcon.setImageResource(R.drawable.genre_drama);
+            } else if (mGenre.id == 10751) {
+                genreIcon.setImageResource(R.drawable.genre_family);
+            } else if (mGenre.id == 10762) {
+                genreIcon.setImageResource(R.drawable.genre_kids);
+            } else if (mGenre.id == 9648 || mGenre.id == 80) {
+                genreIcon.setImageResource(R.drawable.genre_mistery);
+            } else if (mGenre.id == 10763) {
+                genreIcon.setImageResource(R.drawable.genre_news);
+            } else if (mGenre.id == 10764) {
+                genreIcon.setImageResource(R.drawable.genre_reality);
+            } else if (mGenre.id == 10765) {
+                genreIcon.setImageResource(R.drawable.genre_sci_fi);
+            } else if (mGenre.id == 10766) {
+                genreIcon.setImageResource(R.drawable.genre_soap);
+            } else if (mGenre.id == 10767) {
+                genreIcon.setImageResource(R.drawable.genre_talk);
+            } else if (mGenre.id == 10768) {
+                genreIcon.setImageResource(R.drawable.genre_war);
+            } else if (mGenre.id == 37) {
+                genreIcon.setImageResource(R.drawable.genre_western);
+            } else {
+                genreIcon.setImageResource(R.drawable.amazon);
+            }
         }
-
-
     }
 
     private void getSeriesByGenre() {
