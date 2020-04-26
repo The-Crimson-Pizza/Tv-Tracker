@@ -1,7 +1,9 @@
 package com.tracker.ui.series;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +17,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.adapters.NetworkGenreAdapter;
 import com.tracker.models.BasicResponse;
+import com.tracker.models.serie.SerieResponse;
 import com.tracker.repositories.SeriesViewModel;
 import com.tracker.repositories.TmdbRepository;
+import com.tracker.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +33,14 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
+import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
 import static com.tracker.util.Constants.ID_GENRE;
 
 
 public class GenreFragment extends Fragment {
 
-    private int idGenre;
     private Context mContext;
+    private SerieResponse.Serie.Genre mGenre;
     private NetworkGenreAdapter genreAdapter;
     List<BasicResponse.SerieBasic> mSeriesByGenre = new ArrayList<>();
 
@@ -47,7 +53,7 @@ public class GenreFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            idGenre = getArguments().getInt(ID_GENRE);
+            mGenre = getArguments().getParcelable(ID_GENRE);
         }
     }
 
@@ -69,11 +75,18 @@ public class GenreFragment extends Fragment {
         ImageView genre_icon = view.findViewById(R.id.genre_icon);
 
         setRecycler(view);
-        getSeriesByGenre();
+
+
+        if (Util.isNetworkAvailable(mContext)) {
+            if (mGenre != null) getSeriesByGenre();
+        } else {
+            Snackbar.make(view, mContext.getString(R.string.no_network), LENGTH_LONG)
+                    .setAction(R.string.activate_net, v1 -> mContext.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
+        }
 
         // Title and icon genre
 
-        String variable = "Comedy";
+        String variable = mGenre.name;
 
         if(variable.equalsIgnoreCase("Action & Adventure")){
             genre_icon.setImageResource(R.drawable.genre_adventure);
@@ -110,10 +123,11 @@ public class GenreFragment extends Fragment {
 
         }
 
+
     }
 
     private void getSeriesByGenre() {
-        TmdbRepository.getInstance().getByGenre(idGenre)
+        TmdbRepository.getInstance().getByGenre(mGenre.id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BasicResponse>() {
                     @Override

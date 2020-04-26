@@ -1,7 +1,11 @@
 package com.tracker.ui;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +17,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.GenericTypeIndicator;
@@ -35,6 +42,12 @@ public class HomeFragment extends Fragment {
     private List<BasicResponse.SerieBasic> mNuevas = new ArrayList<>();
     private List<BasicResponse.SerieBasic> mFavs = new ArrayList<>();
     private Context mContext;
+    private boolean isOn;
+
+    private HomeAdapter adapterPopular;
+    private HomeAdapter adapterNueva;
+    private HomeAdapter adapterFav;
+    private ViewSwitcher switcherFavs;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,30 +57,48 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
 
-        HomeAdapter adapterPopular = new HomeAdapter(getActivity(), mPopulares);
-        HomeAdapter adapterNueva = new HomeAdapter(getActivity(), mNuevas);
-        HomeAdapter adapterFav = new HomeAdapter(getActivity(), mFavs);
+        adapterPopular = new HomeAdapter(getActivity(), mPopulares);
+        adapterNueva = new HomeAdapter(getActivity(), mNuevas);
+        adapterFav = new HomeAdapter(getActivity(), mFavs);
 
+        switcherFavs = view.findViewById(R.id.switcher_favs);
         RecyclerView rvPopulares = view.findViewById(R.id.gridPopulares);
         RecyclerView rvNuevas = view.findViewById(R.id.gridNuevas);
         RecyclerView rvFavs = view.findViewById(R.id.gridFavs);
-        ViewSwitcher switcherFavs = view.findViewById(R.id.switcher_favs);
 
         initRecycler(rvNuevas, adapterNueva);
         initRecycler(rvPopulares, adapterPopular);
         initRecycler(rvFavs, adapterFav);
 
-        TmdbRepository.getInstance().getTrendingSeries()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(series -> refreshData(mPopulares, adapterPopular, series.basicSeries));
+        initHome(view);
+    }
 
-        TmdbRepository.getInstance().getNewSeries()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(series -> refreshData(mNuevas, adapterNueva, series.basicSeries));
+    private void initHome(@NonNull View view) {
+        if (getConnectivityStatus()) {
+            isOn = true;
+            getTrending(adapterPopular);
+            getNew(adapterNueva);
+            getFavorites(adapterFav, switcherFavs);
+        } else {
+            isOn = false;
+            Snackbar.make(view, getString(R.string.no_network), BaseTransientBottomBar.LENGTH_INDEFINITE)
+                    .setAction(R.string.activate_net, v1 -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
+        }
+    }
 
-        FirebaseDb.getInstance().getSeriesFav().addValueEventListener(new ValueEventListener() {
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!isOn) {
+            initHome(requireView());
+        }
+    }
+
+    private void getFavorites(HomeAdapter adapterFav, ViewSwitcher switcherFavs) {
+        FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).getSeriesFav().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mFavs.clear();
@@ -79,6 +110,8 @@ public class HomeFragment extends Fragment {
                         mFavs.add(fav.toBasic());
                     }
                     adapterFav.notifyDataSetChanged();
+                    if (R.id.gridFavs == switcherFavs.getNextView().getId())
+                        switcherFavs.showNext();
                 } else {
                     if (R.id.no_data_favs == switcherFavs.getNextView().getId())
                         switcherFavs.showNext();
@@ -87,9 +120,22 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
+    }
+
+    private void getNew(HomeAdapter adapterNueva) {
+        TmdbRepository.getInstance().getNewSeries()
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(Throwable::printStackTrace)
+                .subscribe(series -> refreshData(mNuevas, adapterNueva, series.basicSeries));
+    }
+
+    private void getTrending(HomeAdapter adapterPopular) {
+        TmdbRepository.getInstance().getTrendingSeries()
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(Throwable::printStackTrace)
+                .subscribe(series -> refreshData(mPopulares, adapterPopular, series.basicSeries));
     }
 
     private void refreshData(List<BasicResponse.SerieBasic> lista, HomeAdapter adapter, List<BasicResponse.SerieBasic> response) {
@@ -104,5 +150,18 @@ public class HomeFragment extends Fragment {
         rv.setSaveEnabled(true);
         rv.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         rv.setAdapter(adapter);
+    }
+
+    private boolean getConnectivityStatus() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
+        if (capabilities != null &&
+                (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))) {
+            return true;
+        }
+//        showToastMessage(getString(R.string.no_network));
+        return false;
     }
 }

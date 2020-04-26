@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.tracker.ui.ProfileFragment"
+        android:name="com.tracker.ui.StatsFragment"
         android:label="@string/my_profile"
         tools:layout="@layout/fragment_profile" />
 

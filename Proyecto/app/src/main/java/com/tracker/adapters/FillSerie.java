@@ -1,7 +1,9 @@
 package com.tracker.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,11 +16,13 @@ import androidx.navigation.Navigation;
 
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.snackbar.Snackbar;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.tracker.R;
 import com.tracker.models.serie.SerieResponse;
 import com.tracker.util.Util;
 
+import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_BACK;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_NETWORK;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
@@ -103,8 +107,13 @@ public class FillSerie {
                 imageView.setVisibility(View.VISIBLE);
                 imageView.setOnClickListener(v -> {
                     Bundle bundle = new Bundle();
-                    bundle.putInt(ID_NETWORK, mSerie.networks.get(pos).id);
-                    Navigation.findNavController(v).navigate(R.id.action_navigation_series_to_networkFragment, bundle);
+                    bundle.putParcelable(ID_NETWORK, mSerie.networks.get(pos));
+                    if (Util.isNetworkAvailable(mContext)) {
+                        Navigation.findNavController(v).navigate(R.id.action_navigation_series_to_networkFragment, bundle);
+                    } else {
+                        Snackbar.make(v, mContext.getString(R.string.no_network), LENGTH_LONG)
+                                .setAction(R.string.activate_net, v1 -> mContext.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
+                    }
                 });
                 if (cont == mSerie.networks.size()) break;
                 else cont++;
@@ -128,9 +137,13 @@ public class FillSerie {
                 textView.setVisibility(View.VISIBLE);
                 textView.setOnClickListener(v -> {
                     Bundle bundle = new Bundle();
-                    bundle.putInt(ID_GENRE, mSerie.genres.get(pos).id);
-                    Navigation.findNavController(v).navigate(R.id.action_navigation_series_to_genreFragment, bundle);
-
+                    bundle.putParcelable(ID_GENRE, mSerie.genres.get(pos));
+                    if (Util.isNetworkAvailable(mContext)) {
+                        Navigation.findNavController(v).navigate(R.id.action_navigation_series_to_genreFragment, bundle);
+                    } else {
+                        Snackbar.make(v, mContext.getString(R.string.no_network), LENGTH_LONG)
+                                .setAction(R.string.activate_net, v1 -> mContext.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
+                    }
                 });
                 if (cont == mSerie.genres.size()) break;
                 else cont++;

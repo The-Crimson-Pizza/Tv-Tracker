@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import com.tracker.R;
 
-public class ProfileFragment extends Fragment {
+public class StatsFragment extends Fragment {
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

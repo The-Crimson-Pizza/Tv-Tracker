@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cordinatorSerie"
@@ -40,21 +39,21 @@
                 android:layout_width="100dp"
                 android:layout_height="150dp"
                 android:layout_gravity="bottom|end"
-                app:layout_collapseMode="none"
-                android:layout_margin="7.5dp">
+                android:layout_margin="7.5dp"
+                app:layout_collapseMode="none">
 
                 <ImageView
-                    android:layout_width="match_parent"
                     android:id="@+id/posterImage"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
                     android:padding="4.5dp"
-                    android:src="@drawable/default_poster"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_poster" />
 
                 <ImageView
-                    android:src="@drawable/frame"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:src="@drawable/frame" />
 
             </FrameLayout>
 
@@ -130,18 +129,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    <!--    <ProgressBar-->
-    <!--        android:id="@+id/progreso"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_gravity="center"-->
-    <!--        android:layout_marginTop="100dp"-->
-    <!--        android:indeterminate="true"-->
-    <!--        android:indeterminateTint="@color/colorPrimary"-->
-    <!--        android:indeterminateTintMode="src_atop"-->
-    <!--        android:scaleX="2"-->
-    <!--        android:scaleY="2"-->
-    <!--        android:visibility="visible" />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

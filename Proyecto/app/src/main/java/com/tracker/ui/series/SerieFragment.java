@@ -3,6 +3,7 @@ package com.tracker.ui.series;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,9 +19,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.GenericTypeIndicator;
@@ -35,6 +38,7 @@ import com.tracker.repositories.RxBus;
 import com.tracker.repositories.SeriesViewModel;
 import com.tracker.repositories.TmdbRepository;
 import com.tracker.ui.WebViewActivity;
+import com.tracker.util.Util;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -73,19 +77,16 @@ public class SerieFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         seriesViewModel = new ViewModelProvider(requireActivity()).get(SeriesViewModel.class);
-//        todo - ProgressBar bar = view.findViewById(R.id.progreso);
-//        bar.setVisibility(View.VISIBLE);
 
         setToolbar(view);
         hideKeyboard();
         setViewPager(view);
         setFloatingButton(view);
-
         getFollowingSeries(view);
     }
 
     private void getFollowingSeries(View view) {
-        FirebaseDb.getInstance().getSeriesFav().addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).getSeriesFav().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 GenericTypeIndicator<List<SerieResponse.Serie>> genericTypeIndicator = new GenericTypeIndicator<List<SerieResponse.Serie>>() {
@@ -94,36 +95,37 @@ public class SerieFragment extends Fragment {
                 if (dataSnapshot.getValue(genericTypeIndicator) != null) {
                     mFavs.addAll(dataSnapshot.getValue(genericTypeIndicator));
                 }
-                if (mSerie == null) {
-                    getSerie(view);
-                } else {
-                    setProgress(mSerie, view);
-                    if (mSerie.homepage != null && !mSerie.homepage.isEmpty()) {
-                        itemWeb.setVisible(true);
-                    }
-                }
+                setSerie(view);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-//                nada de momento
-                TmdbRepository.getInstance().getSerie(idSerie)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(serie -> {
-                            mSerie = serie;
-                            if (mSerie.homepage != null && !mSerie.homepage.isEmpty()) {
-                                itemWeb.setVisible(true);
-                            }
-                            getSeasons(mSerie, view);
-                        });
+                setSerie(view);
 
             }
         });
     }
 
+    private void setSerie(View view) {
+        if (mSerie == null) {
+            if (Util.isNetworkAvailable(mContext)) {
+                getSerie(view);
+            } else {
+                Snackbar.make(view, R.string.no_network, BaseTransientBottomBar.LENGTH_INDEFINITE).show();
+            }
+
+        } else {
+            setProgress(mSerie, view);
+            if (mSerie.homepage != null && !mSerie.homepage.isEmpty()) {
+                itemWeb.setVisible(true);
+            }
+        }
+    }
+
     private void getSerie(View view) {
         TmdbRepository.getInstance().getSerie(idSerie)
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> Log.e("TAG", throwable.getLocalizedMessage()))
                 .subscribe(serie -> {
                     mSerie = serie;
                     if (mSerie.homepage != null && !mSerie.homepage.isEmpty()) {
@@ -156,7 +158,7 @@ public class SerieFragment extends Fragment {
         mSerie.added = true;
         mSerie.addedDate = new Date();
         mFavs.add(mSerie);
-        FirebaseDb.getInstance().setSeriesFav(mFavs);
+        FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(mFavs);
         RxBus.getInstance().publish(mSerie);
     }
 
@@ -164,7 +166,7 @@ public class SerieFragment extends Fragment {
         int pos = mSerie.getPosition(mFavs);
         if (pos != -1) {
             mFavs.remove(pos);
-            FirebaseDb.getInstance().setSeriesFav(mFavs);
+            FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(mFavs);
             mSerie.added = false;
             mSerie.addedDate = null;
             RxBus.getInstance().publish(mSerie);

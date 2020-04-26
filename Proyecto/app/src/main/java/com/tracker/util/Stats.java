@@ -1,26 +1,18 @@
 package com.tracker.util;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.tracker.R;
 import com.tracker.models.seasons.Episode;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.temporal.TemporalAdjuster;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.TreeMap;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class Stats {
@@ -125,6 +117,9 @@ public class Stats {
                 last watched
 
   */
+
+// TODO: 27/04/20 controlar intenret al añadir favoritos
+    // TODO: 27/04/20 . pasar a strings todo lo de LoginActivity
 
 
 }

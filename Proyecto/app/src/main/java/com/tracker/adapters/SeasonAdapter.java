@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.firebase.auth.FirebaseAuth;
 import com.tracker.R;
 import com.tracker.models.seasons.Episode;
 import com.tracker.models.seasons.Season;
@@ -173,7 +174,7 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
             }
 
 //            GUARDAR FAVORITOS EN FIREBASE
-            FirebaseDb.getInstance().setSeriesFav(favs);
+            FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(favs);
         }
 
         private void unwatchSeason(SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int temporada) {
@@ -195,7 +196,7 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
             favs.get(pos).finished = false;
             favs.get(pos).finishDate = null;
 
-            FirebaseDb.getInstance().setSeriesFav(favs);
+            FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(favs);
         }
     }
 }

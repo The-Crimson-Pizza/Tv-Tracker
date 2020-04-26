@@ -16,6 +16,7 @@ import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.firebase.auth.FirebaseAuth;
 import com.tracker.R;
 import com.tracker.models.seasons.Episode;
 import com.tracker.models.seasons.Season;
@@ -216,7 +217,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
                     favs.get(favPosition).finishDate = null;
                 }
 
-                FirebaseDb.getInstance().setSeriesFav(favs);
+                FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(favs);
             }
         }
 
@@ -248,7 +249,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
                 favs.get(favPosition).finished = false;
                 favs.get(favPosition).finishDate = null;
 
-                FirebaseDb.getInstance().setSeriesFav(favs);
+                FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(favs);
             }
         }
 
