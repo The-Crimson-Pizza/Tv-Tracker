@@ -36,6 +36,7 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="15dp"
                 android:background="@color/bgTotal"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="fitCenter"
                 android:src="@drawable/sort_recently" />
 
@@ -47,6 +48,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="@color/bgTotal"
                 android:scaleType="fitCenter"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/sort_name" />
             <!--<ImageButton
                 android:layout_width="32dp"
@@ -65,7 +67,9 @@
                 android:layout_gravity="end"
                 android:layout_marginEnd="15dp"
                 android:background="@color/bgTotal"
+
                 android:scaleType="fitCenter"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/sort_watched" />
         </LinearLayout>
 
