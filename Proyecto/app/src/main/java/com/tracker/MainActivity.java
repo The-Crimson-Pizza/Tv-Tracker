@@ -26,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
         startingPosition = 0;
         setNavigationView();
+
     }
+
 
     private void setNavigationView() {
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {

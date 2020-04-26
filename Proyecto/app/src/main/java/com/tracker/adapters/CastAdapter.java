@@ -3,6 +3,7 @@ package com.tracker.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.tracker.util.Util;
 import java.util.Collections;
 import java.util.List;
 
+import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 
 public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
@@ -75,7 +77,12 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
             holder.itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
                 bundle.putInt(Constants.ID_SERIE, mSeries.get(position).id);
-                Navigation.findNavController(v).navigate(R.id.action_actores_to_series, bundle);
+                if (Util.isNetworkAvailable(holder.itemView.getContext())) {
+                    Navigation.findNavController(v).navigate(R.id.action_actores_to_series, bundle);
+                } else {
+                    Snackbar.make(v, holder.itemView.getContext().getString(R.string.no_network), LENGTH_LONG)
+                            .setAction(R.string.activate_net, v1 -> holder.itemView.getContext().startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
+                }
             });
         }
     }

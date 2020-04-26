@@ -8,6 +8,7 @@ import com.tracker.models.serie.VideosResponse;
 import com.tracker.util.Util;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -58,6 +59,10 @@ public class TmdbRepository {
                     return chain.proceed(request);
                 })
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .retryOnConnectionFailure(false)
+                .connectTimeout(30, TimeUnit.SECONDS) // connect timeout
+                .writeTimeout(30, TimeUnit.SECONDS) // write timeout
+                .readTimeout(30, TimeUnit.SECONDS)
                 .build();
         Retrofit retrofit =
                 new Retrofit.Builder()

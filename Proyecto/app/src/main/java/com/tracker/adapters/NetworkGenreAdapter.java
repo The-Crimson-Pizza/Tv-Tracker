@@ -74,8 +74,6 @@ public class NetworkGenreAdapter extends RecyclerView.Adapter<NetworkGenreAdapte
                 bundle.putInt(Constants.ID_SERIE, id);
                 Navigation.findNavController(v).navigate(R.id.action_global_navigation_series, bundle);
             });
-
-
         }
 
         static ViewHolder create(ViewGroup parent) {

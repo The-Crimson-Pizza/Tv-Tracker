@@ -1,7 +1,9 @@
 package com.tracker.ui.series;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +12,16 @@ import android.widget.ViewSwitcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.adapters.NetworkGenreAdapter;
 import com.tracker.models.BasicResponse;
-import com.tracker.repositories.SeriesViewModel;
+import com.tracker.models.serie.SerieResponse;
 import com.tracker.repositories.TmdbRepository;
+import com.tracker.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +30,17 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
+import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
 import static com.tracker.util.Constants.ID_NETWORK;
 
 
 public class NetworkFragment extends Fragment {
 
-    private int idNetwork;
     private Context mContext;
+    private boolean isOn;
     private NetworkGenreAdapter networkAdapter;
-    List<BasicResponse.SerieBasic> seriesByNetwork = new ArrayList<>();
+    private SerieResponse.Serie.Network mNetwork;
+    private List<BasicResponse.SerieBasic> seriesByNetwork = new ArrayList<>();
 
 
     public NetworkFragment() {
@@ -46,7 +51,7 @@ public class NetworkFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            idNetwork = getArguments().getInt(ID_NETWORK);
+            mNetwork = getArguments().getParcelable(ID_NETWORK);
         }
     }
 
@@ -61,17 +66,31 @@ public class NetworkFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ViewSwitcher switcher = view.findViewById(R.id.switcher_networks);
-        SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
         networkAdapter = new NetworkGenreAdapter(mContext, seriesByNetwork, false);
 
-
         setRecycler(view);
-        getSeriesByNetwork();
+        initNetwork(view);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!isOn) initNetwork(requireView());
+    }
+
+    private void initNetwork(@NonNull View view) {
+        if (Util.isNetworkAvailable(mContext)) {
+            isOn = true;
+            getSeriesByNetwork();
+        } else {
+            isOn = false;
+            Snackbar.make(view, mContext.getString(R.string.no_network), LENGTH_LONG)
+                    .setAction(R.string.activate_net, v1 -> mContext.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
+        }
     }
 
     private void getSeriesByNetwork() {
-        TmdbRepository.getInstance().getByNetwork(idNetwork)
+        TmdbRepository.getInstance().getByNetwork(mNetwork.id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BasicResponse>() {
                     @Override

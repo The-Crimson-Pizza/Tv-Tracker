@@ -1,7 +1,9 @@
 package com.tracker.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.models.serie.Credits;
 import com.tracker.util.Util;
 
 import java.util.List;
 
+import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_PORTRAIT;
 import static com.tracker.util.Constants.ID_ACTOR;
 
@@ -66,10 +70,14 @@ public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.Vi
             actorCharacter = itemView.findViewById(R.id.character_name);
 
             itemView.setOnClickListener(v -> {
-                int pos = getAdapterPosition();
                 Bundle bundle = new Bundle();
                 bundle.putInt(ID_ACTOR, actorId);
-                Navigation.findNavController(v).navigate(R.id.action_series_to_actores, bundle);
+                if (Util.isNetworkAvailable(itemView.getContext())) {
+                    Navigation.findNavController(v).navigate(R.id.action_series_to_actores, bundle);
+                } else {
+                    Snackbar.make(v, itemView.getContext().getString(R.string.no_network), LENGTH_LONG)
+                            .setAction(R.string.activate_net, v1 -> itemView.getContext().startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
+                }
             });
         }
 

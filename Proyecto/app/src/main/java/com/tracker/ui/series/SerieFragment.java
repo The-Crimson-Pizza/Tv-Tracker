@@ -3,6 +3,7 @@ package com.tracker.ui.series;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -36,6 +38,7 @@ import com.tracker.repositories.RxBus;
 import com.tracker.repositories.SeriesViewModel;
 import com.tracker.repositories.TmdbRepository;
 import com.tracker.ui.WebViewActivity;
+import com.tracker.util.Util;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -74,14 +77,11 @@ public class SerieFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         seriesViewModel = new ViewModelProvider(requireActivity()).get(SeriesViewModel.class);
-//        todo - ProgressBar bar = view.findViewById(R.id.progreso);
-//        bar.setVisibility(View.VISIBLE);
 
         setToolbar(view);
         hideKeyboard();
         setViewPager(view);
         setFloatingButton(view);
-
         getFollowingSeries(view);
     }
 
@@ -107,7 +107,12 @@ public class SerieFragment extends Fragment {
 
     private void setSerie(View view) {
         if (mSerie == null) {
-            getSerie(view);
+            if (Util.isNetworkAvailable(mContext)) {
+                getSerie(view);
+            } else {
+                Snackbar.make(view, R.string.no_network, BaseTransientBottomBar.LENGTH_INDEFINITE).show();
+            }
+
         } else {
             setProgress(mSerie, view);
             if (mSerie.homepage != null && !mSerie.homepage.isEmpty()) {
@@ -119,6 +124,7 @@ public class SerieFragment extends Fragment {
     private void getSerie(View view) {
         TmdbRepository.getInstance().getSerie(idSerie)
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> Log.e("TAG", throwable.getLocalizedMessage()))
                 .subscribe(serie -> {
                     mSerie = serie;
                     if (mSerie.homepage != null && !mSerie.homepage.isEmpty()) {

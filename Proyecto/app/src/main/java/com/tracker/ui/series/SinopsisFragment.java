@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +38,9 @@ public class SinopsisFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ProgressBar bar = view.findViewById(R.id.progreso);
+
         RxBus.getInstance().listen()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<SerieResponse.Serie>() {
@@ -49,6 +53,7 @@ public class SinopsisFragment extends Fragment {
                     public void onNext(@io.reactivex.rxjava3.annotations.NonNull SerieResponse.Serie serie) {
                         mSerie = serie;
                         new FillSerie(view, mSerie, mContext).fillOverview();
+                        bar.setVisibility(View.GONE);
                     }
 
                     @Override
