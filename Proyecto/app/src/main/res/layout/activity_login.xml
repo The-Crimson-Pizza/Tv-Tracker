@@ -7,7 +7,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="36dp"
-    tools:context=".ui.login.LoginActivity">
+    tools:context=".ui.LoginActivity">
 
     <ImageView
         android:layout_width="wrap_content"

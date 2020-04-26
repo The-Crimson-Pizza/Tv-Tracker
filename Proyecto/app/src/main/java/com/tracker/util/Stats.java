@@ -119,6 +119,7 @@ public class Stats {
   */
 
 // TODO: 27/04/20 controlar intenret al añadir favoritos
+    // TODO: 27/04/20 . pasar a strings todo lo de LoginActivity
 
 
 }

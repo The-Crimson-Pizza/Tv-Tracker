@@ -1,4 +1,4 @@
-package com.tracker.ui.login;
+package com.tracker.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,7 +38,6 @@ import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String TAG = "LoginActivity";
     private static final int RC_SIGN_IN = 1001;
 
     private EditText etEmail;

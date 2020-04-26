@@ -6,7 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.tracker.ui.login.LoginActivity;
+import com.tracker.ui.LoginActivity;
 
 public class SplashScreen extends AppCompatActivity {
     @Override
