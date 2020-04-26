@@ -53,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
                         navController.navigate(R.id.action_global_navigation_fav_left);
                     } else if (newPosition < startingPosition) {
                         navController.navigate(R.id.action_global_navigation_fav_right);
-                    } else {
-                        navController.navigate(R.id.action_global_navigation_fav_left);
                     }
                     break;
                 case R.id.navigation_profile:
