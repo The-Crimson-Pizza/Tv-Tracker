@@ -107,6 +107,16 @@ public class SerieFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 //                nada de momento
+                TmdbRepository.getInstance().getSerie(idSerie)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(serie -> {
+                            mSerie = serie;
+                            if (mSerie.homepage != null && !mSerie.homepage.isEmpty()) {
+                                itemWeb.setVisible(true);
+                            }
+                            getSeasons(mSerie, view);
+                        });
+
             }
         });
     }

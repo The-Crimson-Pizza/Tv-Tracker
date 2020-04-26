@@ -72,6 +72,7 @@
     <string name="recent_added">Sort by recently added</string>
     <string name="sort_name">Sort by name</string>
     <string name="sort_watched">Sort by last watched</string>
+    <string name="sort_orientation">Sort descending or ascending</string>
     <string name="sort_by">Sort by:</string>
     <string name="finished_date">Finished: %1$s at %2$s</string>
     <string name="hours_watched_total">%1$d hours, %2$d minutes watching</string>

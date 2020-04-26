@@ -46,7 +46,7 @@
                 android:layout_height="32dp"
                 android:layout_gravity="end"
                 android:scaleType="fitCenter"
-                android:src="@drawable/sort_name"
+                android:src="@drawable/name_off_icon"
                 android:tooltipText="@string/sort_name"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_marginEnd="15dp" />
@@ -55,7 +55,6 @@
                 android:layout_height="32dp"
                 android:layout_gravity="end"
                 android:scaleType="fitCenter"
-
                 android:src="@drawable/sort_next"
                 android:background="@color/almostWhite"
                 android:layout_marginEnd="15dp"/>-->
@@ -67,7 +66,18 @@
                 android:layout_gravity="end"
                 android:scaleType="fitCenter"
                 android:tooltipText="@string/sort_watched"
-                android:src="@drawable/sort_watched"
+                android:src="@drawable/watched_off_icon"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_marginEnd="30dp" />
+
+            <ImageButton
+                android:id="@+id/orientation_arrows"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="end"
+                android:scaleType="fitCenter"
+                android:tooltipText="@string/sort_orientation"
+                android:src="@drawable/change_orientation_icon"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_marginEnd="15dp" />
         </LinearLayout>
