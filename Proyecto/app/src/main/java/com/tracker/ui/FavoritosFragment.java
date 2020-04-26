@@ -7,11 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +42,8 @@ public class FavoritosFragment extends Fragment {
     private List<SerieResponse.Serie> mFavs = new ArrayList<>();
     private FavoritesAdapter favAdapter;
 
+    private Boolean orientationSelected = false;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getActivity();
@@ -54,20 +59,64 @@ public class FavoritosFragment extends Fragment {
         ImageButton sortAdded = view.findViewById(R.id.added_button);
         ImageButton sortName = view.findViewById(R.id.name_button);
         ImageButton sortLastWatched = view.findViewById(R.id.watched_button);
+        ImageButton sortDirection = view.findViewById(R.id.orientation_arrows);
 
         // TODO: 22/04/20 Reverse sorting //Collections.reverse(list);
         sortAdded.setOnClickListener(v -> {
             sortSeasonByAdded(mFavs);
             favAdapter.notifyDataSetChanged();
+
+            sortLastWatched.setImageResource(R.drawable.watched_off_icon);
+            sortAdded.setImageResource(R.drawable.sort_recently);
+            sortName.setImageResource(R.drawable.name_off_icon);
+
         });
+
         sortName.setOnClickListener(v -> {
             sortSeasonByName(mFavs);
             favAdapter.notifyDataSetChanged();
+
+            sortLastWatched.setImageResource(R.drawable.watched_off_icon);
+            sortAdded.setImageResource(R.drawable.recently_off_icon);
+            sortName.setImageResource(R.drawable.sort_name);
+
         });
         sortLastWatched.setOnClickListener(v -> {
             sortSeasonByLastWatched(mFavs);
             favAdapter.notifyDataSetChanged();
+
+            sortLastWatched.setImageResource(R.drawable.sort_watched);
+            sortAdded.setImageResource(R.drawable.recently_off_icon);
+            sortName.setImageResource(R.drawable.name_off_icon);
+
         });
+
+        sortDirection.setOnClickListener(v -> {
+
+            // Selected
+            if(!orientationSelected){
+
+                // Collections.reverse(list)
+
+                sortDirection.setImageResource(R.drawable.change_direction_icon);
+                orientationSelected = true;
+            }else{
+                sortDirection.setImageResource(R.drawable.change_orientation_icon);
+                orientationSelected = false;
+            }
+        });
+
+        /* arrowBtn.setOnClickListener(v -> {
+            if (expandableView.getVisibility() == View.GONE) {
+                TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                expandableView.setVisibility(View.VISIBLE);
+                arrowBtn.setBackgroundResource(R.drawable.arrow_collapse);
+            } else {
+                TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                expandableView.setVisibility(View.GONE);
+                arrowBtn.setBackgroundResource(R.drawable.arrow_expand);
+            }
+        }); */
 
     }
 

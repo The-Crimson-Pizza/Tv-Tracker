@@ -17,6 +17,7 @@
     <string name="series_nuevas">Series Nuevas</string>
     <string name="no_conn">Sin Conexión</string>
     <string name="serie_poster">Póster de serie</string>
+    <string name="sort_orientation">Ordenar ascedente o descendente</string>
     <string name="my_profile">Mi Perfil</string>
     <string name="favourites">Seguimiento</string>
     <string name="search">Búsqueda</string>

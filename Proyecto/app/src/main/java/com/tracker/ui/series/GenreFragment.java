@@ -7,6 +7,7 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
@@ -59,6 +60,7 @@ public class GenreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
+
         return inflater.inflate(R.layout.fragment_genre, container, false);
     }
 
@@ -70,7 +72,10 @@ public class GenreFragment extends Fragment {
         SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
         genreAdapter = new NetworkGenreAdapter(mContext, mSeriesByGenre, true);
 
+        ImageView genre_icon = view.findViewById(R.id.genre_icon);
+
         setRecycler(view);
+
 
         if (Util.isNetworkAvailable(mContext)) {
             if (mGenre != null) getSeriesByGenre();
@@ -78,6 +83,47 @@ public class GenreFragment extends Fragment {
             Snackbar.make(view, mContext.getString(R.string.no_network), LENGTH_LONG)
                     .setAction(R.string.activate_net, v1 -> mContext.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
         }
+
+        // Title and icon genre
+
+        String variable = mGenre.name;
+
+        if(variable.equalsIgnoreCase("Action & Adventure")){
+            genre_icon.setImageResource(R.drawable.genre_adventure);
+        }else if(variable.equalsIgnoreCase("Animation")){
+            genre_icon.setImageResource(R.drawable.genre_animation);
+        }else if(variable.equalsIgnoreCase("Comedy")){
+            genre_icon.setImageResource(R.drawable.genre_comedy);
+        }else if(variable.equalsIgnoreCase("Documental")){
+            genre_icon.setImageResource(R.drawable.genre_documental);
+        }else if(variable.equalsIgnoreCase("Drama")){
+            genre_icon.setImageResource(R.drawable.genre_drama);
+        }else if(variable.equalsIgnoreCase("Family")){
+            genre_icon.setImageResource(R.drawable.genre_family);
+        }else if(variable.equalsIgnoreCase("Kids")){
+            genre_icon.setImageResource(R.drawable.genre_kids);
+        }else if(variable.equalsIgnoreCase("Mistery")){
+            genre_icon.setImageResource(R.drawable.genre_mistery);
+        }else if(variable.equalsIgnoreCase("News")){
+            genre_icon.setImageResource(R.drawable.genre_news);
+        }else if(variable.equalsIgnoreCase("Reality")){
+            genre_icon.setImageResource(R.drawable.genre_reality);
+        }else if(variable.equalsIgnoreCase("Sci-Fi & Fantasy")){
+            genre_icon.setImageResource(R.drawable.genre_sci_fi);
+        }else if(variable.equalsIgnoreCase("Soap")){
+            genre_icon.setImageResource(R.drawable.genre_soap);
+        }else if(variable.equalsIgnoreCase("Talk")){
+            genre_icon.setImageResource(R.drawable.genre_talk);
+        }else if(variable.equalsIgnoreCase("War & Politics")){
+            genre_icon.setImageResource(R.drawable.genre_war);
+        }else if(variable.equalsIgnoreCase("Western")){
+            genre_icon.setImageResource(R.drawable.genre_western);
+        }else{
+            genre_icon.setImageResource(R.drawable.amazon);
+
+        }
+
+
     }
 
     private void getSeriesByGenre() {
