@@ -98,4 +98,15 @@
     <string name="forget_password">Did you forget your password?</string>
     <string name="no_network">No network connection!</string>
     <string name="activate_net">Activate network</string>
+    <string name="success_login">Successfully Logged In</string>
+    <string name="current_user">\"Currently Logged in: \"</string>
+    <string name="success_register">Successfully Registered</string>
+    <string name="login_fail">\"Login Failed: \"</string>
+    <string name="google_fail">\"Google Sign in Failed \"</string>
+    <string name="google_success">Google Sign in Succeeded</string>
+    <string name="auth_success">\"Authentication Succeeded \"</string>
+    <string name="auth_fail">Authentication failed:</string>
+    <string name="register_fail">\"Registration Failed: \"</string>
+    <string name="reset_success">Reset link sent to your email</string>
+    <string name="reset_fail">\"Unable to send reset mail. \"</string>
 </resources>

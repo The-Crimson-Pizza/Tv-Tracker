@@ -7,6 +7,8 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
@@ -31,6 +33,7 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
 import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
+import static com.tracker.util.Constants.BASE_URL_IMAGES_NETWORK;
 import static com.tracker.util.Constants.ID_NETWORK;
 
 
@@ -66,6 +69,12 @@ public class NetworkFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ViewSwitcher switcher = view.findViewById(R.id.switcher_networks);
+
+        ImageView ivNetwork = view.findViewById(R.id.network_icon);
+        TextView tvNetwork = view.findViewById(R.id.network_name);
+        tvNetwork.setText(mNetwork.name);
+        Util.getImage(BASE_URL_IMAGES_NETWORK + mNetwork.logoPath, ivNetwork, mContext);
+
         networkAdapter = new NetworkGenreAdapter(mContext, seriesByNetwork, false);
 
         setRecycler(view);

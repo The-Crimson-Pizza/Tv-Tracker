@@ -2,11 +2,13 @@ package com.tracker.util;
 
 import android.content.Context;
 
+import com.github.mikephil.charting.data.PieEntry;
 import com.tracker.R;
 import com.tracker.models.seasons.Episode;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -78,7 +80,7 @@ public class Stats {
         return Collections.max(seriesMap.entrySet(), (entry1, entry2) -> entry1.getValue() - entry2.getValue()).getKey();
     }
 
-    public Map<String, Integer> getTopTenGenres() {
+    private Map<String, Integer> getTopTenGenres() {
         HashMap<String, Integer> countGenres = new HashMap<>();
         for (SerieResponse.Serie serie : mFavs) {
             for (SerieResponse.Serie.Genre genre : serie.genres) {
@@ -90,6 +92,17 @@ public class Stats {
                 .limit(10)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                         (e1, e2) -> e1, LinkedHashMap::new));
+    }
+
+    public List<PieEntry> getPieGenres() {
+        List<PieEntry> genresData = new ArrayList<>();
+        Map<String, Integer> countGenres = getTopTenGenres();
+        for (Map.Entry<String, Integer> entry : countGenres.entrySet()) {
+            String key = entry.getKey();
+            int value = entry.getValue();
+            genresData.add(new PieEntry((float) value, key));
+        }
+        return genresData;
     }
 
     private String toDaysHoursMinutes(int time) {

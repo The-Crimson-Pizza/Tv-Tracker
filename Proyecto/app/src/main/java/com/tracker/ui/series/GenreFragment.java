@@ -14,7 +14,6 @@ import android.widget.ViewSwitcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +22,6 @@ import com.tracker.R;
 import com.tracker.adapters.NetworkGenreAdapter;
 import com.tracker.models.BasicResponse;
 import com.tracker.models.serie.SerieResponse;
-import com.tracker.repositories.SeriesViewModel;
 import com.tracker.repositories.TmdbRepository;
 import com.tracker.util.Util;
 
@@ -70,7 +68,6 @@ public class GenreFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ViewSwitcher switcher = view.findViewById(R.id.switcher_genres);
-        SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
         genreAdapter = new NetworkGenreAdapter(mContext, mSeriesByGenre, true);
 
         ImageView ivGenreIcon = view.findViewById(R.id.genre_icon);
