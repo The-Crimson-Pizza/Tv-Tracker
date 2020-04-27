@@ -101,15 +101,17 @@ public class GenreFragment extends Fragment {
             } else if (mGenre.id == 35) {
                 genreIcon.setImageResource(R.drawable.genre_comedy);
             } else if (mGenre.id == 99) {
-                genreIcon.setImageResource(R.drawable.genre_documental);
+                genreIcon.setImageResource(R.drawable.genre_camera);
             } else if (mGenre.id == 18) {
                 genreIcon.setImageResource(R.drawable.genre_drama);
             } else if (mGenre.id == 10751) {
                 genreIcon.setImageResource(R.drawable.genre_family);
             } else if (mGenre.id == 10762) {
                 genreIcon.setImageResource(R.drawable.genre_kids);
-            } else if (mGenre.id == 9648 || mGenre.id == 80) {
+            } else if (mGenre.id == 9648) {
                 genreIcon.setImageResource(R.drawable.genre_mistery);
+            }else if (mGenre.id == 80) {
+                genreIcon.setImageResource(R.drawable.genre_crime);
             } else if (mGenre.id == 10763) {
                 genreIcon.setImageResource(R.drawable.genre_news);
             } else if (mGenre.id == 10764) {
@@ -125,7 +127,7 @@ public class GenreFragment extends Fragment {
             } else if (mGenre.id == 37) {
                 genreIcon.setImageResource(R.drawable.genre_western);
             } else {
-                genreIcon.setImageResource(R.drawable.amazon);
+                genreIcon.setImageResource(R.drawable.genre_documental);
             }
         }
     }
