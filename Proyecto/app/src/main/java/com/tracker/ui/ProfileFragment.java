@@ -50,7 +50,7 @@ public class ProfileFragment extends Fragment {
         getFollowingSeries(view);
 
         mPieChart = view.findViewById(R.id.chart);
-        mPieChart.notifyDataSetChanged();
+//        mPieChart.notifyDataSetChanged();
         initGenres();
 
 
@@ -78,7 +78,7 @@ public class ProfileFragment extends Fragment {
     private void initGenres() {
         List<PieEntry> entries = Stats.getInstance(mFavs, mContext).getPieGenres();
         PieDataSet dataSet = new PieDataSet(entries, "");
-        dataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         dataSet.setValueTextSize(15);
         dataSet.setValueTextColor(Color.WHITE);
 
