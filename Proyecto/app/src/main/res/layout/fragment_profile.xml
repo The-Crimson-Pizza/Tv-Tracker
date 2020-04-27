@@ -189,6 +189,7 @@
             android:background="@drawable/gradient_background"
             android:gravity="center"
             android:orientation="vertical">
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -217,8 +218,6 @@
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
                 android:layout_height="300dp" />
-
-
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

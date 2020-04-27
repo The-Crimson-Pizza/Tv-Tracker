@@ -1,6 +1,7 @@
 package com.tracker.ui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -75,12 +77,28 @@ public class ProfileFragment extends Fragment {
 
     private void initGenres() {
         List<PieEntry> entries = Stats.getInstance(mFavs, mContext).getPieGenres();
-        PieDataSet dataSet = new PieDataSet(entries, "Top Genres"); // add entries to dataset
-        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        PieDataSet dataSet = new PieDataSet(entries, "");
+        dataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+        dataSet.setValueTextSize(15);
+        dataSet.setValueTextColor(Color.WHITE);
+
         PieData lineData = new PieData(dataSet);
 
-        mPieChart.setUsePercentValues(true);
-        mPieChart.getLegend().setEnabled(false);
+        lineData.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return String.valueOf((int) Math.floor(value));
+            }
+        });
+
+        mPieChart.setDrawEntryLabels(false);
+        mPieChart.setEntryLabelTextSize(15);
+        mPieChart.getLegend().setTextSize(17);
+        mPieChart.getLegend().setTextColor(Color.WHITE);
+        mPieChart.getLegend().setWordWrapEnabled(true);
+        mPieChart.getDescription().setText("");
+        mPieChart.setUsePercentValues(false);
+        mPieChart.setHoleColor(Color.parseColor("#48c9b0"));
 
         mPieChart.setData(lineData);
         mPieChart.notifyDataSetChanged();
