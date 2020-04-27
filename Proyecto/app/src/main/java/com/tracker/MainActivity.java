@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         startingPosition = 0;
-
         super.onBackPressed();
     }
 
@@ -52,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_profile:
                     goToProfile();
                     break;
+                default:
 
             }
             startingPosition = newPosition;
@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         if (startingPosition < newPosition) {
             navController.navigate(R.id.action_global_navigation_search_to_left);
         } else if (newPosition < startingPosition) {
-//            startingPosition = R.id.navigation_search;
             navController.navigate(R.id.action_global_navigation_search_to_right);
         }
     }
