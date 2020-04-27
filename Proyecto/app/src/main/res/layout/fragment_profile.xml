@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/bgTotal">
+        android:background="@color/bgTotal"
+        android:orientation="vertical">
 
-        <include  layout="@layout/main_title" />
+        <include layout="@layout/main_title" />
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/chart"
-            android:layout_width="match_parent"
-            android:layout_height="300dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,41 +18,47 @@
             android:background="@color/bgTotal"
             android:orientation="horizontal"
             android:paddingBottom="20dp">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_margin="15dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/time_icon"/>
+                    android:src="@drawable/time_icon" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textAlignment="center"
                     android:text="1 día 20 horas 23 min"
+                    android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:textSize="16pt"/>
+                    android:textSize="16pt"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:text="invertidas en cultura"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
-                    android:text="invertidas en cultura"
-                    android:textSize="12pt"/>
+                    android:textSize="12pt" />
 
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -69,11 +70,12 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
 
-                    android:textColor="@color/colorPrimary"
                     android:text="23"
                     android:textAlignment="center"
-                    android:textStyle="bold"
-                    android:textSize="30pt"/>
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="30pt"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -81,13 +83,14 @@
                     android:text="series seguidas"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="11pt"/>
+                    android:textSize="11pt" />
+
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_margin="15dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/follow_icon"/>
+                    android:layout_margin="15dp"
+                    android:src="@drawable/follow_icon" />
 
             </LinearLayout>
 
@@ -95,8 +98,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:paddingBottom="20dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -104,107 +108,117 @@
                     android:text="164"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:textSize="30pt"/>
+                    android:textSize="30pt"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textColor="@color/colorPrimary"
-                    android:textAlignment="center"
                     android:text="episodios vistos"
-                    android:textSize="11pt"/>
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="11pt" />
+
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_margin="15dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/watch_icon"/>
+                    android:layout_margin="15dp"
+                    android:src="@drawable/watch_icon" />
 
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/bgTotal"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="@color/colorPrimary"
                     android:layout_weight="1"
+                    android:gravity="center"
+                    android:maxLines="2"
                     android:text="Penny Dreadful City of Angel"
                     android:textAlignment="center"
-                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="16pt"
-                    android:maxLines="2"/>
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_weight="8"
+                    android:gravity="center"
+                    android:text="es tu serie más vista"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
-                    android:text="es tu serie más vista"
-                    android:textSize="11pt"/>
+                    android:textSize="11pt" />
+
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_margin="15dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/heart_icon"/>
+                    android:layout_margin="15dp"
+                    android:src="@drawable/heart_icon" />
 
             </LinearLayout>
 
         </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Networks"
             android:layout_marginStart="20dp"
-            android:textStyle="bold"
-            android:textSize="12pt"
+            android:text="Networks"
             android:textColor="@color/colorPrimary"
-            />
+            android:textSize="12pt"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:orientation="vertical"
             android:background="@drawable/gradient_background"
-            android:gravity="center">
-
+            android:gravity="center"
+            android:orientation="vertical">
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="20dp"
-                android:src="@drawable/sort_watched"/>
+                android:src="@drawable/grap" />
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:orientation="vertical"
             android:background="@color/colorPrimary"
             android:gravity="center"
->
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Genres"
                 android:layout_marginStart="20dp"
-                android:textStyle="bold"
-                android:textSize="12pt"
+                android:text="Genres"
                 android:textColor="@color/whiteColor"
-                />
-            <ImageView
+                android:textSize="12pt"
+                android:textStyle="bold" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/chart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="20dp"
-                android:src="@drawable/grap"/>
+                android:layout_height="300dp" />
+
+
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
