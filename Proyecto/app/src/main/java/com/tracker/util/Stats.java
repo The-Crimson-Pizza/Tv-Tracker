@@ -19,29 +19,28 @@ import java.util.stream.Collectors;
 
 public class Stats {
 
-    private List<SerieResponse.Serie> mFavs;
     private Context mContext;
     private static Stats mStats;
 
-    public static Stats getInstance(List<SerieResponse.Serie> favs, Context context) {
+
+    public static Stats getInstance(Context context) {
         if (mStats == null) {
-            mStats = new Stats(favs, context);
+            mStats = new Stats(context);
         }
         return mStats;
     }
 
-    private Stats(List<SerieResponse.Serie> favs, Context context) {
-        this.mFavs = favs;
+    private Stats(Context context) {
         this.mContext = context;
     }
 
-    public String countSeries() {
+    public String countSeries(List<SerieResponse.Serie> mFavs) {
         return mContext.getString(R.string.number_shows, mFavs.size());
     }
 
-    public String countNumberEpisodesWatched() {
+    public String countNumberEpisodesWatched(List<SerieResponse.Serie> mFavs) {
         int contEpisodes = 0;
-        for (SerieResponse.Serie serie : this.mFavs) {
+        for (SerieResponse.Serie serie : mFavs) {
             for (Season season : serie.seasons) {
                 for (Episode episode : season.episodes) {
                     if (episode.visto) contEpisodes++;
@@ -51,9 +50,9 @@ public class Stats {
         return mContext.getString(R.string.episodes_watched_total, contEpisodes);
     }
 
-    public String countTimeEpisodesWatched() {
+    public String countTimeEpisodesWatched(List<SerieResponse.Serie> mFavs) {
         int contTime = 0;
-        for (SerieResponse.Serie serie : this.mFavs) {
+        for (SerieResponse.Serie serie : mFavs) {
             for (Season season : serie.seasons) {
                 for (Episode episode : season.episodes) {
                     if (episode.visto && !serie.episodeRunTime.isEmpty()) {
@@ -65,9 +64,9 @@ public class Stats {
         return toDaysHoursMinutes(contTime);
     }
 
-    public String mostWatchedSerie() {
+    public String mostWatchedSerie(List<SerieResponse.Serie> mFavs) {
         HashMap<String, Integer> seriesMap = new HashMap<>();
-        for (SerieResponse.Serie serie : this.mFavs) {
+        for (SerieResponse.Serie serie : mFavs) {
             int contEpisodes = 0;
             for (Season season : serie.seasons) {
                 for (Episode episode : season.episodes) {
@@ -80,7 +79,7 @@ public class Stats {
         return Collections.max(seriesMap.entrySet(), (entry1, entry2) -> entry1.getValue() - entry2.getValue()).getKey();
     }
 
-    private Map<String, Integer> getTopTenGenres() {
+    private Map<String, Integer> getTopTenGenres(List<SerieResponse.Serie> mFavs) {
         HashMap<String, Integer> countGenres = new HashMap<>();
         for (SerieResponse.Serie serie : mFavs) {
             for (SerieResponse.Serie.Genre genre : serie.genres) {
@@ -94,9 +93,9 @@ public class Stats {
                         (e1, e2) -> e1, LinkedHashMap::new));
     }
 
-    public List<PieEntry> getPieGenres() {
+    public List<PieEntry> getPieGenres(List<SerieResponse.Serie> mFavs) {
         List<PieEntry> genresData = new ArrayList<>();
-        Map<String, Integer> countGenres = getTopTenGenres();
+        Map<String, Integer> countGenres = getTopTenGenres(mFavs);
         for (Map.Entry<String, Integer> entry : countGenres.entrySet()) {
             String key = entry.getKey();
             int value = entry.getValue();
@@ -132,7 +131,6 @@ public class Stats {
   */
 
 // TODO: 27/04/20 controlar intenret al añadir favoritos
-    // TODO: 27/04/20 . pasar a strings todo lo de LoginActivity
 
 
 }

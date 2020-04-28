@@ -16,7 +16,6 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,6 +35,18 @@ public class ProfileFragment extends Fragment {
     private List<SerieResponse.Serie> mFavs = new ArrayList<>();
     private Context mContext;
     private PieChart mPieChart;
+    private static final int[] COLORS = {
+            Color.parseColor("#48c9b0"),
+            Color.parseColor("#2DAEA9"),
+            Color.parseColor("#23949C"),
+            Color.parseColor("#28798A"),
+            Color.parseColor("#2E6072"),
+            Color.parseColor("#2F4858"),
+            Color.parseColor("#00B7C3"),
+            Color.parseColor("#00A2D2"),
+            Color.parseColor("#0089D5"),
+            Color.parseColor("#446BC5"),
+    };
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
@@ -76,9 +87,9 @@ public class ProfileFragment extends Fragment {
 
 
     private void initGenres() {
-        List<PieEntry> entries = Stats.getInstance(mFavs, mContext).getPieGenres();
+        List<PieEntry> entries = Stats.getInstance(mContext).getPieGenres(mFavs);
         PieDataSet dataSet = new PieDataSet(entries, "");
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        dataSet.setColors(COLORS);
         dataSet.setValueTextSize(15);
         dataSet.setValueTextColor(Color.WHITE);
 
@@ -94,11 +105,12 @@ public class ProfileFragment extends Fragment {
         mPieChart.setDrawEntryLabels(false);
         mPieChart.setEntryLabelTextSize(15);
         mPieChart.getLegend().setTextSize(17);
+//        mPieChart.getLegend().setTextColor(Color.parseColor("#48c9b0"));
         mPieChart.getLegend().setTextColor(Color.WHITE);
         mPieChart.getLegend().setWordWrapEnabled(true);
         mPieChart.getDescription().setText("");
         mPieChart.setUsePercentValues(false);
-        mPieChart.setHoleColor(Color.parseColor("#48c9b0"));
+//        mPieChart.setHoleColor(Color.parseColor("#48c9b0"));
 
         mPieChart.setData(lineData);
         mPieChart.notifyDataSetChanged();
