@@ -29,7 +29,7 @@
                     android:id="@+id/image_episode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:contentDescription="@string/serie_poster"
+                    android:contentDescription="@string/serie_poster_description"
                     android:scaleType="centerCrop" />
 
                 <LinearLayout

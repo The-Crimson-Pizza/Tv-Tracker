@@ -1,21 +1,23 @@
 package com.tracker.ui;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.anychart.APIlib;
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.charts.Pie;
+import com.anychart.charts.TagCloud;
+import com.anychart.scales.OrdinalColor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,19 +36,7 @@ public class ProfileFragment extends Fragment {
 
     private List<SerieResponse.Serie> mFavs = new ArrayList<>();
     private Context mContext;
-    private PieChart mPieChart;
-    private static final int[] COLORS = {
-            Color.parseColor("#48c9b0"),
-            Color.parseColor("#2DAEA9"),
-            Color.parseColor("#23949C"),
-            Color.parseColor("#28798A"),
-            Color.parseColor("#2E6072"),
-            Color.parseColor("#2F4858"),
-            Color.parseColor("#00B7C3"),
-            Color.parseColor("#00A2D2"),
-            Color.parseColor("#0089D5"),
-            Color.parseColor("#446BC5"),
-    };
+    private static final String[] COLORS = {"#48c9b0", "#2DAEA9", "#23949C", "#28798A", "#2E6072", "#2F4858", "#00B7C3", "#00A2D2", "#0089D5", "#446BC5"};
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
@@ -56,15 +46,60 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         getFollowingSeries(view);
 
-        mPieChart = view.findViewById(R.id.chart);
-//        mPieChart.notifyDataSetChanged();
-        initGenres();
+    }
+
+    private void initGraficoPie(View view) {
+        AnyChartView pieChart = view.findViewById(R.id.pie_chart);
+        APIlib.getInstance().setActiveAnyChartView(pieChart);
+        pieChart.setBackgroundColor("#00000000");
+        pieChart.setProgressBar(view.findViewById(R.id.progress_pie));
+
+        Pie pie = AnyChart.pie();
+
+        List<DataEntry> data = Stats.getInstance(mContext).getPieGenres(mFavs);
+        pie.data(data);
+        pie.title().enabled(false);
+//        pie.labels().position("outside");
+        pie.labels().fontSize(15);
+        pie.labels().fontColor("white");
+        pie.labels().fontWeight(700);
+        pie.legend().enabled(false);
+        pie.palette(COLORS);
+        pie.background().fill("rgba(0,0,255,0)");
+        pieChart.setChart(pie);
+    }
 
 
+    void setBubble(View view) {
+        AnyChartView tagChart = view.findViewById(R.id.buble_chart);
+        APIlib.getInstance().setActiveAnyChartView(tagChart);
+        tagChart.setBackgroundColor("#00000000");
+        tagChart.setProgressBar(view.findViewById(R.id.progress_buble));
+
+        TagCloud tagCloud = AnyChart.tagCloud();
+
+        tagCloud.title().enabled(false);
+        tagCloud.legend().enabled(false);
+
+        OrdinalColor ordinalColor = OrdinalColor.instantiate();
+        ordinalColor.colors(new String[]{
+                "#26959f", "#f18126", "#3b8ad8", "#60727b", "#e24b26"
+        });
+        tagCloud.colorScale(ordinalColor);
+        tagCloud.angles(new Double[]{-90d, 0d, 90d});
+        tagCloud.colorRange().enabled(false);
+
+        tagCloud.normal().fontFamily("Arial");
+
+
+        List<DataEntry> data = Stats.getInstance(mContext).geNetworks(mFavs);
+
+        tagCloud.background().fill("rgba(0,0,255,0)");
+        tagCloud.data(data);
+
+        tagChart.setChart(tagCloud);
     }
 
     private void getFollowingSeries(View view) {
@@ -75,45 +110,24 @@ public class ProfileFragment extends Fragment {
                 mFavs.addAll(Objects.requireNonNull(dataSnapshot.getValue(new GenericTypeIndicator<List<SerieResponse.Serie>>() {
                 })));
 
-                initGenres();
+                initGraficoPie(view);
+                setBubble(view);
+
+                TextView total = view.findViewById(R.id.total_time);
+                TextView num = view.findViewById(R.id.num_series);
+                TextView epis = view.findViewById(R.id.eps_vistos);
+                TextView max = view.findViewById(R.id.serie_max);
+
+                total.setText(Stats.getInstance(mContext).countTimeEpisodesWatched(mFavs));
+                num.setText(Stats.getInstance(mContext).countSeries(mFavs));
+                epis.setText(Stats.getInstance(mContext).countNumberEpisodesWatched(mFavs));
+                max.setText(Stats.getInstance(mContext).mostWatchedSerie(mFavs));
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                initGenres();
+
             }
         });
-    }
-
-
-    private void initGenres() {
-        List<PieEntry> entries = Stats.getInstance(mContext).getPieGenres(mFavs);
-        PieDataSet dataSet = new PieDataSet(entries, "");
-        dataSet.setColors(COLORS);
-        dataSet.setValueTextSize(15);
-        dataSet.setValueTextColor(Color.WHITE);
-
-        PieData lineData = new PieData(dataSet);
-
-        lineData.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                return String.valueOf((int) Math.floor(value));
-            }
-        });
-
-        mPieChart.setDrawEntryLabels(false);
-        mPieChart.setEntryLabelTextSize(15);
-        mPieChart.getLegend().setTextSize(17);
-//        mPieChart.getLegend().setTextColor(Color.parseColor("#48c9b0"));
-        mPieChart.getLegend().setTextColor(Color.WHITE);
-        mPieChart.getLegend().setWordWrapEnabled(true);
-        mPieChart.getDescription().setText("");
-        mPieChart.setUsePercentValues(false);
-//        mPieChart.setHoleColor(Color.parseColor("#48c9b0"));
-
-        mPieChart.setData(lineData);
-        mPieChart.notifyDataSetChanged();
-        mPieChart.invalidate(); // refresh
     }
 }

@@ -111,7 +111,7 @@ public class SerieFragment extends Fragment {
             if (Util.isNetworkAvailable(mContext)) {
                 getSerie(view);
             } else {
-                Snackbar.make(view, R.string.no_network, BaseTransientBottomBar.LENGTH_INDEFINITE).show();
+                Snackbar.make(view, R.string.no_conn, BaseTransientBottomBar.LENGTH_INDEFINITE).show();
             }
 
         } else {

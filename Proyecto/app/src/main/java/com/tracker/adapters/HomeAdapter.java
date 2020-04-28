@@ -76,7 +76,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 if (Util.isNetworkAvailable(itemView.getContext())) {
                     Navigation.findNavController(v).navigate(R.id.action_home_to_series, bundle);
                 } else {
-                    Snackbar.make(v, itemView.getContext().getString(R.string.no_network), LENGTH_LONG)
+                    Snackbar.make(v, itemView.getContext().getString(R.string.no_conn), LENGTH_LONG)
                             .setAction(R.string.activate_net, v1 -> itemView.getContext().startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
                 }
             });

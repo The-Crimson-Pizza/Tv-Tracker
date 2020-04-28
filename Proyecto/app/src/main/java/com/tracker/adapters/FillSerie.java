@@ -111,7 +111,7 @@ public class FillSerie {
                     if (Util.isNetworkAvailable(mContext)) {
                         Navigation.findNavController(v).navigate(R.id.action_navigation_series_to_networkFragment, bundle);
                     } else {
-                        Snackbar.make(v, mContext.getString(R.string.no_network), LENGTH_LONG)
+                        Snackbar.make(v, mContext.getString(R.string.no_conn), LENGTH_LONG)
                                 .setAction(R.string.activate_net, v1 -> mContext.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
                     }
                 });
@@ -141,7 +141,7 @@ public class FillSerie {
                     if (Util.isNetworkAvailable(mContext)) {
                         Navigation.findNavController(v).navigate(R.id.action_navigation_series_to_genreFragment, bundle);
                     } else {
-                        Snackbar.make(v, mContext.getString(R.string.no_network), LENGTH_LONG)
+                        Snackbar.make(v, mContext.getString(R.string.no_conn), LENGTH_LONG)
                                 .setAction(R.string.activate_net, v1 -> mContext.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
                     }
                 });

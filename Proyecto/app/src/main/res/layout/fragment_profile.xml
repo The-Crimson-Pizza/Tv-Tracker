@@ -32,10 +32,10 @@
                     android:src="@drawable/time_icon" />
 
                 <TextView
+                    android:id="@+id/total_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="1 día 20 horas 23 min"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16pt"
@@ -65,10 +65,10 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/num_series"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-
                     android:text="23"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
@@ -101,6 +101,7 @@
                 android:paddingBottom="20dp">
 
                 <TextView
+                    android:id="@+id/eps_vistos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -141,6 +142,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/serie_max"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -172,51 +174,67 @@
             </LinearLayout>
 
         </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:text="Genres"
+            android:paddingHorizontal="20dp"
+            android:text="@string/networks_title"
             android:textColor="@color/colorPrimary"
             android:textSize="12pt"
             android:textStyle="bold" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:background="@drawable/gradient_background"
-            android:gravity="center"
-            android:padding="20dp"
-            android:orientation="vertical">
 
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/chart"
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <com.anychart.AnyChartView
+                android:id="@+id/buble_chart"
                 android:layout_width="match_parent"
-                android:layout_height="300dp" />
-        </LinearLayout>
+                android:layout_height="320dp"
+                android:background="@android:color/transparent" />
+
+            <ProgressBar
+                android:id="@+id/progress_buble"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:text="Networks"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/whiteColor"
+            android:paddingHorizontal="20dp"
+            android:text="@string/genres_title"
+            android:textColor="@color/colorPrimary"
             android:textSize="12pt"
             android:textStyle="bold" />
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:background="@color/colorPrimary"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_background"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <ImageView
+
+            <com.anychart.AnyChartView
+                android:id="@+id/pie_chart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="20dp"
-                android:src="@drawable/grap" />
+                android:layout_height="320dp"
+                android:background="@android:color/transparent" />
 
-        </LinearLayout>
+            <ProgressBar
+                android:id="@+id/progress_pie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+        </FrameLayout>
 
 
     </LinearLayout>

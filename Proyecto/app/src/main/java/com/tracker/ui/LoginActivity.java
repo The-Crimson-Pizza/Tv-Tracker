@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             if (Util.isNetworkAvailable(this) && !etEmail.getText().toString().isEmpty()) {
                 recoverPassword(etEmail.getText().toString());
             } else {
-                showToastMessage(getString(R.string.no_network));
+                showToastMessage(getString(R.string.no_conn));
             }
         });
 
@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
             if (Util.isNetworkAvailable(this) && !etEmail.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()) {
                 login(etEmail.getText().toString(), etPassword.getText().toString());
             } else {
-                showToastMessage(getString(R.string.no_network));
+                showToastMessage(getString(R.string.no_conn));
             }
         });
 
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
             if (Util.isNetworkAvailable(this) && !etEmail.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()) {
                 createUser(etEmail.getText().toString(), etPassword.getText().toString());
             } else {
-                showToastMessage(getString(R.string.no_network));
+                showToastMessage(getString(R.string.no_conn));
             }
         });
 
@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent signInIntent = googleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, RC_SIGN_IN);
             } else {
-                showToastMessage(getString(R.string.no_network));
+                showToastMessage(getString(R.string.no_conn));
             }
         });
     }
@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            showToastMessage(getString(R.string.current_user) + currentUser.getEmail());
+//            showToastMessage(getString(R.string.current_user) + currentUser.getEmail());
             launchMainActivity(currentUser);
         }
     }
@@ -109,7 +109,6 @@ public class LoginActivity extends AppCompatActivity {
     private void login(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
             if (task.isSuccessful()) {
-                showToastMessage(getString(R.string.success_login));
                 launchMainActivity(mAuth.getCurrentUser());
             } else {
                 String localizedMessage = task.getException().getLocalizedMessage();
@@ -154,7 +153,6 @@ public class LoginActivity extends AppCompatActivity {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        showToastMessage(getString(R.string.auth_success));
                         launchMainActivity(mAuth.getCurrentUser());
                     } else {
                         showToastMessage(getString(R.string.auth_fail) + task.getException());
@@ -169,7 +167,6 @@ public class LoginActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 firebaseAuthWithGoogle(task.getResult(ApiException.class));
-                showToastMessage(getString(R.string.google_success));
             } catch (ApiException e) {
                 showToastMessage(getString(R.string.google_fail) + e);
             }
@@ -178,7 +175,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean validateFields(String username, String password) {
         if (!isUserNameValid(username)) {
-//            editText.requestFocus();
             etEmail.setError(getString(R.string.invalid_email));
             return false;
         }

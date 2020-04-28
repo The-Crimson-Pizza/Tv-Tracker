@@ -20,12 +20,11 @@
 
         <activity
             android:name=".ui.LoginActivity"
-            android:label="@string/title_activity_login" />
+            android:label="@string/sign_in" />
+
         <activity android:name=".ui.WebViewActivity" />
 
-        <activity
-            android:name=".ui.ActorFragment"
-            android:label="@string/title_activity_detalles_actor" />
+        <activity android:name=".ui.ActorFragment" />
 
         <activity
             android:name=".util.SplashScreen"

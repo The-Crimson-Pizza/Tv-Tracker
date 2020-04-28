@@ -80,7 +80,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
                 if (Util.isNetworkAvailable(holder.itemView.getContext())) {
                     Navigation.findNavController(v).navigate(R.id.action_actores_to_series, bundle);
                 } else {
-                    Snackbar.make(v, holder.itemView.getContext().getString(R.string.no_network), LENGTH_LONG)
+                    Snackbar.make(v, holder.itemView.getContext().getString(R.string.no_conn), LENGTH_LONG)
                             .setAction(R.string.activate_net, v1 -> holder.itemView.getContext().startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
                 }
             });

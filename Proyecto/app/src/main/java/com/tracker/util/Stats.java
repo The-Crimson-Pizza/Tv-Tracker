@@ -2,7 +2,8 @@ package com.tracker.util;
 
 import android.content.Context;
 
-import com.github.mikephil.charting.data.PieEntry;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.tracker.R;
 import com.tracker.models.seasons.Episode;
 import com.tracker.models.seasons.Season;
@@ -35,7 +36,7 @@ public class Stats {
     }
 
     public String countSeries(List<SerieResponse.Serie> mFavs) {
-        return mContext.getString(R.string.number_shows, mFavs.size());
+        return String.valueOf(mFavs.size());
     }
 
     public String countNumberEpisodesWatched(List<SerieResponse.Serie> mFavs) {
@@ -47,7 +48,7 @@ public class Stats {
                 }
             }
         }
-        return mContext.getString(R.string.episodes_watched_total, contEpisodes);
+        return String.valueOf(contEpisodes);
     }
 
     public String countTimeEpisodesWatched(List<SerieResponse.Serie> mFavs) {
@@ -76,6 +77,9 @@ public class Stats {
                 }
             }
         }
+        if (seriesMap.isEmpty()) {
+            return "";
+        }
         return Collections.max(seriesMap.entrySet(), (entry1, entry2) -> entry1.getValue() - entry2.getValue()).getKey();
     }
 
@@ -93,13 +97,38 @@ public class Stats {
                         (e1, e2) -> e1, LinkedHashMap::new));
     }
 
-    public List<PieEntry> getPieGenres(List<SerieResponse.Serie> mFavs) {
-        List<PieEntry> genresData = new ArrayList<>();
+    private Map<String, Integer> getTopTenNetworks(List<SerieResponse.Serie> mFavs) {
+        HashMap<String, Integer> countGenres = new HashMap<>();
+        for (SerieResponse.Serie serie : mFavs) {
+            for (SerieResponse.Serie.Network network : serie.networks) {
+                countGenres.merge(network.name, 1, Integer::sum);
+            }
+        }
+        return countGenres.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .limit(10)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (e1, e2) -> e1, LinkedHashMap::new));
+    }
+
+    public List<DataEntry> geNetworks(List<SerieResponse.Serie> mFavs) {
+        List<DataEntry> networkData = new ArrayList<>();
+        Map<String, Integer> countNetworks = getTopTenNetworks(mFavs);
+        for (Map.Entry<String, Integer> entry : countNetworks.entrySet()) {
+            String key = entry.getKey();
+            int value = entry.getValue();
+            networkData.add(new ValueDataEntry(key, value));
+        }
+        return networkData;
+    }
+
+    public List<DataEntry> getPieGenres(List<SerieResponse.Serie> mFavs) {
+        List<DataEntry> genresData = new ArrayList<>();
         Map<String, Integer> countGenres = getTopTenGenres(mFavs);
         for (Map.Entry<String, Integer> entry : countGenres.entrySet()) {
             String key = entry.getKey();
             int value = entry.getValue();
-            genresData.add(new PieEntry((float) value, key));
+            genresData.add(new ValueDataEntry(key, value));
         }
         return genresData;
     }

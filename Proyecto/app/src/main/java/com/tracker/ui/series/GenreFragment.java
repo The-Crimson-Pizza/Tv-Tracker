@@ -79,7 +79,7 @@ public class GenreFragment extends Fragment {
         if (Util.isNetworkAvailable(mContext)) {
             if (mGenre != null) getSeriesByGenre();
         } else {
-            Snackbar.make(view, mContext.getString(R.string.no_network), LENGTH_LONG)
+            Snackbar.make(view, mContext.getString(R.string.no_conn), LENGTH_LONG)
                     .setAction(R.string.activate_net, v1 -> mContext.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
         }
 

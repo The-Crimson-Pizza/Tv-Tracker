@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment {
             getFavorites(adapterFav, switcherFavs);
         } else {
             isOn = false;
-            Snackbar.make(view, getString(R.string.no_network), BaseTransientBottomBar.LENGTH_INDEFINITE)
+            Snackbar.make(view, getString(R.string.no_conn), BaseTransientBottomBar.LENGTH_INDEFINITE)
                     .setAction(R.string.activate_net, v1 -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
         }
     }

@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="190dp"
             android:scaleType="centerCrop"
-            android:contentDescription="@string/serie_poster" />
+            android:contentDescription="@string/serie_poster_description" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,7 +36,6 @@
                 android:layout_margin="5dp"
                 android:ellipsize="marquee"
                 android:maxLines="2"
-                android:text="@string/texto_prueba_corto"
                 android:textAllCaps="true"
                 android:textAlignment="center"
                 android:textStyle="bold"
@@ -57,7 +56,6 @@
                 android:id="@+id/valoration"
                 android:layout_width="30dp"
                 android:layout_height="20dp"
-                android:text="@string/valoration_example"
                 android:textColor="@color/whiteColor"
                 android:textSize="6pt"
                 android:gravity="center"/>
