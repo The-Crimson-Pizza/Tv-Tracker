@@ -51,6 +51,7 @@
                 android:ellipsize="marquee"
                 android:textAlignment="center"
                 android:textAllCaps="true"
+                android:maxLines="1"
                 android:textColor="@color/colorPrimary"
                 android:textSize="5pt" />
         </LinearLayout>
