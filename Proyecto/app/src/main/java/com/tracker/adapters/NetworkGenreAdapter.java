@@ -77,7 +77,7 @@ public class NetworkGenreAdapter extends RecyclerView.Adapter<NetworkGenreAdapte
         }
 
         static ViewHolder create(ViewGroup parent) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_basic, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_basic_search, parent, false);
             return new ViewHolder(view);
         }
 
@@ -87,7 +87,7 @@ public class NetworkGenreAdapter extends RecyclerView.Adapter<NetworkGenreAdapte
                 id = serieBasic.id;
                 name.setText(serieBasic.name);
                 Util.getImage(BASE_URL_IMAGES_POSTER + serieBasic.poster_path, image, context);
-                rating.setText(String.valueOf(serieBasic.voteAverage));
+                //rating.setText(String.valueOf(serieBasic.voteAverage));
             }
         }
     }
