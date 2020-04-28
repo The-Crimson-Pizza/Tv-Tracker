@@ -11,7 +11,6 @@
 
         <include layout="@layout/main_title" />
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -173,20 +172,41 @@
             </LinearLayout>
 
         </LinearLayout>
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="Networks"
+            android:paddingStart="20dp"
+            android:text="Genres"
             android:textColor="@color/colorPrimary"
+            android:textSize="12pt"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:background="@drawable/gradient_background"
+            android:gravity="center"
+            android:padding="20dp"
+            android:orientation="vertical">
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:text="Networks"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/whiteColor"
             android:textSize="12pt"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:background="@drawable/gradient_background"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -198,26 +218,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="Genres"
-                android:textColor="@color/whiteColor"
-                android:textSize="12pt"
-                android:textStyle="bold" />
-
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/chart"
-                android:layout_width="match_parent"
-                android:layout_height="300dp" />
-        </LinearLayout>
     </LinearLayout>
 </ScrollView>
