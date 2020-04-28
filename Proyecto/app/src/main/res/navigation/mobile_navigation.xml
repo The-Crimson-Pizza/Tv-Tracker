@@ -138,6 +138,12 @@
         app:launchSingleTop="true"
         app:popUpTo="@id/navigation_home"
         app:popUpToInclusive="false" />
+    <action
+        android:id="@+id/action_global_navigation_search"
+        app:destination="@id/navigation_search"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/navigation_home"
+        app:popUpToInclusive="false" />
 
     <!--GLOBAL ACTIONS - FAVORITES-->
     <action
@@ -166,10 +172,17 @@
 
     <!--GLOBAL ACTIONS - PROFILE-->
     <action
-        android:id="@+id/action_global_navigation_profile"
+        android:id="@+id/action_global_navigation_profile_left"
         app:destination="@id/navigation_profile"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
+        app:launchSingleTop="false"
+        app:popUpTo="@id/navigation_home"
+        app:popUpToInclusive="false" />
+
+    <action
+        android:id="@+id/action_global_navigation_profile"
+        app:destination="@id/navigation_profile"
         app:launchSingleTop="false"
         app:popUpTo="@id/navigation_home"
         app:popUpToInclusive="false" />

@@ -68,7 +68,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             super(itemView);
             image = itemView.findViewById(R.id.posterBasic);
             name = itemView.findViewById(R.id.titleBasic);
-            rating = itemView.findViewById(R.id.valoration);
+            rating = itemView.findViewById(R.id.ratingBasic);
 
             itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();

@@ -91,7 +91,7 @@ public class FillActor {
         ViewSwitcher switcherSeries = mView.findViewById(R.id.switcherSeries);
 
         if (!mPerson.tvCredits.cast.isEmpty()) {
-            rvSeries.setAdapter(new CastAdapter(mContext, mPerson.tvCredits.cast));
+            rvSeries.setAdapter(new PeopleCreditsAdapter(mContext, mPerson.tvCredits.cast));
             if (R.id.rvSeries == switcherSeries.getNextView().getId()) {
                 switcherSeries.showNext();
             }
@@ -100,7 +100,7 @@ public class FillActor {
         }
 
         if (!mPerson.movieCredits.cast.isEmpty()) {
-            rvMovies.setAdapter(new CastAdapter(mContext, mPerson.movieCredits.cast, true));
+            rvMovies.setAdapter(new PeopleCreditsAdapter(mContext, mPerson.movieCredits.cast, true));
             if (R.id.rvPelis == switcherFilms.getNextView().getId()) {
                 switcherFilms.showNext();
             }

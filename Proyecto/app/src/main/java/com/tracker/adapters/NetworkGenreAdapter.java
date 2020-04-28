@@ -67,7 +67,9 @@ public class NetworkGenreAdapter extends RecyclerView.Adapter<NetworkGenreAdapte
             super(itemView);
             image = itemView.findViewById(R.id.posterBasic);
             name = itemView.findViewById(R.id.titleBasic);
-            rating = itemView.findViewById(R.id.valoration);
+            rating = itemView.findViewById(R.id.ratingBasic);
+
+            rating.setVisibility(View.GONE);
 
             itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
@@ -77,7 +79,7 @@ public class NetworkGenreAdapter extends RecyclerView.Adapter<NetworkGenreAdapte
         }
 
         static ViewHolder create(ViewGroup parent) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_basic_search, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_basic, parent, false);
             return new ViewHolder(view);
         }
 
@@ -87,7 +89,6 @@ public class NetworkGenreAdapter extends RecyclerView.Adapter<NetworkGenreAdapte
                 id = serieBasic.id;
                 name.setText(serieBasic.name);
                 Util.getImage(BASE_URL_IMAGES_POSTER + serieBasic.poster_path, image, context);
-                //rating.setText(String.valueOf(serieBasic.voteAverage));
             }
         }
     }

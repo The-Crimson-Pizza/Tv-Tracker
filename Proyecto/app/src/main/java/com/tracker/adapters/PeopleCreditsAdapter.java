@@ -28,14 +28,14 @@ import java.util.List;
 import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 
-public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
+public class PeopleCreditsAdapter extends RecyclerView.Adapter<PeopleCreditsAdapter.ViewHolder> {
 
     private List<TvCredits.Cast> mSeries;
     private List<MovieCredits.Cast> mMovies;
     private Context mContext;
     private boolean isMovie = false;
 
-    CastAdapter(Context mContext, List<MovieCredits.Cast> movies, boolean movie) {
+    PeopleCreditsAdapter(Context mContext, List<MovieCredits.Cast> movies, boolean movie) {
         this.mMovies = movies;
         this.mContext = mContext;
         this.isMovie = movie;
@@ -44,7 +44,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
         }
     }
 
-    CastAdapter(Context mContext, List<TvCredits.Cast> tv) {
+    PeopleCreditsAdapter(Context mContext, List<TvCredits.Cast> tv) {
         this.mSeries = tv;
         this.mContext = mContext;
         if (!mSeries.isEmpty()) {
@@ -55,35 +55,15 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_actor, parent, false);
-        return new ViewHolder(view);
+        return ViewHolder.create(parent);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         if (isMovie) {
-            holder.name.setText(mMovies.get(position).title);
-            holder.character.setText(mMovies.get(position).character);
-            Util.getImage(BASE_URL_IMAGES_POSTER + mMovies.get(position).posterPath, holder.image, mContext);
-            holder.rating.setText(String.valueOf(mMovies.get(position).voteAverage));
-            holder.itemView.setOnClickListener(v -> Snackbar.make(v, R.string.not_implemented, Snackbar.LENGTH_LONG)
-                    .setAction(R.string.open_web, v1 -> mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra(Constants.URL_WEBVIEW, Constants.BASE_URL_WEB_MOVIE + mMovies.get(position).id))).show());
+            holder.bindTo(mMovies.get(position), mContext);
         } else {
-            holder.name.setText(mSeries.get(position).name);
-            holder.character.setText(mSeries.get(position).character);
-            Util.getImage(Constants.BASE_URL_IMAGES_POSTER + mSeries.get(position).posterPath, holder.image, mContext);
-            holder.rating.setText(String.valueOf(mSeries.get(position).voteAverage));
-
-            holder.itemView.setOnClickListener(v -> {
-                Bundle bundle = new Bundle();
-                bundle.putInt(Constants.ID_SERIE, mSeries.get(position).id);
-                if (Util.isNetworkAvailable(holder.itemView.getContext())) {
-                    Navigation.findNavController(v).navigate(R.id.action_actores_to_series, bundle);
-                } else {
-                    Snackbar.make(v, holder.itemView.getContext().getString(R.string.no_conn), LENGTH_LONG)
-                            .setAction(R.string.activate_net, v1 -> holder.itemView.getContext().startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
-                }
-            });
+            holder.bindTo(mSeries.get(position), mContext);
         }
     }
 
@@ -104,17 +84,47 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView name;
-        TextView character;
         TextView rating;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.posters);
-            name = itemView.findViewById(R.id.title);
-            character = itemView.findViewById(R.id.name_character);
-            rating = itemView.findViewById(R.id.valoration);
+            image = itemView.findViewById(R.id.posterBasic);
+            name = itemView.findViewById(R.id.titleBasic);
+            rating = itemView.findViewById(R.id.ratingBasic);
+        }
+
+        static ViewHolder create(ViewGroup parent) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_basic, parent, false);
+            return new ViewHolder(view);
+        }
+
+        void bindTo(MovieCredits.Cast movie, Context context) {
+            name.setText(movie.title);
+            Util.getImage(BASE_URL_IMAGES_POSTER + movie.posterPath, image, context);
+            rating.setText(String.valueOf(movie.voteAverage));
+            itemView.setOnClickListener(v -> Snackbar.make(v, R.string.not_implemented, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.open_web, v1 -> context.startActivity(new Intent(context, WebViewActivity.class).putExtra(Constants.URL_WEBVIEW, Constants.BASE_URL_WEB_MOVIE + movie.id))).show());
+        }
+
+        void bindTo(TvCredits.Cast serie, Context context) {
+
+            name.setText(serie.name);
+            Util.getImage(Constants.BASE_URL_IMAGES_POSTER + serie.posterPath, image, context);
+            rating.setText(String.valueOf(serie.voteAverage));
+
+            itemView.setOnClickListener(v -> {
+                Bundle bundle = new Bundle();
+                bundle.putInt(Constants.ID_SERIE, serie.id);
+                if (Util.isNetworkAvailable(itemView.getContext())) {
+                    Navigation.findNavController(v).navigate(R.id.action_actores_to_series, bundle);
+                } else {
+                    Snackbar.make(v, itemView.getContext().getString(R.string.no_conn), LENGTH_LONG)
+                            .setAction(R.string.activate_net, v1 -> itemView.getContext().startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
+                }
+            });
         }
     }
+
 
     private void sortSeries(List<TvCredits.Cast> series) {
         Collections.sort(series, (serie1, serie2) -> {

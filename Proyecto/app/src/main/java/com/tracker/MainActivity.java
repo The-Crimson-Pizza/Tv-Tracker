@@ -13,8 +13,8 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private NavController navController;
-    private int startingPosition = 0;
-    private int newPosition;
+    private int startPos = 0;
+    private int newPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +24,13 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.nav_view);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-        startingPosition = 0;
+        startPos = 0;
         setNavigationView();
-
     }
 
     @Override
     public void onBackPressed() {
-        startingPosition = 0;
+        startPos = 0;
         super.onBackPressed();
     }
 
@@ -52,25 +51,26 @@ public class MainActivity extends AppCompatActivity {
                     goToProfile();
                     break;
                 default:
-
             }
-            startingPosition = newPosition;
+            startPos = newPos;
             return true;
         });
     }
 
     private void goToProfile() {
-        newPosition = 3;
-        if (startingPosition < newPosition) {
+        newPos = 3;
+        if (startPos < newPos) {
+            navController.navigate(R.id.action_global_navigation_profile_left);
+        } else {
             navController.navigate(R.id.action_global_navigation_profile);
         }
     }
 
     private void goToFavs() {
-        newPosition = 2;
-        if (startingPosition < newPosition) {
+        newPos = 2;
+        if (startPos < newPos) {
             navController.navigate(R.id.action_global_navigation_fav_left);
-        } else if (newPosition < startingPosition) {
+        } else if (newPos < startPos) {
             navController.navigate(R.id.action_global_navigation_fav_right);
         } else {
             navController.navigate(R.id.action_global_navigation_fav_left);
@@ -78,17 +78,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goToSearch() {
-        newPosition = 1;
-        if (startingPosition < newPosition) {
+        newPos = 1;
+        if (startPos < newPos) {
             navController.navigate(R.id.action_global_navigation_search_to_left);
-        } else if (newPosition < startingPosition) {
+        } else if (newPos < startPos) {
             navController.navigate(R.id.action_global_navigation_search_to_right);
+        } else {
+            navController.navigate(R.id.action_global_navigation_search);
         }
     }
 
     private void goToHome() {
-        newPosition = 0;
-        if (startingPosition == newPosition) {
+        newPos = 0;
+        if (startPos == newPos) {
             navController.navigate(R.id.action_global_navigation_home);
         } else {
             navController.navigate(R.id.action_global_navigation_home_right);

@@ -13,7 +13,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
-import com.tracker.models.BasicResponse;
 import com.tracker.models.actor.PersonResponse;
 import com.tracker.models.serie.SerieResponse;
 import com.tracker.util.Util;
@@ -29,7 +28,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private List<SerieResponse.Serie> mSeries;
     private List<PersonResponse.Person> mActores;
 
-    private static Context mContext;
+    private Context mContext;
     private boolean isSerie;
 
 
@@ -51,9 +50,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         if (isSerie) {
-            holder.bindTo(mSeries.get(position));
+            holder.bindTo(mSeries.get(position), mContext);
         } else {
-            holder.bindTo(mActores.get(position));
+            holder.bindTo(mActores.get(position), mContext);
         }
     }
 
@@ -83,7 +82,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             super(itemView);
             image = itemView.findViewById(R.id.posterBasic);
             name = itemView.findViewById(R.id.titleBasic);
-            rating = itemView.findViewById(R.id.valoration);
+            rating = itemView.findViewById(R.id.ratingBasic);
+            rating.setVisibility(View.GONE);
 
             if (isSerie) {
                 itemView.setOnClickListener(v -> {
@@ -102,25 +102,23 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
         static ViewHolder create(ViewGroup parent, boolean serie) {
             isSerie = serie;
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_basic_search, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_basic, parent, false);
             return new ViewHolder(view);
         }
 
-        void bindTo(SerieResponse.Serie serie) {
+        void bindTo(SerieResponse.Serie serie, Context context) {
             if (serie != null) {
                 id = serie.id;
                 name.setText(serie.name);
-                Util.getImage(BASE_URL_IMAGES_POSTER + serie.posterPath, image, mContext);
-                //rating.setText(String.valueOf(serie.voteAverage));
+                Util.getImage(BASE_URL_IMAGES_POSTER + serie.posterPath, image, context);
             }
         }
 
-        void bindTo(PersonResponse.Person person) {
+        void bindTo(PersonResponse.Person person, Context context) {
             if (person != null) {
                 id = person.id;
                 name.setText(person.name);
-                Util.getImagePortrait(BASE_URL_IMAGES_POSTER + person.profilePath, image, mContext);
-                //rating.setVisibility(View.GONE);
+                Util.getImagePortrait(BASE_URL_IMAGES_POSTER + person.profilePath, image, context);
             }
         }
     }
