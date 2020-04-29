@@ -1,4 +1,4 @@
-package com.tracker.repositories;
+package com.tracker.data;
 
 import com.tracker.models.BasicResponse;
 import com.tracker.models.actor.PersonResponse;

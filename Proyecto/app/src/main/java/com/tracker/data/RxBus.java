@@ -1,4 +1,4 @@
-package com.tracker.repositories;
+package com.tracker.data;
 
 import com.tracker.models.serie.SerieResponse;
 
@@ -22,7 +22,7 @@ public class RxBus {
     private RxBus() {
     }
 
-    private PublishSubject<SerieResponse.Serie> publisher = PublishSubject.create();
+    private final PublishSubject<SerieResponse.Serie> publisher = PublishSubject.create();
 
     public void publish(SerieResponse.Serie event) {
         publisher.onNext(event);

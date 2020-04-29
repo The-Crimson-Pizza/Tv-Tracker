@@ -14,8 +14,8 @@ import androidx.fragment.app.Fragment;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.tracker.R;
 import com.tracker.adapters.FillSerie;
+import com.tracker.data.RxBus;
 import com.tracker.models.serie.SerieResponse;
-import com.tracker.repositories.RxBus;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observer;

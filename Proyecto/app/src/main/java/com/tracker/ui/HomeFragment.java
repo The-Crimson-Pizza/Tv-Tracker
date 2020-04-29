@@ -26,10 +26,10 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.tracker.R;
 import com.tracker.adapters.HomeAdapter;
+import com.tracker.data.FirebaseDb;
+import com.tracker.data.TmdbRepository;
 import com.tracker.models.BasicResponse;
 import com.tracker.models.serie.SerieResponse;
-import com.tracker.repositories.FirebaseDb;
-import com.tracker.repositories.TmdbRepository;
 
 import java.util.ArrayList;
 import java.util.List;

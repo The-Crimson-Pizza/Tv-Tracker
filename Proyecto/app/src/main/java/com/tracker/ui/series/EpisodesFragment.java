@@ -21,10 +21,10 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.tracker.R;
 import com.tracker.adapters.EpisodeAdapter;
+import com.tracker.data.FirebaseDb;
+import com.tracker.data.SeriesViewModel;
 import com.tracker.models.seasons.Episode;
 import com.tracker.models.serie.SerieResponse;
-import com.tracker.repositories.FirebaseDb;
-import com.tracker.repositories.SeriesViewModel;
 import com.tracker.util.Constants;
 
 import java.util.ArrayList;

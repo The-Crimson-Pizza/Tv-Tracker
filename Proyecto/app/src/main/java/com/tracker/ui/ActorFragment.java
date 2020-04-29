@@ -17,8 +17,8 @@ import androidx.fragment.app.Fragment;
 
 import com.tracker.R;
 import com.tracker.adapters.FillActor;
+import com.tracker.data.TmdbRepository;
 import com.tracker.models.actor.PersonResponse;
-import com.tracker.repositories.TmdbRepository;
 import com.tracker.util.Constants;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;

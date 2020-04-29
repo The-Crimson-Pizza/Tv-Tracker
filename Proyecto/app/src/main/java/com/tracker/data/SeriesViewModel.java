@@ -1,4 +1,4 @@
-package com.tracker.repositories;
+package com.tracker.data;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -12,8 +12,8 @@ import com.tracker.models.serie.SerieResponse;
  */
 public class SeriesViewModel extends ViewModel {
 
-    private MutableLiveData<SerieResponse.Serie> mSerie = new MutableLiveData<>();
-    private MutableLiveData<String> mQuery = new MutableLiveData<>();
+    private final MutableLiveData<SerieResponse.Serie> mSerie = new MutableLiveData<>();
+    private final MutableLiveData<String> mQuery = new MutableLiveData<>();
 
     public LiveData<SerieResponse.Serie> getSerie() {
         return mSerie;

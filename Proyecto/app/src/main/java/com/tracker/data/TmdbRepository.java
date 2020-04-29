@@ -1,4 +1,4 @@
-package com.tracker.repositories;
+package com.tracker.data;
 
 import com.tracker.models.BasicResponse;
 import com.tracker.models.actor.PersonResponse;
@@ -38,7 +38,7 @@ import static com.tracker.util.Constants.TRAILER;
 public class TmdbRepository {
 
     private static TmdbRepository repoTMDB;
-    private String language;
+    private final String language;
 
     public static TmdbRepository getInstance() {
         if (repoTMDB == null) {

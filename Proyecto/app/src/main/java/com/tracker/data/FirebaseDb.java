@@ -1,4 +1,4 @@
-package com.tracker.repositories;
+package com.tracker.data;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -13,7 +13,7 @@ import java.util.List;
 public class FirebaseDb {
 
     private static FirebaseDb firebaseDb;
-    private DatabaseReference mFavs;
+    private final DatabaseReference mFavs;
 
     public static FirebaseDb getInstance(FirebaseUser currentUser) {
         if (firebaseDb == null) {

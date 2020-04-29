@@ -20,9 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.adapters.NetworkGenreAdapter;
+import com.tracker.data.TmdbRepository;
 import com.tracker.models.BasicResponse;
 import com.tracker.models.serie.SerieResponse;
-import com.tracker.repositories.TmdbRepository;
 import com.tracker.util.Util;
 
 import java.util.ArrayList;

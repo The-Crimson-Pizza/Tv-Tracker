@@ -16,7 +16,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.tracker.R;
 import com.tracker.adapters.TabLayoutAdapter;
-import com.tracker.repositories.SeriesViewModel;
+import com.tracker.data.SeriesViewModel;
 
 public class SearchFragment extends Fragment {
 

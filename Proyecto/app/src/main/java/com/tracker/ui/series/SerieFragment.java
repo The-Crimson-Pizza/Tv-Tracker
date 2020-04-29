@@ -31,12 +31,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.tracker.R;
 import com.tracker.adapters.FillSerie;
 import com.tracker.adapters.TabLayoutAdapter;
+import com.tracker.data.FirebaseDb;
+import com.tracker.data.RxBus;
+import com.tracker.data.SeriesViewModel;
+import com.tracker.data.TmdbRepository;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
-import com.tracker.repositories.FirebaseDb;
-import com.tracker.repositories.RxBus;
-import com.tracker.repositories.SeriesViewModel;
-import com.tracker.repositories.TmdbRepository;
 import com.tracker.ui.WebViewActivity;
 import com.tracker.util.Util;
 

@@ -17,9 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
 import com.tracker.adapters.SearchAdapter;
+import com.tracker.data.SeriesViewModel;
+import com.tracker.data.TmdbRepository;
 import com.tracker.models.actor.PersonResponse;
-import com.tracker.repositories.SeriesViewModel;
-import com.tracker.repositories.TmdbRepository;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -24,8 +24,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.tracker.R;
+import com.tracker.data.FirebaseDb;
 import com.tracker.models.serie.SerieResponse;
-import com.tracker.repositories.FirebaseDb;
 import com.tracker.util.Stats;
 
 import java.util.ArrayList;
