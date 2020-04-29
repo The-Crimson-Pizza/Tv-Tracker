@@ -86,8 +86,10 @@ public class Stats {
     private Map<String, Integer> getTopTenGenres(List<SerieResponse.Serie> mFavs) {
         HashMap<String, Integer> countGenres = new HashMap<>();
         for (SerieResponse.Serie serie : mFavs) {
-            for (SerieResponse.Serie.Genre genre : serie.genres) {
-                countGenres.merge(genre.name, 1, Integer::sum);
+            if (serie.genres != null) {
+                for (SerieResponse.Serie.Genre genre : serie.genres) {
+                    countGenres.merge(genre.name, 1, Integer::sum);
+                }
             }
         }
         return countGenres.entrySet().stream()
@@ -100,8 +102,10 @@ public class Stats {
     private Map<String, Integer> getTopTenNetworks(List<SerieResponse.Serie> mFavs) {
         HashMap<String, Integer> countGenres = new HashMap<>();
         for (SerieResponse.Serie serie : mFavs) {
-            for (SerieResponse.Serie.Network network : serie.networks) {
-                countGenres.merge(network.name, 1, Integer::sum);
+            if (serie.networks != null) {
+                for (SerieResponse.Serie.Network network : serie.networks) {
+                    countGenres.merge(network.name, 1, Integer::sum);
+                }
             }
         }
         return countGenres.entrySet().stream()

@@ -75,7 +75,7 @@ public class NetworkFragment extends Fragment {
         tvNetwork.setText(mNetwork.name);
         Util.getImage(BASE_URL_IMAGES_NETWORK + mNetwork.logoPath, ivNetwork, mContext);
 
-        networkAdapter = new NetworkGenreAdapter(mContext, seriesByNetwork, false);
+        networkAdapter = new NetworkGenreAdapter(mContext, seriesByNetwork);
 
         setRecycler(view);
         initNetwork(view);

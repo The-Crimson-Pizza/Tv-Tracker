@@ -15,22 +15,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tracker.R;
 import com.tracker.models.actor.PersonResponse;
 import com.tracker.models.serie.SerieResponse;
+import com.tracker.util.Constants;
 import com.tracker.util.Util;
 
 import java.util.List;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
-import static com.tracker.util.Constants.ID_ACTOR;
-import static com.tracker.util.Constants.ID_SERIE;
 
+/**
+ * Adapter for the RecyclerView that hosts the info of the searched shows or actors
+ */
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
-    private List<SerieResponse.Serie> mSeries;
-    private List<PersonResponse.Person> mActores;
-
-    private Context mContext;
-    private boolean isSerie;
-
+    private final List<SerieResponse.Serie> mSeries;
+    private final List<PersonResponse.Person> mActores;
+    private final Context mContext;
+    private final boolean isSerie;
 
     public SearchAdapter(Context mContext, List<SerieResponse.Serie> series, List<PersonResponse.Person> actores, boolean isSerie) {
         this.mSeries = series;
@@ -39,13 +39,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         this.mContext = mContext;
     }
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return ViewHolder.create(parent, isSerie);
+        return ViewHolder.create(parent);
     }
-
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
@@ -72,11 +70,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView image;
-        TextView name;
-        TextView rating;
+        final ImageView image;
+        final TextView name;
+        final TextView rating;
         int id;
-        private static boolean isSerie;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -84,24 +81,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             name = itemView.findViewById(R.id.titleBasic);
             rating = itemView.findViewById(R.id.ratingBasic);
             rating.setVisibility(View.GONE);
-
-            if (isSerie) {
-                itemView.setOnClickListener(v -> {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(ID_SERIE, id);
-                    Navigation.findNavController(v).navigate(R.id.action_search_to_series, bundle);
-                });
-            } else {
-                itemView.setOnClickListener(v -> {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(ID_ACTOR, id);
-                    Navigation.findNavController(v).navigate(R.id.action_search_to_actores, bundle);
-                });
-            }
         }
 
-        static ViewHolder create(ViewGroup parent, boolean serie) {
-            isSerie = serie;
+        static ViewHolder create(ViewGroup parent) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_basic, parent, false);
             return new ViewHolder(view);
         }
@@ -111,6 +93,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 id = serie.id;
                 name.setText(serie.name);
                 Util.getImage(BASE_URL_IMAGES_POSTER + serie.posterPath, image, context);
+                itemView.setOnClickListener(v -> goToFragment(v, Constants.ID_SERIE, R.id.action_search_to_series));
             }
         }
 
@@ -119,7 +102,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 id = person.id;
                 name.setText(person.name);
                 Util.getImagePortrait(BASE_URL_IMAGES_POSTER + person.profilePath, image, context);
+                itemView.setOnClickListener(v -> goToFragment(v, Constants.ID_ACTOR, R.id.action_search_to_actores));
             }
+        }
+
+        private void goToFragment(View v, String id, int action) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(id, this.id);
+            Navigation.findNavController(v).navigate(action, bundle);
         }
     }
 }

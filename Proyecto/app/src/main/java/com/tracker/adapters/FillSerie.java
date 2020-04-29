@@ -16,28 +16,30 @@ import androidx.navigation.Navigation;
 
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.tracker.R;
 import com.tracker.models.serie.SerieResponse;
+import com.tracker.util.Constants;
 import com.tracker.util.Util;
 
-import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_BACK;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_NETWORK;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 import static com.tracker.util.Constants.FORMAT_YEAR;
 import static com.tracker.util.Constants.GENRE;
 import static com.tracker.util.Constants.ID;
-import static com.tracker.util.Constants.ID_GENRE;
-import static com.tracker.util.Constants.ID_NETWORK;
 import static com.tracker.util.Constants.NETWORKS;
 
+/**
+ * Fills the data obtained by the api in the SerieFragment
+ */
 public class FillSerie {
 
-    private View mView;
-    private SerieResponse.Serie mSerie;
-    private Context mContext;
+    private final View mView;
+    private final SerieResponse.Serie mSerie;
+    private final Context mContext;
 
     public FillSerie(View view, SerieResponse.Serie serie, Context context) {
         this.mView = view;
@@ -52,6 +54,9 @@ public class FillSerie {
         }
     }
 
+    /**
+     * Fills the overview and calls the methods that load genres, networks and trailer
+     */
     public void fillOverview() {
         if (mSerie != null) {
             LinearLayout check = mView.findViewById(R.id.seguimiento);
@@ -67,6 +72,9 @@ public class FillSerie {
         }
     }
 
+    /**
+     * Sets the youtube viewer and load the trailer
+     */
     private void fillTrailer() {
         YouTubePlayerView youTubePlayerView = mView.findViewById(R.id.youtube_player_view);
         if (mSerie.video != null) {
@@ -80,6 +88,9 @@ public class FillSerie {
         }
     }
 
+    /**
+     * Fill the basic serie info
+     */
     private void fillBasics() {
         CollapsingToolbarLayout collapseToolbar = mView.findViewById(R.id.toolbar_layout);
         TextView airDate = mView.findViewById(R.id.fechaSerie);
@@ -95,6 +106,9 @@ public class FillSerie {
         collapseToolbar.setTitle(mSerie.name);
     }
 
+    /**
+     * Fills the Networks images and sets the click listener
+     */
     private void fillNetworks() {
         int cont = 1;
         if (!mSerie.networks.isEmpty()) {
@@ -102,19 +116,10 @@ public class FillSerie {
                 int pos = cont - 1;
                 String name = NETWORKS + cont;
                 int id = mContext.getResources().getIdentifier(name, ID, mContext.getPackageName());
-                ImageButton imageView = mView.findViewById(id);
-                Util.getImageNoPlaceholder(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(cont - 1).logoPath, imageView, mContext);
-                imageView.setVisibility(View.VISIBLE);
-                imageView.setOnClickListener(v -> {
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable(ID_NETWORK, mSerie.networks.get(pos));
-                    if (Util.isNetworkAvailable(mContext)) {
-                        Navigation.findNavController(v).navigate(R.id.action_navigation_series_to_networkFragment, bundle);
-                    } else {
-                        Snackbar.make(v, mContext.getString(R.string.no_conn), LENGTH_LONG)
-                                .setAction(R.string.activate_net, v1 -> mContext.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
-                    }
-                });
+                ImageButton imageNetwork = mView.findViewById(id);
+                Util.getImageNoPlaceholder(BASE_URL_IMAGES_NETWORK + mSerie.networks.get(cont - 1).logoPath, imageNetwork, mContext);
+                imageNetwork.setVisibility(View.VISIBLE);
+                imageNetwork.setOnClickListener(v -> goToNetworkFragment(pos, v));
                 if (cont == mSerie.networks.size()) break;
                 else cont++;
             }
@@ -125,6 +130,26 @@ public class FillSerie {
         }
     }
 
+    /**
+     * Sets the data to be sent to NetworkFragment and calls it
+     *
+     * @param pos position of the list
+     * @param v   view of the fragment
+     */
+    private void goToNetworkFragment(int pos, View v) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.ID_NETWORK, mSerie.networks.get(pos));
+        if (Util.isNetworkAvailable(mContext)) {
+            Navigation.findNavController(v).navigate(R.id.action_navigation_series_to_networkFragment, bundle);
+        } else {
+            Snackbar.make(v, mContext.getString(R.string.no_conn), BaseTransientBottomBar.LENGTH_LONG)
+                    .setAction(R.string.activate_net, v1 -> mContext.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
+        }
+    }
+
+    /**
+     * Fills the Genre buttons and sets the listener
+     */
     private void fillGenres() {
         int cont = 1;
         if (!mSerie.genres.isEmpty()) {
@@ -132,19 +157,10 @@ public class FillSerie {
                 int pos = cont - 1;
                 String name = GENRE + cont;
                 int id = mContext.getResources().getIdentifier(name, ID, mContext.getPackageName());
-                Button textView = mView.findViewById(id);
-                textView.setText(mSerie.genres.get(pos).name);
-                textView.setVisibility(View.VISIBLE);
-                textView.setOnClickListener(v -> {
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable(ID_GENRE, mSerie.genres.get(pos));
-                    if (Util.isNetworkAvailable(mContext)) {
-                        Navigation.findNavController(v).navigate(R.id.action_navigation_series_to_genreFragment, bundle);
-                    } else {
-                        Snackbar.make(v, mContext.getString(R.string.no_conn), LENGTH_LONG)
-                                .setAction(R.string.activate_net, v1 -> mContext.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
-                    }
-                });
+                Button buttonGenre = mView.findViewById(id);
+                buttonGenre.setText(mSerie.genres.get(pos).name);
+                buttonGenre.setVisibility(View.VISIBLE);
+                buttonGenre.setOnClickListener(v -> goToGenreFragment(pos, v));
                 if (cont == mSerie.genres.size()) break;
                 else cont++;
             }
@@ -155,6 +171,26 @@ public class FillSerie {
         }
     }
 
+    /**
+     * Sets the data to be sent to GenreFragment and calls it
+     *
+     * @param pos position of the list
+     * @param v   view of the fragment
+     */
+    private void goToGenreFragment(int pos, View v) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.ID_GENRE, mSerie.genres.get(pos));
+        if (Util.isNetworkAvailable(mContext)) {
+            Navigation.findNavController(v).navigate(R.id.action_navigation_series_to_genreFragment, bundle);
+        } else {
+            Snackbar.make(v, mContext.getString(R.string.no_conn), BaseTransientBottomBar.LENGTH_LONG)
+                    .setAction(R.string.activate_net, v1 -> mContext.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
+        }
+    }
+
+    /**
+     * Fills all the images in the fragment
+     */
     private void fillImages() {
         ImageView poster = mView.findViewById(R.id.posterImage);
         ImageView background = mView.findViewById(R.id.imagen_background);

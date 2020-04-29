@@ -14,21 +14,24 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.models.serie.Credits;
+import com.tracker.util.Constants;
 import com.tracker.util.Util;
 
 import java.util.List;
 
-import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_PORTRAIT;
-import static com.tracker.util.Constants.ID_ACTOR;
 
+/**
+ * Adapter from the RecyclerView that hosts the Actor basic info
+ */
 public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.ViewHolder> {
 
     private List<Credits.Cast> mCastSerie;
-    private static Context mContext;
+    private final Context mContext;
 
     public ActorBasicAdapter(Context context, List<Credits.Cast> castSerie) {
         if (castSerie != null) {
@@ -45,7 +48,7 @@ public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ActorBasicAdapter.ViewHolder holder, final int position) {
-        holder.bindTo(mCastSerie.get(position));
+        holder.bindTo(mCastSerie.get(position), mContext);
     }
 
     @Override
@@ -58,9 +61,9 @@ public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.Vi
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView actorPortrait;
-        TextView actorName;
-        TextView actorCharacter;
+        final ImageView actorPortrait;
+        final TextView actorName;
+        final TextView actorCharacter;
         int actorId;
 
         ViewHolder(@NonNull View itemView) {
@@ -71,11 +74,11 @@ public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.Vi
 
             itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
-                bundle.putInt(ID_ACTOR, actorId);
+                bundle.putInt(Constants.ID_ACTOR, actorId);
                 if (Util.isNetworkAvailable(itemView.getContext())) {
                     Navigation.findNavController(v).navigate(R.id.action_series_to_actores, bundle);
                 } else {
-                    Snackbar.make(v, itemView.getContext().getString(R.string.no_conn), LENGTH_LONG)
+                    Snackbar.make(v, itemView.getContext().getString(R.string.no_conn), BaseTransientBottomBar.LENGTH_LONG)
                             .setAction(R.string.activate_net, v1 -> itemView.getContext().startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
                 }
             });
@@ -86,12 +89,12 @@ public class ActorBasicAdapter extends RecyclerView.Adapter<ActorBasicAdapter.Vi
             return new ActorBasicAdapter.ViewHolder(view);
         }
 
-        void bindTo(Credits.Cast cast) {
+        void bindTo(Credits.Cast cast, Context context) {
             if (cast != null) {
                 actorName.setText(cast.name);
                 actorCharacter.setText(cast.character);
-                Util.getImagePortrait(BASE_URL_IMAGES_PORTRAIT + cast.profilePath, actorPortrait, mContext);
                 actorId = cast.id;
+                Util.getImagePortrait(BASE_URL_IMAGES_PORTRAIT + cast.profilePath, actorPortrait, context);
             }
         }
     }

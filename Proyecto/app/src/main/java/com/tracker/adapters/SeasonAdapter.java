@@ -27,6 +27,9 @@ import java.util.List;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 
+/**
+ * Adapter for the RecyclerView that hosts the info of the seasons
+ */
 public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder> {
 
     private final Context mContext;
@@ -77,12 +80,13 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
             seasonName = itemView.findViewById(R.id.season_name);
             numEpisodes = itemView.findViewById(R.id.episode_number);
             watchedCheck = itemView.findViewById(R.id.checkbox_watched);
+            itemView.setOnClickListener(this::goToEpisodes);
+        }
 
-            itemView.setOnClickListener(v -> {
-                Bundle bundle = new Bundle();
-                bundle.putInt(Constants.ID_SEASON, getAdapterPosition());
-                Navigation.findNavController(v).navigate(R.id.action_series_to_episodes, bundle);
-            });
+        private void goToEpisodes(View view) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(Constants.ID_SEASON, getAdapterPosition());
+            Navigation.findNavController(view).navigate(R.id.action_series_to_episodes, bundle);
         }
 
         static SeasonAdapter.ViewHolder create(ViewGroup parent) {
@@ -92,57 +96,55 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
 
         void bindTo(Season season, SerieResponse.Serie serie, List<SerieResponse.Serie> mFavs, Context context) {
             if (season != null) {
-                if (serie.added) {
-                    setWatchCheck(season, serie, mFavs);
-                }
+                if (serie.added) setWatchCheck(season, serie, mFavs);
+
                 seasonName.setText(season.name);
                 Util.getImage(BASE_URL_IMAGES_POSTER + season.posterPath, seasonPoster, context);
-                if (season.episodes != null) {
-                    if (serie.added) {
-                        numEpisodes.setText(
-                                context.getString(R.string.num_episodes_follow,
-                                        countEpisodes(season),
-                                        season.episodes.size())
-                        );
-                    } else {
-                        numEpisodes.setText(
-                                context.getString(R.string.n_episodes,
-                                        season.episodes.size())
-                        );
-                    }
 
-                } else {
-                    numEpisodes.setText(context.getString(R.string.no_data));
-                }
+                if (season.episodes != null) {
+                    if (serie.added)
+                        numEpisodes.setText(context.getString(R.string.num_episodes_follow,
+                                countEpisodes(season),
+                                season.episodes.size()));
+                    else
+                        numEpisodes.setText(context.getString(R.string.n_episodes, season.episodes.size()));
+
+                } else numEpisodes.setText(context.getString(R.string.no_data));
+
             }
         }
 
-        private void setWatchCheck(Season season, SerieResponse.Serie serie, List<SerieResponse.Serie> mFavs) {
+        /**
+         * Checks if the episode is watched and sets it true or false the CheckBox
+         *
+         * @param season season of the serie
+         * @param serie  serie loaded in the SerieFragment
+         * @param favs   list of series in the following list
+         */
+        private void setWatchCheck(Season season, SerieResponse.Serie serie, List<SerieResponse.Serie> favs) {
             watchedCheck.setVisibility(View.VISIBLE);
             watchedCheck.setChecked(season.visto);
             watchedCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
-                    if (!season.visto) {
-                        watchSeason(serie, mFavs, getAdapterPosition());
-                    }
-                } else {
-                    if (season.visto) {
-                        unwatchSeason(serie, mFavs, getAdapterPosition());
-                    }
-                }
+                    if (!season.visto) watchSeason(serie, favs, getAdapterPosition());
+                } else if (season.visto) unwatchSeason(serie, favs, getAdapterPosition());
             });
         }
 
         int countEpisodes(Season season) {
             int cont = 0;
             for (Episode e : season.episodes) {
-                if (e.visto) {
-                    cont++;
-                }
+                if (e.visto) cont++;
             }
             return cont;
         }
 
+        /**
+         * Checks if the season is finished or not
+         *
+         * @param serie we need its seasons
+         * @return true or false
+         */
         private boolean checkSeasonFinished(SerieResponse.Serie serie) {
             for (Season s : serie.seasons) {
                 if (!s.visto) return false;
@@ -150,16 +152,23 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
             return true;
         }
 
-        private void watchSeason(SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int temporada) {
+        /**
+         * Set as watched the whole season in the RecyclerView and then in the Database
+         *
+         * @param serie     serie loaded in the SerieFragment
+         * @param favs      list of series in the following list
+         * @param posSeason season position in the RecyclerView
+         */
+        private void watchSeason(SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int posSeason) {
             int pos = serie.getPosition(favs);
             Season.sortSeason(favs.get(pos).seasons);
 
 //            MARCAR TEMPORADA
-            favs.get(pos).seasons.get(temporada).visto = true;
-            favs.get(pos).seasons.get(temporada).watchedDate = new Date();
+            favs.get(pos).seasons.get(posSeason).visto = true;
+            favs.get(pos).seasons.get(posSeason).watchedDate = new Date();
 
 //            MARCAR EPISODIOS
-            for (Episode e : favs.get(pos).seasons.get(temporada).episodes) {
+            for (Episode e : favs.get(pos).seasons.get(posSeason).episodes) {
                 e.visto = true;
                 e.watchedDate = new Date();
             }
@@ -177,19 +186,25 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
             FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(favs);
         }
 
-        private void unwatchSeason(SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int temporada) {
+        /**
+         * Set as unwatched the whole season in the RecyclerView and then in the Database
+         *
+         * @param serie     serie loaded in the SerieFragment
+         * @param favs      list of series in the following list
+         * @param posSeason season position in the RecyclerView
+         */
+        private void unwatchSeason(SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int posSeason) {
             int pos = serie.getPosition(favs);
             Season.sortSeason(favs.get(pos).seasons);
 
 //            UNWATCH TEMPORADA
-            favs.get(pos).seasons.get(temporada).visto = false;
-            favs.get(pos).seasons.get(temporada).watchedDate = null;
+            favs.get(pos).seasons.get(posSeason).visto = false;
+            favs.get(pos).seasons.get(posSeason).watchedDate = null;
 
 //            UNWATCH EPISODIOS
-            for (Episode e : favs.get(pos).seasons.get(temporada).episodes) {
+            for (Episode e : favs.get(pos).seasons.get(posSeason).episodes) {
                 e.visto = false;
                 e.watchedDate = null;
-
             }
 
 //            UNWATCH SERIE

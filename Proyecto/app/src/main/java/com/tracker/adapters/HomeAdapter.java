@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.models.BasicResponse;
@@ -22,13 +23,15 @@ import com.tracker.util.Util;
 
 import java.util.List;
 
-import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 
+/**
+ * Adapter for the RecyclerView that hosts the basic info of trending, new and favorite shows
+ */
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
-    private List<BasicResponse.SerieBasic> mSeries;
-    private Context mContext;
+    private final List<BasicResponse.SerieBasic> mSeries;
+    private final Context mContext;
 
     public HomeAdapter(Context mContext, List<BasicResponse.SerieBasic> series) {
         this.mSeries = series;
@@ -59,9 +62,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView image;
-        TextView name;
-        TextView rating;
+        final ImageView image;
+        final TextView name;
+        final TextView rating;
         int id;
 
         ViewHolder(@NonNull View itemView) {
@@ -70,16 +73,18 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             name = itemView.findViewById(R.id.titleBasic);
             rating = itemView.findViewById(R.id.ratingBasic);
 
-            itemView.setOnClickListener(v -> {
-                Bundle bundle = new Bundle();
-                bundle.putInt(Constants.ID_SERIE, id);
-                if (Util.isNetworkAvailable(itemView.getContext())) {
-                    Navigation.findNavController(v).navigate(R.id.action_home_to_series, bundle);
-                } else {
-                    Snackbar.make(v, itemView.getContext().getString(R.string.no_conn), LENGTH_LONG)
-                            .setAction(R.string.activate_net, v1 -> itemView.getContext().startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
-                }
-            });
+            itemView.setOnClickListener(view -> goToSerie(itemView, view));
+        }
+
+        private void goToSerie(@NonNull View itemView, View view) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(Constants.ID_SERIE, id);
+            if (Util.isNetworkAvailable(itemView.getContext())) {
+                Navigation.findNavController(view).navigate(R.id.action_home_to_series, bundle);
+            } else {
+                Snackbar.make(view, itemView.getContext().getString(R.string.no_conn), BaseTransientBottomBar.LENGTH_LONG)
+                        .setAction(R.string.activate_net, v -> itemView.getContext().startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
+            }
         }
 
         static ViewHolder create(ViewGroup parent) {

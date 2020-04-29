@@ -1,6 +1,5 @@
 package com.tracker.adapters;
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +22,7 @@ import com.tracker.R;
 import com.tracker.models.seasons.Episode;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
+import com.tracker.util.Constants;
 import com.tracker.util.Util;
 
 import java.util.Collections;
@@ -33,12 +32,14 @@ import java.util.Locale;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 import static com.tracker.util.Constants.FORMAT_HOURS;
 import static com.tracker.util.Constants.FORMAT_LONG;
-import static com.tracker.util.Constants.ID_SERIE;
 
+/**
+ * Adapter from the RecyclerView that hosts the Favorites/Following series info
+ */
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.ViewHolder> {
 
-    private List<SerieResponse.Serie> mSeriesFavs;
-    private static Context mContext;
+    private final List<SerieResponse.Serie> mSeriesFavs;
+    private final Context mContext;
 
     public FavoritesAdapter(Context mContext, List<SerieResponse.Serie> serie) {
         this.mSeriesFavs = serie;
@@ -53,7 +54,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull FavoritesAdapter.ViewHolder holder, final int position) {
-        holder.bindTo(mSeriesFavs.get(position));
+        holder.bindTo(mContext, mSeriesFavs.get(position));
     }
 
     @Override
@@ -66,19 +67,19 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView favPoster;
-        TextView favName;
-        TextView favStatus;
-        TextView favVistos;
-        TextView next;
-        TextView next2;
-        TextView sinopsis;
-        ProgressBar favProgress;
+        final ImageView favPoster;
+        final TextView favName;
+        final TextView favStatus;
+        final TextView favVistos;
+        final TextView next;
+        final TextView next2;
+        final TextView sinopsis;
+        final ProgressBar favProgress;
         int id;
 
-        ConstraintLayout expandableView;
-        Button arrowBtn;
-        LinearLayout cardView;
+        final ConstraintLayout expandableView;
+        final Button arrowBtn;
+        final LinearLayout cardView;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,9 +93,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             sinopsis = itemView.findViewById(R.id.sinopsis);
 
             itemView.setOnClickListener(v -> {
-                int pos = getAdapterPosition();
                 Bundle bundle = new Bundle();
-                bundle.putInt(ID_SERIE, id);
+                bundle.putInt(Constants.ID_SERIE, id);
                 Navigation.findNavController(v).navigate(R.id.action_navigation_fav_to_navigation_series, bundle);
             });
 
@@ -121,58 +121,84 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             return new FavoritesAdapter.ViewHolder(view);
         }
 
-        void bindTo(SerieResponse.Serie favSerie) {
-            if (favSerie != null) {
-                sortSeason(favSerie.seasons);
-                id = favSerie.id;
-                favName.setText(favSerie.name);
-                Util.getImage(BASE_URL_IMAGES_POSTER + favSerie.posterPath, favPoster, mContext);
-                favStatus.setText(favSerie.status);
-                getEpisodesWatched(favSerie);
-                next.setText(getLastEpisode(favSerie));
-                next2.setText(getLastEpisode(favSerie));
-                sinopsis.setText(getLastEpisodeSinopsis(favSerie, mContext));
+        void bindTo(Context context, SerieResponse.Serie serie) {
+            if (serie != null) {
+                sortSeason(serie.seasons);
+                id = serie.id;
+                favName.setText(serie.name);
+                Util.getImage(BASE_URL_IMAGES_POSTER + serie.posterPath, favPoster, context);
+                favStatus.setText(serie.status);
+                getEpisodesWatched(context, serie);
+                next.setText(getLastEpisode(context, serie));
+                next2.setText(getLastEpisode(context, serie));
+                sinopsis.setText(getLastEpisodeOverview(context, serie));
             }
         }
 
-        private void getEpisodesWatched(SerieResponse.Serie favSerie) {
-            int totalEpisodes = favSerie.numberOfEpisodes;
-            int vistos = countEpisodes(favSerie);
+        /**
+         * Gets the episodes watched and sets progress
+         *
+         * @param context context of the activity
+         * @param serie   favorite serie
+         */
+        private void getEpisodesWatched(Context context, SerieResponse.Serie serie) {
+            int totalEpisodes = serie.numberOfEpisodes;
+            int vistos = countEpisodes(serie);
             int progress = 0;
             if (vistos > 0) {
                 progress = (vistos * 100) / totalEpisodes;
             }
-            favVistos.setText(mContext.getString(R.string.num_vistos, vistos, totalEpisodes));
+            favVistos.setText(context.getString(R.string.num_vistos, vistos, totalEpisodes));
             favProgress.setProgress(progress);
         }
 
-        String getLastEpisodeSinopsis(SerieResponse.Serie serieFav, Context context) {
-            Season.sortSeason(serieFav.seasons);
-            for (Season s : serieFav.seasons) {
+        /**
+         * Gets the overview of the first unwatched episode
+         *
+         * @param context context of the activity
+         * @param serie   favorite serie
+         * @return the overview of the next unwatched episode
+         */
+        String getLastEpisodeOverview(Context context, SerieResponse.Serie serie) {
+            Season.sortSeason(serie.seasons);
+            for (Season s : serie.seasons) {
                 for (Episode e : s.episodes) {
                     if (!e.visto) {
-                        return e.overview.isEmpty() ? mContext.getString(R.string.no_data) : e.overview;
+                        return e.overview.isEmpty() ? context.getString(R.string.no_data) : e.overview;
                     }
                 }
             }
-            return String.format(context.getString(R.string.finished_date), Util.formatDateToString(serieFav.finishDate, FORMAT_LONG), Util.formatDateToString(serieFav.finishDate, FORMAT_HOURS));
+            return String.format(context.getString(R.string.finished_date), Util.formatDateToString(serie.finishDate, FORMAT_LONG), Util.formatDateToString(serie.finishDate, FORMAT_HOURS));
         }
 
-        String getLastEpisode(SerieResponse.Serie serieFav) {
-            Season.sortSeason(serieFav.seasons);
-            for (Season s : serieFav.seasons) {
+        /**
+         * Gets the next episode unwatched
+         *
+         * @param context of the activity to getString
+         * @param serie   favorite serie
+         * @return number of watched episodes or if we watched every episode
+         */
+        String getLastEpisode(Context context, SerieResponse.Serie serie) {
+            Season.sortSeason(serie.seasons);
+            for (Season s : serie.seasons) {
                 for (Episode e : s.episodes) {
                     if (!e.visto) {
-                        return String.format(Locale.getDefault(), "%02dx%02d - %s", e.seasonNumber, e.episodeNumber, e.name);
+                        return String.format(Locale.getDefault(), Constants.SEASON_EPISODE_FORMAT, e.seasonNumber, e.episodeNumber, e.name);
                     }
                 }
             }
-            return mContext.getString(R.string.just_watch);
+            return context.getString(R.string.just_watch);
         }
 
-        int countEpisodes(SerieResponse.Serie serieFav) {
+        /**
+         * Counts the number of watched episodes
+         *
+         * @param serie favorite serie
+         * @return integer with the count of watched episodes
+         */
+        int countEpisodes(SerieResponse.Serie serie) {
             int cont = 0;
-            for (Season s : serieFav.seasons) {
+            for (Season s : serie.seasons) {
                 for (Episode e : s.episodes) {
                     if (e.visto) {
                         cont++;
@@ -182,6 +208,11 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             return cont;
         }
 
+        /**
+         * Sorts the seasons by its number
+         *
+         * @param seasons from the serie we are passing
+         */
         private void sortSeason(List<Season> seasons) {
             Collections.sort(seasons, (season1, season2) -> {
                 String numSeason1 = String.valueOf(season1.seasonNumber);

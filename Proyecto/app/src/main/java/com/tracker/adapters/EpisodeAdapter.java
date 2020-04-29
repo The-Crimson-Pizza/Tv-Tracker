@@ -32,13 +32,16 @@ import java.util.Locale;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 import static com.tracker.util.Constants.FORMAT_LONG;
 
+/**
+ * Adapter from the RecyclerView that hosts the Episodes info
+ */
 public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHolder> {
 
-    private Context mContext;
-    private List<Episode> mEpisodes;
-    private SerieResponse.Serie mSerie;
-    private List<SerieResponse.Serie> mFavs;
-    private int mSeasonPosition;
+    private final Context mContext;
+    private final List<Episode> mEpisodes;
+    private final SerieResponse.Serie mSerie;
+    private final List<SerieResponse.Serie> mFavs;
+    private final int mSeasonPosition;
 
     public EpisodeAdapter(Context mContext, List<Episode> episodes, SerieResponse.Serie serie,
                           List<SerieResponse.Serie> favs, int seasonPos) {
@@ -71,17 +74,17 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView episodeBackdrop;
-        TextView episodeName;
-        TextView episodeNameExpandable;
-        TextView episodeDate;
-        TextView episodeOverview;
-        TextView episodeTime;
-        MaterialCheckBox watchedCheck;
+        private final TextView episodeName;
+        private final TextView episodeNameExpandable;
+        private final TextView episodeDate;
+        private final TextView episodeOverview;
+        private final TextView episodeTime;
+        private final ImageView episodeBackdrop;
+        private final MaterialCheckBox watchedCheck;
 
-        ConstraintLayout expandableView;
-        Button arrowBtn;
-        LinearLayout cardView;
+        private final ConstraintLayout expandableView;
+        private final Button arrowBtn;
+        private final LinearLayout cardView;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -160,6 +163,12 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
             }
         }
 
+        /**
+         * Checks if the season is finished or not
+         *
+         * @param serie we need its seasons
+         * @return true or false
+         */
         private boolean checkSeasonFinished(SerieResponse.Serie serie) {
             for (Season s : serie.seasons) {
                 if (!s.visto) return false;
@@ -167,7 +176,12 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
             return true;
         }
 
-
+        /**
+         * Checks if the episodes are watched so the season is finished or not
+         *
+         * @param serie we need its seasons and episodes
+         * @return true or false
+         */
         private boolean checkEpisodesFinished(SerieResponse.Serie serie) {
             for (Season s : serie.seasons) {
                 for (Episode e : s.episodes) {
@@ -178,7 +192,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
         }
 
         /**
-         * Set as watched the episode in the RecyclerView
+         * Set as watched the episode in the RecyclerView and then in the Database
          *
          * @param serie      serie loaded in the SerieFragment
          * @param favs       list of series in the following list
@@ -222,7 +236,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
         }
 
         /**
-         * Set as unwatched the episode in the RecyclerView
+         * Set as unwatched the episode in the RecyclerView and the in the Database
          *
          * @param serie      serie loaded in the SerieFragment
          * @param favs       list of series in the following list
@@ -262,7 +276,5 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
         private String getMinutos(int minutes) {
             return String.format(Locale.getDefault(), Constants.FORMAT_MINUTES, minutes, 0);
         }
-
-
     }
 }

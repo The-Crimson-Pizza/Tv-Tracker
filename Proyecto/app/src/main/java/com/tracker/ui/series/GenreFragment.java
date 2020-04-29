@@ -68,7 +68,7 @@ public class GenreFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ViewSwitcher switcher = view.findViewById(R.id.switcher_genres);
-        genreAdapter = new NetworkGenreAdapter(mContext, mSeriesByGenre, true);
+        genreAdapter = new NetworkGenreAdapter(mContext, mSeriesByGenre);
 
         ImageView ivGenreIcon = view.findViewById(R.id.genre_icon);
         TextView tvGenre = view.findViewById(R.id.genre_name);

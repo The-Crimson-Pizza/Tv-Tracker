@@ -54,13 +54,4 @@
         android:id="@+id/include_actor"
         layout="@layout/content_actor" />
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/fab"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="@dimen/fab_margin"-->
-<!--        app:layout_anchor="@id/app_bar"-->
-<!--        app:layout_anchorGravity="bottom|end"-->
-<!--        app:srcCompat="@drawable/star_white" />-->
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

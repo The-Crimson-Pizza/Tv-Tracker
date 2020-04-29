@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.borjabravo.readmoretextview.ReadMoreTextView;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.tracker.R;
 import com.tracker.models.actor.PersonResponse;
 import com.tracker.util.Util;
@@ -40,11 +39,13 @@ public class FillActor {
         this.mContext = context;
     }
 
+    /**
+     * Fills the data obtained by the api in the ActorFragment
+     */
     public void fillActor() {
 
         Toolbar actorName = mView.findViewById(R.id.toolbar_actor);
         CircleImageView actorPortrait = mView.findViewById(R.id.profile_image);
-        CollapsingToolbarLayout collapsingToolbarLayout = mView.findViewById(R.id.toolbar_layout);
         View includeView = mView.findViewById(R.id.include_actor);
 
         TextView bornDate = includeView.findViewById(R.id.fecha_actor);
@@ -63,7 +64,6 @@ public class FillActor {
             deathDate.setText(calculateAge(true));
             deathDate.setVisibility(View.VISIBLE);
             deathDateIcon.setVisibility(View.VISIBLE);
-        } else {
         }
 
         if (mPerson.birthday != null) {
@@ -146,7 +146,6 @@ public class FillActor {
                 bornDateNew = String.format("%s (%s %s)", Util.convertStringDateFormat(mPerson.birthday, FORMAT_LONG), period.getYears(), mContext.getString(R.string.years));
             }
 
-
             if (dead) {
                 return deathDateNew;
             } else {
@@ -163,6 +162,12 @@ public class FillActor {
     }
 
 
+    /**
+     * Parses a string to LocalDate format
+     *
+     * @param oldDate date in String
+     * @return oldDate in LocalDate
+     */
     private LocalDate parseStringToLocalDate(String oldDate) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_DEFAULT);

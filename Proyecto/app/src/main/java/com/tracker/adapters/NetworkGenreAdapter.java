@@ -21,16 +21,17 @@ import java.util.List;
 
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 
+/**
+ * Adapter for the RecyclerView that hosts the info of shows by genres or networks
+ */
 public class NetworkGenreAdapter extends RecyclerView.Adapter<NetworkGenreAdapter.ViewHolder> {
 
-    private List<BasicResponse.SerieBasic> mSeries;
-    private Context mContext;
-    private boolean isGenre;
+    private final List<BasicResponse.SerieBasic> mSeries;
+    private final Context mContext;
 
-    public NetworkGenreAdapter(Context mContext, List<BasicResponse.SerieBasic> series, boolean genre) {
-        this.isGenre = genre;
+    public NetworkGenreAdapter(Context context, List<BasicResponse.SerieBasic> series) {
         this.mSeries = series;
-        this.mContext = mContext;
+        this.mContext = context;
     }
 
     @NonNull
@@ -43,7 +44,7 @@ public class NetworkGenreAdapter extends RecyclerView.Adapter<NetworkGenreAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         if (getItemCount() > 0) {
-            holder.bindTo(mSeries.get(position), isGenre, mContext);
+            holder.bindTo(mSeries.get(position), mContext);
         }
     }
 
@@ -57,11 +58,10 @@ public class NetworkGenreAdapter extends RecyclerView.Adapter<NetworkGenreAdapte
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView image;
-        TextView name;
-        TextView rating;
+        final ImageView image;
+        final TextView name;
+        final TextView rating;
         int id;
-        boolean isGenre;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,11 +71,13 @@ public class NetworkGenreAdapter extends RecyclerView.Adapter<NetworkGenreAdapte
 
             rating.setVisibility(View.GONE);
 
-            itemView.setOnClickListener(v -> {
-                Bundle bundle = new Bundle();
-                bundle.putInt(Constants.ID_SERIE, id);
-                Navigation.findNavController(v).navigate(R.id.action_global_navigation_series, bundle);
-            });
+            itemView.setOnClickListener(this::goToSerie);
+        }
+
+        private void goToSerie(View view) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(Constants.ID_SERIE, id);
+            Navigation.findNavController(view).navigate(R.id.action_global_navigation_series, bundle);
         }
 
         static ViewHolder create(ViewGroup parent) {
@@ -83,8 +85,7 @@ public class NetworkGenreAdapter extends RecyclerView.Adapter<NetworkGenreAdapte
             return new ViewHolder(view);
         }
 
-        void bindTo(BasicResponse.SerieBasic serieBasic, boolean genre, Context context) {
-            isGenre = genre;
+        void bindTo(BasicResponse.SerieBasic serieBasic, Context context) {
             if (serieBasic != null) {
                 id = serieBasic.id;
                 name.setText(serieBasic.name);

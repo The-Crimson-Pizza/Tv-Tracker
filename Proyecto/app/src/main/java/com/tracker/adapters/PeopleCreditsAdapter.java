@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.tracker.R;
 import com.tracker.models.actor.MovieCredits;
@@ -25,30 +26,45 @@ import com.tracker.util.Util;
 import java.util.Collections;
 import java.util.List;
 
-import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
 import static com.tracker.util.Constants.BASE_URL_IMAGES_POSTER;
 
+/**
+ * Adapter for the RecyclerView that hosts the info of an actor's movies and shows
+ */
 public class PeopleCreditsAdapter extends RecyclerView.Adapter<PeopleCreditsAdapter.ViewHolder> {
 
     private List<TvCredits.Cast> mSeries;
     private List<MovieCredits.Cast> mMovies;
-    private Context mContext;
+    private final Context mContext;
     private boolean isMovie = false;
 
-    PeopleCreditsAdapter(Context mContext, List<MovieCredits.Cast> movies, boolean movie) {
+    /**
+     * Constructor for the Movie Credits
+     *
+     * @param context context of the activity
+     * @param movies  list of the actor's movies
+     * @param movie   check if it is movie or not
+     */
+    PeopleCreditsAdapter(Context context, List<MovieCredits.Cast> movies, boolean movie) {
         this.mMovies = movies;
-        this.mContext = mContext;
+        this.mContext = context;
         this.isMovie = movie;
         if (!mMovies.isEmpty()) {
-            sortFilms(mMovies);
+            sortMovies(mMovies);
         }
     }
 
-    PeopleCreditsAdapter(Context mContext, List<TvCredits.Cast> tv) {
+    /**
+     * Constructor for the Tv Credits
+     *
+     * @param context context of the activity
+     * @param tv      list of the actor's shows
+     */
+    PeopleCreditsAdapter(Context context, List<TvCredits.Cast> tv) {
         this.mSeries = tv;
-        this.mContext = mContext;
+        this.mContext = context;
         if (!mSeries.isEmpty()) {
-            sortSeries(mSeries);
+            sortShows(mSeries);
         }
     }
 
@@ -82,9 +98,9 @@ public class PeopleCreditsAdapter extends RecyclerView.Adapter<PeopleCreditsAdap
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView image;
-        TextView name;
-        TextView rating;
+        final ImageView image;
+        final TextView name;
+        final TextView rating;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -102,8 +118,12 @@ public class PeopleCreditsAdapter extends RecyclerView.Adapter<PeopleCreditsAdap
             name.setText(movie.title);
             Util.getImage(BASE_URL_IMAGES_POSTER + movie.posterPath, image, context);
             rating.setText(String.valueOf(movie.voteAverage));
-            itemView.setOnClickListener(v -> Snackbar.make(v, R.string.not_implemented, Snackbar.LENGTH_LONG)
-                    .setAction(R.string.open_web, v1 -> context.startActivity(new Intent(context, WebViewActivity.class).putExtra(Constants.URL_WEBVIEW, Constants.BASE_URL_WEB_MOVIE + movie.id))).show());
+            itemView.setOnClickListener(v -> goToTmdbMovie(movie, context, v));
+        }
+
+        private void goToTmdbMovie(MovieCredits.Cast movie, Context context, View view) {
+            Snackbar.make(view, R.string.not_implemented, BaseTransientBottomBar.LENGTH_LONG)
+                    .setAction(R.string.open_web, v1 -> context.startActivity(new Intent(context, WebViewActivity.class).putExtra(Constants.URL_WEBVIEW, Constants.BASE_URL_WEB_MOVIE + movie.id))).show();
         }
 
         void bindTo(TvCredits.Cast serie, Context context) {
@@ -111,22 +131,27 @@ public class PeopleCreditsAdapter extends RecyclerView.Adapter<PeopleCreditsAdap
             name.setText(serie.name);
             Util.getImage(Constants.BASE_URL_IMAGES_POSTER + serie.posterPath, image, context);
             rating.setText(String.valueOf(serie.voteAverage));
+            itemView.setOnClickListener(v -> goToSerie(serie, v));
+        }
 
-            itemView.setOnClickListener(v -> {
-                Bundle bundle = new Bundle();
-                bundle.putInt(Constants.ID_SERIE, serie.id);
-                if (Util.isNetworkAvailable(itemView.getContext())) {
-                    Navigation.findNavController(v).navigate(R.id.action_actores_to_series, bundle);
-                } else {
-                    Snackbar.make(v, itemView.getContext().getString(R.string.no_conn), LENGTH_LONG)
-                            .setAction(R.string.activate_net, v1 -> itemView.getContext().startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
-                }
-            });
+        private void goToSerie(TvCredits.Cast serie, View view) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(Constants.ID_SERIE, serie.id);
+            if (Util.isNetworkAvailable(itemView.getContext())) {
+                Navigation.findNavController(view).navigate(R.id.action_actores_to_series, bundle);
+            } else {
+                Snackbar.make(view, itemView.getContext().getString(R.string.no_conn), BaseTransientBottomBar.LENGTH_LONG)
+                        .setAction(R.string.activate_net, v1 -> itemView.getContext().startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
+            }
         }
     }
 
-
-    private void sortSeries(List<TvCredits.Cast> series) {
+    /**
+     * Sorts the shows by its released date and if it does not exist, by its id
+     *
+     * @param series list with cast objects
+     */
+    private void sortShows(List<TvCredits.Cast> series) {
         Collections.sort(series, (serie1, serie2) -> {
             String fecha1 = serie1.firstAirDate;
             String fecha2 = serie2.firstAirDate;
@@ -140,15 +165,20 @@ public class PeopleCreditsAdapter extends RecyclerView.Adapter<PeopleCreditsAdap
         });
     }
 
-    private void sortFilms(List<MovieCredits.Cast> films) {
-        Collections.sort(films, (film1, film2) -> {
-            String fecha1 = film1.releaseDate;
-            String fecha2 = film2.releaseDate;
+    /**
+     * Sorts the movies by its released date and if it does not exist, by its id
+     *
+     * @param movies list with cast objects
+     */
+    private void sortMovies(List<MovieCredits.Cast> movies) {
+        Collections.sort(movies, (movie1, movie2) -> {
+            String fecha1 = movie1.releaseDate;
+            String fecha2 = movie2.releaseDate;
             if (fecha1 != null && fecha2 != null) {
                 return fecha2.compareTo(fecha1);
             } else {
-                String id1 = String.valueOf(film1.id);
-                String id2 = String.valueOf(film2.id);
+                String id1 = String.valueOf(movie1.id);
+                String id2 = String.valueOf(movie2.id);
                 return id2.compareTo(id1);
             }
         });
