@@ -15,24 +15,24 @@ public class VideosResponse {
 
     public static class Video implements Serializable {
 
-        @SerializedName("id")
-        @Expose
-        public String id;
-        @SerializedName("key")
-        @Expose
-        public String key;
-        @SerializedName("name")
-        @Expose
-        public String name;
-        @SerializedName("site")
-        @Expose
-        public String site;
-        @SerializedName("type")
-        @Expose
-        public String type;
+        private String key;
+        private String site;
+        private String type;
 
+        public String getKey() {
+            return key;
+        }
+
+        public String getSite() {
+            return site;
+        }
+
+        public String getType() {
+            return type;
+        }
 
         public Video() {
+//        Empty constructor for Firebase serialize
         }
     }
 }

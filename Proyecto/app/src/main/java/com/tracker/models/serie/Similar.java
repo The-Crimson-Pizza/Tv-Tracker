@@ -14,25 +14,20 @@ public class Similar implements Serializable {
     public List<Result> results = null;
 
     public Similar() {
+//        Empty constructor for Firebase serialize
     }
 
 
     public static class Result implements Serializable {
 
-        @SerializedName("original_name")
-        @Expose
-        public String originalName;
-        @SerializedName("id")
-        @Expose
         public int id;
-        @SerializedName("name")
-        @Expose
+        @SerializedName("original_name")
+        public String originalName;
         public String name;
-        @SerializedName("popularity")
-        @Expose
         public float popularity;
 
         public Result() {
+//            Empty constructor for Firebase serialize
         }
 
     }

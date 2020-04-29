@@ -5,6 +5,7 @@ import com.tracker.models.actor.PersonResponse;
 import com.tracker.models.seasons.Season;
 import com.tracker.models.serie.SerieResponse;
 import com.tracker.models.serie.VideosResponse;
+import com.tracker.util.Constants;
 import com.tracker.util.Util;
 
 import java.util.List;
@@ -88,7 +89,7 @@ public class TmdbRepository {
         return Observable.zip(obsSerie, obsVideo, (serie, videosResponse) -> {
             List<VideosResponse.Video> trailers = videosResponse.results;
             for (VideosResponse.Video v : trailers) {
-                if (v.type.equals(TRAILER)) {
+                if (v.getType().equals(TRAILER) && v.getSite().equals(Constants.YOUTUBE)) {
                     serie.video = v;
                     break;
                 }

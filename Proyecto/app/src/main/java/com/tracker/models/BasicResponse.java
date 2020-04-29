@@ -16,22 +16,23 @@ public class BasicResponse {
 
     public static class SerieBasic implements Parcelable {
 
-        public Integer id;
-        public String name;
-        public String poster_path;
+        public final Integer id;
+        public final String name;
+        @SerializedName("poster_path")
+        public final String posterPath;
         @SerializedName("vote_average")
         public float voteAverage;
 
-        public SerieBasic(Integer id, String name, String poster_path, float voteAverage) {
+        public SerieBasic(Integer id, String name, String posterPath, float voteAverage) {
             this.id = id;
             this.name = name;
-            this.poster_path = poster_path;
+            this.posterPath = posterPath;
             this.voteAverage = voteAverage;
         }
 
-        public SerieBasic(Parcel in) {
+        SerieBasic(Parcel in) {
             name = in.readString();
-            poster_path = in.readString();
+            posterPath = in.readString();
             id = in.readInt();
         }
 
@@ -43,7 +44,7 @@ public class BasicResponse {
         @Override
         public void writeToParcel(Parcel parcel, int flags) {
             parcel.writeString(name);
-            parcel.writeString(poster_path);
+            parcel.writeString(posterPath);
             parcel.writeInt(id);
         }
 

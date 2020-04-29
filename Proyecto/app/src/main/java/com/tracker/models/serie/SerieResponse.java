@@ -193,7 +193,7 @@ public class SerieResponse {
                 dest.writeString(this.name);
             }
 
-            protected Genre(Parcel in) {
+            Genre(Parcel in) {
                 this.id = in.readInt();
                 this.name = in.readString();
             }
@@ -234,7 +234,7 @@ public class SerieResponse {
                 dest.writeString(this.logoPath);
             }
 
-            protected Network(Parcel in) {
+            Network(Parcel in) {
                 this.id = in.readInt();
                 this.name = in.readString();
                 this.logoPath = in.readString();

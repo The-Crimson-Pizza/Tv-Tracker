@@ -96,7 +96,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             if (serieBasic != null) {
                 id = serieBasic.id;
                 name.setText(serieBasic.name);
-                Util.getImage(BASE_URL_IMAGES_POSTER + serieBasic.poster_path, image, context);
+                Util.getImage(BASE_URL_IMAGES_POSTER + serieBasic.posterPath, image, context);
                 rating.setText(String.valueOf(serieBasic.voteAverage));
             }
         }

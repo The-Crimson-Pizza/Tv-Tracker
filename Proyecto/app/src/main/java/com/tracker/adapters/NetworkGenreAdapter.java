@@ -89,7 +89,7 @@ public class NetworkGenreAdapter extends RecyclerView.Adapter<NetworkGenreAdapte
             if (serieBasic != null) {
                 id = serieBasic.id;
                 name.setText(serieBasic.name);
-                Util.getImage(BASE_URL_IMAGES_POSTER + serieBasic.poster_path, image, context);
+                Util.getImage(BASE_URL_IMAGES_POSTER + serieBasic.posterPath, image, context);
             }
         }
     }

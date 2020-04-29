@@ -79,7 +79,7 @@ public class FillSerie {
         YouTubePlayerView youTubePlayerView = mView.findViewById(R.id.youtube_player_view);
         if (mSerie.video != null) {
             youTubePlayerView.getYouTubePlayerWhenReady(youTubePlayer -> {
-                youTubePlayer.cueVideo(mSerie.video.key, 0);
+                youTubePlayer.cueVideo(mSerie.video.getKey(), 0);
                 youTubePlayerView.setVisibility(View.VISIBLE);
             });
         } else {

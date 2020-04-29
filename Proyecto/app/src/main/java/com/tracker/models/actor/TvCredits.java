@@ -1,8 +1,5 @@
 package com.tracker.models.actor;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -20,7 +17,6 @@ public class TvCredits implements Serializable {
     public TvCredits() {
     }
 
-
     public class Cast implements Serializable {
 
         @SerializedName("original_name")
@@ -36,7 +32,6 @@ public class TvCredits implements Serializable {
         public String firstAirDate;
         @SerializedName("vote_average")
         public float voteAverage;
-
 
 
         public Cast() {

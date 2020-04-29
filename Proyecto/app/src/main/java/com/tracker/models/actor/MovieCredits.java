@@ -14,9 +14,10 @@ public class MovieCredits implements Serializable {
 
 
     public MovieCredits() {
+//        Empty constructor for Firebase serialize
     }
 
-    public class Cast implements Serializable {
+    public static class Cast implements Serializable {
 
         public int id;
         public String title;
@@ -24,16 +25,15 @@ public class MovieCredits implements Serializable {
         @SerializedName("poster_path")
         public String posterPath;
         @SerializedName("original_title")
-        @Expose
         public String originalTitle;
         @SerializedName("release_date")
-        @Expose
         public String releaseDate;
         @SerializedName("vote_average")
         public float voteAverage;
 
 
         public Cast() {
+//            Empty constructor for Firebase serialize
         }
 
     }
