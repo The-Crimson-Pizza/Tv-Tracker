@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="15dp"
     android:orientation="horizontal"
+    android:gravity="center"
     tools:ignore="UseCompoundDrawables">
 
     <ImageView
@@ -16,7 +17,7 @@
         android:src="@drawable/proto_logo_96" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="72dp"
         android:layout_gravity="bottom"
         android:fontFamily="@font/budmojiggler"
