@@ -11,10 +11,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:background="@color/bgTotal"
         android:foreground="?android:attr/selectableItemBackground"
-        android:outlineAmbientShadowColor="@color/bgTotal"
-        android:outlineSpotShadowColor="@color/bgTotal"
         app:cardCornerRadius="5dp">
 
         <LinearLayout
