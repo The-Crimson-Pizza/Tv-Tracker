@@ -81,6 +81,9 @@ To be made...
 - [ ] How long did it take to watch a season/show?
 - [ ] Bars Chart with days of the week and trends
 - [ ] Logout button
+- [ ] Add watched episode directly in following list
+- [ ] Episodes left to watch
+- [ ] Recommendations
 
 ## ✍️ Authors <a name = "authors"></a>
 - [@aareupGH](https://github.com/aareupGH) - Aarón Pérez - Idea & Initial work
