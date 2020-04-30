@@ -12,7 +12,11 @@ public class BasicResponse {
 
     @SerializedName("results")
     @Expose
-    public final List<SerieBasic> basicSeries = null;
+    public final List<SerieBasic> basicSeries;
+
+    public BasicResponse(List<SerieBasic> basicSeries) {
+        this.basicSeries = basicSeries;
+    }
 
     public static class SerieBasic implements Parcelable {
 

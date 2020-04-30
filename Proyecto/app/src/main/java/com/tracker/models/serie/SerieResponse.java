@@ -20,10 +20,11 @@ public class SerieResponse {
 
     @SerializedName("results")
     @Expose
-    public final List<Serie> results = null;
+    public final List<Serie> results;
 
-    public SerieResponse() {
+    public SerieResponse(List<Serie> results) {
 //        Empty constructor for Firebase serialize
+        this.results = results;
     }
 
     public static class Serie implements Serializable {

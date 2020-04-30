@@ -76,4 +76,5 @@
     <string name="reset_fail">\"Unable to send reset mail. \"</string>
     <string name="search_tv_tracker">Search TV Tracker</string>
     <string name="search_icon" translatable="false">search_icon</string>
+    <string name="sharing">Sharing URL</string>
 </resources>

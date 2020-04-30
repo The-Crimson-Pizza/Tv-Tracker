@@ -22,6 +22,8 @@ import com.tracker.models.actor.PersonResponse;
 import com.tracker.util.Constants;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 
 public class ActorFragment extends Fragment {
@@ -30,6 +32,8 @@ public class ActorFragment extends Fragment {
     private PersonResponse.Person mActor;
     private Context mContext;
     private MenuItem itemInsta;
+
+    private CompositeDisposable compositeDisposable;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,50 +52,49 @@ public class ActorFragment extends Fragment {
 
         Toolbar toolbar = view.findViewById(R.id.toolbar_actor);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
-        toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
+        toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
 
         itemInsta = toolbar.getMenu().findItem(R.id.action_insta);
         itemInsta.setVisible(false);
 
         toolbar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.action_share) {
-                Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TITLE, mActor.name);
-                sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Sharing URL");
-                sendIntent.putExtra(Intent.EXTRA_TEXT, Constants.BASE_URL_WEB_PERSON + mActor.id);
-                sendIntent.setType("text/plain");
-                startActivity(Intent.createChooser(sendIntent, null));
+                shareContent();
                 return true;
             } else if (item.getItemId() == R.id.action_insta) {
-                Uri uri = Uri.parse(Constants.BASE_URL_INSTAGRAM_U + mActor.externalIds.instagramId);
-                Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
-                likeIng.setPackage(Constants.COM_INSTAGRAM_ANDROID);
-                try {
-                    startActivity(likeIng);
-                } catch (ActivityNotFoundException e) {
-                    startActivity(new Intent(mContext, WebViewActivity.class)
-                            .putExtra(Constants.URL_WEBVIEW, Constants.BASE_URL_INSTAGRAM + mActor.externalIds.instagramId));
-                }
+                goToInstagram();
                 return true;
             }
             return false;
         });
 
- /*       FloatingActionButton fabFavorito = view.findViewById(R.id.fab);
-        fabFavorito.setOnClickListener(view1 -> {
-            Snackbar.make(view1, "Added to favourites", Snackbar.LENGTH_LONG)
-                    .setAction("Undo", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                        }
-                    }).show();
-        });*/
         getActor(view);
     }
 
+    private void goToInstagram() {
+        Uri uri = Uri.parse(Constants.BASE_URL_INSTAGRAM_U + mActor.externalIds.instagramId);
+        Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+        likeIng.setPackage(Constants.COM_INSTAGRAM_ANDROID);
+        try {
+            startActivity(likeIng);
+        } catch (ActivityNotFoundException e) {
+            startActivity(new Intent(mContext, WebViewActivity.class)
+                    .putExtra(Constants.URL_WEBVIEW, Constants.BASE_URL_INSTAGRAM + mActor.externalIds.instagramId));
+        }
+    }
+
+    private void shareContent() {
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TITLE, mActor.name);
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.sharing));
+        sendIntent.putExtra(Intent.EXTRA_TEXT, Constants.BASE_URL_WEB_PERSON + mActor.id);
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, null));
+    }
+
     private void getActor(View view) {
-        TmdbRepository.getInstance().getPerson(idActor)
+        compositeDisposable = new CompositeDisposable();
+        Disposable disposable = TmdbRepository.getInstance().getPerson(idActor)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(Throwable::printStackTrace)
                 .subscribe(actor -> {
@@ -101,5 +104,12 @@ public class ActorFragment extends Fragment {
                         itemInsta.setVisible(true);
                     }
                 });
+        compositeDisposable.add(disposable);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        compositeDisposable.dispose();
     }
 }

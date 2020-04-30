@@ -1,5 +1,6 @@
 package com.tracker.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebView;
@@ -13,6 +14,7 @@ import static com.tracker.util.Constants.URL_WEBVIEW;
 
 public class WebViewActivity extends AppCompatActivity {
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

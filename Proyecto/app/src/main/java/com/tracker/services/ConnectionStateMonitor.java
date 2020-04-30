@@ -6,9 +6,11 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 
+import org.jetbrains.annotations.NotNull;
+
 public class ConnectionStateMonitor extends ConnectivityManager.NetworkCallback {
 
-    final NetworkRequest networkRequest;
+    private final NetworkRequest networkRequest;
 
     public ConnectionStateMonitor() {
         networkRequest = new NetworkRequest.Builder()
@@ -19,16 +21,20 @@ public class ConnectionStateMonitor extends ConnectivityManager.NetworkCallback 
 
     public void enable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        connectivityManager.registerNetworkCallback(networkRequest, this);
+        if (connectivityManager != null) {
+            connectivityManager.registerNetworkCallback(networkRequest, this);
+        }
     }
 
     public void disable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        connectivityManager.unregisterNetworkCallback(this);
+        if (connectivityManager != null) {
+            connectivityManager.unregisterNetworkCallback(this);
+        }
     }
 
     @Override
-    public void onAvailable(Network network) {
+    public void onAvailable(@NotNull Network network) {
         // Do what you need to do here
     }
 }

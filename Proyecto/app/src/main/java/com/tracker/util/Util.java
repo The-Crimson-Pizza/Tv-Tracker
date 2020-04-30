@@ -14,13 +14,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import static com.tracker.util.Constants.FORMAT_DEFAULT;
 
 public class Util {
 
     private Util() {
-
+//        Empty constructor
     }
 
     public static void getImage(String url, ImageView image, Context contexto) {
@@ -58,16 +59,16 @@ public class Util {
 
     public static String convertStringDateFormat(String oldDate, String format) {
         try {
-            return new SimpleDateFormat(format, Locale.getDefault()).format(new SimpleDateFormat(FORMAT_DEFAULT, Locale.getDefault()).parse(oldDate));
+            return new SimpleDateFormat(format, Locale.getDefault()).format(Objects.requireNonNull(
+                    new SimpleDateFormat(FORMAT_DEFAULT, Locale.getDefault()).parse(oldDate)));
         } catch (ParseException e) {
             return oldDate;
         }
     }
 
     public static String formatDateToString(Date oldDate, String pattern) {
-        if (oldDate != null) {
+        if (oldDate != null)
             return new SimpleDateFormat(pattern, Locale.getDefault()).format(oldDate);
-        }
         return "No data";
     }
 
@@ -78,7 +79,9 @@ public class Util {
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
+        NetworkCapabilities capabilities = null;
+        if (connectivityManager != null)
+            capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
         return capabilities != null &&
                 (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
                         capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||

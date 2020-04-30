@@ -35,12 +35,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 public class HomeFragment extends Fragment {
 
-    private List<BasicResponse.SerieBasic> mPopulares = new ArrayList<>();
-    private List<BasicResponse.SerieBasic> mNuevas = new ArrayList<>();
-    private List<BasicResponse.SerieBasic> mFavs = new ArrayList<>();
+    private final List<BasicResponse.SerieBasic> mPopulares = new ArrayList<>();
+    private final List<BasicResponse.SerieBasic> mNuevas = new ArrayList<>();
+    private final List<BasicResponse.SerieBasic> mFavs = new ArrayList<>();
     private Context mContext;
     private boolean isOn;
 
@@ -48,8 +50,10 @@ public class HomeFragment extends Fragment {
     private HomeAdapter adapterNueva;
     private HomeAdapter adapterFav;
     private ViewSwitcher switcherFavs;
+    private CompositeDisposable compositeDisposable;
 
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
         return inflater.inflate(R.layout.fragment_home, container, false);
@@ -59,6 +63,8 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
+
+        compositeDisposable = new CompositeDisposable();
 
         adapterPopular = new HomeAdapter(getActivity(), mPopulares);
         adapterNueva = new HomeAdapter(getActivity(), mNuevas);
@@ -120,22 +126,31 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Empty
             }
         });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        compositeDisposable.dispose();
+    }
+
     private void getNew(HomeAdapter adapterNueva) {
-        TmdbRepository.getInstance().getNewSeries()
+        Disposable disposable = TmdbRepository.getInstance().getNewSeries()
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(Throwable::printStackTrace)
                 .subscribe(series -> refreshData(mNuevas, adapterNueva, series.basicSeries));
+        compositeDisposable.add(disposable);
     }
 
     private void getTrending(HomeAdapter adapterPopular) {
-        TmdbRepository.getInstance().getTrendingSeries()
+        Disposable disposable = TmdbRepository.getInstance().getTrendingSeries()
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(Throwable::printStackTrace)
                 .subscribe(series -> refreshData(mPopulares, adapterPopular, series.basicSeries));
+        compositeDisposable.add(disposable);
     }
 
     private void refreshData(List<BasicResponse.SerieBasic> lista, HomeAdapter adapter, List<BasicResponse.SerieBasic> response) {
@@ -154,14 +169,13 @@ public class HomeFragment extends Fragment {
 
     private boolean getConnectivityStatus() {
         ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
-        if (capabilities != null &&
+        NetworkCapabilities capabilities = null;
+        if (connectivityManager != null) {
+            capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
+        }
+        return capabilities != null &&
                 (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
                         capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))) {
-            return true;
-        }
-//        showToastMessage(getString(R.string.no_network));
-        return false;
+                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));
     }
 }

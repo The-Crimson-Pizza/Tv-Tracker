@@ -1,5 +1,6 @@
 package com.tracker.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.anychart.chart.common.dataentry.DataEntry;
@@ -20,7 +21,8 @@ import java.util.stream.Collectors;
 
 public class Stats {
 
-    private Context mContext;
+    private final Context mContext;
+    @SuppressLint("StaticFieldLeak")
     private static Stats mStats;
 
 
@@ -138,7 +140,6 @@ public class Stats {
     }
 
     private String toDaysHoursMinutes(int time) {
-//        int hola = (int) TimeUnit.MINUTES.toDays(time);
         int minutesInYear = 60 * 24 * 365;
         int year = time / minutesInYear;
         int days = (time / 24 / 60) % 365;
@@ -152,18 +153,4 @@ public class Stats {
             return mContext.getString(R.string.year_watched_total, year, days, hours, minutes);
         }
     }
-
-
-/*    todo - 
-                tiempo total viendo cosas -------> LAST WEEK/ALL TIME - 84 days, 11 hours, 37 minutos watching, 2,473 episodes (2,523 plays of 194 shows)
-                serie con mas minutos vista,
-                dias de la semana que se ven mas series
-                géneros mas vistos
-                last watched
-
-  */
-
-// TODO: 27/04/20 controlar intenret al añadir favoritos
-
-
 }

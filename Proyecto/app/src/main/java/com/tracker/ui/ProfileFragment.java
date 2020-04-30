@@ -34,10 +34,11 @@ import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
 
-    private List<SerieResponse.Serie> mFavs = new ArrayList<>();
+    private final List<SerieResponse.Serie> mFavs = new ArrayList<>();
     private Context mContext;
     private static final String[] COLORS = {"#48c9b0", "#2DAEA9", "#23949C", "#28798A", "#2E6072", "#2F4858", "#00B7C3", "#00A2D2", "#0089D5", "#446BC5"};
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
         return inflater.inflate(R.layout.fragment_profile, container, false);
@@ -50,7 +51,7 @@ public class ProfileFragment extends Fragment {
 
     }
 
-    private void initGraficoPie(View view) {
+    private void initGenrePieChart(View view) {
         AnyChartView pieChart = view.findViewById(R.id.pie_chart);
         APIlib.getInstance().setActiveAnyChartView(pieChart);
         pieChart.setBackgroundColor("#00000000");
@@ -61,7 +62,6 @@ public class ProfileFragment extends Fragment {
         List<DataEntry> data = Stats.getInstance(mContext).getPieGenres(mFavs);
         pie.data(data);
         pie.title().enabled(false);
-//        pie.labels().position("outside");
         pie.labels().fontSize(15);
         pie.labels().fontColor("white");
         pie.labels().fontWeight(700);
@@ -72,7 +72,7 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    void setBubble(View view) {
+    private void initNetworkTagCloud(View view) {
         AnyChartView tagChart = view.findViewById(R.id.buble_chart);
         APIlib.getInstance().setActiveAnyChartView(tagChart);
         tagChart.setBackgroundColor("#00000000");
@@ -102,6 +102,18 @@ public class ProfileFragment extends Fragment {
         tagChart.setChart(tagCloud);
     }
 
+    private void fillStats(View view) {
+        TextView tvTotalTime = view.findViewById(R.id.total_time);
+        TextView tvCountSeries = view.findViewById(R.id.num_series);
+        TextView tvWatchedEpisodes = view.findViewById(R.id.eps_vistos);
+        TextView tvMaxWatched = view.findViewById(R.id.serie_max);
+
+        tvTotalTime.setText(Stats.getInstance(mContext).countTimeEpisodesWatched(mFavs));
+        tvCountSeries.setText(Stats.getInstance(mContext).countSeries(mFavs));
+        tvWatchedEpisodes.setText(Stats.getInstance(mContext).countNumberEpisodesWatched(mFavs));
+        tvMaxWatched.setText(Stats.getInstance(mContext).mostWatchedSerie(mFavs));
+    }
+
     private void getFollowingSeries(View view) {
         FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).getSeriesFav().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -110,23 +122,14 @@ public class ProfileFragment extends Fragment {
                 mFavs.addAll(Objects.requireNonNull(dataSnapshot.getValue(new GenericTypeIndicator<List<SerieResponse.Serie>>() {
                 })));
 
-                initGraficoPie(view);
-                setBubble(view);
-
-                TextView total = view.findViewById(R.id.total_time);
-                TextView num = view.findViewById(R.id.num_series);
-                TextView epis = view.findViewById(R.id.eps_vistos);
-                TextView max = view.findViewById(R.id.serie_max);
-
-                total.setText(Stats.getInstance(mContext).countTimeEpisodesWatched(mFavs));
-                num.setText(Stats.getInstance(mContext).countSeries(mFavs));
-                epis.setText(Stats.getInstance(mContext).countNumberEpisodesWatched(mFavs));
-                max.setText(Stats.getInstance(mContext).mostWatchedSerie(mFavs));
+                initGenrePieChart(view);
+                initNetworkTagCloud(view);
+                fillStats(view);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+//                Not yet
             }
         });
     }

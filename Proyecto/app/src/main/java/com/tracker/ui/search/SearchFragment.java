@@ -22,8 +22,9 @@ public class SearchFragment extends Fragment {
 
     private SeriesViewModel searchViewModel;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        searchViewModel = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
+        searchViewModel = new ViewModelProvider(requireActivity()).get(SeriesViewModel.class);
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
 

@@ -11,9 +11,13 @@ public class PersonResponse {
 
     @SerializedName("results")
     @Expose
-    public final List<Person> results = null;
+    public final List<Person> results;
 
-    public class Person implements Serializable {
+    public PersonResponse(List<Person> results) {
+        this.results = results;
+    }
+
+    public static class Person implements Serializable {
 
         public int id;
         public String name;

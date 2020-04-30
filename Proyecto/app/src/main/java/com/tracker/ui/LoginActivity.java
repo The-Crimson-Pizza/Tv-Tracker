@@ -30,6 +30,8 @@ import com.tracker.util.Util;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 1001;
@@ -39,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button btLogin;
     private Button btRegister;
 
-    private GoogleSignInClient googleSignInClient;
     private FirebaseAuth mAuth;
 
     @Override
@@ -50,50 +51,21 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 //      FirebaseAuth.getInstance().signOut(); // LOGOUT
 
+        SignInButton btGoogleSignIn = findViewById(R.id.google_sign_in_button);
+        TextView tvForgetPassword = findViewById(R.id.forget);
+
         etEmail = findViewById(R.id.username);
         etPassword = findViewById(R.id.password);
         btLogin = findViewById(R.id.login);
         btRegister = findViewById(R.id.sign_up);
-        SignInButton btGoogleSignIn = findViewById(R.id.google_sign_in_button);
-        TextView tvForgetPassword = findViewById(R.id.forget);
 
         etEmail.addTextChangedListener(getTextWatcher());
         etPassword.addTextChangedListener(getTextWatcher());
 
-        tvForgetPassword.setOnClickListener(v -> {
-            if (Util.isNetworkAvailable(this) && !etEmail.getText().toString().isEmpty()) {
-                recoverPassword(etEmail.getText().toString());
-            } else {
-                showToastMessage(getString(R.string.no_conn));
-            }
-        });
-
-        btLogin.setOnClickListener(view -> {
-            if (Util.isNetworkAvailable(this) && !etEmail.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()) {
-                login(etEmail.getText().toString(), etPassword.getText().toString());
-            } else {
-                showToastMessage(getString(R.string.no_conn));
-            }
-        });
-
-        btRegister.setOnClickListener(view -> {
-            if (Util.isNetworkAvailable(this) && !etEmail.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()) {
-                createUser(etEmail.getText().toString(), etPassword.getText().toString());
-            } else {
-                showToastMessage(getString(R.string.no_conn));
-            }
-        });
-
-        btGoogleSignIn.setOnClickListener(view -> {
-            if (Util.isNetworkAvailable(this)) {
-                configureGoogleClient();
-//                signIn Google
-                Intent signInIntent = googleSignInClient.getSignInIntent();
-                startActivityForResult(signInIntent, RC_SIGN_IN);
-            } else {
-                showToastMessage(getString(R.string.no_conn));
-            }
-        });
+        tvForgetPassword.setOnClickListener(v -> recoverPassword(etEmail.getText().toString()));
+        btLogin.setOnClickListener(view -> login(etEmail.getText().toString(), etPassword.getText().toString()));
+        btRegister.setOnClickListener(view -> createUser(etEmail.getText().toString(), etPassword.getText().toString()));
+        btGoogleSignIn.setOnClickListener(view -> googleLogin());
     }
 
     @Override
@@ -101,51 +73,64 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-//            showToastMessage(getString(R.string.current_user) + currentUser.getEmail());
             launchMainActivity(currentUser);
         }
     }
 
     private void login(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
-            if (task.isSuccessful()) {
-                launchMainActivity(mAuth.getCurrentUser());
-            } else {
-                String localizedMessage = task.getException().getLocalizedMessage();
-                showToastMessage(getString(R.string.login_fail) + localizedMessage);
-            }
-        });
+        if (Util.isNetworkAvailable(this) && !etEmail.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()) {
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
+                if (task.isSuccessful()) {
+                    launchMainActivity(mAuth.getCurrentUser());
+                } else {
+                    showToastMessage(getString(R.string.login_fail) + getLocalizedMessage(task));
+                }
+            });
+        } else {
+            showToastMessage(getString(R.string.no_conn));
+        }
     }
 
     private void createUser(String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
-            if (task.isSuccessful()) {
-                showToastMessage(getString(R.string.success_register));
-                launchMainActivity(mAuth.getCurrentUser());
-            } else {
-                String localizedMessage = task.getException().getLocalizedMessage();
-                showToastMessage(getString(R.string.register_fail) + localizedMessage);
-            }
-        });
+        if (Util.isNetworkAvailable(this) && !etEmail.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()) {
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
+                if (task.isSuccessful()) {
+                    showToastMessage(getString(R.string.success_register));
+                    launchMainActivity(mAuth.getCurrentUser());
+                } else {
+                    showToastMessage(getString(R.string.register_fail) + getLocalizedMessage(task));
+                }
+            });
+        } else {
+            showToastMessage(getString(R.string.no_conn));
+        }
     }
 
     private void recoverPassword(String email) {
-        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(this, task -> {
-            if (task.isSuccessful()) {
-                showToastMessage(getString(R.string.reset_success));
-            } else {
-                String localizedMessage = task.getException().getLocalizedMessage();
-                showToastMessage(getString(R.string.reset_fail) + localizedMessage);
-            }
-        });
+        if (Util.isNetworkAvailable(this) && !etEmail.getText().toString().isEmpty()) {
+            mAuth.sendPasswordResetEmail(email).addOnCompleteListener(this, task -> {
+                if (task.isSuccessful()) {
+                    showToastMessage(getString(R.string.reset_success));
+                } else {
+                    showToastMessage(getString(R.string.reset_fail) + getLocalizedMessage(task));
+                }
+            });
+        } else {
+            showToastMessage(getString(R.string.no_conn));
+        }
     }
 
-    private void configureGoogleClient() {
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        googleSignInClient = GoogleSignIn.getClient(this, gso);
+    private void googleLogin() {
+        if (Util.isNetworkAvailable(this)) {
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build();
+            GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(this, gso);
+            startActivityForResult(googleSignInClient.getSignInIntent(), RC_SIGN_IN);
+        } else {
+            showToastMessage(getString(R.string.no_conn));
+        }
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
@@ -166,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                firebaseAuthWithGoogle(task.getResult(ApiException.class));
+                firebaseAuthWithGoogle(Objects.requireNonNull(task.getResult(ApiException.class)));
             } catch (ApiException e) {
                 showToastMessage(getString(R.string.google_fail) + e);
             }
@@ -226,5 +211,9 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }
+    }
+
+    private String getLocalizedMessage(Task<?> task) {
+        return Objects.requireNonNull(task.getException(), "fail").getLocalizedMessage();
     }
 }

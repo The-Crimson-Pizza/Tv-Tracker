@@ -30,7 +30,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 
 public class ActorSearchFragment extends Fragment {
 
-    private List<PersonResponse.Person> mListaPersonas = new ArrayList<>();
+    private final List<PersonResponse.Person> mListaPersonas = new ArrayList<>();
     private SearchAdapter searchAdapter;
     private Context mContext;
     private RecyclerView rvCast;
@@ -46,7 +46,7 @@ public class ActorSearchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ViewSwitcher switcherActor = view.findViewById(R.id.switcherSearchActor);
-        SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
+        SeriesViewModel model = new ViewModelProvider(requireActivity()).get(SeriesViewModel.class);
         searchAdapter = new SearchAdapter(mContext, null, mListaPersonas, false);
         rvCast = view.findViewById(R.id.rvActores);
 

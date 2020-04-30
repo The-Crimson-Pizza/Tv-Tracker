@@ -36,8 +36,12 @@ import java.util.stream.Collectors;
 public class FavoritosFragment extends Fragment {
 
     private Context mContext;
-    private List<SerieResponse.Serie> mFavs = new ArrayList<>();
+    private final List<SerieResponse.Serie> mFavs = new ArrayList<>();
     private FavoritesAdapter favAdapter;
+
+    private ImageButton sortAdded;
+    private ImageButton sortName;
+    private ImageButton sortLastWatched;
 
     private Boolean orientationSelected = false;
 
@@ -53,62 +57,27 @@ public class FavoritosFragment extends Fragment {
         setRecycler(view);
         getFollowingSeries();
 
-        ImageButton sortAdded = view.findViewById(R.id.added_button);
-        ImageButton sortName = view.findViewById(R.id.name_button);
-        ImageButton sortLastWatched = view.findViewById(R.id.watched_button);
+        sortAdded = view.findViewById(R.id.added_button);
+        sortName = view.findViewById(R.id.name_button);
+        sortLastWatched = view.findViewById(R.id.watched_button);
         ImageButton sortDirection = view.findViewById(R.id.orientation_arrows);
 
-        sortAdded.setOnClickListener(v -> {
-            sortSeasonByAdded(mFavs);
-            favAdapter.notifyDataSetChanged();
-            sortLastWatched.setImageResource(R.drawable.watched_off_icon);
-            sortAdded.setImageResource(R.drawable.sort_recently);
-            sortName.setImageResource(R.drawable.name_off_icon);
+        sortAdded.setOnClickListener(v -> sortSeasonByAdded(mFavs));
+        sortName.setOnClickListener(v -> sortSeasonByName(mFavs));
+        sortLastWatched.setOnClickListener(v -> sortSeasonByLastWatched(mFavs));
+        sortDirection.setOnClickListener(v -> reverseList(sortDirection));
+    }
 
-        });
-
-        sortName.setOnClickListener(v -> {
-            sortSeasonByName(mFavs);
-            favAdapter.notifyDataSetChanged();
-            sortLastWatched.setImageResource(R.drawable.watched_off_icon);
-            sortAdded.setImageResource(R.drawable.recently_off_icon);
-            sortName.setImageResource(R.drawable.sort_name);
-
-        });
-        sortLastWatched.setOnClickListener(v -> {
-            sortSeasonByLastWatched(mFavs);
-            favAdapter.notifyDataSetChanged();
-            sortLastWatched.setImageResource(R.drawable.sort_watched);
-            sortAdded.setImageResource(R.drawable.recently_off_icon);
-            sortName.setImageResource(R.drawable.name_off_icon);
-
-        });
-
-        sortDirection.setOnClickListener(v -> {
-            if (!orientationSelected) {
-                sortDirection.setImageResource(R.drawable.change_direction_icon);
-                orientationSelected = true;
-            } else {
-                sortDirection.setImageResource(R.drawable.change_orientation_icon);
-                orientationSelected = false;
-            }
-
-            Collections.reverse(mFavs);
-            favAdapter.notifyDataSetChanged();
-        });
-
-        /* arrowBtn.setOnClickListener(v -> {
-            if (expandableView.getVisibility() == View.GONE) {
-                TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
-                expandableView.setVisibility(View.VISIBLE);
-                arrowBtn.setBackgroundResource(R.drawable.arrow_collapse);
-            } else {
-                TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
-                expandableView.setVisibility(View.GONE);
-                arrowBtn.setBackgroundResource(R.drawable.arrow_expand);
-            }
-        }); */
-
+    private void reverseList(ImageButton sortDirection) {
+        if (!Boolean.TRUE.equals(orientationSelected)) {
+            sortDirection.setImageResource(R.drawable.change_direction_icon);
+            orientationSelected = true;
+        } else {
+            sortDirection.setImageResource(R.drawable.change_orientation_icon);
+            orientationSelected = false;
+        }
+        Collections.reverse(mFavs);
+        favAdapter.notifyDataSetChanged();
     }
 
     private void sortSeasonByAdded(List<SerieResponse.Serie> favs) {
@@ -117,6 +86,10 @@ public class FavoritosFragment extends Fragment {
             String added2 = String.valueOf(fav2.addedDate);
             return added1.compareTo(added2);
         });
+        favAdapter.notifyDataSetChanged();
+        sortLastWatched.setImageResource(R.drawable.watched_off_icon);
+        sortAdded.setImageResource(R.drawable.sort_recently);
+        sortName.setImageResource(R.drawable.name_off_icon);
     }
 
     private void sortSeasonByName(List<SerieResponse.Serie> favs) {
@@ -125,6 +98,10 @@ public class FavoritosFragment extends Fragment {
             String name2 = String.valueOf(fav2.name);
             return name1.compareTo(name2);
         });
+        favAdapter.notifyDataSetChanged();
+        sortLastWatched.setImageResource(R.drawable.watched_off_icon);
+        sortAdded.setImageResource(R.drawable.recently_off_icon);
+        sortName.setImageResource(R.drawable.sort_name);
     }
 
     private void sortSeasonByLastWatched(List<SerieResponse.Serie> favs) {
@@ -137,6 +114,10 @@ public class FavoritosFragment extends Fragment {
             }
             return (fav1.lastEpisodeWatched == null) ? 1 : -1;
         });
+        favAdapter.notifyDataSetChanged();
+        sortLastWatched.setImageResource(R.drawable.sort_watched);
+        sortAdded.setImageResource(R.drawable.recently_off_icon);
+        sortName.setImageResource(R.drawable.name_off_icon);
     }
 
     private void getLastWatched(List<SerieResponse.Serie> favs) {
