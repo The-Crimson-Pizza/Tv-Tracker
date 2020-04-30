@@ -80,6 +80,7 @@ To be made...
 - [ ] Check network when adding favorites/following
 - [ ] How long did it take to watch a season/show?
 - [ ] Bars Chart with days of the week and trends
+- [ ] Logout button
 
 ## ✍️ Authors <a name = "authors"></a>
 - [@aareupGH](https://github.com/aareupGH) - Aarón Pérez - Idea & Initial work
