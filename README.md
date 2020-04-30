@@ -77,6 +77,9 @@ To be made...
 
 ## :pencil2: To-Do <a name = "todo"></a>
 
+- [ ] Check network when adding favorites/following
+- [ ] How long did it take to watch a season/show?
+- [ ] Bars Chart with days of the week and trends
 
 ## ✍️ Authors <a name = "authors"></a>
 - [@aareupGH](https://github.com/aareupGH) - Aarón Pérez - Idea & Initial work
