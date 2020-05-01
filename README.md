@@ -84,6 +84,7 @@ To be made...
 - [ ] Add watched episode directly in following list
 - [ ] Episodes left to watch
 - [ ] Recommendations
+- [ ] Multiscreen
 
 ## ✍️ Authors <a name = "authors"></a>
 - [@aareupGH](https://github.com/aareupGH) - Aarón Pérez - Idea & Initial work
