@@ -23,7 +23,7 @@ public class FirebaseDb {
     }
 
     private FirebaseDb(FirebaseUser currentUser) {
-        mFavs = FirebaseDatabase.getInstance().getReference("users/" + currentUser.getUid() + "/favs");
+        mFavs = FirebaseDatabase.getInstance().getReference("users/" + currentUser.getUid() + "/series_following");
     }
 
     public DatabaseReference getSeriesFav() {
