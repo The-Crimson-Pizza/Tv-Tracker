@@ -56,7 +56,7 @@ public class SeasonFragment extends Fragment {
 
     private void getSerie() {
         compositeDisposable = new CompositeDisposable();
-        Disposable disposable = RxBus.getInstance().listen().subscribe(serie -> setAdapters(serie));
+        Disposable disposable = RxBus.getInstance().listen().subscribe(this::setAdapters);
         compositeDisposable.add(disposable);
     }
 
