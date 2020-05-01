@@ -80,7 +80,7 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
             seasonName = itemView.findViewById(R.id.season_name);
             numEpisodes = itemView.findViewById(R.id.episode_number);
             watchedCheck = itemView.findViewById(R.id.checkbox_watched);
-            itemView.setOnClickListener(this::goToEpisodes);
+
         }
 
         private void goToEpisodes(View view) {
@@ -96,6 +96,8 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
 
         void bindTo(Season season, SerieResponse.Serie serie, List<SerieResponse.Serie> mFavs, Context context) {
             if (season != null) {
+                itemView.setOnClickListener(this::goToEpisodes);
+
                 if (serie.added) setWatchCheck(season, serie, mFavs);
 
                 seasonName.setText(season.name);

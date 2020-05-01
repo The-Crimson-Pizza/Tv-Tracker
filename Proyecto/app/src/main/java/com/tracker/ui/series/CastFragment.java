@@ -17,12 +17,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tracker.R;
 import com.tracker.adapters.ActorBasicAdapter;
+import com.tracker.data.RxBus;
 import com.tracker.data.SeriesViewModel;
 import com.tracker.models.serie.Credits;
 import com.tracker.models.serie.SerieResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 public class CastFragment extends Fragment {
 
@@ -47,6 +52,42 @@ public class CastFragment extends Fragment {
         RecyclerView rvCasting = view.findViewById(R.id.gridCasting);
         setRecycler(adapterActor, rvCasting);
 
+        RxBus.getInstance().listen()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<SerieResponse.Serie>() {
+                    @Override
+                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+                        // Nada de momento
+                    }
+
+                    @Override
+                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull SerieResponse.Serie serie) {
+//                        mSerie = serie;
+                        mCast.clear();
+                        if (!serie.credits.cast.isEmpty()) {
+                            mSerie = serie;
+                            mCast.addAll(mSerie.credits.cast);
+                            adapterActor.notifyDataSetChanged();
+                            if (R.id.gridCasting == switcherCast.getNextView().getId())
+                                switcherCast.showNext();
+                        }
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                        // Nada de momento
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        // Nada de momento
+                    }
+                });
+
+//        getSerie(model, switcherCast, adapterActor);
+    }
+
+    private void getSerie(SeriesViewModel model, ViewSwitcher switcherCast, ActorBasicAdapter adapterActor) {
         LiveData<SerieResponse.Serie> s = model.getSerie();
         s.observe(getViewLifecycleOwner(), serie -> {
             mCast.clear();

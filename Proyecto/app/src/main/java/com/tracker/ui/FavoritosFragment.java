@@ -69,13 +69,12 @@ public class FavoritosFragment extends Fragment {
     }
 
     private void reverseList(ImageButton sortDirection) {
-        if (!Boolean.TRUE.equals(orientationSelected)) {
+        if (Boolean.FALSE.equals(orientationSelected)) {
             sortDirection.setImageResource(R.drawable.change_direction_icon);
-            orientationSelected = true;
         } else {
             sortDirection.setImageResource(R.drawable.change_orientation_icon);
-            orientationSelected = false;
         }
+        orientationSelected = !orientationSelected;
         Collections.reverse(mFavs);
         favAdapter.notifyDataSetChanged();
     }

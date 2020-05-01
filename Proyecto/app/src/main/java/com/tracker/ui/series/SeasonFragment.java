@@ -9,12 +9,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,13 +20,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.tracker.R;
 import com.tracker.adapters.SeasonAdapter;
 import com.tracker.data.FirebaseDb;
-import com.tracker.data.SeriesViewModel;
+import com.tracker.data.RxBus;
 import com.tracker.models.serie.SerieResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 public class SeasonFragment extends Fragment {
 
@@ -38,6 +36,8 @@ public class SeasonFragment extends Fragment {
     private RecyclerView rvSeasons;
     private SerieResponse.Serie mSerie;
     private List<SerieResponse.Serie> mFavs = new ArrayList<>();
+    private CompositeDisposable compositeDisposable;
+
 
     @Nullable
     @Override
@@ -49,13 +49,18 @@ public class SeasonFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         setRecycler(view);
+        getSerie();
+        getFollowing();
+    }
 
-        SeriesViewModel model = new ViewModelProvider(getActivity()).get(SeriesViewModel.class);
-        LiveData<SerieResponse.Serie> s = model.getSerie();
-        s.observe(getViewLifecycleOwner(), serie -> setAdapters(view, serie));
+    private void getSerie() {
+        compositeDisposable = new CompositeDisposable();
+        Disposable disposable = RxBus.getInstance().listen().subscribe(serie -> setAdapters(serie));
+        compositeDisposable.add(disposable);
+    }
 
+    private void getFollowing() {
         FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).getSeriesFav().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -79,16 +84,11 @@ public class SeasonFragment extends Fragment {
         });
     }
 
-    private void setAdapters(@NonNull View view, SerieResponse.Serie serie) {
+
+    private void setAdapters(SerieResponse.Serie serie) {
         mSerie = serie;
-        if (mSerie.numberOfSeasons > 0) {
-            mSeasonAdapter = new SeasonAdapter(mContext, mSerie, mFavs);
-            rvSeasons.setAdapter(mSeasonAdapter);
-        } else {
-            mSeasonAdapter = new SeasonAdapter(mContext, null, mFavs);
-            rvSeasons.setAdapter(mSeasonAdapter);
-            Snackbar.make(view, R.string.no_seasons, LENGTH_INDEFINITE).show();
-        }
+        mSeasonAdapter = new SeasonAdapter(mContext, mSerie, mFavs);
+        rvSeasons.setAdapter(mSeasonAdapter);
     }
 
     private void setRecycler(@NonNull View view) {
@@ -97,5 +97,11 @@ public class SeasonFragment extends Fragment {
         rvSeasons.setHasFixedSize(true);
         rvSeasons.setItemViewCacheSize(20);
         rvSeasons.setSaveEnabled(true);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        compositeDisposable.dispose();
     }
 }

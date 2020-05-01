@@ -37,6 +37,7 @@ public class EpisodesFragment extends Fragment {
     private Context mContext;
     private EpisodeAdapter mEpisodeAdapter;
     private SerieResponse.Serie mSerie;
+
     private List<SerieResponse.Serie> mFavs = new ArrayList<>();
     private List<Episode> mEpisodes = new ArrayList<>();
 
@@ -67,6 +68,10 @@ public class EpisodesFragment extends Fragment {
             setAdapters(mSerie);
         });
 
+        getFollowing();
+    }
+
+    private void getFollowing() {
         FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).getSeriesFav().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
