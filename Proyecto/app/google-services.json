@@ -8,12 +8,73 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:637665289161:android:e45da1bb9d975b6bab3e18",
+        "mobilesdk_app_id": "1:637665289161:android:b578b8c87ed3e99cab3e18",
         "android_client_info": {
           "package_name": "com.thecrimsonpizza.tvtracker"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "637665289161-jghug03vrdbduqr0s7ikfv9ptsjcm6ss.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thecrimsonpizza.tvtracker",
+            "certificate_hash": "d379f07e6dd98707b1950eb27a5e8dcfe4af8b40"
+          }
+        },
+        {
+          "client_id": "637665289161-fv5jl52k0g4tof2lmimue0hd6at6qbhh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thecrimsonpizza.tvtracker",
+            "certificate_hash": "a78bdc1193eadba457e5fb6a3f40564a02759911"
+          }
+        },
+        {
+          "client_id": "637665289161-9m9ucbkce533eanu305auesubhghul7i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuEui-sGnbX-nWg458OD5hLpFJOgsPumI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637665289161-9m9ucbkce533eanu305auesubhghul7i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637665289161:android:e45da1bb9d975b6bab3e18",
+        "android_client_info": {
+          "package_name": "com.tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637665289161-rllai55qv0ajq5bi4k06jpngno74q6b4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tracker",
+            "certificate_hash": "d379f07e6dd98707b1950eb27a5e8dcfe4af8b40"
+          }
+        },
+        {
+          "client_id": "637665289161-h2p9kjnqn33s0qubp60u7kgo58ajhmlc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tracker",
+            "certificate_hash": "a78bdc1193eadba457e5fb6a3f40564a02759911"
+          }
+        },
         {
           "client_id": "637665289161-9m9ucbkce533eanu305auesubhghul7i.apps.googleusercontent.com",
           "client_type": 3
