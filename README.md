@@ -73,7 +73,7 @@ To be made...
 - [OkHttp](https://square.github.io/okhttp/) - HTTP request
 - [Gson](https://github.com/google/gson) - Serialization/deserialization library
 - [Glide](https://github.com/bumptech/glide) - Image downloader
-- [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart) - Chart library
+- [AnyChart](https://www.anychart.com/es/) - Chart library
 
 ## :pencil2: To-Do <a name = "todo"></a>
 
