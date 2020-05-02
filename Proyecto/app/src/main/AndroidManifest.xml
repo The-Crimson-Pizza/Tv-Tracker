@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tracker">
+    package="com.thecrimsonpizza.tvtracker">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!--    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -19,15 +19,15 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.LoginActivity"
+            android:name="com.thecrimsonpizza.tvtracker.ui.LoginActivity"
             android:label="@string/sign_in" />
 
-        <activity android:name=".ui.WebViewActivity" />
+        <activity android:name="com.thecrimsonpizza.tvtracker.ui.WebViewActivity" />
 
-        <activity android:name=".ui.ActorFragment" />
+        <activity android:name="com.thecrimsonpizza.tvtracker.ui.ActorFragment" />
 
         <activity
-            android:name=".util.SplashScreen"
+            android:name="com.thecrimsonpizza.tvtracker.util.SplashScreen"
             android:noHistory="true"
             android:theme="@style/bgSplashScreenStyle">
             <intent-filter>
@@ -39,11 +39,11 @@
         </activity>
 
         <activity
-            android:name=".ui.series.SerieFragment"
+            android:name="com.thecrimsonpizza.tvtracker.ui.series.SerieFragment"
             android:label="@string/title_activity_detalles_serie" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.thecrimsonpizza.tvtracker.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

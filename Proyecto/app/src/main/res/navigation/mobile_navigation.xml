@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.tracker.ui.HomeFragment"
+        android:name="com.thecrimsonpizza.tvtracker.ui.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home">
         <action
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/navigation_fav"
-        android:name="com.tracker.ui.FavoritosFragment"
+        android:name="com.thecrimsonpizza.tvtracker.ui.FavoritosFragment"
         android:label="@string/favourites"
         tools:layout="@layout/fragment_favoritos">
         <action
@@ -32,13 +32,13 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.tracker.ui.ProfileFragment"
+        android:name="com.thecrimsonpizza.tvtracker.ui.ProfileFragment"
         android:label="@string/my_profile"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.tracker.ui.search.SearchFragment"
+        android:name="com.thecrimsonpizza.tvtracker.ui.search.SearchFragment"
         android:label="@string/search"
         tools:layout="@layout/fragment_search">
         <action
@@ -55,7 +55,7 @@
 
     <fragment
         android:id="@+id/navigation_series"
-        android:name="com.tracker.ui.series.SerieFragment"
+        android:name="com.thecrimsonpizza.tvtracker.ui.series.SerieFragment"
         android:label="SerieDetalle"
         tools:layout="@layout/fragment_serie">
         <action
@@ -79,7 +79,7 @@
 
     <fragment
         android:id="@+id/navigation_actores"
-        android:name="com.tracker.ui.ActorFragment"
+        android:name="com.thecrimsonpizza.tvtracker.ui.ActorFragment"
         android:label="ActorDetalle"
         tools:layout="@layout/fragment_actor">
         <action
@@ -91,17 +91,17 @@
     <!--EPISODES, GENRE AND NETWORK FRAGMENTS-->
     <fragment
         android:id="@+id/episodesFragment"
-        android:name="com.tracker.ui.series.EpisodesFragment"
+        android:name="com.thecrimsonpizza.tvtracker.ui.series.EpisodesFragment"
         android:label="fragment_episodes"
         tools:layout="@layout/fragment_episodes" />
     <fragment
         android:id="@+id/genreFragment"
-        android:name="com.tracker.ui.series.GenreFragment"
+        android:name="com.thecrimsonpizza.tvtracker.ui.series.GenreFragment"
         android:label="fragment_genre"
         tools:layout="@layout/fragment_genre" />
     <fragment
         android:id="@+id/networkFragment"
-        android:name="com.tracker.ui.series.NetworkFragment"
+        android:name="com.thecrimsonpizza.tvtracker.ui.series.NetworkFragment"
         android:label="fragment_network"
         tools:layout="@layout/fragment_network" />
 
