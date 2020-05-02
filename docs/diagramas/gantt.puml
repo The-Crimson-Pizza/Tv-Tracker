@@ -1,0 +1,27 @@
+@startgantt
+'printscale weekly
+Project starts the 22th of march 2020
+
+[Organización] lasts 3 days
+
+[Requisitos] lasts 3 days
+[Requisitos] starts at [Organización]'s end
+
+[Prototipo] starts at [Requisitos]'s end
+[Prototipo] lasts 3 days
+
+[Diseño] lasts 30 days
+[Diseño] starts at [Prototipo]'s end
+
+[Implementación] starts at 7th of april 2020
+[Implementación] lasts 30 days
+
+[Testing] starts at 2th of may 2020
+[Testing] lasts 20 days
+
+[Documentación] starts at [Prototipo]'s end
+[Documentación] ends at [Implementación]'s end
+
+[Entrega de Memorias] happens at 29th of may 2020
+[Exposición y defensa] happens at 15th of june 2020
+@endgantt
