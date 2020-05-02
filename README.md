@@ -88,9 +88,9 @@ To be made...
 - [ ] Multiscreen
 - [ ] See crew people, not only actors
 - [ ] Discover how many shows/movies of an actor we watched
-- [ ] Make lists
+- [ ] Make lists / default list
 - [ ] Follow actors / mark as favorite
-- [ ] Add movies
+- [ ] Add movies - add history tab
 - [ ] Sync with trakt.tv
 
 ## ✍️ Authors <a name = "authors"></a>
