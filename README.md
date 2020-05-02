@@ -75,16 +75,23 @@ To be made...
 - [Glide](https://github.com/bumptech/glide) - Image downloader
 - [AnyChart](https://www.anychart.com/es/) - Chart library
 
-## :pencil2: To-Do <a name = "todo"></a>
+## :pencil2: To-Do (in order of priority) <a name = "todo"></a>
 
-- [ ] Check network when adding favorites/following
-- [ ] How long did it take to watch a season/show?
-- [ ] Bars Chart with days of the week and trends
 - [ ] Logout button
+- [ ] Similar Shows
+- [ ] Check network when adding favorites/following
 - [ ] Add watched episode directly in following list
+- [ ] How long did it take to watch a season/show?
 - [ ] Episodes left to watch
+- [ ] Bars Chart with days of the week and trends
 - [ ] Recommendations
 - [ ] Multiscreen
+- [ ] See crew people, not only actors
+- [ ] Discover how many shows/movies of an actor we watched
+- [ ] Make lists
+- [ ] Follow actors / mark as favorite
+- [ ] Add movies
+- [ ] Sync with trakt.tv
 
 ## ✍️ Authors <a name = "authors"></a>
 - [@aareupGH](https://github.com/aareupGH) - Aarón Pérez - Idea & Initial work
