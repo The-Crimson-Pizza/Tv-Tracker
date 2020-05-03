@@ -30,7 +30,6 @@ import com.thecrimsonpizza.tvtracker.util.Stats;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
 
@@ -119,12 +118,14 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mFavs.clear();
-                mFavs.addAll(Objects.requireNonNull(dataSnapshot.getValue(new GenericTypeIndicator<List<SerieResponse.Serie>>() {
-                })));
-
-                initGenrePieChart(view);
-                initNetworkTagCloud(view);
-                fillStats(view);
+                List<SerieResponse.Serie> temp = dataSnapshot.getValue(new GenericTypeIndicator<List<SerieResponse.Serie>>() {
+                });
+                if (temp != null) {
+                    mFavs.addAll(temp);
+                    initGenrePieChart(view);
+                    initNetworkTagCloud(view);
+                    fillStats(view);
+                }
             }
 
             @Override
