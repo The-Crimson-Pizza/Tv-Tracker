@@ -101,7 +101,7 @@ public class SeasonFragment extends Fragment {
 
     @Override
     public void onDestroy() {
+//        compositeDisposable.dispose();
         super.onDestroy();
-        compositeDisposable.dispose();
     }
 }

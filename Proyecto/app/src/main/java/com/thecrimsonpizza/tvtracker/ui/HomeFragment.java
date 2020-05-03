@@ -133,8 +133,8 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onDestroy() {
+//        compositeDisposable.dispose();
         super.onDestroy();
-        compositeDisposable.dispose();
     }
 
     private void getNew(HomeAdapter adapterNueva) {

@@ -30,7 +30,7 @@ public class Util {
                 .apply(new RequestOptions()
                         .placeholder(R.drawable.loading_poster)
                         .error(R.drawable.default_poster)
-//                        .fitCenter()
+//                        .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(image);
     }

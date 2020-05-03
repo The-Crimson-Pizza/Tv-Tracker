@@ -59,7 +59,6 @@ public class GenreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
-
         return inflater.inflate(R.layout.fragment_genre, container, false);
     }
 
@@ -107,7 +106,7 @@ public class GenreFragment extends Fragment {
                 genreIcon.setImageResource(R.drawable.genre_kids);
             } else if (mGenre.id == 9648) {
                 genreIcon.setImageResource(R.drawable.genre_mistery);
-            }else if (mGenre.id == 80) {
+            } else if (mGenre.id == 80) {
                 genreIcon.setImageResource(R.drawable.genre_crime);
             } else if (mGenre.id == 10763) {
                 genreIcon.setImageResource(R.drawable.genre_news);
