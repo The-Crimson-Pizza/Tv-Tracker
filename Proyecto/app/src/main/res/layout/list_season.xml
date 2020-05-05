@@ -13,9 +13,7 @@
         android:outlineAmbientShadowColor="@color/bgTotal"
         app:cardCornerRadius="5dp"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:padding="5dp">
+        android:layout_marginStart="10dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -43,14 +41,15 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="170dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="6"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/season_name"
-                        android:layout_width="200dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Season X"
                         android:textAllCaps="true"
@@ -74,7 +73,8 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:gravity="end">
