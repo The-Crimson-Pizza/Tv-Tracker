@@ -234,7 +234,54 @@
                 android:layout_gravity="center" />
 
         </FrameLayout>
-
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:text="Sign out"
+                android:textColor="@color/bgTotal"
+                android:textSize="12pt"
+                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="20dp"
+                android:gravity="center">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="10"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/bgTotal"
+                        android:text="You are logged in as: "/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/bgTotal"
+                        android:textStyle="bold"
+                        android:textSize="8pt"
+                        android:text="admin@admin.com "/>
+                </LinearLayout>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="6"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="SIGN OUT"
+                    android:textColor="@color/colorPrimary"
+                    style="@style/Widget.AppCompat.Button.Colored.Personal"
+                    android:backgroundTint="@color/bgTotal"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
