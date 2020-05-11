@@ -1,10 +1,12 @@
 package com.thecrimsonpizza.tvtracker.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,6 +49,16 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getFollowingSeries(view);
+
+        Button logout = view.findViewById(R.id.logout);
+        TextView email = view.findViewById(R.id.email);
+
+        email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        logout.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            getActivity().finish();
+        });
 
     }
 
