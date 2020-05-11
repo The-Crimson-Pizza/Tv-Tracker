@@ -64,7 +64,10 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="register">Register</string>
     <string name="sign_in">Sign in</string>
+    <string name="user">admin@admin.com</string>
     <string name="or">OR</string>
+    <string name="logged_as">You are logged in as: </string>
+    <string name="sign_out">SIGN OUT</string>
     <string name="forget_password">Did you forget your password?</string>
     <string name="activate_net">Activate network</string>
     <string name="success_register">Successfully Registered</string>

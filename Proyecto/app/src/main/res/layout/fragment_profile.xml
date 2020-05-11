@@ -243,7 +243,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="20dp"
-                android:text="Sign out"
+                android:text="@string/sign_out"
                 android:textColor="@color/bgTotal"
                 android:textSize="12pt"
                 android:textStyle="bold" />
@@ -262,14 +262,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/bgTotal"
-                        android:text="You are logged in as: "/>
+                        android:text="@string/logged_as"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/bgTotal"
                         android:textStyle="bold"
                         android:textSize="8pt"
-                        android:text="admin@admin.com "/>
+                        android:text="@string/user"/>
                 </LinearLayout>
                 <Button
                     android:layout_width="0dp"
