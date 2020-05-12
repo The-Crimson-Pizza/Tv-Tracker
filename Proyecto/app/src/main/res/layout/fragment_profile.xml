@@ -214,7 +214,6 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/gradient_background"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="20dp">
@@ -237,7 +236,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
             android:orientation="vertical">
 
             <TextView
@@ -245,7 +243,7 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="20dp"
                 android:text="@string/sign_out"
-                android:textColor="@color/bgTotal"
+                android:textColor="@color/colorPrimary"
                 android:textSize="12pt"
                 android:textStyle="bold" />
 
@@ -265,14 +263,12 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/logged_as"
-                        android:textColor="@color/bgTotal" />
+                        android:text="@string/logged_as" />
 
                     <TextView
                         android:id="@+id/email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/bgTotal"
                         android:textSize="8pt"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -289,6 +285,28 @@
                     android:text="SIGN OUT"
                     android:textColor="@color/colorPrimary" />
             </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="20dp"
+            android:gravity="center">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:text="App developed by "
+                android:gravity="center"
+                android:textSize="12pt"
+                android:fontFamily="@font/panpizza"
+                android:textColor="#943126" />
+            <ImageView
+                android:layout_width="96dp"
+                android:layout_weight="1"
+                android:layout_height="96dp"
+                android:src="@drawable/pizza_logo" />
+
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
