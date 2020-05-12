@@ -41,13 +41,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="presented by "
-            android:textSize="14pt"
+            android:textSize="12pt"
             android:fontFamily="@font/panpizza"
             android:textColor="#943126"
             android:gravity="center"/>
         <ImageView
-            android:layout_width="128dp"
-            android:layout_height="128dp"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
             android:src="@drawable/pizza_logo" />
 
     </LinearLayout>
