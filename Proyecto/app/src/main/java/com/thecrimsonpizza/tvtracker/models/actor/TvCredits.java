@@ -12,12 +12,11 @@ public class TvCredits implements Serializable {
     @Expose
     public List<Cast> cast = null;
 
-
-
     public TvCredits() {
+//        Empty constructor
     }
 
-    public class Cast implements Serializable {
+    public static class Cast implements Serializable {
 
         @SerializedName("original_name")
         public String originalName;

@@ -84,10 +84,10 @@ public class ProfileFragment extends Fragment {
 
 
     private void initNetworkTagCloud(View view) {
-        AnyChartView tagChart = view.findViewById(R.id.buble_chart);
+        AnyChartView tagChart = view.findViewById(R.id.bubble_chart);
         APIlib.getInstance().setActiveAnyChartView(tagChart);
         tagChart.setBackgroundColor("#00000000");
-        tagChart.setProgressBar(view.findViewById(R.id.progress_buble));
+        tagChart.setProgressBar(view.findViewById(R.id.progress_bubble));
 
         TagCloud tagCloud = AnyChart.tagCloud();
 

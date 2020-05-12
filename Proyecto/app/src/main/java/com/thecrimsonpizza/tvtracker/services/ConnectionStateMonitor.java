@@ -8,7 +8,7 @@ import android.net.NetworkRequest;
 
 import org.jetbrains.annotations.NotNull;
 
-public class ConnectionStateMonitor extends ConnectivityManager.NetworkCallback {
+class ConnectionStateMonitor extends ConnectivityManager.NetworkCallback {
 
     private final NetworkRequest networkRequest;
 

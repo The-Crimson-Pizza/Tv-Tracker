@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="invertidas en cultura"
+                    android:text="@string/invertidas_en_cultura"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="12pt" />
@@ -80,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="series seguidas"
+                    android:text="@string/series_seguidas"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="11pt" />
@@ -192,13 +192,13 @@
             android:padding="20dp">
 
             <com.anychart.AnyChartView
-                android:id="@+id/buble_chart"
+                android:id="@+id/bubble_chart"
                 android:layout_width="match_parent"
                 android:layout_height="320dp"
                 android:background="@android:color/transparent" />
 
             <ProgressBar
-                android:id="@+id/progress_buble"
+                android:id="@+id/progress_bubble"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center" />

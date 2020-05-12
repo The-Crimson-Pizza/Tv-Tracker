@@ -131,12 +131,6 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onDestroy() {
-//        compositeDisposable.dispose();
-        super.onDestroy();
-    }
-
     private void getNew(HomeAdapter adapterNueva) {
         Disposable disposable = TmdbRepository.getInstance().getNewSeries()
                 .observeOn(AndroidSchedulers.mainThread())

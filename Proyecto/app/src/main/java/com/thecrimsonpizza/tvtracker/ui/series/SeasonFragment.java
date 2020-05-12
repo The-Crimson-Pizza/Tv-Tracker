@@ -32,11 +32,9 @@ import io.reactivex.rxjava3.disposables.Disposable;
 public class SeasonFragment extends Fragment {
 
     private Context mContext;
-    private SeasonAdapter mSeasonAdapter;
     private RecyclerView rvSeasons;
     private SerieResponse.Serie mSerie;
     private List<SerieResponse.Serie> mFavs = new ArrayList<>();
-    private CompositeDisposable compositeDisposable;
 
 
     @Nullable
@@ -55,7 +53,7 @@ public class SeasonFragment extends Fragment {
     }
 
     private void getSerie() {
-        compositeDisposable = new CompositeDisposable();
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
         Disposable disposable = RxBus.getInstance().listen().subscribe(this::setAdapters);
         compositeDisposable.add(disposable);
     }
@@ -87,7 +85,7 @@ public class SeasonFragment extends Fragment {
 
     private void setAdapters(SerieResponse.Serie serie) {
         mSerie = serie;
-        mSeasonAdapter = new SeasonAdapter(mContext, mSerie, mFavs);
+        SeasonAdapter mSeasonAdapter = new SeasonAdapter(mContext, mSerie, mFavs);
         rvSeasons.setAdapter(mSeasonAdapter);
     }
 
@@ -97,11 +95,5 @@ public class SeasonFragment extends Fragment {
         rvSeasons.setHasFixedSize(true);
         rvSeasons.setItemViewCacheSize(20);
         rvSeasons.setSaveEnabled(true);
-    }
-
-    @Override
-    public void onDestroy() {
-//        compositeDisposable.dispose();
-        super.onDestroy();
     }
 }

@@ -94,8 +94,8 @@ public class FillSerie {
     private void fillBasics() {
         CollapsingToolbarLayout collapseToolbar = mView.findViewById(R.id.toolbar_layout);
         TextView airDate = mView.findViewById(R.id.fechaSerie);
-        TextView country = mView.findViewById(R.id.paisSerie);
-        TextView status = mView.findViewById(R.id.emisionSerie);
+        TextView country = mView.findViewById(R.id.country_serie);
+        TextView status = mView.findViewById(R.id.status_serie);
 
         airDate.setText(Util.convertStringDateFormat(mSerie.firstAirDate, FORMAT_YEAR));
 
@@ -125,7 +125,7 @@ public class FillSerie {
             }
         } else {
             ViewSwitcher switcherNetworks = mView.findViewById(R.id.switcher_networks);
-            if (R.id.networks == switcherNetworks.getNextView().getId() || R.id.nodatanetworks == switcherNetworks.getNextView().getId())
+            if (R.id.networks == switcherNetworks.getNextView().getId() || R.id.no_data_networks == switcherNetworks.getNextView().getId())
                 switcherNetworks.showNext();
         }
     }
@@ -166,7 +166,7 @@ public class FillSerie {
             }
         } else {
             ViewSwitcher switcherGenres = mView.findViewById(R.id.switcher_genres);
-            if (R.id.generos == switcherGenres.getNextView().getId() || R.id.nodatagenres == switcherGenres.getNextView().getId())
+            if (R.id.genres == switcherGenres.getNextView().getId() || R.id.no_data_genres == switcherGenres.getNextView().getId())
                 switcherGenres.showNext();
         }
     }

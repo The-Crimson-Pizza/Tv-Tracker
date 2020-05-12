@@ -35,7 +35,6 @@ public class EpisodesFragment extends Fragment {
     private int mPosTemporada;
     private RecyclerView rvEpisodes;
     private Context mContext;
-    private EpisodeAdapter mEpisodeAdapter;
     private SerieResponse.Serie mSerie;
 
     private List<SerieResponse.Serie> mFavs = new ArrayList<>();
@@ -99,7 +98,7 @@ public class EpisodesFragment extends Fragment {
         if (!serie.seasons.get(mPosTemporada).episodes.isEmpty()) {
             mEpisodes.clear();
             mEpisodes.addAll(serie.seasons.get(mPosTemporada).episodes);
-            mEpisodeAdapter = new EpisodeAdapter(mContext, mEpisodes, serie, mFavs, mPosTemporada);
+            EpisodeAdapter mEpisodeAdapter = new EpisodeAdapter(mContext, mEpisodes, serie, mFavs, mPosTemporada);
             rvEpisodes.setAdapter(mEpisodeAdapter);
         }
     }

@@ -16,7 +16,7 @@
 
         <ImageView
             android:id="@+id/posterBasic"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="190dp"
             android:contentDescription="@string/serie_poster_description"
             android:scaleType="centerCrop" />
@@ -35,7 +35,6 @@
                 android:layout_margin="5dp"
                 android:ellipsize="marquee"
                 android:maxLines="2"
-                android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
                 android:textSize="6pt"

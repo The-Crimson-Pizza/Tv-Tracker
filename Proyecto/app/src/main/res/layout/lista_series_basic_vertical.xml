@@ -35,7 +35,6 @@
                 android:layout_margin="5dp"
                 android:ellipsize="marquee"
                 android:maxLines="2"
-                android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
                 android:textSize="6pt"

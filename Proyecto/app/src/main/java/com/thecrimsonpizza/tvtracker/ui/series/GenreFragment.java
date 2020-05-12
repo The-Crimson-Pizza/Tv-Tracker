@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,7 +40,7 @@ public class GenreFragment extends Fragment {
     private Context mContext;
     private SerieResponse.Serie.Genre mGenre;
     private NetworkGenreAdapter genreAdapter;
-    List<BasicResponse.SerieBasic> mSeriesByGenre = new ArrayList<>();
+    private List<BasicResponse.SerieBasic> mSeriesByGenre = new ArrayList<>();
 
     public GenreFragment() {
         // Required empty public constructor
@@ -66,7 +65,6 @@ public class GenreFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ViewSwitcher switcher = view.findViewById(R.id.switcher_genres);
         genreAdapter = new NetworkGenreAdapter(mContext, mSeriesByGenre);
 
         ImageView ivGenreIcon = view.findViewById(R.id.genre_icon);

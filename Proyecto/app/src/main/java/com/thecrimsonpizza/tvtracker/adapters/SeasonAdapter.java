@@ -105,11 +105,12 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
 
                 if (season.episodes != null) {
                     if (serie.added)
-                        numEpisodes.setText(context.getString(R.string.num_episodes_follow,
+                        numEpisodes.setText(context.getResources().getQuantityString(R.plurals.num_episodes_follow,
+                                season.episodes.size(),
                                 countEpisodes(season),
                                 season.episodes.size()));
                     else
-                        numEpisodes.setText(context.getString(R.string.n_episodes, season.episodes.size()));
+                        numEpisodes.setText(context.getResources().getQuantityString(R.plurals.n_episodes, season.episodes.size(), season.episodes.size()));
 
                 } else numEpisodes.setText(context.getString(R.string.no_data));
 

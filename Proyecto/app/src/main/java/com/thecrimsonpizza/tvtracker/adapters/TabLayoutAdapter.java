@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class TabLayoutAdapter extends FragmentStateAdapter {
 
-    private boolean isSearch;
+    private final boolean isSearch;
 
     public TabLayoutAdapter(@NonNull Fragment fragment, boolean search) {
         super(fragment);

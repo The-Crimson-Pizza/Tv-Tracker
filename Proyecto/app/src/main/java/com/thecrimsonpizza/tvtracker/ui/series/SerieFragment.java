@@ -3,7 +3,6 @@ package com.thecrimsonpizza.tvtracker.ui.series;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -89,11 +88,11 @@ public class SerieFragment extends Fragment {
         FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).getSeriesFav().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                GenericTypeIndicator<List<SerieResponse.Serie>> genericTypeIndicator = new GenericTypeIndicator<List<SerieResponse.Serie>>() {
-                };
                 mFavs.clear();
-                if (dataSnapshot.getValue(genericTypeIndicator) != null) {
-                    mFavs.addAll(dataSnapshot.getValue(genericTypeIndicator));
+                List<SerieResponse.Serie> temp = dataSnapshot.getValue(new GenericTypeIndicator<List<SerieResponse.Serie>>() {
+                });
+                if (temp != null) {
+                    mFavs.addAll(temp);
                 }
                 setSerie(view);
             }
@@ -125,7 +124,6 @@ public class SerieFragment extends Fragment {
     private void getSerie(View view) {
         TmdbRepository.getInstance().getSerie(idSerie)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> Log.e("TAG", throwable.getLocalizedMessage()))
                 .subscribe(serie -> {
                     mSerie = serie;
                     if (mSerie.homepage != null && !mSerie.homepage.isEmpty()) {
@@ -197,7 +195,7 @@ public class SerieFragment extends Fragment {
         itemWeb = toolbar.getMenu().findItem(R.id.action_web);
         itemWeb.setVisible(false);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
-        toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
+        toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
         toolbar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.action_share) {
                 startActivity(Intent.createChooser(setIntent(), null));

@@ -43,7 +43,7 @@ public class PersonResponse {
             return deathday != null;
         }
 
-        public class ExternalIds implements Serializable {
+        public static class ExternalIds implements Serializable {
 
             @SerializedName("instagram_id")
             public String instagramId;

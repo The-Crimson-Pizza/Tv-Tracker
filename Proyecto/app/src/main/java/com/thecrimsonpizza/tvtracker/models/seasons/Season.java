@@ -34,13 +34,7 @@ public class Season implements Serializable {
         Collections.sort(seasons, (season1, season2) -> {
             String numSeason1 = String.valueOf(season1.seasonNumber);
             String numSeason2 = String.valueOf(season2.seasonNumber);
-            if (numSeason1 != null && numSeason2 != null) {
-                return numSeason1.compareTo(numSeason2);
-            } else {
-                String fecha1 = season1.airDate;
-                String fecha2 = season2.airDate;
-                return fecha1.compareTo(fecha2);
-            }
+            return numSeason1.compareTo(numSeason2);
         });
     }
 

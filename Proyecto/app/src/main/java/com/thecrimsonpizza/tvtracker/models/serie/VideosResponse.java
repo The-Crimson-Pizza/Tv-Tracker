@@ -11,7 +11,11 @@ public class VideosResponse {
 
     @SerializedName("results")
     @Expose
-    public final List<Video> results = null;
+    public final List<Video> results;
+
+    public VideosResponse(List<Video> results) {
+        this.results = results;
+    }
 
     public static class Video implements Serializable {
 

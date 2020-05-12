@@ -28,16 +28,6 @@
         app:tabSelectedTextColor="@color/colorPrimary"
         app:tabTextColor="@color/colorAccent"/>
 
-    <!--<com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:paddingTop="10dp"
-        app:tabGravity="fill"
-        app:tabSelectedTextColor="@color/colorPrimary"
-        app:tabTextColor="@color/colorAccent" />-->
-
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"

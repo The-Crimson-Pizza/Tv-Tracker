@@ -57,7 +57,7 @@ public class SerieResponse {
         public String originalLanguage;
         public String overview;
         @SerializedName("vote_average")
-        public float voteAverage;
+        float voteAverage;
         public List<Genre> genres = null;
         public List<Network> networks = null;
         public Credits credits;

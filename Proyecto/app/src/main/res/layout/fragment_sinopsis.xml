@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:id="@+id/generos"
+                    android:id="@+id/genres"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -135,7 +135,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/nodatagenres"
+                    android:id="@+id/no_data_genres"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -203,7 +203,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/nodatanetworks"
+                    android:id="@+id/no_data_networks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"

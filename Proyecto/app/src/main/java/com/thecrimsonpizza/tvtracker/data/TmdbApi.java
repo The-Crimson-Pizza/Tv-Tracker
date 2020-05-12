@@ -15,7 +15,7 @@ import retrofit2.http.Query;
 /**
  * Interface with the TMDB API calls
  */
-public interface TmdbApi {
+interface TmdbApi {
     @Headers("Accept: application/json")
     @GET("trending/tv/day")
     Observable<BasicResponse> getTrendingSeries();

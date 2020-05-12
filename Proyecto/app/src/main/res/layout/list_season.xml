@@ -38,7 +38,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -51,7 +52,6 @@
                         android:id="@+id/season_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Season X"
                         android:textAllCaps="true"
                         android:textColor="@color/colorPrimary"
                         android:textSize="9pt"
@@ -64,7 +64,6 @@
                         android:layout_gravity="center_vertical"
                         android:ellipsize="marquee"
                         android:maxLines="2"
-                        android:text="@string/n_episodes"
                         android:textColor="@color/colorAccent"
                         android:textSize="7pt"
                         android:textStyle="bold" />

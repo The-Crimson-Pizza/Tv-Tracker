@@ -11,7 +11,7 @@ public class Credits implements Serializable {
 
     @SerializedName("cast")
     @Expose
-    public List<Cast> cast = null;
+    public final List<Cast> cast = null;
 
     public Credits() {
 //        Empty constructor for Firebase serialize

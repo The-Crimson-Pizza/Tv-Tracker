@@ -23,7 +23,7 @@ android {
         }
     }
     viewBinding {
-        enabled = false;
+        enabled = false
     }
 }
 

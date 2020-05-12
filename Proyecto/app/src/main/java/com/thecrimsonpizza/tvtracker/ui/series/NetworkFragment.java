@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,7 +34,6 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
 import static com.thecrimsonpizza.tvtracker.util.Constants.BASE_URL_IMAGES_NETWORK;
 import static com.thecrimsonpizza.tvtracker.util.Constants.ID_NETWORK;
-
 
 public class NetworkFragment extends Fragment {
 
@@ -67,8 +65,6 @@ public class NetworkFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        ViewSwitcher switcher = view.findViewById(R.id.switcher_networks);
 
         ImageView ivNetwork = view.findViewById(R.id.network_icon);
         TextView tvNetwork = view.findViewById(R.id.network_name);

@@ -18,7 +18,7 @@ public class Similar implements Serializable {
     }
 
 
-    public static class Result implements Serializable {
+    private static class Result implements Serializable {
 
         public int id;
         @SerializedName("original_name")

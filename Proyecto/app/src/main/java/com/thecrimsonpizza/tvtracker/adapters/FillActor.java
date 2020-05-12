@@ -54,7 +54,7 @@ public class FillActor {
         ImageView deathDateIcon = includeView.findViewById(R.id.icon_mortimer);
         ReadMoreTextView biography = includeView.findViewById(R.id.bio_text);
 
-        RecyclerView rvMovies = includeView.findViewById(R.id.rvPelis);
+        RecyclerView rvMovies = includeView.findViewById(R.id.rv_movies);
         RecyclerView rvSeries = includeView.findViewById(R.id.rvSeries);
 
         actorName.setTitle(mPerson.name);
@@ -101,7 +101,7 @@ public class FillActor {
 
         if (!mPerson.movieCredits.cast.isEmpty()) {
             rvMovies.setAdapter(new PeopleCreditsAdapter(mContext, mPerson.movieCredits.cast, true));
-            if (R.id.rvPelis == switcherFilms.getNextView().getId()) {
+            if (R.id.rv_movies == switcherFilms.getNextView().getId()) {
                 switcherFilms.showNext();
             }
         } else if (R.id.text_empty_uno == switcherFilms.getNextView().getId()) {

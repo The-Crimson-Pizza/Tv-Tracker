@@ -15,7 +15,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/proto_logo_96"/>
+            android:src="@drawable/proto_logo_96"
+            android:contentDescription="@string/app_logo" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="72dp"
@@ -40,7 +41,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="presented by "
+            android:text="@string/presented_by"
             android:textSize="12pt"
             android:fontFamily="@font/panpizza"
             android:textColor="#943126"
@@ -48,7 +49,8 @@
         <ImageView
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:src="@drawable/pizza_logo" />
+            android:src="@drawable/pizza_logo"
+            android:contentDescription="@string/develop_logo" />
 
     </LinearLayout>
 

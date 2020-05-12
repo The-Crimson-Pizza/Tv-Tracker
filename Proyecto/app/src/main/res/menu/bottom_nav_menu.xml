@@ -14,7 +14,7 @@
 
     <item
         android:id="@+id/navigation_fav"
-        android:icon="@drawable/checked_navbar"
+        android:icon="@drawable/checked_nav_bar"
         android:title="@string/favourites" />
     <item
         android:id="@+id/navigation_profile"

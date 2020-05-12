@@ -31,7 +31,7 @@ public class SinopsisFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_sinopsis, container, false);
         YouTubePlayerView youTubePlayerView = root.findViewById(R.id.youtube_player_view);
         getLifecycle().addObserver(youTubePlayerView);
-        mContext = getActivity().getApplicationContext();
+        mContext = requireActivity().getApplicationContext();
         return root;
     }
 
