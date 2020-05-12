@@ -32,8 +32,12 @@
         <item name="android:scaleY">3</item>
     </style>
 
-    <style name="bgSplashScreenStyle" parent="Theme.AppCompat.Light.NoActionBar">
+    <!--<style name="bgSplashScreenStyle" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/bgsplashscreen</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>-->
+
+    <style name="bgSplashScreenStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="layout">@layout/splashscreen_layout</item>
     </style>
 </resources>
