@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.thecrimsonpizza.tvtracker.R;
 import com.thecrimsonpizza.tvtracker.ui.LoginActivity;
 
 public class SplashScreen extends AppCompatActivity {
