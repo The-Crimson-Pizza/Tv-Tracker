@@ -11,6 +11,7 @@
         <include layout="@layout/main_title" />
 
         <LinearLayout
+            android:baselineAligned="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -55,7 +56,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -114,7 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="episodios vistos"
+                    android:text="@string/episodios_vistos"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="11pt" />
@@ -157,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
                     android:gravity="center"
-                    android:text="es tu serie más vista"
+                    android:text="@string/serie_mas_vista"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="11pt" />
@@ -282,7 +284,7 @@
                     android:layout_weight="6"
                     android:backgroundTint="@color/bgTotal"
                     android:gravity="center"
-                    android:text="SIGN OUT"
+                    android:text="@string/sign_out"
                     android:textColor="@color/colorPrimary" />
             </LinearLayout>
         </LinearLayout>
@@ -296,7 +298,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:text="App developed by "
+                android:text="@string/app_developed_by"
                 android:gravity="center"
                 android:textSize="12pt"
                 android:fontFamily="@font/panpizza"
@@ -305,7 +307,8 @@
                 android:layout_width="96dp"
                 android:layout_weight="1"
                 android:layout_height="96dp"
-                android:src="@drawable/pizza_logo" />
+                android:src="@drawable/pizza_logo"
+                android:contentDescription="@string/develop_logo" />
 
         </LinearLayout>
     </LinearLayout>

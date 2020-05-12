@@ -81,4 +81,9 @@
     <string name="search_icon" translatable="false">search_icon</string>
     <string name="sharing">Sharing URL</string>
     <string name="zero">0</string>
+    <string name="episodios_vistos">watched episodes</string>
+    <string name="serie_mas_vista">is your most watched show</string>
+    <string name="sign_out">SIGN OUT</string>
+    <string name="app_developed_by">App developed by</string>
+    <string name="develop_logo">develop_logo</string>
 </resources>
