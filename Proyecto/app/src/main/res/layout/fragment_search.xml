@@ -11,6 +11,7 @@
     <include layout="@layout/main_title" />
 
     <SearchView
+        android:theme="@style/Theme.AppCompat.DayNight"
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
