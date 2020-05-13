@@ -90,6 +90,7 @@ To be made...
 - [ ] Discover how many shows/movies of an actor we watched
 - [ ] Make lists / default list
 - [ ] Follow actors / mark as favorite
+- [ ] Top actors + add actors to lists
 - [ ] Add movies - add history tab
 - [ ] Sync with trakt.tv
 
