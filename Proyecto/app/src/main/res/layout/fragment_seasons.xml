@@ -4,7 +4,8 @@
     android:id="@+id/layout_season"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.series.SeasonFragment">
+    tools:context=".ui.series.SeasonFragment"
+    style="@style/Theme.AppCompat.DayNight">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/gridSeasons"

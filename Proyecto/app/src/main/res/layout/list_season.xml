@@ -11,9 +11,9 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:outlineSpotShadowColor="@color/bgTotal"
         android:outlineAmbientShadowColor="@color/bgTotal"
+        style="@style/Theme.AppCompat.DayNight"
         app:cardCornerRadius="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp">
+        android:layout_margin="10dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
