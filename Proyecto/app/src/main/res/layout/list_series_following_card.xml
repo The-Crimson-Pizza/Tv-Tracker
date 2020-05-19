@@ -179,6 +179,23 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         tools:ignore="MissingConstraints" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
+                        <Button
+                            android:id="@+id/next_episode_main_menu"
+                            style="@style/Widget.AppCompat.Button.Colored.Personal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:gravity="center"
+                            android:text="Next"
+                            android:textColor="@color/bgTotal" />
+                    </LinearLayout>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
