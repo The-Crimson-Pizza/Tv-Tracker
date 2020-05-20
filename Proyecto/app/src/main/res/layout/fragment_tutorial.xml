@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="1. Search the TV Shows you want to watch at: "
+                android:text="@string/tuto_1"
                 android:textColor="@color/colorPrimary"
                 android:textSize="10pt"
                 android:textStyle="bold" />
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="Home menu"
+                android:text="@string/home_menu"
                 android:textColor="@color/colorAccent"
                 android:textSize="10pt"
                 android:textStyle="bold" />
@@ -81,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="or"
+                android:text="@string/or"
                 android:textColor="@color/colorPrimary"
                 android:textSize="10pt"
                 android:textStyle="bold" />
@@ -103,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="Search menu"
+                android:text="@string/search_menu"
                 android:textColor="@color/colorAccent"
                 android:textSize="10pt"
                 android:textStyle="bold" />
@@ -118,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="2. Follow them with the follow button in the TV Show description. "
+                android:text="@string/tuto_2"
                 android:textColor="@color/colorPrimary"
                 android:textSize="10pt"
                 android:textStyle="bold" />
@@ -139,7 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="Follow button"
+                android:text="@string/follow_button"
                 android:textColor="@color/colorAccent"
                 android:textSize="10pt"
                 android:textStyle="bold" />
@@ -154,7 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="3. Track your TV Shows from the following menu. "
+                android:text="@string/tuto_3"
                 android:textColor="@color/colorPrimary"
                 android:textSize="10pt"
                 android:textStyle="bold" />
@@ -175,7 +175,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="Following menu"
+                android:text="@string/following_menu"
                 android:textColor="@color/colorAccent"
                 android:textSize="10pt"
                 android:textStyle="bold" />

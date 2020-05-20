@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="Mark the TV Shows you are already watching: "
+            android:text="@string/intro_select"
             android:textColor="@color/colorPrimary"
             android:textSize="10pt"
             android:textStyle="bold" />

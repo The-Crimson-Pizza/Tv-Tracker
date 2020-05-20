@@ -58,6 +58,13 @@
     <string name="intro_select">Selecciona las series que estás siguiente actualmente: </string>
     <string name="or">O</string>
     <string name="next">Siguiente</string>
+    <string name="tuto_1">1. Busca las series que quieras ver en: </string>
+    <string name="tuto_2">2. Síguelas con el botón de seguir en la descripción de la serie. </string>
+    <string name="tuto_3">3. Lleva un seguimiento de tus series desde el menú de seguimiento. </string>
+    <string name="home_menu">Menú Home</string>
+    <string name="search_menu">Menú Búsqueda</string>
+    <string name="follow_button">Botón seguir</string>
+    <string name="following_menu">Menú seguimiento</string>
     <string name="forget_password">¿Has olvidado tu contraseña?</string>
     <string name="activate_net">Activar internet</string>
     <string name="success_register">Registro correcto</string>
