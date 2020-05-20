@@ -59,6 +59,8 @@
     <string name="register">Register</string>
     <string name="sign_in">Sign in</string>
     <string name="or">OR</string>
+    <string name="intro_select">Mark the TV Shows you are already watching:</string>
+    <string name="next">Next</string>
     <string name="logged_as">You are logged in as: </string>
     <string name="sign_out">SIGN OUT</string>
     <string name="forget_password">Did you forget your password?</string>

@@ -55,7 +55,9 @@
     <string name="sign_in">Iniciar sesión</string>
     <string name="sign_out">CERRAR SESIÓN</string>
     <string name="logged_as">Iniciada la sesión como: </string>
+    <string name="intro_select">Selecciona las series que estás siguiente actualmente: </string>
     <string name="or">O</string>
+    <string name="next">Siguiente</string>
     <string name="forget_password">¿Has olvidado tu contraseña?</string>
     <string name="activate_net">Activar internet</string>
     <string name="success_register">Registro correcto</string>

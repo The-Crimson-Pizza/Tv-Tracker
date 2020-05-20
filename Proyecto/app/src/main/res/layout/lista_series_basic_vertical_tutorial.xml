@@ -48,7 +48,7 @@
             android:padding="2dp">
 
             <CheckBox
-                android:id="@+id/add_following_tuto"
+                android:id="@+id/add_following_intro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center" />
