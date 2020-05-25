@@ -10,8 +10,8 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -68,6 +68,10 @@ public class FavoritosFragment extends Fragment {
         sortDirection.setOnClickListener(v -> reverseList(sortDirection));
     }
 
+    private void watchEpisode() {
+
+    }
+
     private void reverseList(ImageButton sortDirection) {
         if (Boolean.FALSE.equals(orientationSelected)) {
             sortDirection.setImageResource(R.drawable.change_direction_icon);
@@ -121,10 +125,10 @@ public class FavoritosFragment extends Fragment {
 
     private void getLastWatched(List<SerieResponse.Serie> favs) {
         Date fechaMin = new GregorianCalendar(1900, 1, 1).getTime();
-        for (SerieResponse.Serie ser : favs) {
+        for (SerieResponse.Serie serie : favs) {
             Episode mostSeasonRecent = new Episode();
             mostSeasonRecent.watchedDate = fechaMin;
-            for (Season s : ser.seasons) {
+            for (Season s : serie.seasons) {
                 Episode d = s.episodes
                         .stream()
                         .filter(x -> x.watchedDate != null)
@@ -137,7 +141,7 @@ public class FavoritosFragment extends Fragment {
                     mostSeasonRecent = d;
             }
             if (mostSeasonRecent.watchedDate != fechaMin)
-                ser.lastEpisodeWatched = mostSeasonRecent;
+                serie.lastEpisodeWatched = mostSeasonRecent;
         }
     }
 
@@ -168,7 +172,8 @@ public class FavoritosFragment extends Fragment {
         rvFavs.setHasFixedSize(true);
         rvFavs.setItemViewCacheSize(20);
         rvFavs.setSaveEnabled(true);
-        rvFavs.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+//        rvFavs.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        rvFavs.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         rvFavs.setAdapter(favAdapter);
     }
 }

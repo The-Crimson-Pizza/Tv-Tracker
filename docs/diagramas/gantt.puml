@@ -3,14 +3,10 @@ scale 2.5
 Project starts the 22th of march 2020
 
 [Organización] is colored in #82E0AA
-[Organización] lasts 3 days
-
-[Requisitos] is colored in #82E0AA
-[Requisitos] lasts 3 days
-[Requisitos] starts at [Organización]'s end
+[Organización] lasts 6 days
 
 [Prototipo] is colored in #82E0AA
-[Prototipo] starts at [Requisitos]'s end
+[Prototipo] starts at [Organización]'s end
 [Prototipo] lasts 3 days
 
 [Diseño] is colored in #82E0AA

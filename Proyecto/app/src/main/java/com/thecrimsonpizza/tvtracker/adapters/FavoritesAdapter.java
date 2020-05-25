@@ -18,13 +18,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.thecrimsonpizza.tvtracker.R;
+import com.thecrimsonpizza.tvtracker.data.FirebaseDb;
 import com.thecrimsonpizza.tvtracker.models.seasons.Episode;
 import com.thecrimsonpizza.tvtracker.models.seasons.Season;
 import com.thecrimsonpizza.tvtracker.models.serie.SerieResponse;
 import com.thecrimsonpizza.tvtracker.util.Constants;
 import com.thecrimsonpizza.tvtracker.util.Util;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -49,12 +52,14 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
     @NonNull
     @Override
     public FavoritesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return FavoritesAdapter.ViewHolder.create(parent);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_series_following_card, parent, false);
+        return new FavoritesAdapter.ViewHolder(view);
+//        return FavoritesAdapter.ViewHolder.create(parent);
     }
 
     @Override
     public void onBindViewHolder(@NonNull FavoritesAdapter.ViewHolder holder, final int position) {
-        holder.bindTo(mContext, mSeriesFavs.get(position));
+        holder.bindTo(mContext, mSeriesFavs.get(position), mSeriesFavs, position);
     }
 
     @Override
@@ -65,8 +70,14 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         return 0;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    void update(int position) {
+//        notifyItemChanged(position);
+    }
 
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        final Button nextEpisode;
         final ImageView favPoster;
         final TextView favName;
         final TextView favStatus;
@@ -75,6 +86,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         final TextView next2;
         final TextView sinopsis;
         final ProgressBar favProgress;
+
+        List<SerieResponse.Serie> favs;
         int id;
 
         final ConstraintLayout expandableView;
@@ -83,6 +96,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+            nextEpisode = itemView.findViewById(R.id.next_episode_main_menu);
+
             favPoster = itemView.findViewById(R.id.posterBasic);
             favName = itemView.findViewById(R.id.serie_name);
             favStatus = itemView.findViewById(R.id.episode_fecha);
@@ -99,9 +114,9 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             });
 
             // CARDVIEW INTERACTION
-            expandableView = itemView.findViewById(R.id.expandableView);
+            expandableView = itemView.findViewById(R.id.expandable_view);
             arrowBtn = itemView.findViewById(R.id.arrowBtn);
-            cardView = itemView.findViewById(R.id.cardView);
+            cardView = itemView.findViewById(R.id.card_view);
 
             arrowBtn.setOnClickListener(v -> {
                 if (expandableView.getVisibility() == View.GONE) {
@@ -116,13 +131,15 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             });
         }
 
-        static FavoritesAdapter.ViewHolder create(ViewGroup parent) {
+        FavoritesAdapter.ViewHolder create(ViewGroup parent) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_series_following_card, parent, false);
             return new FavoritesAdapter.ViewHolder(view);
         }
 
-        void bindTo(Context context, SerieResponse.Serie serie) {
+        void bindTo(Context context, SerieResponse.Serie serie, List<SerieResponse.Serie> fav, int position) {
             if (serie != null) {
+                favs = new ArrayList<>(fav);
+
                 sortSeason(serie.seasons);
                 id = serie.id;
                 favName.setText(serie.name);
@@ -132,7 +149,44 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                 next.setText(getLastEpisode(context, serie));
                 next2.setText(getLastEpisode(context, serie));
                 sinopsis.setText(getLastEpisodeOverview(context, serie));
+
+                nextEpisode.setOnClickListener(v -> {
+                    watchEpisode(serie, favs, position);
+
+                });
+
             }
+        }
+
+        Episode getLastEpisodeUnwatched(SerieResponse.Serie serie) {
+            Season.sortSeason(serie.seasons);
+            for (Season s : serie.seasons) {
+                for (Episode e : s.episodes) {
+                    if (!e.visto) {
+                        return e;
+                    }
+                }
+            }
+            return null;
+        }
+
+        private void watchEpisode(SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int position) {
+            Episode episode = getLastEpisodeUnwatched(serie);
+            for (SerieResponse.Serie fav : favs) {
+                if (fav.id == serie.id) {
+                    for (Season s : fav.seasons) {
+                        for (Episode e : s.episodes) {
+                            if (e.id == episode.id) {
+                                e.visto = true;
+                                FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(favs);
+                                update(position);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
         }
 
         /**
