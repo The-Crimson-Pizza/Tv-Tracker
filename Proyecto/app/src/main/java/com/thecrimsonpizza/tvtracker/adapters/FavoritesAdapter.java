@@ -18,9 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.thecrimsonpizza.tvtracker.R;
-import com.thecrimsonpizza.tvtracker.data.FirebaseDb;
 import com.thecrimsonpizza.tvtracker.models.seasons.Episode;
 import com.thecrimsonpizza.tvtracker.models.seasons.Season;
 import com.thecrimsonpizza.tvtracker.models.serie.SerieResponse;
@@ -147,7 +145,9 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
 
                 nextEpisode.setOnClickListener(v -> {
                     watchEpisode(serie, favs, position);
-
+                    if (serie.finishDate != null) {
+                        nextEpisode.setVisibility(View.GONE);
+                    }
                 });
 
             }
@@ -167,13 +167,13 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
 
         private void watchEpisode(SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int position) {
             Episode episode = getLastEpisodeUnwatched(serie);
-            for (SerieResponse.Serie fav : favs) {
-                if (fav.id == serie.id) {
-                    for (Season s : fav.seasons) {
-                        for (Episode e : s.episodes) {
-                            if (e.id == episode.id) {
-                                e.visto = true;
-                                FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(favs);
+            for (int i = 0; i < favs.size(); i++) {
+                if (favs.get(i).id == serie.id) {
+                    for (int j = 0; j < favs.get(i).seasons.size(); j++) {
+                        for (int k = 0; k < favs.get(i).seasons.get(j).episodes.size(); k++) {
+                            if (favs.get(i).seasons.get(j).episodes.get(k).id == episode.id) {
+                                favs.get(i).seasons.get(j).episodes.get(k).watchEpisode(serie, favs, k, j);
+
                                 break;
                             }
                         }

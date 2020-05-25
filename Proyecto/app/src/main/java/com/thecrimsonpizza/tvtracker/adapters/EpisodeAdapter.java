@@ -16,16 +16,12 @@ import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
-import com.google.firebase.auth.FirebaseAuth;
 import com.thecrimsonpizza.tvtracker.R;
-import com.thecrimsonpizza.tvtracker.data.FirebaseDb;
 import com.thecrimsonpizza.tvtracker.models.seasons.Episode;
-import com.thecrimsonpizza.tvtracker.models.seasons.Season;
 import com.thecrimsonpizza.tvtracker.models.serie.SerieResponse;
 import com.thecrimsonpizza.tvtracker.util.Constants;
 import com.thecrimsonpizza.tvtracker.util.Util;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -120,7 +116,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
 
         void bindTo(Episode episode, SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int mSeasonPos, Context c) {
             if (episode != null) {
-                setWatchedCheck(episode, serie, favs, mSeasonPos);
+                episode.setWatchedCheck(episode, serie, favs, mSeasonPos, getAdapterPosition(), watchedCheck);
 
                 episodeName.setText(episode.name);
                 episodeNameExpandable.setText(episode.name);
@@ -137,135 +133,6 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
             }
         }
 
-        /**
-         * Checks if the episode is watched and sets it true or false the CheckBox
-         *
-         * @param episode   episode of the season
-         * @param serie     serie loaded in the SerieFragment
-         * @param favs      list of series in the following list
-         * @param seasonPos position of the season in the season list
-         */
-        private void setWatchedCheck(Episode episode, SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int seasonPos) {
-            if (serie.added) {
-                watchedCheck.setVisibility(View.VISIBLE);
-                watchedCheck.setChecked(episode.visto);
-                watchedCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                    if (isChecked) {
-                        if (!episode.visto) {
-                            watchEpisode(serie, favs, getAdapterPosition(), seasonPos);
-                        }
-                    } else {
-                        if (episode.visto) {
-                            unwatchEpisode(serie, favs, getAdapterPosition(), seasonPos);
-                        }
-                    }
-                });
-            }
-        }
-
-        /**
-         * Checks if the season is finished or not
-         *
-         * @param serie we need its seasons
-         * @return true or false
-         */
-        private boolean checkSeasonFinished(SerieResponse.Serie serie) {
-            for (Season s : serie.seasons) {
-                if (!s.visto) return false;
-            }
-            return true;
-        }
-
-        /**
-         * Checks if the episodes are watched so the season is finished or not
-         *
-         * @param serie we need its seasons and episodes
-         * @return true or false
-         */
-        private boolean checkEpisodesFinished(SerieResponse.Serie serie) {
-            for (Season s : serie.seasons) {
-                for (Episode e : s.episodes) {
-                    if (!e.visto) return false;
-                }
-            }
-            return true;
-        }
-
-        /**
-         * Set as watched the episode in the RecyclerView and then in the Database
-         *
-         * @param serie      serie loaded in the SerieFragment
-         * @param favs       list of series in the following list
-         * @param episodePos episode position in the RecyclerView
-         * @param seasonPos  position of the season in the season list
-         */
-        private void watchEpisode(SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int episodePos, int seasonPos) {
-            int favPosition = serie.getPosition(favs);
-            if (favPosition != -1) {
-                favs.get(favPosition)
-                        .seasons.get(seasonPos)
-                        .episodes.get(episodePos)
-                        .visto = true;
-                favs.get(favPosition)
-                        .seasons.get(seasonPos)
-                        .episodes.get(episodePos)
-                        .watchedDate = new Date();
-
-                if (checkEpisodesFinished(favs.get(favPosition))) {
-                    favs.get(favPosition)
-                            .seasons.get(seasonPos).visto = true;
-                    favs.get(favPosition)
-                            .seasons.get(seasonPos).watchedDate = new Date();
-                } else {
-                    favs.get(favPosition)
-                            .seasons.get(seasonPos).visto = false;
-                    favs.get(favPosition)
-                            .seasons.get(seasonPos).watchedDate = null;
-                }
-
-                if (checkSeasonFinished(favs.get(favPosition))) {
-                    favs.get(favPosition).finished = true;
-                    favs.get(favPosition).finishDate = new Date();
-                } else {
-                    favs.get(favPosition).finished = false;
-                    favs.get(favPosition).finishDate = null;
-                }
-
-                FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(favs);
-            }
-        }
-
-        /**
-         * Set as unwatched the episode in the RecyclerView and the in the Database
-         *
-         * @param serie      serie loaded in the SerieFragment
-         * @param favs       list of series in the following list
-         * @param episodePos episode position in the RecyclerView
-         * @param seasonPos  position of the season in the season list
-         */
-        private void unwatchEpisode(SerieResponse.Serie serie, List<SerieResponse.Serie> favs, int episodePos, int seasonPos) {
-            int favPosition = serie.getPosition(favs);
-            if (favPosition != -1) {
-                favs.get(favPosition)
-                        .seasons.get(seasonPos)
-                        .episodes.get(episodePos)
-                        .visto = false;
-                favs.get(favPosition)
-                        .seasons.get(seasonPos)
-                        .episodes.get(episodePos)
-                        .watchedDate = null;
-
-                favs.get(favPosition)
-                        .seasons.get(seasonPos).visto = false;
-                favs.get(favPosition)
-                        .seasons.get(seasonPos).watchedDate = null;
-
-                favs.get(favPosition).finished = false;
-                favs.get(favPosition).finishDate = null;
-
-                FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(favs);
-            }
-        }
 
         /**
          * Turns minutes to mm:ss format
