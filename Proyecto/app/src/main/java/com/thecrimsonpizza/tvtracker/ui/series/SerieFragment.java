@@ -60,6 +60,7 @@ public class SerieFragment extends Fragment {
     private SerieResponse.Serie mSerie;
     private List<SerieResponse.Serie> mFavs = new ArrayList<>();
     private MenuItem itemWeb;
+    private FloatingActionButton fab;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,12 +76,12 @@ public class SerieFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        fab = view.findViewById(R.id.fab);
         seriesViewModel = new ViewModelProvider(requireActivity()).get(SeriesViewModel.class);
 
         setToolbar(view);
         hideKeyboard();
         setViewPager(view);
-        setFloatingButton(view);
         getFollowingSeries(view);
     }
 
@@ -95,6 +96,7 @@ public class SerieFragment extends Fragment {
                     mFavs.addAll(temp);
                 }
                 setSerie(view);
+
             }
 
             @Override
@@ -118,7 +120,9 @@ public class SerieFragment extends Fragment {
             if (mSerie.homepage != null && !mSerie.homepage.isEmpty()) {
                 itemWeb.setVisible(true);
             }
+
         }
+
     }
 
     private void getSerie(View view) {
@@ -150,6 +154,7 @@ public class SerieFragment extends Fragment {
         RxBus.getInstance().publish(s);
         seriesViewModel.setSerie(s);
         new FillSerie(view, s, mContext).fillCollapseBar();
+        setFloatingButton();
     }
 
     private void addFav() {
@@ -218,8 +223,8 @@ public class SerieFragment extends Fragment {
         return sendIntent;
     }
 
-    private void setFloatingButton(@NonNull View view) {
-        FloatingActionButton fab = view.findViewById(R.id.fab);
+    private void setFloatingButton() {
+        fab.setVisibility(View.VISIBLE);
         fab.setOnClickListener(viewFab -> {
             if (!mSerie.added) {
                 addFav();

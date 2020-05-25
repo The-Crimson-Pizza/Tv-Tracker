@@ -70,11 +70,6 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         return 0;
     }
 
-    void update(int position) {
-//        notifyItemChanged(position);
-    }
-
-
     class ViewHolder extends RecyclerView.ViewHolder {
 
         final Button nextEpisode;
@@ -179,7 +174,6 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                             if (e.id == episode.id) {
                                 e.visto = true;
                                 FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(favs);
-                                update(position);
                                 break;
                             }
                         }
