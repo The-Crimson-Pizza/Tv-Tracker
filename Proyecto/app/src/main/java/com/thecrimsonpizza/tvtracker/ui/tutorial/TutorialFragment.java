@@ -25,9 +25,7 @@ public class TutorialFragment extends AppIntro {
         addSlide(IntroductionFragment.newInstance("aaaa", "dfsfdds"));
 
         setSystemBackButtonLocked(true);
-        setProgressIndicator();
-        setIndicatorColor(getColor(R.color.whiteColor), getColor(R.color.accent));
-
+        setIndicatorController(new CustomIndicator(getColor(R.color.whiteColor), getColor(R.color.colorPrimary)));
     }
 
     @Override
