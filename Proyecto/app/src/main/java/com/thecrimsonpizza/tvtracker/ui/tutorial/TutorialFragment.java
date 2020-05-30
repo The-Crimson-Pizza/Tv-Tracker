@@ -6,12 +6,12 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.github.appintro.AppIntro;
+import com.github.appintro.AppIntro2;
 import com.github.appintro.AppIntroCustomLayoutFragment;
 import com.thecrimsonpizza.tvtracker.R;
 import com.thecrimsonpizza.tvtracker.ui.LoginActivity;
 
-public class TutorialFragment extends AppIntro {
+public class TutorialFragment extends AppIntro2 {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,6 +24,7 @@ public class TutorialFragment extends AppIntro {
 //        addSlide(AppIntroCustomLayoutFragment.newInstance(R.layout.tutorial_slide5));
         addSlide(IntroductionFragment.newInstance("aaaa", "dfsfdds"));
 
+        setImmersiveMode();
         setSystemBackButtonLocked(true);
         setIndicatorController(new CustomIndicator(getColor(R.color.whiteColor), getColor(R.color.colorPrimary)));
     }
