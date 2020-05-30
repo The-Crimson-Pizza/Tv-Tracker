@@ -22,7 +22,7 @@ public class TutorialFragment extends AppIntro2 {
         addSlide(AppIntroCustomLayoutFragment.newInstance(R.layout.tutorial_slide3));
         addSlide(AppIntroCustomLayoutFragment.newInstance(R.layout.tutorial_slide4));
 //        addSlide(AppIntroCustomLayoutFragment.newInstance(R.layout.tutorial_slide5));
-        addSlide(IntroductionFragment.newInstance("aaaa", "dfsfdds"));
+        addSlide(IntroductionFragment.newInstance());
 
         setImmersiveMode();
         setSystemBackButtonLocked(true);
