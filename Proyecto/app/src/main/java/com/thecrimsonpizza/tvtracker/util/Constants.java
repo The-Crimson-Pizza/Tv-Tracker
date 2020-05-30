@@ -46,6 +46,7 @@ public class Constants {
     public static final String TEXT_PLAIN = "text/plain";
     public static final String SEASON_EPISODE_FORMAT = "%02dx%02d - %s";
     public static final String YOUTUBE = "YouTube";
+    public static final String FIRST_OPENED = "first_opened";
 
     private Constants() {
 //        Empty constructor

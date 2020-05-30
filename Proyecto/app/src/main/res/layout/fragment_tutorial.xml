@@ -3,12 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.TutorialFragment">
+    tools:context=".ui.tutorial.TutorialFragment">
+
+    <!--    <include layout="@layout/main_title"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +31,6 @@
 
         </LinearLayout>
 
-        <include layout="@layout/main_title"/>
 
         <LinearLayout
             android:layout_width="match_parent"

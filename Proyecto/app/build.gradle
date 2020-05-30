@@ -74,4 +74,8 @@ dependencies {
 
     // gráficos
     implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+
+    // tutorial
+    implementation 'com.github.AppIntro:AppIntro:6.0.0'
+
 }

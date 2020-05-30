@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="15dp"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:background="@color/colorPrimary"
+    tools:ignore="UseCompoundDrawables">
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="15dp"
+        android:contentDescription="@string/app_logo"
+        app:tint="@color/whiteColor"
+        android:src="@drawable/proto_logo_96" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom"
+        android:fontFamily="@font/budmojiggler"
+        android:gravity="center_vertical"
+        android:text="@string/app_name_final"
+        android:textColor="@color/whiteColor"
+        android:textSize="24pt"
+        android:maxLines="1"
+        app:autoSizeMaxTextSize="100sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeStepGranularity="2sp"
+        app:autoSizeTextType="uniform"
+        android:textStyle="bold" />
+</LinearLayout>
