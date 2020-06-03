@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.github.appintro.AppIntro;
 import com.github.appintro.AppIntro2;
 import com.github.appintro.AppIntroCustomLayoutFragment;
 import com.thecrimsonpizza.tvtracker.R;
@@ -26,7 +27,9 @@ public class TutorialFragment extends AppIntro2 {
 
         setImmersiveMode();
         setSystemBackButtonLocked(true);
-        setIndicatorController(new CustomIndicator(getColor(R.color.whiteColor), getColor(R.color.colorPrimary)));
+        //setIndicatorController(new CustomIndicator(getColor(R.color.whiteColor), getColor(R.color.colorPrimary)));
+        setProgressIndicator();
+        setIndicatorColor(getColor(R.color.bgTotal), getColor(R.color.colorPrimary));
     }
 
     @Override

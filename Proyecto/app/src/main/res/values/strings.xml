@@ -63,10 +63,11 @@
     <string name="search_menu">Search menu</string>
     <string name="follow_button">Follow button</string>
     <string name="following_menu">Following menu</string>
-    <string name="tuto_1">1. Search the TV Shows you want to watch at:</string>
-    <string name="tuto_2">2. Follow them with the follow button in the TV Show description. </string>
-    <string name="tuto_3">3. Track your TV Shows from the following menu. </string>
-    <string name="intro_select">Mark the TV Shows you are already watching:</string>
+    <string name="tuto">Use the homepage to find the best and new TV Shows</string>
+    <string name="tuto_1">Search the TV Shows you want to watch at:</string>
+    <string name="tuto_2">Follow them with the follow button in the TV Show description. </string>
+    <string name="tuto_3">Track your TV Shows from the following menu. </string>
+    <string name="intro_select">Select the TV Shows you are already watching:</string>
     <string name="next">Next</string>
     <string name="logged_as">You are logged in as: </string>
     <string name="sign_out">SIGN OUT</string>

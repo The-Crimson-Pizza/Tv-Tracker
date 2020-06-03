@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/gradient_background"
     android:orientation="vertical"
     tools:context=".ui.tutorial.IntroductionFragment">
 
     <include
         android:id="@+id/include"
-        layout="@layout/main_title_white"
+        layout="@layout/main_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,8 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:text="@string/intro_select"
-            android:textColor="@color/whiteColor"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
             android:textSize="10pt"
             android:textStyle="bold" />
     </LinearLayout>

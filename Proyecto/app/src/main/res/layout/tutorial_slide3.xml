@@ -1,65 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:padding="15dp">
+    android:background="@drawable/gradient_background"
+    android:padding="15dp"
+    android:orientation="vertical">
 
     <include
-        android:id="@+id/include3"
-        layout="@layout/main_title_white"
+        layout="@layout/main_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/include3"
-        tools:layout_editor_absoluteX="15dp">
+        android:gravity="bottom"
+        android:layout_gravity="bottom">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="@string/tuto_3"
-                android:textColor="@color/whiteColor"
-                android:textSize="10pt"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/checked_nav_bar" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="@string/following_menu"
-                android:textColor="@color/whiteColor"
-                android:textSize="10pt"
-                android:textStyle="bold" />
-        </LinearLayout>
+            android:layout_marginBottom="100dp"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:textAlignment="center"
+            android:text="@string/tuto"
+            android:textColor="@color/bgTotal"
+            android:textSize="12pt"
+            android:textStyle="bold" />
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
