@@ -58,9 +58,10 @@
     <string name="intro_select">Selecciona las series que estás siguiente actualmente: </string>
     <string name="or">O</string>
     <string name="next">Siguiente</string>
-    <string name="tuto_1">1. Busca las series que quieras ver en: </string>
-    <string name="tuto_2">2. Síguelas con el botón de seguir en la descripción de la serie. </string>
-    <string name="tuto_3">3. Lleva un seguimiento de tus series desde el menú de seguimiento. </string>
+    <string name="tuto">Encuentre las mejores series y las más nueva en la pantalla principal</string>
+    <string name="tuto_1">Busque sus series y sígalas con el botón de seguimiento</string>
+    <string name="tuto_2">Consulte las estadísticas de uso del usuario y gestione los ajustes</string>
+    <string name="tuto_3">Marque como vistos episodios o temporadas enteras desde la pantalla de seguimiento </string>
     <string name="home_menu">Menú Home</string>
     <string name="search_menu">Menú Búsqueda</string>
     <string name="follow_button">Botón seguir</string>
