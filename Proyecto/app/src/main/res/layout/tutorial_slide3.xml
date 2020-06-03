@@ -1,36 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
-    android:padding="15dp"
-    android:orientation="vertical">
+    android:background="@drawable/gradient_background">
 
     <include
+        android:id="@+id/include2"
         layout="@layout/main_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/follow_tuto"
+        android:layout_marginTop="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
         android:gravity="bottom"
-        android:layout_gravity="bottom">
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/tuto_3"
+        android:textAlignment="center"
+        android:textColor="@color/bgTotal"
+        android:textSize="12pt"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        tools:ignore="RtlCompat" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="100dp"
-            android:layout_gravity="bottom"
-            android:gravity="bottom"
-            android:textAlignment="center"
-            android:text="@string/tuto"
-            android:textColor="@color/bgTotal"
-            android:textSize="12pt"
-            android:textStyle="bold" />
 
-    </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
