@@ -112,8 +112,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/colorPrimary"
-                        android:visibility="invisible"
-                        android:gravity="center" />
+                        android:gravity="center"
+                        android:visibility="invisible" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -136,7 +136,7 @@
             android:id="@+id/expandableViewEpi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"

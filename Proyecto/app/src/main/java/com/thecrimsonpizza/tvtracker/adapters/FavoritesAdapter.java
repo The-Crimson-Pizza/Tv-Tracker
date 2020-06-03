@@ -70,7 +70,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        final Button nextEpisode;
+        final Button btnNextEpisode;
         final ImageView favPoster;
         final TextView favName;
         final TextView favStatus;
@@ -89,7 +89,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            nextEpisode = itemView.findViewById(R.id.next_episode_main_menu);
+            btnNextEpisode = itemView.findViewById(R.id.next_episode_main_menu);
 
             favPoster = itemView.findViewById(R.id.posterBasic);
             favName = itemView.findViewById(R.id.serie_name);
@@ -143,10 +143,12 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                 next2.setText(getLastEpisode(context, serie));
                 sinopsis.setText(getLastEpisodeOverview(context, serie));
 
-                nextEpisode.setOnClickListener(v -> {
+                if (serie.finished) btnNextEpisode.setVisibility(View.GONE);
+
+                btnNextEpisode.setOnClickListener(v -> {
                     watchEpisode(serie, favs, position);
                     if (serie.finishDate != null) {
-                        nextEpisode.setVisibility(View.GONE);
+                        btnNextEpisode.setVisibility(View.GONE);
                     }
                 });
 

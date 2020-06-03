@@ -26,7 +26,7 @@ import java.util.List;
 import static com.thecrimsonpizza.tvtracker.util.Constants.BASE_URL_IMAGES_POSTER;
 
 /**
- * Adapter for the RecyclerView that hosts the basic info of trending, new and favorite shows
+ * Adapter for the tutorial RecyclerView that hosts the basic info of trending shows
  */
 public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHolder> {
 

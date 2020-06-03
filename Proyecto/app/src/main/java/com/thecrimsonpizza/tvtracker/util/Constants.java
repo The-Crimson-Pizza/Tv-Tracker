@@ -47,6 +47,9 @@ public class Constants {
     public static final String SEASON_EPISODE_FORMAT = "%02dx%02d - %s";
     public static final String YOUTUBE = "YouTube";
     public static final String FIRST_OPENED = "first_opened";
+    public static final String NEW_SEASON_NOTIFICATION_CHANNEL = "NewSeason_NotificationChannel";
+    public static final String SERIE_NOMBRE_EXTRA = "SERIE_NOMBRE";
+    public static final String SEASON_NUMBER_EXTRA = "SEASON_NUMBER";
 
     private Constants() {
 //        Empty constructor

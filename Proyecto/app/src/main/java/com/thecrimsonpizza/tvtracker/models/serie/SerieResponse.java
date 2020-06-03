@@ -23,7 +23,6 @@ public class SerieResponse {
     public final List<Serie> results;
 
     public SerieResponse(List<Serie> results) {
-//        Empty constructor for Firebase serialize
         this.results = results;
     }
 
@@ -66,6 +65,10 @@ public class SerieResponse {
         public ExternalIds externalIds;
         public List<Season> seasons;
         public VideosResponse.Video video;
+        @SerializedName("next_episode_to_air")
+        public Episode nextEpisodeToAir;
+        @SerializedName("last_episode_to_air")
+        public Episode lastEpisodeToAir;
 
         //        FOLLOWING
         public boolean added = false;

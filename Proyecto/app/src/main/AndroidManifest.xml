@@ -5,28 +5,33 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:fullBackupContent="@xml/backup_descriptor">
+        android:theme="@style/AppTheme">
+        <service
+            android:name=".services.NewSeasonNotifications"
+            android:exported="false" />
+
+        <receiver
+            android:name=".services.Receiver"
+            android:enabled="true"
+            android:exported="false"></receiver>
 
         <activity
-            android:name="com.thecrimsonpizza.tvtracker.ui.LoginActivity"
+            android:name=".ui.LoginActivity"
             android:label="@string/sign_in" />
-
-        <activity android:name="com.thecrimsonpizza.tvtracker.ui.WebViewActivity" />
-
+        <activity android:name=".ui.WebViewActivity" />
         <activity
-            android:name="com.thecrimsonpizza.tvtracker.util.SplashScreen"
+            android:name=".util.SplashScreen"
             android:noHistory="true"
             android:theme="@style/bgSplashScreenStyle">
             <intent-filter>
@@ -36,13 +41,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.thecrimsonpizza.tvtracker.ui.tutorial.TutorialFragment"
+            android:name=".ui.tutorial.TutorialFragment"
             android:label="Tutorial Intro" />
-
         <activity
-            android:name="com.thecrimsonpizza.tvtracker.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,4 +55,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
