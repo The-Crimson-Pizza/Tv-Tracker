@@ -3,6 +3,8 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.appdistribution'
 apply plugin: 'io.fabric'
 
+
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -32,27 +34,21 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-//        debug {
-//            firebaseAppDistribution {
-//                releaseNotesFile = "Debug version"
-//                testersFile = "andrea.lobo93@gmail.com"
-//                appId = "1:637665289161:android:b578b8c87ed3e99cab3e18"
-//            }
-//        }
         debug {
             firebaseAppDistribution {
 //                releaseNotesFile="$projectDir/apprelease/debug/release_note.txt"
                 releaseNotes = "Debug release"
-                testersFile="$projectDir/testers.txt"
-//                testers = "andrea.lobo93@gmail.com"
+//                testersFile = "$projectDir/testers.txt"
+                testers = "andrea.lobo93@gmail.com"
 //                groupsFile="$projectDir/apprelease/debug/firebase_group.txt"
                 //groups ="qa-team, android-testers"
             }
         }
     }
 
-    viewBinding {
-        enabled = false
+    buildFeatures {
+        dataBinding = false
+        viewBinding = false
     }
 }
 
@@ -109,3 +105,4 @@ dependencies {
     implementation 'com.github.AppIntro:AppIntro:6.0.0'
 
 }
+

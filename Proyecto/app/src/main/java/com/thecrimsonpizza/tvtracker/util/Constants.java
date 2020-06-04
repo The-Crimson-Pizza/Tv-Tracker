@@ -47,9 +47,17 @@ public class Constants {
     public static final String SEASON_EPISODE_FORMAT = "%02dx%02d - %s";
     public static final String YOUTUBE = "YouTube";
     public static final String FIRST_OPENED = "first_opened";
-    public static final String NEW_SEASON_NOTIFICATION_CHANNEL = "NewSeason_NotificationChannel";
+    //    EXTRAS
+    public static final String SEASON_ID_EXTRA = "SEASON_ID";
     public static final String SERIE_NOMBRE_EXTRA = "SERIE_NOMBRE";
     public static final String SEASON_NUMBER_EXTRA = "SEASON_NUMBER";
+
+    //    NOTIFICACIONES
+    public static final String NEW_SEASON_NOTIFICATION_BUNDLE_CHANNEL_ID = "new_season_notification_bundle_channel";
+    public static final String NEW_SEASON_NOTIFICATION_BUNDLE_CHANNEL_NAME = "New Season Notification Bundle Channel";
+    public static final String NEW_SEASON_NOTIFICATION_CHANNEL_ID = "new_season_notification_channel";
+    public static final String NEW_SEASON_NOTIFICATION_CHANNEL_NAME = "New Season Notification Channel";
+    public static final String GROUP_KEY_SEASON_NEW = "group_key_season_new";
 
     private Constants() {
 //        Empty constructor

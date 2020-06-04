@@ -29,3 +29,14 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+
+/*task publishDebug {
+    include 'assembleDebug', 'appDistributionUploadDebug'
+//    dependsOn assembleDebug
+//    dependsOn appDistributionUploadDebug
+//    tasks.findByName(appDistributionUploadDebug).mustRunAfter assembleDebug
+}*/
+task cleanBuildPublish(type: GradleBuild) {
+    tasks = ['assembleDebug', 'appDistributionUploadDebug']
+}
