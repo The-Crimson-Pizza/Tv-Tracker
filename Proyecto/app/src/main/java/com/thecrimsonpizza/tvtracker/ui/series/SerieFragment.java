@@ -36,7 +36,7 @@ import com.thecrimsonpizza.tvtracker.data.SeriesViewModel;
 import com.thecrimsonpizza.tvtracker.data.TmdbRepository;
 import com.thecrimsonpizza.tvtracker.models.seasons.Season;
 import com.thecrimsonpizza.tvtracker.models.serie.SerieResponse;
-import com.thecrimsonpizza.tvtracker.ui.WebViewActivity;
+import com.thecrimsonpizza.tvtracker.ui.otros.WebViewActivity;
 import com.thecrimsonpizza.tvtracker.util.Util;
 
 import org.jetbrains.annotations.NotNull;

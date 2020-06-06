@@ -1,4 +1,4 @@
-package com.thecrimsonpizza.tvtracker.ui;
+package com.thecrimsonpizza.tvtracker.ui.otros;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.thecrimsonpizza.tvtracker.R;
 import com.thecrimsonpizza.tvtracker.data.FirebaseDb;
 import com.thecrimsonpizza.tvtracker.models.serie.SerieResponse;
+import com.thecrimsonpizza.tvtracker.ui.LoginActivity;
 import com.thecrimsonpizza.tvtracker.util.Stats;
 
 import java.util.ArrayList;

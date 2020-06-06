@@ -1,4 +1,4 @@
-package com.thecrimsonpizza.tvtracker.ui;
+package com.thecrimsonpizza.tvtracker.ui.otros;
 
 import android.content.Context;
 import android.os.Bundle;

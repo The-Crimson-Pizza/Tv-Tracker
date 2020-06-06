@@ -19,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.thecrimsonpizza.tvtracker.R;
 import com.thecrimsonpizza.tvtracker.models.actor.MovieCredits;
 import com.thecrimsonpizza.tvtracker.models.actor.TvCredits;
-import com.thecrimsonpizza.tvtracker.ui.WebViewActivity;
+import com.thecrimsonpizza.tvtracker.ui.otros.WebViewActivity;
 import com.thecrimsonpizza.tvtracker.util.Constants;
 import com.thecrimsonpizza.tvtracker.util.Util;
 

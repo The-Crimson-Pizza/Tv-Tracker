@@ -49,7 +49,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
-//      FirebaseAuth.getInstance().signOut(); // LOGOUT
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        launchMainActivity(currentUser);
 
         SignInButton btGoogleSignIn = findViewById(R.id.google_sign_in_button);
         TextView tvForgetPassword = findViewById(R.id.forget);
@@ -72,9 +73,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            launchMainActivity(currentUser);
-        }
+        launchMainActivity(currentUser);
     }
 
     private void login(String email, String password) {
@@ -208,7 +207,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void launchMainActivity(FirebaseUser user) {
         if (user != null) {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
     }

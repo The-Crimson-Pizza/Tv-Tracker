@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.thecrimsonpizza.tvtracker.ui.HomeFragment;
+import com.thecrimsonpizza.tvtracker.ui.otros.HomeFragment;
 import com.thecrimsonpizza.tvtracker.ui.search.ActorSearchFragment;
 import com.thecrimsonpizza.tvtracker.ui.search.SerieSearchFragment;
 import com.thecrimsonpizza.tvtracker.ui.series.CastFragment;

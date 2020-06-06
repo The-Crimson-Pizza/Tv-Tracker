@@ -29,9 +29,9 @@
         <activity
             android:name=".ui.LoginActivity"
             android:label="@string/sign_in" />
-        <activity android:name=".ui.WebViewActivity" />
+        <activity android:name=".ui.otros.WebViewActivity" />
         <activity
-            android:name=".util.SplashScreen"
+            android:name=".ui.SplashScreen"
             android:noHistory="true"
             android:theme="@style/bgSplashScreenStyle">
             <intent-filter>

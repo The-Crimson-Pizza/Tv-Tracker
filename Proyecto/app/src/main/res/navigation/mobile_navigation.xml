@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.thecrimsonpizza.tvtracker.ui.HomeFragment"
+        android:name="com.thecrimsonpizza.tvtracker.ui.otros.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home">
         <action
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/navigation_fav"
-        android:name="com.thecrimsonpizza.tvtracker.ui.FavoritosFragment"
+        android:name="com.thecrimsonpizza.tvtracker.ui.otros.FavoritosFragment"
         android:label="@string/favourites"
         tools:layout="@layout/fragment_favoritos">
         <action
@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.thecrimsonpizza.tvtracker.ui.ProfileFragment"
+        android:name="com.thecrimsonpizza.tvtracker.ui.otros.ProfileFragment"
         android:label="@string/my_profile"
         tools:layout="@layout/fragment_profile" />
 
@@ -79,7 +79,7 @@
 
     <fragment
         android:id="@+id/navigation_actores"
-        android:name="com.thecrimsonpizza.tvtracker.ui.ActorFragment"
+        android:name="com.thecrimsonpizza.tvtracker.ui.otros.ActorFragment"
         android:label="ActorDetalle"
         tools:layout="@layout/fragment_actor">
         <action

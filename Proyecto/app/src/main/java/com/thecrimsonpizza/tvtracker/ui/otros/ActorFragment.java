@@ -1,4 +1,4 @@
-package com.thecrimsonpizza.tvtracker.ui;
+package com.thecrimsonpizza.tvtracker.ui.otros;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
