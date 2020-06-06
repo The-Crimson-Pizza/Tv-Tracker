@@ -1,9 +1,7 @@
 package com.thecrimsonpizza.tvtracker.adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.provider.Settings;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +9,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 import com.thecrimsonpizza.tvtracker.R;
 import com.thecrimsonpizza.tvtracker.models.BasicResponse;
-import com.thecrimsonpizza.tvtracker.util.Constants;
 import com.thecrimsonpizza.tvtracker.util.Util;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.thecrimsonpizza.tvtracker.util.Constants.BASE_URL_IMAGES_POSTER;
@@ -31,6 +30,7 @@ import static com.thecrimsonpizza.tvtracker.util.Constants.BASE_URL_IMAGES_POSTE
 public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHolder> {
 
     private final List<BasicResponse.SerieBasic> mSeries;
+    private static final List<Integer> mCodes = new ArrayList<>();
     private final Context mContext;
 
     public TutorialAdapter(Context mContext, List<BasicResponse.SerieBasic> series) {
@@ -41,7 +41,8 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return ViewHolder.create(parent);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_basic_vertical_tutorial, parent, false);
+        return new ViewHolder(view, mContext);
     }
 
 
@@ -64,32 +65,46 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
 
         final ImageView image;
         final TextView name;
-        //        final TextView rating;
         int id;
+        boolean pulsado = false;
 
-        ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
             image = itemView.findViewById(R.id.posterBasic);
             name = itemView.findViewById(R.id.titleBasic);
-//            rating = itemView.findViewById(R.id.ratingBasic);
+            SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
 
-//            itemView.setOnClickListener(view -> goToSerie(itemView, view));
+            itemView.setOnClickListener(view -> {
+                if (!pulsado) {
+                    mCodes.add(id);
+                } else {
+                    mCodes.remove(id);
+                }
+                pulsado = !pulsado;
+                setPrefIntArray(prefs, mCodes.stream().mapToInt(i -> i).toArray());
+//                FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setTempIds(mCodes);
+//                writeShared(prefs, mCodes.size() > 0);
+            });
         }
 
-        private void goToSerie(@NonNull View itemView, View view) {
-            Bundle bundle = new Bundle();
-            bundle.putInt(Constants.ID_SERIE, id);
-            if (Util.isNetworkAvailable(itemView.getContext())) {
-                Navigation.findNavController(view).navigate(R.id.action_home_to_series, bundle);
-            } else {
-                Snackbar.make(view, itemView.getContext().getString(R.string.no_conn), BaseTransientBottomBar.LENGTH_LONG)
-                        .setAction(R.string.activate_net, v -> itemView.getContext().startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
+        public void setPrefIntArray(SharedPreferences sp, int[] value) {
+            SharedPreferences.Editor prefEditor = sp.edit();
+            String s;
+            try {
+                JSONArray jsonArr = new JSONArray();
+                for (int i : value)
+                    jsonArr.put(i);
+
+                JSONObject json = new JSONObject();
+                json.put("TEMP_DATA", jsonArr);
+
+                s = json.toString();
+            } catch (JSONException excp) {
+                s = "";
             }
-        }
 
-        static ViewHolder create(ViewGroup parent) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_series_basic_vertical_tutorial, parent, false);
-            return new ViewHolder(view);
+            prefEditor.putString("TEMP_DATA", s);
+            prefEditor.commit();
         }
 
         void bindTo(BasicResponse.SerieBasic serieBasic, Context context) {
@@ -97,7 +112,6 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
                 id = serieBasic.id;
                 name.setText(serieBasic.name);
                 Util.getImage(BASE_URL_IMAGES_POSTER + serieBasic.posterPath, image, context);
-//                rating.setText(String.valueOf(serieBasic.voteAverage));
             }
         }
     }

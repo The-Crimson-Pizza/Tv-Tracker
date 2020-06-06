@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +42,7 @@ public class IntroductionFragment extends Fragment implements SlidePolicy {
     private CompositeDisposable compositeDisposable;
 
     Button b;
+
     boolean pulsado = false;
 
     public IntroductionFragment() {
@@ -133,6 +133,5 @@ public class IntroductionFragment extends Fragment implements SlidePolicy {
 
     @Override
     public void onUserIllegallyRequestedNextPage() {
-        Log.e("q", "NO PULSADO");
     }
 }

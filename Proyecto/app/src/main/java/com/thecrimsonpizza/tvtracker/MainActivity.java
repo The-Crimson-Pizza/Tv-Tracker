@@ -1,12 +1,10 @@
 package com.thecrimsonpizza.tvtracker;
 
 import android.app.AlarmManager;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -35,7 +33,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import static com.thecrimsonpizza.tvtracker.services.Receiver.ACTION_ALARM_RECEIVER;
-import static com.thecrimsonpizza.tvtracker.util.Constants.NEW_SEASON_NOTIFICATION_BUNDLE_CHANNEL_ID;
 import static com.thecrimsonpizza.tvtracker.util.Constants.SEASON_ID_EXTRA;
 import static com.thecrimsonpizza.tvtracker.util.Constants.SEASON_NUMBER_EXTRA;
 import static com.thecrimsonpizza.tvtracker.util.Constants.SERIE_NOMBRE_EXTRA;
@@ -59,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
         startPos = 0;
         setNavigationView();
+
         getFavorites();
     }
 
@@ -86,22 +84,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void createNotificationChannel() {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel serviceChannel = new NotificationChannel(
-                    NEW_SEASON_NOTIFICATION_BUNDLE_CHANNEL_ID,
-                    "New Season Notification Channel",
-                    NotificationManager.IMPORTANCE_DEFAULT
-            );
-
-            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//            NotificationManager manager = getSystemService(NotificationManager.class);
-            if (manager != null) {
-                manager.createNotificationChannel(serviceChannel);
-            }
-        }
-    }
 
     private void setAlarms(Season season, String name) {
 
@@ -115,9 +97,6 @@ public class MainActivity extends AppCompatActivity {
             Date todayDate = getTodayDate();
 
             if (seasonDate.after(todayDate) || seasonDate.equals(todayDate)) {
-               /* Calendar myAlarmDate = Calendar.getInstance();
-                myAlarmDate.setTime(seasonDate);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, myAlarmDate.getTimeInMillis(), pendingIntent);*/
                 try {
                     pendingIntent.send();
                 } catch (PendingIntent.CanceledException e) {

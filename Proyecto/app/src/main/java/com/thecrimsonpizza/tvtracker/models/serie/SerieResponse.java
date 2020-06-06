@@ -56,7 +56,7 @@ public class SerieResponse {
         public String originalLanguage;
         public String overview;
         @SerializedName("vote_average")
-        float voteAverage;
+        public float voteAverage;
         public List<Genre> genres = null;
         public List<Network> networks = null;
         public Credits credits;
@@ -80,7 +80,6 @@ public class SerieResponse {
         public Serie() {
 //            Empty constructor for Firebase serialize
         }
-
 
         public BasicResponse.SerieBasic toBasic() {
             return new BasicResponse.SerieBasic(this.id, this.name, this.posterPath, this.voteAverage);

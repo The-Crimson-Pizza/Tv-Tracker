@@ -20,7 +20,7 @@ public class BasicResponse {
 
     public static class SerieBasic implements Parcelable {
 
-        public final Integer id;
+        public final int id;
         public final String name;
         @SerializedName("poster_path")
         public final String posterPath;
@@ -32,6 +32,15 @@ public class BasicResponse {
             this.name = name;
             this.posterPath = posterPath;
             this.voteAverage = voteAverage;
+        }
+
+        public boolean isFav(List<BasicResponse.SerieBasic> favs) {
+            for (SerieBasic s : favs) {
+                if (this.id == s.id) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         SerieBasic(Parcel in) {

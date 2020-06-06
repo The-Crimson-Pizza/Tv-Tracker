@@ -2,6 +2,7 @@ package com.thecrimsonpizza.tvtracker.ui.otros;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.os.Bundle;
@@ -29,10 +30,18 @@ import com.thecrimsonpizza.tvtracker.adapters.HomeAdapter;
 import com.thecrimsonpizza.tvtracker.data.FirebaseDb;
 import com.thecrimsonpizza.tvtracker.data.TmdbRepository;
 import com.thecrimsonpizza.tvtracker.models.BasicResponse;
+import com.thecrimsonpizza.tvtracker.models.seasons.Season;
 import com.thecrimsonpizza.tvtracker.models.serie.SerieResponse;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -43,6 +52,8 @@ public class HomeFragment extends Fragment {
     private final List<BasicResponse.SerieBasic> mPopulares = new ArrayList<>();
     private final List<BasicResponse.SerieBasic> mNuevas = new ArrayList<>();
     private final List<BasicResponse.SerieBasic> mFavs = new ArrayList<>();
+    List<SerieResponse.Serie> favTemp = new ArrayList<>();
+
     private Context mContext;
     private boolean isOn;
 
@@ -87,12 +98,64 @@ public class HomeFragment extends Fragment {
             isOn = true;
             getTrending(adapterPopular);
             getNew(adapterNueva);
-            getFavorites(adapterFav, switcherFavs);
+
+            SharedPreferences prefs = mContext.getApplicationContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+            List<Integer> temp = getPrefIntArray(prefs, new int[]{});
+            if (temp != null && !temp.isEmpty()) saveFollowing(prefs, temp);
+            else getFavorites(adapterFav, switcherFavs);
+
         } else {
             isOn = false;
             Snackbar.make(view, getString(R.string.no_conn), BaseTransientBottomBar.LENGTH_INDEFINITE)
                     .setAction(R.string.activate_net, v1 -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).show();
         }
+    }
+
+    public List<Integer> getPrefIntArray(SharedPreferences sp, int[] defaultValue) {
+        String s = sp.getString("TEMP_DATA", "");
+
+        try {
+            JSONObject json = new JSONObject(new JSONTokener(s));
+            JSONArray jsonArr = json.getJSONArray("TEMP_DATA");
+
+            int[] result = new int[jsonArr.length()];
+
+            for (int i = 0; i < jsonArr.length(); i++)
+                result[i] = jsonArr.getInt(i);
+
+            return Arrays.stream(result).boxed().collect(Collectors.toList());
+
+        } catch (JSONException excp) {
+            return Arrays.stream(defaultValue).boxed().collect(Collectors.toList());
+        }
+    }
+
+    private void saveFollowing(SharedPreferences sp, List<Integer> temp) {
+        if (temp != null) {
+            for (int id : temp) {
+                getSerie(id);
+            }
+            SharedPreferences.Editor prefEditor = sp.edit();
+            prefEditor.putString("TEMP_DATA", "");
+            prefEditor.commit();
+        }
+    }
+
+    private void getSerie(int id) {
+        TmdbRepository.getInstance().getSerie(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::getSeasons);
+    }
+
+    private void getSeasons(SerieResponse.Serie s) {
+        TmdbRepository.getInstance().getSeasons(s.id, 1, s.numberOfSeasons)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(lista -> {
+                    s.seasons = lista;
+                    Season.sortSeason(s.seasons);
+                    favTemp.add(s);
+                    getFavorites(adapterFav, switcherFavs);
+                });
     }
 
     @Override
@@ -108,17 +171,25 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mFavs.clear();
-                GenericTypeIndicator<List<SerieResponse.Serie>> genericTypeIndicator = new GenericTypeIndicator<List<SerieResponse.Serie>>() {
-                };
-                List<SerieResponse.Serie> favTemp = dataSnapshot.getValue(genericTypeIndicator);
-                if (favTemp != null) {
-                    for (SerieResponse.Serie fav : favTemp) {
-                        mFavs.add(fav.toBasic());
+                List<SerieResponse.Serie> temp = dataSnapshot.getValue(new GenericTypeIndicator<List<SerieResponse.Serie>>() {
+                });
+                if (temp != null) {
+                    if (!favTemp.isEmpty()) {
+                        temp.addAll(favTemp);
+                        favTemp = new ArrayList<>();
+                        FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(temp);
                     }
+                    for (SerieResponse.Serie fav : temp) {
+                        if (!fav.toBasic().isFav(mFavs))
+                            mFavs.add(fav.toBasic());
+                    }
+
                     adapterFav.notifyDataSetChanged();
                     if (R.id.gridFavs == switcherFavs.getNextView().getId())
                         switcherFavs.showNext();
                 } else {
+                    if (!favTemp.isEmpty())
+                        FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(favTemp);
                     if (R.id.no_data_favs == switcherFavs.getNextView().getId())
                         switcherFavs.showNext();
                 }

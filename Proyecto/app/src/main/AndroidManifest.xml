@@ -42,7 +42,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.tutorial.TutorialFragment"
+            android:name=".ui.tutorial.TutorialActivity"
             android:label="Tutorial Intro" />
         <activity
             android:name=".MainActivity"

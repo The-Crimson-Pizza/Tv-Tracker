@@ -14,7 +14,7 @@ public class FirebaseDb {
 
     private static FirebaseDb firebaseDb;
     private final DatabaseReference mFavs;
-    private final DatabaseReference isNew;
+    private final DatabaseReference tempIds;
 
     public static FirebaseDb getInstance(FirebaseUser currentUser) {
         if (firebaseDb == null) {
@@ -25,23 +25,24 @@ public class FirebaseDb {
 
     private FirebaseDb(FirebaseUser currentUser) {
         mFavs = FirebaseDatabase.getInstance().getReference("users/" + currentUser.getUid() + "/series_following");
-        isNew = FirebaseDatabase.getInstance().getReference("users/" + currentUser.getUid() + "/config/tutorial");
+        tempIds = FirebaseDatabase.getInstance().getReference("temp/");
+//        tempIds = FirebaseDatabase.getInstance().getReference("users/" + currentUser.getUid() + "/config/tutorial");
     }
 
     public DatabaseReference getSeriesFav() {
         return mFavs;
     }
 
-    public DatabaseReference getIsNew() {
-        return isNew;
-    }
-
     public void setSeriesFav(List<SerieResponse.Serie> favs) {
         mFavs.setValue(favs);
     }
 
-    public void setSeriesFav(Boolean nuevo) {
-        isNew.setValue(nuevo);
+    public DatabaseReference getTempIds() {
+        return tempIds;
+    }
+
+    public void setTempIds(List<Integer> tempIdset) {
+        mFavs.setValue(tempIdset);
     }
 
 }

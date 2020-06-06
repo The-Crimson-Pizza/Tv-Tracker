@@ -11,7 +11,8 @@ import com.github.appintro.AppIntroCustomLayoutFragment;
 import com.thecrimsonpizza.tvtracker.R;
 import com.thecrimsonpizza.tvtracker.ui.LoginActivity;
 
-public class TutorialFragment extends AppIntro2 {
+public class TutorialActivity extends AppIntro2 {
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,12 +22,10 @@ public class TutorialFragment extends AppIntro2 {
         addSlide(AppIntroCustomLayoutFragment.newInstance(R.layout.tutorial_slide2));
         addSlide(AppIntroCustomLayoutFragment.newInstance(R.layout.tutorial_slide3));
         addSlide(AppIntroCustomLayoutFragment.newInstance(R.layout.tutorial_slide4));
-//        addSlide(AppIntroCustomLayoutFragment.newInstance(R.layout.tutorial_slide5));
         addSlide(IntroductionFragment.newInstance());
 
         setImmersiveMode();
         setSystemBackButtonLocked(true);
-        //setIndicatorController(new CustomIndicator(getColor(R.color.whiteColor), getColor(R.color.colorPrimary)));
         setProgressIndicator();
         setIndicatorColor(getColor(R.color.bgTotal), getColor(R.color.colorPrimary));
     }

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.thecrimsonpizza.tvtracker.ui.tutorial.TutorialFragment;
+import com.thecrimsonpizza.tvtracker.ui.tutorial.TutorialActivity;
 
 import static com.thecrimsonpizza.tvtracker.util.Constants.FIRST_OPENED;
 
@@ -21,7 +21,7 @@ public class SplashScreen extends AppCompatActivity {
 
         if (firstOpened) {
             getPreferences(MODE_PRIVATE).edit().putBoolean(FIRST_OPENED, false).apply();
-            startActivity(new Intent(this, TutorialFragment.class));
+            startActivity(new Intent(this, TutorialActivity.class));
         } else {
             startActivity(new Intent(this, LoginActivity.class));
         }
