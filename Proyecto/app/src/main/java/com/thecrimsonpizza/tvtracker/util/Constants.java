@@ -35,10 +35,22 @@ public class Constants {
     public static final String FORMAT_HOURS = "HH:mm";
     public static final String FORMAT_MINUTES = "%d:%02d";
     //    SHARED PREFERENCES
-    public static final String KEY_PREFERENCES = "PREFERENCES_FAV";
+    public static final String FAV_TEMP_DATA = "TEMP_DATA";
+    public static final String MY_PREFS = "myPrefs";
+    public static final String FIRST_OPENED = "first_opened";
     //    INTENT KEYS
     public static final String URL_WEBVIEW = "URL";
     public static final String ID = "id";
+    //    EXTRAS
+    public static final String SEASON_ID_EXTRA = "SEASON_ID";
+    public static final String SERIE_NOMBRE_EXTRA = "SERIE_NOMBRE";
+    public static final String SEASON_NUMBER_EXTRA = "SEASON_NUMBER";
+    //    NOTIFICACIONES
+    public static final String NEW_SEASON_NOTIFICATION_BUNDLE_CHANNEL_ID = "new_season_notification_bundle_channel";
+    public static final String NEW_SEASON_NOTIFICATION_BUNDLE_CHANNEL_NAME = "New Season Notification Bundle Channel";
+    public static final String NEW_SEASON_NOTIFICATION_CHANNEL_ID = "new_season_notification_channel";
+    public static final String NEW_SEASON_NOTIFICATION_CHANNEL_NAME = "New Season Notification Channel";
+    public static final String GROUP_KEY_SEASON_NEW = "group_key_season_new";
     //    OTROS
     public static final String GENRE = "genre";
     public static final String NETWORKS = "network";
@@ -46,18 +58,6 @@ public class Constants {
     public static final String TEXT_PLAIN = "text/plain";
     public static final String SEASON_EPISODE_FORMAT = "%02dx%02d - %s";
     public static final String YOUTUBE = "YouTube";
-    public static final String FIRST_OPENED = "first_opened";
-    //    EXTRAS
-    public static final String SEASON_ID_EXTRA = "SEASON_ID";
-    public static final String SERIE_NOMBRE_EXTRA = "SERIE_NOMBRE";
-    public static final String SEASON_NUMBER_EXTRA = "SEASON_NUMBER";
-
-    //    NOTIFICACIONES
-    public static final String NEW_SEASON_NOTIFICATION_BUNDLE_CHANNEL_ID = "new_season_notification_bundle_channel";
-    public static final String NEW_SEASON_NOTIFICATION_BUNDLE_CHANNEL_NAME = "New Season Notification Bundle Channel";
-    public static final String NEW_SEASON_NOTIFICATION_CHANNEL_ID = "new_season_notification_channel";
-    public static final String NEW_SEASON_NOTIFICATION_CHANNEL_NAME = "New Season Notification Channel";
-    public static final String GROUP_KEY_SEASON_NEW = "group_key_season_new";
 
     private Constants() {
 //        Empty constructor

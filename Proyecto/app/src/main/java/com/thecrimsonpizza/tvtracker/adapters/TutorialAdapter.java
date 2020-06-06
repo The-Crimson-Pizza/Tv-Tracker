@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.thecrimsonpizza.tvtracker.util.Constants.BASE_URL_IMAGES_POSTER;
+import static com.thecrimsonpizza.tvtracker.util.Constants.FAV_TEMP_DATA;
+import static com.thecrimsonpizza.tvtracker.util.Constants.MY_PREFS;
 
 /**
  * Adapter for the tutorial RecyclerView that hosts the basic info of trending shows
@@ -72,7 +74,7 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
             super(itemView);
             image = itemView.findViewById(R.id.posterBasic);
             name = itemView.findViewById(R.id.titleBasic);
-            SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+            SharedPreferences prefs = context.getApplicationContext().getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
 
             itemView.setOnClickListener(view -> {
                 if (!pulsado) {
@@ -82,8 +84,6 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
                 }
                 pulsado = !pulsado;
                 setPrefIntArray(prefs, mCodes.stream().mapToInt(i -> i).toArray());
-//                FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setTempIds(mCodes);
-//                writeShared(prefs, mCodes.size() > 0);
             });
         }
 
@@ -96,14 +96,14 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
                     jsonArr.put(i);
 
                 JSONObject json = new JSONObject();
-                json.put("TEMP_DATA", jsonArr);
+                json.put(FAV_TEMP_DATA, jsonArr);
 
                 s = json.toString();
             } catch (JSONException excp) {
                 s = "";
             }
 
-            prefEditor.putString("TEMP_DATA", s);
+            prefEditor.putString(FAV_TEMP_DATA, s);
             prefEditor.commit();
         }
 

@@ -15,10 +15,7 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        boolean firstOpened = true;
         boolean firstOpened = getPreferences(MODE_PRIVATE).getBoolean(FIRST_OPENED, true);
-
         if (firstOpened) {
             getPreferences(MODE_PRIVATE).edit().putBoolean(FIRST_OPENED, false).apply();
             startActivity(new Intent(this, TutorialActivity.class));

@@ -38,8 +38,8 @@ android {
             firebaseAppDistribution {
 //                releaseNotesFile="$projectDir/apprelease/debug/release_note.txt"
                 releaseNotes = "Debug release"
-//                testersFile = "$projectDir/testers.txt"
-                testers = "andrea.lobo93@gmail.com"
+                testersFile = "$projectDir/testers.txt"
+//                testers = "andrea.lobo93@gmail.com"
 //                groupsFile="$projectDir/apprelease/debug/firebase_group.txt"
                 //groups ="qa-team, android-testers"
             }

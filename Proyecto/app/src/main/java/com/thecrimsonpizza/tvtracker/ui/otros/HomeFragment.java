@@ -47,6 +47,9 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
+import static com.thecrimsonpizza.tvtracker.util.Constants.FAV_TEMP_DATA;
+import static com.thecrimsonpizza.tvtracker.util.Constants.MY_PREFS;
+
 public class HomeFragment extends Fragment {
 
     private final List<BasicResponse.SerieBasic> mPopulares = new ArrayList<>();
@@ -99,7 +102,7 @@ public class HomeFragment extends Fragment {
             getTrending(adapterPopular);
             getNew(adapterNueva);
 
-            SharedPreferences prefs = mContext.getApplicationContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+            SharedPreferences prefs = mContext.getApplicationContext().getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
             List<Integer> temp = getPrefIntArray(prefs, new int[]{});
             if (temp != null && !temp.isEmpty()) saveFollowing(prefs, temp);
             else getFavorites(adapterFav, switcherFavs);
@@ -112,11 +115,11 @@ public class HomeFragment extends Fragment {
     }
 
     public List<Integer> getPrefIntArray(SharedPreferences sp, int[] defaultValue) {
-        String s = sp.getString("TEMP_DATA", "");
+        String s = sp.getString(FAV_TEMP_DATA, "");
 
         try {
             JSONObject json = new JSONObject(new JSONTokener(s));
-            JSONArray jsonArr = json.getJSONArray("TEMP_DATA");
+            JSONArray jsonArr = json.getJSONArray(FAV_TEMP_DATA);
 
             int[] result = new int[jsonArr.length()];
 
@@ -136,7 +139,7 @@ public class HomeFragment extends Fragment {
                 getSerie(id);
             }
             SharedPreferences.Editor prefEditor = sp.edit();
-            prefEditor.putString("TEMP_DATA", "");
+            prefEditor.putString(FAV_TEMP_DATA, "");
             prefEditor.commit();
         }
     }
