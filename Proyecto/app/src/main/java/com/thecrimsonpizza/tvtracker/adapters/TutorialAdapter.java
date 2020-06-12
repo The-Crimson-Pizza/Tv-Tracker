@@ -2,6 +2,7 @@ package com.thecrimsonpizza.tvtracker.adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.thecrimsonpizza.tvtracker.R;
@@ -20,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.thecrimsonpizza.tvtracker.util.Constants.BASE_URL_IMAGES_POSTER;
@@ -32,7 +35,7 @@ import static com.thecrimsonpizza.tvtracker.util.Constants.MY_PREFS;
 public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHolder> {
 
     private final List<BasicResponse.SerieBasic> mSeries;
-    private static final List<Integer> mCodes = new ArrayList<>();
+    private static final HashMap<Integer, Integer> mCodes = new HashMap<>();
     private final Context mContext;
 
     public TutorialAdapter(Context mContext, List<BasicResponse.SerieBasic> series) {
@@ -51,7 +54,7 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         if (getItemCount() > 0) {
-            holder.bindTo(mSeries.get(position), mContext);
+            holder.bindTo(mSeries.get(position), mContext, position);
         }
     }
 
@@ -63,28 +66,23 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
         return 0;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        final ImageView image;
-        final TextView name;
-        int id;
-        boolean pulsado = false;
+        private final SparseBooleanArray selectedItems = new SparseBooleanArray();
+
+        private final ImageView image;
+        private final CardView hover;
+        private final TextView name;
+        private int id;
+        private final SharedPreferences prefs;
 
         ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
             image = itemView.findViewById(R.id.posterBasic);
+            hover = itemView.findViewById(R.id.card_view);
             name = itemView.findViewById(R.id.titleBasic);
-            SharedPreferences prefs = context.getApplicationContext().getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
-
-            itemView.setOnClickListener(view -> {
-                if (!pulsado) {
-                    mCodes.add(id);
-                } else {
-                    mCodes.remove(id);
-                }
-                pulsado = !pulsado;
-                setPrefIntArray(prefs, mCodes.stream().mapToInt(i -> i).toArray());
-            });
+            prefs = context.getApplicationContext().getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
+            itemView.setOnClickListener(this);
         }
 
         public void setPrefIntArray(SharedPreferences sp, int[] value) {
@@ -107,12 +105,28 @@ public class TutorialAdapter extends RecyclerView.Adapter<TutorialAdapter.ViewHo
             prefEditor.commit();
         }
 
-        void bindTo(BasicResponse.SerieBasic serieBasic, Context context) {
+        void bindTo(BasicResponse.SerieBasic serieBasic, Context context, int position) {
             if (serieBasic != null) {
+                hover.setSelected(selectedItems.get(position, false));
                 id = serieBasic.id;
                 name.setText(serieBasic.name);
                 Util.getImage(BASE_URL_IMAGES_POSTER + serieBasic.posterPath, image, context);
             }
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (selectedItems.get(getAdapterPosition(), false)) {
+                selectedItems.delete(getAdapterPosition());
+                hover.setSelected(false);
+                mCodes.remove(getAdapterPosition());
+
+            } else {
+                selectedItems.put(getAdapterPosition(), true);
+                hover.setSelected(true);
+                mCodes.put(getAdapterPosition(), id);
+            }
+            setPrefIntArray(prefs, new ArrayList<>(mCodes.values()).stream().mapToInt(i -> i).toArray());
         }
     }
 }

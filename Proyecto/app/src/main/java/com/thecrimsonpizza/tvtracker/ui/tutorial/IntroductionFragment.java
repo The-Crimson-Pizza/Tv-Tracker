@@ -9,7 +9,6 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,10 +39,6 @@ public class IntroductionFragment extends Fragment implements SlidePolicy {
 
     private TutorialAdapter adapterPopular;
     private CompositeDisposable compositeDisposable;
-
-    Button b;
-
-    boolean pulsado = false;
 
     public IntroductionFragment() {
         // Required empty public constructor
