@@ -44,6 +44,7 @@ body {
 .masthead {
   margin-bottom: 2rem;
   background: #fafafa;
+  width: 100%;
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
 }
@@ -56,6 +57,9 @@ body {
 
 }
 
+.lead{
+  z-index: 3;
+}
 
 .nav-masthead .nav-link {
   padding: .25rem 0;
@@ -94,17 +98,19 @@ body {
     margin-left: auto;
     margin-right: auto;
   }
+}
 
 .product-device {
   position: absolute;
-  right: 10%;
+  right: 5%;
   bottom: -30%;
-  width: 150px;
-  height: 270px;
-  background-color: #48c9b0;
+  width: 120px;
+  height: 230px;
+  background-color: #737373;
   border-radius: 21px;
   -webkit-transform: rotate(30deg);
   transform: rotate(30deg);
+  z-index: 1;
 }
 
 .product-device::before {
@@ -118,14 +124,42 @@ body {
   border-radius: 5px;
 }
 
-.product-device-2 {
-  top: -25%;
+.product-device-left-1 {
+  top: 15%;
   right: auto;
   bottom: 0;
   left: 5%;
   background-color: #737373;
 }
 
+.product-device-left-2 {
+  position: absolute;
+  left: 12.5%;
+  top:40%;
+  width: 120px;
+  height: 230px;
+  background-color: #48c9b0;
+  border-radius: 21px;
+  -webkit-transform: rotate(30deg);
+  transform: rotate(30deg);
+}
+
+.product-device-right-1 {
+  top: 40%;
+  left:  auto;
+  bottom: 0;
+  right: 5%;
+  background-color: #737373;
+}
+
+.product-device-right-2 {
+  top: 15%;
+  left:  auto;
+  bottom: 0;
+  right: 12.5%;
+  background-color: #48c9b0;
+}
+  
 .overflow-hidden { 
   overflow: hidden;
 }
