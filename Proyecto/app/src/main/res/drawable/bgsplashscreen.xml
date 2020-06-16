@@ -3,7 +3,8 @@
     <item android:drawable="@color/almostWhite" />
     <item>
     <bitmap
-        android:src="@drawable/splashnew"
+        android:src="@drawable/proto_logo_96"
+
         android:gravity="fill" />
     </item>
 </layer-list>
