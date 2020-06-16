@@ -125,10 +125,10 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.ViewHold
                 Util.getImage(BASE_URL_IMAGES_POSTER + episode.stillPath, episodeBackdrop, c);
 
                 // RUNTIME
-                if (!serie.episodeRunTime.isEmpty()) {
+                if (serie.episodeRunTime != null && !serie.episodeRunTime.isEmpty()) {
                     episodeTime.setText(getMinutos(serie.episodeRunTime.get(0)));
                 } else {
-                    episodeTime.setText(getMinutos(0));
+                    episodeTime.setText(getMinutos(45));
                 }
             }
         }

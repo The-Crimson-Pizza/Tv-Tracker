@@ -195,7 +195,7 @@
                     android:backgroundTint="@color/colorPrimary"
                     android:gravity="center"
                     android:layout_gravity="end"
-                    android:text="Next"
+                    android:text="@string/next_episode_watched"
                     android:textColor="@color/bgTotal" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Sin implementar
             }
         });
     }
@@ -97,11 +98,11 @@ public class MainActivity extends AppCompatActivity {
             Date todayDate = getTodayDate();
 
             if (seasonDate.after(todayDate) || seasonDate.equals(todayDate)) {
-                try {
-                    pendingIntent.send();
-                } catch (PendingIntent.CanceledException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    pendingIntent.send();
+//                } catch (PendingIntent.CanceledException e) {
+//                    e.printStackTrace();
+//                }
                 AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, seasonDate.getTime(), pendingIntent);
             }

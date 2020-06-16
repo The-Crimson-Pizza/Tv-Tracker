@@ -137,6 +137,9 @@ public class HomeFragment extends Fragment {
         if (temp != null) {
             for (int id : temp) {
                 getSerie(id);
+                if (id == temp.get(temp.size() - 1)) {
+//                    getFavorites(adapterFav, switcherFavs);
+                }
             }
             SharedPreferences.Editor prefEditor = sp.edit();
             prefEditor.putString(FAV_TEMP_DATA, "");
@@ -179,7 +182,7 @@ public class HomeFragment extends Fragment {
                 if (temp != null) {
                     if (!favTemp.isEmpty()) {
                         temp.addAll(favTemp);
-                        favTemp = new ArrayList<>();
+                        favTemp.clear();
                         FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(temp);
                     }
                     for (SerieResponse.Serie fav : temp) {
@@ -191,8 +194,10 @@ public class HomeFragment extends Fragment {
                     if (R.id.gridFavs == switcherFavs.getNextView().getId())
                         switcherFavs.showNext();
                 } else {
-                    if (!favTemp.isEmpty())
+                    if (!favTemp.isEmpty()) {
                         FirebaseDb.getInstance(FirebaseAuth.getInstance().getCurrentUser()).setSeriesFav(favTemp);
+                        favTemp.clear();
+                    }
                     if (R.id.no_data_favs == switcherFavs.getNextView().getId())
                         switcherFavs.showNext();
                 }

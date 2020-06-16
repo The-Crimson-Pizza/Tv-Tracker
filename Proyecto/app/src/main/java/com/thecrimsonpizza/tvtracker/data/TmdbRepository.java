@@ -105,6 +105,35 @@ public class TmdbRepository {
                 .toList();
     }
 
+//    public Single<List<SerieResponse.Serie>> getSerie2(int idSerie, int[] array) {
+////      getRetrofitService().getSerie(idSerie, language, GET_SERIE_API_EXTRAS).
+//
+//        return Observable.range(0, array.length)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .flatMap(integer -> {
+//                    Function1<SerieResponse.Serie, Observable<? extends SerieResponse.Serie>>
+//                    serie -> {
+//                        getRetrofitService().getSerie(array[integer], language, GET_SERIE_API_EXTRAS);
+//                    })
+//                });
+//
+//    }
+
+
+//                .flatMap(new Function<SerieResponse.Serie, ObservableSource<?>>() {
+//                    @Override
+//                    public ObservableSource<?> apply(SerieResponse.Serie serie) throws Throwable {
+//                        return Observable.range(1, serie.numberOfSeasons)
+//                                .observeOn(AndroidSchedulers.mainThread())
+//                                .flatMap(i -> getRetrofitService().getSeason(idSerie, i, language));
+//                    }
+//                }).toList();
+//               .flatMap(serie -> {
+//                   Observable.range(1, serie.numberOfSeasons).flatMap(integer -> getRetrofitService().getSeason(serie.id, integer, language)).toList()
+//                   return serie;
+//               }).toList();
+//}
+
     public Observable<PersonResponse.Person> getPerson(int idPerson) {
         return getRetrofitService().getPerson(idPerson, language, GET_PEOPLE_API_EXTRAS);
     }

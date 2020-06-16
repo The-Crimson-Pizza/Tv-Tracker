@@ -89,10 +89,10 @@
     <string name="app_developed_by">App developed by</string>
     <string name="develop_logo" translatable="false">develop_logo</string>
     <string name="presented_by" translatable="false">presented by</string>
-    <string name="invertidas_en_cultura">invested in culture</string>
+    <string name="invertidas_en_cultura">watching</string>
     <string name="series_seguidas">following series</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="notificacion_nueva_temporada">¡La temporada %1$s de %2$s se estrena hoy!</string>
+    <string name="notificacion_nueva_temporada">%2$s\'s %1$s season  premieres today!</string>
+    <string name="next_episode_watched">Watched</string>
 </resources>

@@ -122,7 +122,7 @@ public class PeopleCreditsAdapter extends RecyclerView.Adapter<PeopleCreditsAdap
         }
 
         private void goToTmdbMovie(MovieCredits.Cast movie, Context context, View view) {
-            Snackbar.make(view, R.string.not_implemented, BaseTransientBottomBar.LENGTH_LONG)
+            Snackbar.make(view, "Ver ficha técnica", BaseTransientBottomBar.LENGTH_LONG)
                     .setAction(R.string.open_web, v1 -> context.startActivity(new Intent(context, WebViewActivity.class).putExtra(Constants.URL_WEBVIEW, Constants.BASE_URL_WEB_MOVIE + movie.id))).show();
         }
 

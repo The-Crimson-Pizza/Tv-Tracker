@@ -20,7 +20,7 @@
     <string name="sinopsis_title">Sinopsis</string>
     <string name="genres_title">Géneros</string>
     <string name="trailer_title">Trailer</string>
-    <string name="networks_title">Networks</string>
+    <string name="networks_title">Plataformas</string>
     <string name="biography">Biografía</string>
     <string name="series">Series</string>
     <string name="movies">Películas</string>
@@ -80,6 +80,8 @@
     <string name="episodios_vistos">episodios vistos</string>
     <string name="serie_mas_vista">es tu serie más vista</string>
     <string name="app_developed_by">App desarrollada por</string>
-    <string name="invertidas_en_cultura">invertidas en cultura</string>
+    <string name="invertidas_en_cultura">de puro entretenimiento</string>
     <string name="series_seguidas">series seguidas</string>
+    <string name="notificacion_nueva_temporada">¡La temporada %1$s de %2$s se estrena hoy!</string>
+    <string name="next_episode_watched">Visto</string>
 </resources>
