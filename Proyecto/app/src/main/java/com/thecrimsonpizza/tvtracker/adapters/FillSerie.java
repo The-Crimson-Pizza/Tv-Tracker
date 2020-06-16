@@ -102,7 +102,12 @@ public class FillSerie {
         if (!mSerie.originCountry.isEmpty()) country.setText(mSerie.originCountry.get(0));
         else country.setText(mContext.getString(R.string.no_data));
 
-        status.setText(mSerie.status);
+        if (Util.getLanguage().equals("es-ES")) {
+            status.setText(Util.getStatus(mSerie.status));
+        } else {
+            status.setText(mSerie.status);
+        }
+
         collapseToolbar.setTitle(mSerie.name);
     }
 

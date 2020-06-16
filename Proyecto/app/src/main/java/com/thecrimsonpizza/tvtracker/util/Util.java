@@ -87,4 +87,25 @@ public class Util {
                         capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
                         capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));
     }
+
+    public static String getStatus(String status) {
+//        ['Returning Series', 'Planned', 'In Production', 'Ended', 'Canceled', 'Pilot']
+        switch (status) {
+            case "Returning Series":
+                return "En emisión";
+            case "Planned":
+                return "Planeada";
+            case "In Production":
+                return "En producción";
+            case "Ended":
+                return "Terminada";
+            case "Canceled":
+                return "Cancelada";
+            case "Pilot":
+                return "Piloto";
+            default:
+                return "Sin datos";
+
+        }
+    }
 }

@@ -137,7 +137,12 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                 id = serie.id;
                 favName.setText(serie.name);
                 Util.getImage(BASE_URL_IMAGES_POSTER + serie.posterPath, favPoster, context);
-                favStatus.setText(serie.status);
+
+                if (Util.getLanguage().equals("es-ES")) {
+                    favStatus.setText(Util.getStatus(serie.status));
+                } else {
+                    favStatus.setText(serie.status);
+                }
                 getEpisodesWatched(context, serie);
                 next.setText(getLastEpisode(context, serie));
                 next2.setText(getLastEpisode(context, serie));
