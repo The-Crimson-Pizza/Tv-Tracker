@@ -105,7 +105,6 @@ public class Util {
                 return "Piloto";
             default:
                 return "Sin datos";
-
         }
     }
 }
