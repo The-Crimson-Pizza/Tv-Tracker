@@ -30,7 +30,7 @@
     </style>
 
     <style name="bgSplashScreenStyle" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/proto_logo_96</item>
+        <item name="android:windowBackground">@drawable/bgsplashscreen</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 </resources>
