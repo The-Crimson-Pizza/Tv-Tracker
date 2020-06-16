@@ -17,40 +17,6 @@
             android:layout_height="wrap_content"
             android:src="@drawable/proto_logo_96"
             android:contentDescription="@string/app_logo" />
-        <!--<TextView
-            android:layout_width="wrap_content"
-            android:layout_height="72dp"
-            android:fontFamily="@font/budmojiggler"
-            android:gravity="center_vertical"
-            android:text="@string/app_name_final"
-            android:textColor="@color/colorPrimary"
-            android:textSize="24pt"
-            android:maxLines="1"
-            app:autoSizeMaxTextSize="100sp"
-            app:autoSizeMinTextSize="12sp"
-            app:autoSizeStepGranularity="2sp"
-            app:autoSizeTextType="uniform"
-            android:textStyle="bold" />-->
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:orientation="vertical"
-        android:gravity="center">
-        <!--<TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/presented_by"
-            android:textSize="12pt"
-            android:fontFamily="@font/panpizza"
-            android:textColor="#943126"
-            android:gravity="center"/>
-        <ImageView
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:src="@drawable/pizza_logo"
-            android:contentDescription="@string/develop_logo" />-->
 
     </LinearLayout>
 
