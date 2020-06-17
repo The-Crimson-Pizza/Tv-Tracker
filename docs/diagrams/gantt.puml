@@ -1,0 +1,35 @@
+@startgantt tfg
+scale 2.5
+Project starts the 22th of march 2020
+
+[Organización] is colored in #82E0AA
+[Organización] lasts 6 days
+
+[Prototipo] is colored in #82E0AA
+[Prototipo] starts at [Organización]'s end
+[Prototipo] lasts 3 days
+
+[Diseño] is colored in #82E0AA
+[Diseño] lasts 30 days
+[Diseño] starts at [Prototipo]'s end
+
+[Implementación] is colored in #82E0AA
+[Implementación] starts at 7th of april 2020
+[Implementación] lasts 30 days
+
+
+[Testing y depurar errores] is colored in #82E0AA
+[Testing y depurar errores] starts at 5th of may 2020
+[Testing y depurar errores] lasts 30 days
+
+[Documentación] is colored in #82E0AA
+[Documentación] starts at [Prototipo]'s end
+[Documentación] ends at [Implementación]'s end
+
+[Memorias] is colored in #82E0AA
+[Memorias] starts at [Prototipo]'s end
+[Memorias] ends at 25th of may 2020
+
+[Entrega de Memorias] happens at 29th of may 2020
+[Exposición y defensa] happens at 15th of june 2020
+@endgantt

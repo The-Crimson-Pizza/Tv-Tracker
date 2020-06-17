@@ -1,0 +1,72 @@
+@startuml
+
+Splash -> Login :No
+Login -> MainActivity
+MainActivity <- Splash :SI
+
+MainActivity --> Inicio
+MainActivity --> Búsqueda
+MainActivity --> Seguimiento
+MainActivity --> Perfil
+
+Búsqueda --> Serie
+Búsqueda --> Actor
+
+Seguimiento --> Serie
+
+Serie <-> Actor
+Actor -> Pelicula
+Serie <--> Género
+Serie --> Temporada
+Serie <--> Network
+
+Inicio --> Serie
+Temporada --> Capitulo
+
+object MainActivity{
+Inicio
+Búsqueda
+Seguimiento
+Perfil
+}
+
+object Splash{
+}
+
+object Login{
+}
+
+object Inicio{
+}
+
+object Seguimiento{
+}
+
+object Búsqueda{
+}
+
+object Perfil{
+}
+
+object Serie{
+}
+
+object Actor{
+}
+
+object Género{
+}
+
+object Network{
+}
+
+object Temporada{
+}
+
+object Capitulo{
+}
+
+object Pelicula{
+}
+
+@enduml
