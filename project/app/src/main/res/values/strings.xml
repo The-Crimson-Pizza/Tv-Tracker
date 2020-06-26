@@ -1,0 +1,98 @@
+<resources>
+    <string name="app_name" translatable="false">Tv-Tracker</string>
+    <string name="redes_sociales">Social Media</string>
+    <string name="title_activity_detalles_serie" translatable="false">DetallesSerie</string>
+    <string name="no_conn">No Network Connection!</string>
+    <string name="series_favoritas">Following Series</string>
+    <string name="series_populares">Trending Series</string>
+    <string name="series_nuevas">New Series</string>
+    <string name="serie_poster_description">Serie poster</string>
+    <string name="checked">Following</string>
+    <string name="search_info_desc">Find your favourite TV shows \n and people</string>
+    <string name="my_profile">My Profile</string>
+    <string name="favourites">Following</string>
+    <string name="search">Search</string>
+    <string name="home">Home</string>
+    <string name="menu_share">Share</string>
+    <string name="reparto">CAST</string>
+    <string name="temporadas">SEASONS</string>
+    <string name="genre">Genre</string>
+    <string name="sinopsis_title">Overview</string>
+    <string name="genres_title">Genres</string>
+    <string name="networks_title">Networks</string>
+    <string name="trailer_title">Trailer</string>
+    <string name="sinopsis">OVERVIEW</string>
+    <string name="biography">Biography</string>
+    <string name="series">Series</string>
+    <string name="movies">Movies</string>
+    <string name="years">years</string>
+    <string name="people">People</string>
+    <string name="no_data">No data</string>
+    <string name="open_web">Open in web</string>
+    <string name="not_implemented">Not yet implemented</string>
+    <string name="add_fav">Added to following list</string>
+    <string name="already_fav">Already following</string>
+    <string name="delete_fav">Delete from list</string>
+    <string name="borrado_correcto">Deleted</string>
+    <string name="num_vistos" translatable="false">%1$d/%2$d</string>
+    <string name="next_episode">"Next episode: "</string>
+    <string name="just_watch">You just watched every episode!</string>
+    <string name="empty" translatable="false" />
+    <string name="tus_series_seguidas_aparecer_aqu">Your following list will appear here</string>
+    <string name="sharing_url">Sharing URL</string>
+    <string name="recent_added">Sort by recently added</string>
+    <string name="sort_name">Sort by name</string>
+    <string name="sort_watched">Sort by last watched</string>
+    <string name="sort_orientation">Sort descending or ascending</string>
+    <string name="sort_by">Sort by:</string>
+    <string name="finished_date">Finished: %1$s at %2$s</string>
+    <string name="hours_watched_total">%1$d hours, %2$d minutes</string>
+    <string name="days_watched_total">%1$d days, %2$d hours, %3$d minutes</string>
+    <string name="year_watched_total">%1$d years, %2$d days, %3$d hours, %4$d minutes</string>
+    <string name="app_name_final" translatable="false">TV Tracker</string>
+    <string name="app_logo" translatable="false">app_logo</string>
+    <string name="fecha_de_episodio">"Date: "</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="invalid_email">Not a valid email</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="register">Register</string>
+    <string name="sign_in">Sign in</string>
+    <string name="or">OR</string>
+    <string name="home_menu">Home menu</string>
+    <string name="search_menu">Search menu</string>
+    <string name="follow_button">Follow button</string>
+    <string name="following_menu">Following menu</string>
+    <string name="tuto">Use the homepage to find the best and new TV Shows</string>
+    <string name="tuto_1">Search your TV Shows and follow them with the following button</string>
+    <string name="tuto_2">Watch user stats and control the settings of the app </string>
+    <string name="tuto_3">Track your TV Shows from the following page, episode by episode or by seasons </string>
+    <string name="intro_select">Select the TV Shows you are already watching:</string>
+    <string name="next">Next</string>
+    <string name="logged_as">You are logged in as: </string>
+    <string name="sign_out">SIGN OUT</string>
+    <string name="forget_password">Did you forget your password?</string>
+    <string name="activate_net">Activate network</string>
+    <string name="success_register">Successfully Registered</string>
+    <string name="login_fail">\"Login Failed: \"</string>
+    <string name="google_fail">\"Google Sign in Failed \"</string>
+    <string name="auth_fail">Authentication failed:</string>
+    <string name="register_fail">\"Registration Failed: \"</string>
+    <string name="reset_success">Reset link sent to your email</string>
+    <string name="reset_fail">\"Unable to send reset mail. \"</string>
+    <string name="search_tv_tracker">Search TV Tracker</string>
+    <string name="search_icon" translatable="false">search_icon</string>
+    <string name="sharing">Sharing URL</string>
+    <string name="zero" translatable="false">0</string>
+    <string name="episodios_vistos">watched episodes</string>
+    <string name="serie_mas_vista">is your most watched show</string>
+    <string name="app_developed_by">App developed by</string>
+    <string name="develop_logo" translatable="false">develop_logo</string>
+    <string name="presented_by" translatable="false">presented by</string>
+    <string name="invertidas_en_cultura">watching</string>
+    <string name="series_seguidas">following series</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="notificacion_nueva_temporada">%2$s\'s %1$s season  premieres today!</string>
+    <string name="next_episode_watched">Watched</string>
+</resources>

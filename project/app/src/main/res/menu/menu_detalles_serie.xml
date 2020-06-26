@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.thecrimsonpizza.tvtracker.ui.series.SerieFragment">
+    <item
+        android:id="@+id/action_web"
+        android:orderInCategory="100"
+        android:title="@string/open_web"
+        android:icon="@drawable/web_icon"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_share"
+        android:orderInCategory="100"
+        android:title="@string/menu_share"
+        android:icon="@drawable/share_hd"
+        app:showAsAction="ifRoom" />
+</menu>
