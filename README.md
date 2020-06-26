@@ -1,4 +1,4 @@
-## TFG - TV-Tracker
+## TV-Tracker
 
 <p align="center">
   <a href="" rel="noopener">
@@ -23,7 +23,7 @@
 </p>
 
 ## 📝 Table of Contents
-- [About](#about)
+- [Screenshots](#screenshots)
 - [Functions](#functions)
 - [Getting Started](#getting_started)
 - [Usage](#usage)
@@ -31,8 +31,16 @@
 - [TODO](#todo)
 - [Authors](#authors)
 
-## 🧐 About <a name = "about"></a>
+## 🧐 Screenshots <a name = "screenshots"></a>
 
+<div align="center">
+  <img src="/website/home1.png" width="25%"/>
+  
+  <img src="/website/search.png" width="25%"/>
+  
+  <img src="/website/follow.png" width="25%"/>
+</div>
+  
 ## :gear: Functions  <a name = "functions"></a>
 - Information about tv-shows and actors
 - Check your progress
