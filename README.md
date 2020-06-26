@@ -85,12 +85,12 @@ To be made...
 
 ## :pencil2: To-Do (in order of priority) <a name = "todo"></a>
 
-- [ ] Logout button
+- [x] Logout button
 - [ ] Similar Shows
 - [ ] Check network when adding favorites/following
-- [ ] Add watched episode directly in following list
+- [x] Add watched episode directly in following list
 - [ ] How long did it take to watch a season/show?
-- [ ] Episodes left to watch
+- [x] Episodes left to watch
 - [ ] Bars Chart with days of the week and trends
 - [ ] Recommendations
 - [ ] Multiscreen
