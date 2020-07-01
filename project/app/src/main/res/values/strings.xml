@@ -95,4 +95,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="notificacion_nueva_temporada">%2$s\'s %1$s season  premieres today!</string>
     <string name="next_episode_watched">Watched</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

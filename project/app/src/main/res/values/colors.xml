@@ -5,6 +5,7 @@
     <color name="colorPrimaryDark">#1abc9c</color>
     <color name="colorAccent">#737373</color>
     <color name="colorAccentTrans">#4D737373</color>
+    <color name="colorbackTrans">#4DFAFAFA</color>
     <color name="rowBg">#E4E4E4</color>
     <color name="movieTitle">#797979</color>
     <color name="yearTitle">#CC8BDA</color>
