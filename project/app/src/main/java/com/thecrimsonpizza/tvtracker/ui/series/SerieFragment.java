@@ -134,6 +134,7 @@ public class SerieFragment extends Fragment {
                         itemWeb.setVisible(true);
                     }
                     getSeasons(mSerie, view);
+//                    setProgress(serie, view);
                 });
     }
 

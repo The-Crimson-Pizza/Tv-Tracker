@@ -81,6 +81,12 @@ public class SerieResponse {
 //            Empty constructor for Firebase serialize
         }
 
+        public Serie withSeasons(List<Season> seasonsList, Serie serie) {
+            serie.seasons = seasonsList;
+            return serie;
+        }
+
+
         public BasicResponse.SerieBasic toBasic() {
             return new BasicResponse.SerieBasic(this.id, this.name, this.posterPath, this.voteAverage);
         }

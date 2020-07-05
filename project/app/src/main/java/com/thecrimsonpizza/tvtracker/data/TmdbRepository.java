@@ -105,6 +105,12 @@ public class TmdbRepository {
                 .toList();
     }
 
+    public Observable<SerieResponse.Serie> chainObservables(int id) {
+        return getSerie(id)
+                .flatMap(serie -> getSeasons(id, 1, serie.numberOfSeasons).map(season -> serie.withSeasons(season, serie)).toObservable());
+//                .flatMap { serie -> getSeasons(id, serie.numberOfSeasons).map { serie.withSeasons(it, serie) }.toObservable() }
+    }
+
     public Observable<PersonResponse.Person> getPerson(int idPerson) {
         return getRetrofitService().getPerson(idPerson, language, GET_PEOPLE_API_EXTRAS);
     }
