@@ -16,6 +16,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.GenericTypeIndicator;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         bottomNavigationView = findViewById(R.id.nav_view);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
@@ -93,18 +95,24 @@ public class MainActivity extends AppCompatActivity {
         if (!isAlarmActive) {
             PendingIntent pendingIntent = getPendingIntent(season, name, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            int[] result = Arrays.stream(season.airDate.split("-")).mapToInt(Integer::parseInt).toArray();
-            Date seasonDate = getSeasonDate(result);
-            Date todayDate = getTodayDate();
+            int[] result;
+            try {
+                result = Arrays.stream(season.airDate.split("-")).mapToInt(Integer::parseInt).toArray();
+                Date seasonDate = getSeasonDate(result);
+                Date todayDate = getTodayDate();
 
-            if (seasonDate.after(todayDate) || seasonDate.equals(todayDate)) {
+                if (seasonDate.after(todayDate) || seasonDate.equals(todayDate)) {
 //                try {
 //                    pendingIntent.send();
 //                } catch (PendingIntent.CanceledException e) {
 //                    e.printStackTrace();
 //                }
-                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, seasonDate.getTime(), pendingIntent);
+                    AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, seasonDate.getTime(), pendingIntent);
+                }
+            } catch (NumberFormatException ex) {
+                FirebaseCrashlytics.getInstance().log("MAIN ACTIVITY - setAlarms() - Variable: " + season.airDate);
+                FirebaseCrashlytics.getInstance().recordException(ex);
             }
         }
     }
