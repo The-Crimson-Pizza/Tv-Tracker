@@ -20,11 +20,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.thecrimsonpizza.tvtracker.MainActivity;
 import com.thecrimsonpizza.tvtracker.R;
 import com.thecrimsonpizza.tvtracker.adapters.HomeAdapter;
 import com.thecrimsonpizza.tvtracker.data.FirebaseDb;
@@ -65,6 +67,24 @@ public class HomeFragment extends Fragment {
     private HomeAdapter adapterFav;
     private ViewSwitcher switcherFavs;
     private CompositeDisposable compositeDisposable;
+
+    private FirebaseAnalytics anal;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        anal = FirebaseAnalytics.getInstance(requireContext());
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        anal.setCurrentScreen(requireActivity(), "Home Fragment", String.valueOf(MainActivity.class));
+        if (!isOn) {
+            initHome(requireView());
+        }
+    }
 
 
     @Override
@@ -162,14 +182,6 @@ public class HomeFragment extends Fragment {
                     favTemp.add(s);
                     getFavorites(adapterFav, switcherFavs);
                 });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (!isOn) {
-            initHome(requireView());
-        }
     }
 
     private void getFavorites(HomeAdapter adapterFav, ViewSwitcher switcherFavs) {

@@ -14,11 +14,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.thecrimsonpizza.tvtracker.MainActivity;
 import com.thecrimsonpizza.tvtracker.R;
 import com.thecrimsonpizza.tvtracker.adapters.EpisodeAdapter;
 import com.thecrimsonpizza.tvtracker.data.FirebaseDb;
@@ -40,6 +42,21 @@ public class EpisodesFragment extends Fragment {
     private List<SerieResponse.Serie> mFavs = new ArrayList<>();
     private List<Episode> mEpisodes = new ArrayList<>();
 
+    private FirebaseAnalytics anal;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        anal = FirebaseAnalytics.getInstance(requireContext());
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        anal.setCurrentScreen(requireActivity(), "Episode Fragment", String.valueOf(MainActivity.class));
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +64,7 @@ public class EpisodesFragment extends Fragment {
             mPosTemporada = getArguments().getInt(Constants.ID_SEASON);
         }
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

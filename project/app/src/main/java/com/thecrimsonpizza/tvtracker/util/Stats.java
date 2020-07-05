@@ -45,8 +45,10 @@ public class Stats {
         int contEpisodes = 0;
         for (SerieResponse.Serie serie : mFavs) {
             for (Season season : serie.seasons) {
-                for (Episode episode : season.episodes) {
-                    if (episode.visto) contEpisodes++;
+                if (season.episodes != null) {
+                    for (Episode episode : season.episodes) {
+                        if (episode.visto) contEpisodes++;
+                    }
                 }
             }
         }
@@ -76,9 +78,11 @@ public class Stats {
         for (SerieResponse.Serie serie : mFavs) {
             int contEpisodes = 0;
             for (Season season : serie.seasons) {
-                for (Episode episode : season.episodes) {
-                    if (episode.visto) {
-                        seriesMap.put(serie.name, ++contEpisodes);
+                if (season.episodes != null) {
+                    for (Episode episode : season.episodes) {
+                        if (episode.visto) {
+                            seriesMap.put(serie.name, ++contEpisodes);
+                        }
                     }
                 }
             }
