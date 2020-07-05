@@ -254,9 +254,11 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         int countEpisodes(SerieResponse.Serie serie) {
             int cont = 0;
             for (Season s : serie.seasons) {
-                for (Episode e : s.episodes) {
-                    if (e.visto) {
-                        cont++;
+                if (s.episodes != null) {
+                    for (Episode e : s.episodes) {
+                        if (e.visto) {
+                            cont++;
+                        }
                     }
                 }
             }

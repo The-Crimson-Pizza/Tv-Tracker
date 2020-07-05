@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:src="@drawable/fondoTWD"
+                android:src="@drawable/fondo_twd"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout

@@ -95,7 +95,7 @@ public class EpisodesFragment extends Fragment {
     }
 
     private void setAdapters(SerieResponse.Serie serie) {
-        if (!serie.seasons.get(mPosTemporada).episodes.isEmpty()) {
+        if (serie.seasons.get(mPosTemporada).episodes != null && !serie.seasons.get(mPosTemporada).episodes.isEmpty()) {
             mEpisodes.clear();
             mEpisodes.addAll(serie.seasons.get(mPosTemporada).episodes);
             EpisodeAdapter mEpisodeAdapter = new EpisodeAdapter(mContext, mEpisodes, serie, mFavs, mPosTemporada);

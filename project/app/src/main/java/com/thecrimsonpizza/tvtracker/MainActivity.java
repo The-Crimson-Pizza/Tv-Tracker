@@ -96,23 +96,19 @@ public class MainActivity extends AppCompatActivity {
             PendingIntent pendingIntent = getPendingIntent(season, name, PendingIntent.FLAG_UPDATE_CURRENT);
 
             int[] result;
-            try {
-                result = Arrays.stream(season.airDate.split("-")).mapToInt(Integer::parseInt).toArray();
-                Date seasonDate = getSeasonDate(result);
-                Date todayDate = getTodayDate();
-
-                if (seasonDate.after(todayDate) || seasonDate.equals(todayDate)) {
-//                try {
-//                    pendingIntent.send();
-//                } catch (PendingIntent.CanceledException e) {
-//                    e.printStackTrace();
-//                }
-                    AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, seasonDate.getTime(), pendingIntent);
+            if (!season.airDate.isEmpty()) {
+                try {
+                    result = Arrays.stream(season.airDate.split("-")).mapToInt(Integer::parseInt).toArray();
+                    Date seasonDate = getSeasonDate(result);
+                    Date todayDate = getTodayDate();
+                    if (seasonDate.after(todayDate) || seasonDate.equals(todayDate)) {
+                        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                        alarmManager.set(AlarmManager.RTC_WAKEUP, seasonDate.getTime(), pendingIntent);
+                    }
+                } catch (NumberFormatException ex) {
+                    FirebaseCrashlytics.getInstance().log("MAIN ACTIVITY - setAlarms() - Variable: " + season.airDate + " Serie: " + name);
+                    FirebaseCrashlytics.getInstance().recordException(ex);
                 }
-            } catch (NumberFormatException ex) {
-                FirebaseCrashlytics.getInstance().log("MAIN ACTIVITY - setAlarms() - Variable: " + season.airDate);
-                FirebaseCrashlytics.getInstance().recordException(ex);
             }
         }
     }

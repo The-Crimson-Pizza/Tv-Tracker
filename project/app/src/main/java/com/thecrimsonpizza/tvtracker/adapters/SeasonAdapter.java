@@ -96,14 +96,13 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
 
         void bindTo(Season season, SerieResponse.Serie serie, List<SerieResponse.Serie> mFavs, Context context) {
             if (season != null) {
-                itemView.setOnClickListener(this::goToEpisodes);
-
-                if (serie.added) setWatchCheck(season, serie, mFavs);
-
                 seasonName.setText(season.name);
                 Util.getImage(BASE_URL_IMAGES_POSTER + season.posterPath, seasonPoster, context);
 
-                if (season.episodes != null) {
+                if (season.episodes != null && !season.episodes.isEmpty()) {
+                    itemView.setOnClickListener(this::goToEpisodes);
+                    if (serie.added) setWatchCheck(season, serie, mFavs);
+
                     if (serie.added)
                         numEpisodes.setText(context.getResources().getQuantityString(R.plurals.num_episodes_follow,
                                 season.episodes.size(),
@@ -114,6 +113,8 @@ public class SeasonAdapter extends RecyclerView.Adapter<SeasonAdapter.ViewHolder
 
                 } else numEpisodes.setText(context.getString(R.string.no_data));
 
+            } else {
+                itemView.setVisibility(View.GONE);
             }
         }
 

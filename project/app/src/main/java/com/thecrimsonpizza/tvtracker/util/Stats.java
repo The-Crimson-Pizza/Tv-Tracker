@@ -57,11 +57,13 @@ public class Stats {
         int contTime = 0;
         for (SerieResponse.Serie serie : mFavs) {
             for (Season season : serie.seasons) {
-                for (Episode episode : season.episodes) {
-                    if (episode.visto) {
-                        if (serie.episodeRunTime != null && !serie.episodeRunTime.isEmpty())
-                            contTime += serie.episodeRunTime.get(0);
-                        else contTime += 45;
+                if (season.episodes != null) {
+                    for (Episode episode : season.episodes) {
+                        if (episode.visto) {
+                            if (serie.episodeRunTime != null && !serie.episodeRunTime.isEmpty())
+                                contTime += serie.episodeRunTime.get(0);
+                            else contTime += 45;
+                        }
                     }
                 }
             }

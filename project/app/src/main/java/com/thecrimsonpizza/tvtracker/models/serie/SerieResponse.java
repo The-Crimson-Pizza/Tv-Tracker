@@ -113,16 +113,18 @@ public class SerieResponse {
         }
 
         private void setEpisodeWatched(Serie serie, int i) {
-            for (int j = 0; j < serie.seasons.get(i).episodes.size(); j++) {
-                this.seasons.get(i).episodes.get(j).visto = serie.seasons.get(i).episodes.get(j).visto;
-                this.seasons.get(i).episodes.get(j).watchedDate = serie.seasons.get(i).episodes.get(j).watchedDate;
-            }
-            if (checkAllEpisodes(serie.seasons.get(i).episodes)) {
-                this.seasons.get(i).visto = true;
-                this.seasons.get(i).watchedDate = getMaxDate(getDatesEpisodes(serie.seasons.get(i).episodes));
-            } else {
-                this.seasons.get(i).visto = false;
-                this.seasons.get(i).watchedDate = null;
+            if (serie.seasons.get(i).episodes != null) {
+                for (int j = 0; j < serie.seasons.get(i).episodes.size(); j++) {
+                    this.seasons.get(i).episodes.get(j).visto = serie.seasons.get(i).episodes.get(j).visto;
+                    this.seasons.get(i).episodes.get(j).watchedDate = serie.seasons.get(i).episodes.get(j).watchedDate;
+                }
+                if (checkAllEpisodes(serie.seasons.get(i).episodes)) {
+                    this.seasons.get(i).visto = true;
+                    this.seasons.get(i).watchedDate = getMaxDate(getDatesEpisodes(serie.seasons.get(i).episodes));
+                } else {
+                    this.seasons.get(i).visto = false;
+                    this.seasons.get(i).watchedDate = null;
+                }
             }
         }
 
